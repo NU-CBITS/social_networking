@@ -1,0 +1,9 @@
+<%= render "nav" %>
+
+<div ng-app="socialNetworking">
+  <div ng-controller="ProfilesCtrl as profiles">
+    <div ng-repeat="profile in profiles.members">
+      <div profile-status></div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+<%= render "nav" %>
+
+<div ng-app="socialNetworking">
+  <div ng-controller="GoalCtrl as goal">
+    <form novalidate class="simple-form">
+      What is your goal? <input type="text" ng-model="goal.description">
+      <button ng-click="goal.save()">SAVE</button>
+    </form>
+  </div>
+</div>

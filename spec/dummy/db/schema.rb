@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140620222851) do
+ActiveRecord::Schema.define(version: 20140827154953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,5 +83,29 @@ ActiveRecord::Schema.define(version: 20140620222851) do
   end
 
   add_index "bit_player_participant_statuses", ["participant_id"], name: "index_participant_statuses_on_participant_id", using: :btree
+
+  create_table "social_networking_comments", force: true do |t|
+    t.integer  "participant_id", null: false
+    t.string   "text",           null: false
+    t.integer  "item_id",        null: false
+    t.string   "item_type",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "social_networking_likes", force: true do |t|
+    t.integer  "participant_id", null: false
+    t.integer  "item_id",        null: false
+    t.string   "item_type",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "social_networking_nudges", force: true do |t|
+    t.integer  "initiator_id", null: false
+    t.integer  "recipient_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end
