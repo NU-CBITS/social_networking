@@ -1,7 +1,7 @@
-require 'spec_helper'
+require "spec_helper"
 
 module SocialNetworking
-  RSpec.describe Comment, :type => :model do
+  RSpec.describe Comment, type: :model do
     pending "add some examples to (or delete) #{__FILE__}"
   end
 end

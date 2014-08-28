@@ -1,4 +1,6 @@
 ;(function() {
+  "use strict";
+
   // Provides access to the feed and its items.
   function FeedCtrl() {
     this.items = [

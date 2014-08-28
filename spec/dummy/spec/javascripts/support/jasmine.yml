@@ -17,7 +17,7 @@ css_dir: "app/assets/stylesheets"
 # list of file expressions to include as source files
 # relative path from src_dir
 src_files:
- - "application.{js.coffee,js,coffee}"
+ - "application.js"
 
 # list of file expressions to include as css files
 # relative path from css_dir
@@ -37,12 +37,12 @@ spec_dir: ../javascripts
 # list of file expressions to include as helpers into spec runner
 # relative path from spec_dir
 helpers:
-  - "helpers/**/*.{js.coffee,js,coffee}"
+  - "helpers/**/*.js"
 
 # list of file expressions to include as specs into spec runner
 # relative path from spec_dir
 spec_files:
-  - "**/*[Ss]pec.{js.coffee,js,coffee}"
+  - "**/*spec.js"
 
 # path to directory of temporary files
 # (spec runner and asset cache)

@@ -1,4 +1,4 @@
-$:.push File.expand_path("../lib", __FILE__)
+$LOAD_PATH.push File.expand_path("../lib", __FILE__)
 
 # Maintain your gem's version:
 require "social_networking/version"
@@ -14,7 +14,10 @@ Gem::Specification.new do |s|
   s.description = "Social networking components"
   s.license     = "MIT"
 
-  s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
+  s.files = Dir["{app,config,db,lib}/**/*",
+                "MIT-LICENSE",
+                "Rakefile",
+                "README.md"]
 
   s.test_files = Dir["spec/**/*"]
 
@@ -23,4 +26,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "pg"
   s.add_development_dependency "rspec-rails", "~> 3"
   s.add_development_dependency "jasmine-rails", "~> 0.10"
+  s.add_development_dependency "jshintrb", "~> 0.2"
+  s.add_development_dependency "rubocop", "~> 0.25"
 end

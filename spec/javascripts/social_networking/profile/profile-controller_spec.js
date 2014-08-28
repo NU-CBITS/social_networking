@@ -2,6 +2,8 @@ describe('ProfileCtrl', function() {
   var controller;
   
   beforeEach(function() {
+    module('ngResource');
+    module('socialNetworking.services');
     module('socialNetworking.profile.controllers');
   });
 

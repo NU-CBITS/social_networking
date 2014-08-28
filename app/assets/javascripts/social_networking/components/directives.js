@@ -1,5 +1,6 @@
-// Wrap in a closure to avoid global variable pollution.
 ;(function() {
+  "use strict";
+
   // Displays pertinent information about a participant.
   var profileStatus = function() {
     return {
