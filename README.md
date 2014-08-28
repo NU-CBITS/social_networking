@@ -2,6 +2,16 @@
 
 Server and client components for social networking functionality.
 
+## Installation
+
+Add to your `Gemfile`
+
+    gem 'social_networking', git: 'git://github.com/cbitstech/social_networking.git'
+
+Then
+
+    bundle install
+
 ## Usage
 
 Mount the engine in `config/routes.rb`
@@ -14,4 +24,12 @@ Mount the engine in `config/routes.rb`
 
 ## Run JavaScript specs
 
-    rake app:spec:javascript
+    rake js_spec
+
+## Run rubocop (Ruby linter)
+
+    rake rubocop
+
+## Run JSHint
+
+    rake jshint
