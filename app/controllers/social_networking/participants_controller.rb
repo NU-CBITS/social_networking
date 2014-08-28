@@ -10,5 +10,15 @@ module SocialNetworking
         }
       end)
     end
+
+    def show
+      @participant = Participant.find(params[:id])
+
+      render json: {
+        id: @participant.id,
+        username: @participant.email,
+        lastLogin: @participant.last_sign_in_at
+      }
+    end
   end
 end

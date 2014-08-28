@@ -8,8 +8,11 @@
     function Participant() {}
 
     Participant.getAll = function() {
-      return ParticipantResource.query(function(participants) {
-      }).$promise;
+      return ParticipantResource.query().$promise;
+    };
+
+    Participant.getOne = function(id) {
+      return ParticipantResource.get({ id: id }).$promise;
     };
 
     return Participant;

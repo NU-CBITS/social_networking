@@ -2,16 +2,25 @@
   "use strict";
 
   // Provide interaction with a participant's profile.
-  function ProfileCtrl(Nudges) {
+  function ProfileCtrl(Participants, Nudges) {
+    var self = this;
+
     this._nudges = Nudges;
-    this.participant = { id: 123, username: 'Billy' };
-    this.lastLogin = '2014-08-12T16:55:29Z';
+    Participants.getOne(816972188)
+      .then(function(participant) {
+        self.id = participant.id;
+        self.username = participant.username;
+        self.lastLogin = participant.lastLogin;
+      })
+      .catch(function(error) {
+        window.console.log(error);
+      });
     this.responses = [{ question: 'foo?', text: 'bar' }];
   }
 
   // Send a nudge from one participant to another.
   ProfileCtrl.prototype.nudge = function() {
-    this._nudges.create({ recipient: this.participant });
+    this._nudges.create({ recipient: this });
   };
 
   // Initiate profile editor interface.
@@ -30,6 +39,6 @@
 
   // Create a module and register the controllers.
   angular.module('socialNetworking.profile.controllers', [])
-    .controller('ProfileCtrl', ['Nudges', ProfileCtrl])
+    .controller('ProfileCtrl', ['Participants', 'Nudges', ProfileCtrl])
     .controller('ProfilesCtrl', ['Participants', ProfilesCtrl]);
 })();
