@@ -2,6 +2,11 @@
 
 Server and client components for social networking functionality.
 
+## Assumptions
+
+This engine expects there to be a Devise-like API available, and an
+authenticatable Participant class.
+
 ## Installation
 
 Add to your `Gemfile`

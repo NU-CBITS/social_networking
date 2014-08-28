@@ -2,12 +2,15 @@
   "use strict";
 
   function Nudges($resource) {
-    var NudgeResource = $resource('/nudges/:id', { id: '@id' });
+    var NudgeResource = $resource('/social_networking/nudges/:id',
+      { id: '@id' });
 
     function Nudge() {}
 
-    Nudge.create = function() {
-      var nudge = new NudgeResource();
+    Nudge.create = function(attributes) {
+      var nudge = new NudgeResource({
+        recipientId: attributes.recipient.id
+      });
       nudge.$save();
     };
 
@@ -15,12 +18,13 @@
   }
 
   function Comments($resource) {
-    var CommentResource = $resource('/comments/:id', { id: '@id' });
+    var CommentResource = $resource('/social_networking/comments/:id',
+      { id: '@id' });
 
     function Comment() {}
 
-    Comment.create = function() {
-      var comment = new CommentResource();
+    Comment.create = function(attributes) {
+      var comment = new CommentResource(attributes);
       comment.$save();
     };
 
@@ -28,12 +32,13 @@
   }
 
   function Likes($resource) {
-    var LikeResource = $resource('/likes/:id', { id: '@id' });
+    var LikeResource = $resource('/social_networking/likes/:id',
+      { id: '@id' });
 
     function Like() {}
 
-    Like.create = function() {
-      var like = new LikeResource();
+    Like.create = function(attributes) {
+      var like = new LikeResource(attributes);
       like.$save();
     };
 

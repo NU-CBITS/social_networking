@@ -12,7 +12,7 @@ describe('ProfileCtrl', function() {
   }));
 
   it('should set the username', function() {
-    expect(controller.username).toBe('Billy');
+    expect(controller.participant.username).toBe('Billy');
   });
 
   it('should set the last login', function() {
