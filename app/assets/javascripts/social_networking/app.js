@@ -8,3 +8,6 @@ angular.module('socialNetworking', [
   'socialNetworking.directives',
   'socialNetworking.services'
 ]);
+
+// Define submodules.
+angular.module('socialNetworking.services', []);

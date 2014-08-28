@@ -20,21 +20,16 @@
   };
   
   // Provide access to all group profiles.
-  function ProfilesCtrl() {
-    this.members = [
-      {
-        username: 'Alice',
-        lastLogin: '2014-08-13T16:23:29Z'
-      },
-      {
-        username: 'Benji',
-        lastLogin: '2014-08-12T16:23:29Z'
-      }
-    ];
+  function ProfilesCtrl(Participants) {
+    var self = this;
+
+    Participants.getAll().then(function(participants) {
+      self.members = participants;
+    });
   }
 
   // Create a module and register the controllers.
   angular.module('socialNetworking.profile.controllers', [])
     .controller('ProfileCtrl', ['Nudges', ProfileCtrl])
-    .controller('ProfilesCtrl', ProfilesCtrl);
+    .controller('ProfilesCtrl', ['Participants', ProfilesCtrl]);
 })();

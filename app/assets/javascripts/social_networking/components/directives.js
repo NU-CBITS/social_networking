@@ -4,7 +4,7 @@
   // Displays pertinent information about a participant.
   function profileStatus() {
     return {
-      template: '<h2>{{ profile.participant.username }}</h2>' +
+      template: '<h2>{{ profile.username }}</h2>' +
                 '<h3>{{ profile.lastLogin | timeFromNow }}</h3>'
     };
   }

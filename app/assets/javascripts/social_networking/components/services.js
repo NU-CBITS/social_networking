@@ -45,7 +45,7 @@
     return Like;
   }
 
-  angular.module('socialNetworking.services', [])
+  angular.module('socialNetworking.services')
     .service('Nudges', ['$resource', Nudges])
     .service('Comments', ['$resource', Comments])
     .service('Likes', ['$resource', Likes]);

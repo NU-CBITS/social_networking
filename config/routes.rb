@@ -6,5 +6,6 @@ SocialNetworking::Engine.routes.draw do
   get "/create_goal", to: "application#create_goal", as: :social_networking_create_goal
 
   # server api
+  resources :participants, only: :index
   resources :nudges, only: :create
 end
