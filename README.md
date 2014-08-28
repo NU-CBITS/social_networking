@@ -12,6 +12,14 @@ Then
 
     bundle install
 
+Add the migrations
+
+    rake social_networking:install:migrations
+
+And run them
+
+    rake db:migrate
+
 ## Usage
 
 Mount the engine in `config/routes.rb`
