@@ -27,18 +27,8 @@
   ProfileCtrl.prototype.edit = function() {
     window.console.log("edit");
   };
-  
-  // Provide access to all group profiles.
-  function ProfilesCtrl(Participants) {
-    var self = this;
-
-    Participants.getAll().then(function(participants) {
-      self.members = participants;
-    });
-  }
 
   // Create a module and register the controllers.
-  angular.module('socialNetworking.profile.controllers', [])
-    .controller('ProfileCtrl', ['participantId', 'Participants', 'Nudges', ProfileCtrl])
-    .controller('ProfilesCtrl', ['Participants', ProfilesCtrl]);
+  angular.module('socialNetworking.controllers')
+    .controller('ProfileCtrl', ['participantId', 'Participants', 'Nudges', ProfileCtrl]);
 })();

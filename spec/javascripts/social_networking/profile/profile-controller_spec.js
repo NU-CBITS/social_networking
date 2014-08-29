@@ -7,7 +7,9 @@ describe('ProfileCtrl', function() {
       deferred;
   
   beforeEach(function() {
-    module('socialNetworking.profile.controllers');
+    // load the module with the controller to test
+    module('socialNetworking.controllers');
+
     participantService = {
       getOne: function(id) {
                 deferred = q.defer();

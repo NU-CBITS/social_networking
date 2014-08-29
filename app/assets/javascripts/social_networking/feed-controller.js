@@ -16,6 +16,6 @@
   }
 
   // Create a module and register the controller.
-  angular.module('socialNetworking.feed.controllers', [])
+  angular.module('socialNetworking.controllers')
     .controller('FeedCtrl', FeedCtrl);
 })();

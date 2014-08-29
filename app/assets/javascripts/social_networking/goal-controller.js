@@ -12,6 +12,6 @@
   };
 
   // Create a module and register the controller.
-  angular.module('socialNetworking.goals.controllers', [])
+  angular.module('socialNetworking.controllers')
     .controller('GoalCtrl', GoalCtrl);
 })();
