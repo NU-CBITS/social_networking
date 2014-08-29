@@ -18,8 +18,8 @@ describe('ProfileCtrl', function() {
     nudgeService = {};
   });
 
-  beforeEach(inject(function($rootScope, $controller, $q) {
-    scope = $rootScope.$new();
+  beforeEach(inject(function($rootScope, $q, $controller) {
+    scope = $rootScope;
     q = $q;
     controller = $controller('ProfileCtrl', {
       Participants: participantService,
@@ -29,7 +29,7 @@ describe('ProfileCtrl', function() {
 
   it('should set the username', function() {
     deferred.resolve({ username: 'Billy' });
-    scope.$root.$digest();
+    scope.$digest();
 
     expect(controller.username).toBe('Billy');
   });
