@@ -1,6 +1,8 @@
 module SocialNetworking
   # Manage Participants.
   class ParticipantsController < ApplicationController
+    rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
     def index
       render json: (Participant.all.map do |p|
         {
@@ -19,6 +21,12 @@ module SocialNetworking
         username: @participant.email,
         lastLogin: @participant.last_sign_in_at
       }
+    end
+
+    private
+
+    def record_not_found
+      render json: { error: "participant not found" }, status: 404
     end
   end
 end
