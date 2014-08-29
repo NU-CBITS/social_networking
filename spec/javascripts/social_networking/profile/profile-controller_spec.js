@@ -22,6 +22,7 @@ describe('ProfileCtrl', function() {
     scope = $rootScope;
     q = $q;
     controller = $controller('ProfileCtrl', {
+      participantId: 123,
       Participants: participantService,
       Nudges: nudgeService
     });

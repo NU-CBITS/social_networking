@@ -2,11 +2,11 @@
   "use strict";
 
   // Provide interaction with a participant's profile.
-  function ProfileCtrl(Participants, Nudges) {
+  function ProfileCtrl(participantId, Participants, Nudges) {
     var self = this;
 
     this._nudges = Nudges;
-    Participants.getOne(816972188)
+    Participants.getOne(participantId)
       .then(function(participant) {
         self.id = participant.id;
         self.username = participant.username;
@@ -39,6 +39,6 @@
 
   // Create a module and register the controllers.
   angular.module('socialNetworking.profile.controllers', [])
-    .controller('ProfileCtrl', ['Participants', 'Nudges', ProfileCtrl])
+    .controller('ProfileCtrl', ['participantId', 'Participants', 'Nudges', ProfileCtrl])
     .controller('ProfilesCtrl', ['Participants', ProfilesCtrl]);
 })();

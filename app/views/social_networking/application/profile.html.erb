@@ -11,3 +11,8 @@
     </dl>
   </div>
 </div>
+
+<!-- bootstrap Angular app with current participant id -->
+<script>
+  angular.module('socialNetworking').value('participantId', <%= current_participant.id %>);
+</script>
