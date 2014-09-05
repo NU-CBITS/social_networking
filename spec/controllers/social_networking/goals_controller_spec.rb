@@ -2,21 +2,40 @@ require "spec_helper"
 
 module SocialNetworking
   describe GoalsController, type: :controller do
-    describe "POST create" do
-      context "when the participant is authenticated" do
-        let(:participant) { double("participant", id: 987) }
-        let(:goal) do
-          double("goal",
-                 id: 8_675_309,
-                 participant_id: participant.id,
-                 description: "run a marathon")
-        end
+    let(:participant) { double("participant", id: 987) }
+    let(:goal) do
+      double("goal",
+             id: 8_675_309,
+             participant_id: participant.id,
+             description: "run a marathon")
+    end
 
+    describe "GET index" do
+      context "when the current participant is authenticated" do
         before do
           allow(controller).to receive(:authenticate_participant!)
           allow(controller).to receive(:current_participant) { participant }
+          allow(Goal).to receive(:where).with(
+            participant_id: participant.id
+          ) { [goal] }
+        end
 
-          expect(Goal).to receive(:new).with(
+        it "should return the goals" do
+          get :index, use_route: :social_networking
+
+          assert_response 200
+          expect(json.count).to eq(1)
+          expect(json[0]["id"]).to eq(8_675_309)
+        end
+      end
+    end
+
+    describe "POST create" do
+      context "when the participant is authenticated" do
+        before do
+          allow(controller).to receive(:authenticate_participant!)
+          allow(controller).to receive(:current_participant) { participant }
+          allow(Goal).to receive(:new).with(
             participant_id: participant.id,
             description: "run a marathon"
           ) { goal }

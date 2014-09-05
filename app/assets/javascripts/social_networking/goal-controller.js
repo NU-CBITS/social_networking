@@ -2,14 +2,30 @@
   "use strict";
 
   // Provides management of goals.
-  function GoalCtrl(Goals) {
-    this._goals = Goals;
-    this.description = "";
+  function GoalCtrl(GoalService) {
+    var self = this;
+
+    this._goals = GoalService;
+    this.reset();
+    this._goals.getAll()
+      .then(function(goals) {
+        self.members = goals;
+      });
   }
 
   // Persist a goal.
   GoalCtrl.prototype.save = function() {
-    this._goals.create({ description: this.description });
+    var self = this;
+
+    this._goals.create({ description: this.description })
+      .then(function() {
+        self.reset();
+      });
+  };
+
+  // Undo any changes.
+  GoalCtrl.prototype.reset = function() {
+    this.description = "";
   };
 
   // Create a module and register the controller.
