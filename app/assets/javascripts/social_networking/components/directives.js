@@ -10,15 +10,23 @@
   }
 
   // Summarizes an item to be displayed in a feed.
-   function feedItem() {
+  function feedItem() {
     return {
       template: '<p>{{ item.creator }}</p>' +
                 '<p>{{ item.createdAt | timeFromNow }}</p>'
     };
   }
 
+  // Summarizes an individual goal.
+  function goal() {
+    return {
+      template: '<p>{{ participantGoal.description }}</p>'
+    };
+  }
+
   // Create a module and register the directives.
   angular.module('socialNetworking.directives', [])
     .directive('profileStatus', profileStatus)
-    .directive('feedItem', feedItem);
+    .directive('feedItem', feedItem)
+    .directive('goal', goal);
 })();

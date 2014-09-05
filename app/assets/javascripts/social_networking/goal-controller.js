@@ -5,11 +5,12 @@
   function GoalCtrl(GoalService) {
     var self = this;
 
-    this._goals = GoalService;
     this.reset();
+    this.participantGoals = [];
+    this._goals = GoalService;
     this._goals.getAll()
       .then(function(goals) {
-        self.members = goals;
+        self.participantGoals = goals;
       });
   }
 
@@ -18,8 +19,9 @@
     var self = this;
 
     this._goals.create({ description: this.description })
-      .then(function() {
+      .then(function(goal) {
         self.reset();
+        self.participantGoals.push(goal);
       });
   };
 

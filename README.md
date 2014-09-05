@@ -17,19 +17,20 @@ Then
 
     bundle install
 
-Add the migrations
+Add the migrations and run them
 
-    rake social_networking:install:migrations
+    rake social_networking:install:migrations db:migrate
 
-And run them
-
-    rake db:migrate
 
 ## Usage
 
 Mount the engine in `config/routes.rb`
 
     mount SocialNetworking::Engine, at: "social_networking"
+
+Include the JavaScript in your manifest
+
+    //= require social_networking
 
 ## Run Ruby specs
 

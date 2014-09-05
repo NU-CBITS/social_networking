@@ -1,8 +1,6 @@
 require "spec_helper"
 
 module SocialNetworking
-  class Participant; end
-
   describe ParticipantsController, type: :controller do
     let(:participant) do
       double("participant",

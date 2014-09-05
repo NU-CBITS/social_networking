@@ -25,6 +25,8 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "pg"
   s.add_development_dependency "rspec-rails", "~> 3"
+  s.add_development_dependency "capybara", "~> 2"
+  s.add_development_dependency "poltergeist"
   s.add_development_dependency "jasmine-rails", "~> 0.10"
   s.add_development_dependency "jshintrb", "~> 0.2"
   s.add_development_dependency "rubocop", "~> 0.25"

@@ -16,17 +16,8 @@ ActiveRecord::Schema.define(version: 20140904201719) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "events", force: true do |t|
-    t.datetime "emitted_at"
-    t.datetime "recorded_at"
-    t.text     "payload"
-    t.string   "user_id"
-    t.string   "user_agent"
-    t.string   "source"
-    t.string   "kind"
-  end
-
   create_table "participants", force: true do |t|
+    t.string "email"
   end
 
   create_table "social_networking_comments", force: true do |t|
