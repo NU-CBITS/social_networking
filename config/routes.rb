@@ -8,4 +8,5 @@ SocialNetworking::Engine.routes.draw do
   # server api
   resources :participants, only: [:index, :show]
   resources :nudges, only: :create
+  resources :goals, only: :create
 end
