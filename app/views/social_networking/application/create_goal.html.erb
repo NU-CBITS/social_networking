@@ -2,17 +2,19 @@
 
 <div ng-app="socialNetworking">
   <div ng-controller="GoalCtrl as goal">
-    <form novalidate role="form">
-      <div class="form-group">
-        <label for="new-goal-description">What is your goal?</label>
-        <input type="text" class="form-control" id="new-goal-description" ng-model="goal.description">
-      </div>
+    <button class="btn btn-link" ng-click="goal.new()" ng-show="goal.inBrowseMode()">+ add a goal</button>
 
-      <button class="btn btn-primary" ng-click="goal.save()">Save</button>
+    <form novalidate role="form" name="goalForm" class="row" ng-show="goal.inEntryMode()">
+      <div class="form-group col-lg-8 col-md-8">
+        <label for="new-goal-description">What is your goal?</label>
+        <input type="text" class="form-control" id="new-goal-description" ng-model="goal.description" ng-maxlength="255" required>
+        <button class="btn btn-primary" ng-click="goal.save()" ng-disabled="goalForm.$invalid">Save</button>
+        <button class="btn btn-default" ng-click="goal.reset()">Cancel</button>
+      </div>
     </form>
 
-    <div ng-repeat="participantGoal in goal.participantGoals">
-      <div goal></div>
+    <div ng-repeat="participantGoal in goal.participantGoals" class="row">
+      <blockquote goal class="col-lg-8 col-md-8"></blockquote>
     </div>
   </div>
 </div>

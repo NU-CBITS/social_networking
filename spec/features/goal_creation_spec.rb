@@ -5,6 +5,7 @@ describe "goal creation", type: :feature, js: true do
 
   scenario "Participant enters new goals" do
     visit "/social_networking/create_goal"
+    click_button "+ add a goal"
     fill_in "What is your goal?", with: "all of the things"
     click_button "Save"
 
