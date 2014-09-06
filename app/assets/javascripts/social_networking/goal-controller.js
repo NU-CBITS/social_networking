@@ -38,6 +38,9 @@
       .then(function(goal) {
         self.reset();
         self.participantGoals.push(goal);
+      })
+      .catch(function(message) {
+        self.error = message.error;
       });
   };
 

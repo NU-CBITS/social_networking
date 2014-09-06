@@ -39,7 +39,7 @@ describe('ProfileCtrl', function() {
 
   it('should set the last login', function() {
     deferred.resolve({ lastLogin: '2014-08-12T16:55:29Z' });
-    scope.$root.$digest();
+    scope.$digest();
 
     expect(controller.lastLogin).toBe('2014-08-12T16:55:29Z');
   });
