@@ -5,7 +5,8 @@
   function GoalCtrl(GoalService, focus) {
     var self = this;
 
-    this.reset();
+    this.resetForm();
+    this.resetTabs();
     this.participantGoals = [];
     this._goals = GoalService;
     this._focus = focus;
@@ -40,13 +41,13 @@
       });
   };
 
-  // Persist a goal.
+  // Persist a goal from the form.
   GoalCtrl.prototype.save = function() {
     var self = this;
 
     this._goals.create(this)
       .then(function(goal) {
-        self.reset();
+        self.resetForm();
         self.participantGoals.push(goal);
       })
       .catch(function(message) {
@@ -55,10 +56,13 @@
   };
 
   // Undo any changes.
-  GoalCtrl.prototype.reset = function() {
+  GoalCtrl.prototype.resetForm = function() {
     this.description = "";
     this.isComplete = false;
     this.mode = GoalCtrl.BROWSE_MODE;
+  };
+
+  GoalCtrl.prototype.resetTabs = function() {
     this.filter('all');
     this.selectTab('all');
   };
