@@ -1,0 +1,27 @@
+.navbar-fixed-bottom .container {
+  min-height: 50px;
+}
+
+.navbar-fixed-bottom .row {
+  min-height: 50px;
+}
+
+.navbar-fixed-bottom .col-xs-* {
+  min-height: 50px;
+}
+
+.navbar-fixed-bottom .active {
+  background-color: #e7e7e7;
+}
+
+.navbar-fixed-bottom button {
+  min-height: 50px;
+}
+
+.navbar-fixed-bottom .btn-link:hover {
+  text-decoration: none;
+}
+
+.navbar-fixed-bottom .btn-link:active {
+  background-color: #e7e7e7;
+}

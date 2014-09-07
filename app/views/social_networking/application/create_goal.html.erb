@@ -1,13 +1,15 @@
+<%= stylesheet_link_tag "social_networking/bootstrap_overrides" %>
+
 <%= render "nav" %>
 
 <div ng-app="socialNetworking">
   <div ng-controller="GoalCtrl as goal">
-    <button class="btn btn-link" ng-click="goal.new()" ng-show="goal.inBrowseMode()">+ add a goal</button>
+    <button class="btn btn-link hidden-xs" ng-click="goal.new()" ng-show="goal.inBrowseMode()">+ add a goal</button>
 
     <form novalidate role="form" name="goalForm" class="row" ng-show="goal.inEntryMode()">
       <div class="form-group col-lg-8 col-md-8">
         <label for="new-goal-description">What is your goal?</label>
-        <input type="text" class="form-control" id="new-goal-description" ng-model="goal.description" ng-maxlength="255" required>
+        <input type="text" class="form-control" id="new-goal-description" ng-model="goal.description" ng-maxlength="255" required focus-on="new-goal">
         <button class="btn btn-primary" ng-click="goal.save()" ng-disabled="goalForm.$invalid">Save</button>
         <button class="btn btn-default" ng-click="goal.reset()">Cancel</button>
       </div>
@@ -16,5 +18,16 @@
     <div ng-repeat="participantGoal in goal.participantGoals" class="row">
       <blockquote goal class="col-lg-8 col-md-8"></blockquote>
     </div>
+
+    <nav class="navbar navbar-default navbar-fixed-bottom visible-xs-block" role="navigation">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-2"><button class="btn btn-link" ng-click="goal.new()">+</button></div>
+          <div class="col-xs-2 active"><button class="btn btn-link">All</button></div>
+          <div class="col-xs-4"><button class="btn btn-link">Completed</button></div>
+          <div class="col-xs-4"><button class="btn btn-link">Deleted</button></div>
+        </div>
+      </div>
+    </nav>
   </div>
 </div>

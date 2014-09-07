@@ -1,6 +1,7 @@
 ;(function() {
   "use strict";
 
+  // Service for managing remote Comments
   function Comments($resource) {
     var CommentResource = $resource('/social_networking/comments/:id',
       { id: '@id' });

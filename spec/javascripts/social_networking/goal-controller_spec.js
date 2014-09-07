@@ -1,6 +1,7 @@
 describe('GoalCtrl', function() {
   var controller,
       goalService,
+      focusService,
       scope,
       q,
       getAllDeferred,
@@ -21,12 +22,16 @@ describe('GoalCtrl', function() {
                 return createDeferred.promise;
               }
     };
+    focusService = function(name) {};
   });
 
   beforeEach(inject(function($rootScope, $q, $controller) {
     scope = $rootScope;
     q = $q;
-    controller = $controller('GoalCtrl', { Goals: goalService });
+    controller = $controller('GoalCtrl', {
+      Goals: goalService,
+      focus: focusService
+    });
   }));
 
   it('should initialize the attributes and mode', function() {
