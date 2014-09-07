@@ -30,8 +30,9 @@ ActiveRecord::Schema.define(version: 20140904201719) do
   end
 
   create_table "social_networking_goals", force: true do |t|
-    t.string   "description",    null: false
-    t.integer  "participant_id", null: false
+    t.string   "description",                    null: false
+    t.integer  "participant_id",                 null: false
+    t.boolean  "is_complete",    default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

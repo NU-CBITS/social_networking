@@ -17,12 +17,24 @@ module SocialNetworking
       end
     end
 
+    def update
+      @goal = Goal.where(participant_id: current_participant.id)
+        .find(params[:id])
+
+      if @goal.update(sanitized_params)
+        render json: model_json(@goal)
+      else
+        render json: { error: model_errors }, status: 400
+      end
+    end
+
     private
 
     def sanitized_params
       {
         participant_id: current_participant.id,
-        description: params[:description]
+        description: params[:description],
+        is_complete: params[:isComplete]
       }
     end
 
@@ -34,7 +46,8 @@ module SocialNetworking
       {
         id: model.id,
         participantId: model.participant_id,
-        description: model.description
+        description: model.description,
+        isComplete: model.is_complete
       }
     end
   end

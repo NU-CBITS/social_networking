@@ -15,17 +15,17 @@
       </div>
     </form>
 
-    <div ng-repeat="participantGoal in goal.participantGoals" class="row">
-      <blockquote goal class="col-lg-8 col-md-8"></blockquote>
-    </div>
+    <ul class="list-group">
+      <li ng-repeat="participantGoal in goal.participantGoals | filter:goal.currentFilter | orderBy:'isComplete'" class="list-group-item"><goal /></li>
+    </ul>
 
     <nav class="navbar navbar-default navbar-fixed-bottom visible-xs-block" role="navigation">
       <div class="container">
         <div class="row">
           <div class="col-xs-2"><button class="btn btn-link" ng-click="goal.new()">+</button></div>
-          <div class="col-xs-2 active"><button class="btn btn-link">All</button></div>
-          <div class="col-xs-4"><button class="btn btn-link">Completed</button></div>
-          <div class="col-xs-4"><button class="btn btn-link">Deleted</button></div>
+          <div class="col-xs-2" ng-class="goal.selectedTab === 'all' ? 'active' : ''" ng-click="goal.filter('all'); goal.selectTab('all')"><button class="btn btn-link">All</button></div>
+          <div class="col-xs-4" ng-class="goal.selectedTab === 'completed' ? 'active' : ''" ng-click="goal.filter('completed'); goal.selectTab('completed')"><button class="btn btn-link">Completed</button></div>
+          <div class="col-xs-4" ng-class="goal.selectedTab === 'deleted' ? 'active' : ''" ng-click="goal.filter('deleted'); goal.selectTab('deleted')"><button class="btn btn-link">Deleted</button></div>
         </div>
       </div>
     </nav>

@@ -32,11 +32,19 @@
     this._focus('new-goal');
   };
 
+  GoalCtrl.prototype.toggleComplete = function(currentGoal) {
+    //currentGoal.isComplete = !currentGoal.isComplete;
+    this._goals.update(currentGoal)
+      .catch(function(goal) {
+        currentGoal.isComplete = goal.isComplete;
+      });
+  };
+
   // Persist a goal.
   GoalCtrl.prototype.save = function() {
     var self = this;
 
-    this._goals.create({ description: this.description })
+    this._goals.create(this)
       .then(function(goal) {
         self.reset();
         self.participantGoals.push(goal);
@@ -49,7 +57,25 @@
   // Undo any changes.
   GoalCtrl.prototype.reset = function() {
     this.description = "";
+    this.isComplete = false;
     this.mode = GoalCtrl.BROWSE_MODE;
+    this.filter('all');
+    this.selectTab('all');
+  };
+
+  // Select the current subset of goals to display.
+  GoalCtrl.prototype.filter = function(type) {
+    switch(type) {
+      case 'all':
+        this.currentFilter = {};
+        break;
+      case 'completed':
+        this.currentFilter = { isComplete: true };
+    }
+  };
+
+  GoalCtrl.prototype.selectTab = function(name) {
+    this.selectedTab = name;
   };
 
   // Create a module and register the controller.

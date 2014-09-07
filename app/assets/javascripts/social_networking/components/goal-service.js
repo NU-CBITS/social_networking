@@ -15,7 +15,19 @@
     // Persist a Goal to the server.
     Goal.create = function(attributes) {
       var goal = new GoalResource({
-        description: attributes.description
+        description: attributes.description,
+        isComplete: attributes.isComplete
+      });
+
+      return goal.$save();
+    };
+
+    // Update a Goal on the server.
+    Goal.update = function(attributes) {
+      var goal = new GoalResource({
+        id: attributes.id,
+        description: attributes.description,
+        isComplete: attributes.isComplete
       });
 
       return goal.$save();

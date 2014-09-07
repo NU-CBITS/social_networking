@@ -3,6 +3,7 @@ class CreateSocialNetworkingGoals < ActiveRecord::Migration
     create_table :social_networking_goals do |t|
       t.string :description, null: false
       t.integer :participant_id, null: false
+      t.boolean :is_complete, null: false, default: false
 
       t.timestamps
     end

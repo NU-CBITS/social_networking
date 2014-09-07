@@ -9,4 +9,5 @@ SocialNetworking::Engine.routes.draw do
   resources :participants, only: [:index, :show]
   resources :nudges, only: :create
   resources :goals, only: [:index, :create]
+  post "goals/:id", to: "goals#update", as: :goal
 end
