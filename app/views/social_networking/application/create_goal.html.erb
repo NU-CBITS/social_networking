@@ -1,7 +1,5 @@
 <%= stylesheet_link_tag "social_networking/bootstrap_overrides" %>
 
-<%= render "nav" %>
-
 <div ng-app="socialNetworking">
   <div ng-controller="GoalCtrl as goal">
     <button class="btn btn-link hidden-xs" ng-click="goal.new()" ng-show="goal.inBrowseMode()">+ add a goal</button>
@@ -11,12 +9,16 @@
         <label for="new-goal-description">What is your goal?</label>
         <input type="text" class="form-control" id="new-goal-description" ng-model="goal.description" ng-maxlength="255" required focus-on="new-goal">
         <button class="btn btn-primary" ng-click="goal.save()" ng-disabled="goalForm.$invalid">Save</button>
-        <button class="btn btn-default" ng-click="goal.reset()">Cancel</button>
+        <button class="btn btn-default" ng-click="goal.resetForm()">Cancel</button>
       </div>
     </form>
 
     <ul class="list-group">
-      <li ng-repeat="participantGoal in goal.participantGoals | filter:goal.currentFilter | orderBy:'isCompleted'" class="list-group-item"><goal /></li>
+      <li ng-repeat="participantGoal in goal.participantGoals | filter:goal.currentFilter | orderBy:'isCompleted'"
+          class="list-group-item"
+          ng-class="participantGoal.isCompleted ? 'list-group-item-success' : ''">
+        <goal />
+      </li>
     </ul>
 
     <nav class="navbar navbar-default navbar-fixed-bottom visible-xs-block" role="navigation">

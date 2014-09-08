@@ -10,12 +10,27 @@
   min-height: 50px;
 }
 
+.navbar-fixed-bottom .col-xs-2 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.navbar-fixed-bottom .col-xs-4 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 .navbar-fixed-bottom .active {
   background-color: #e7e7e7;
 }
 
 .navbar-fixed-bottom button {
   min-height: 50px;
+  width: 100%;
+}
+
+.navbar-fixed-bottom button:focus {
+  outline: none;
 }
 
 .navbar-fixed-bottom .btn-link:hover {
