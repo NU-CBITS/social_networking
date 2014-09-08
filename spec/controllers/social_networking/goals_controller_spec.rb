@@ -8,7 +8,8 @@ module SocialNetworking
              id: 8_675_309,
              participant_id: participant.id,
              description: "run a marathon",
-             is_completed: false)
+             is_completed: false,
+             is_deleted: false)
     end
     let(:errors) { double("errors", full_messages: ["baz"]) }
 

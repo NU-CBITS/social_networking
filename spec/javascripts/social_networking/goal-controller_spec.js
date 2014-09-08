@@ -5,7 +5,8 @@ describe('GoalCtrl', function() {
       scope,
       q,
       getAllDeferred,
-      createDeferred;
+      createDeferred,
+      updateDeferred;
 
   beforeEach(function() {
     module('socialNetworking.controllers');
@@ -20,6 +21,11 @@ describe('GoalCtrl', function() {
                 createDeferred = q.defer();
 
                 return createDeferred.promise;
+              },
+      update: function(attributes) {
+                updateDeferred = q.defer();
+
+                return updateDeferred.promise;
               }
     };
     focusService = function(name) {};
@@ -51,6 +57,32 @@ describe('GoalCtrl', function() {
       controller.new();
 
       expect(controller.inEntryMode()).toBeTruthy();
+    });
+  });
+
+  describe('#toggleComplete', function() {
+    describe('when unsuccessful', function() {
+      it('should reset the isCompleted attribute', function() {
+        var goal = { isCompleted: true };
+        controller.toggleComplete(goal);
+        updateDeferred.reject({ isCompleted: false });
+        scope.$apply();
+
+        expect(goal.isCompleted).toBeFalsy();
+      });
+    });
+  });
+
+  describe('#toggleDeleted', function() {
+    describe('when unsuccessful', function() {
+      it('should reset the isDeleted attribute', function() {
+        var goal = { isDeleted: true };
+        controller.toggleDeleted(goal);
+        updateDeferred.reject({ isDeleted: false });
+        scope.$apply();
+
+        expect(goal.isDeleted).toBeFalsy();
+      });
     });
   });
 

@@ -37,8 +37,11 @@
           id="goal-{{ participantGoal.id }}"
           ng-class="participantGoal.isCompleted ? 'list-group-item-success' : ''">
         <label>
-          <input type="checkbox" ng-model="participantGoal.isCompleted" ng-change="goal.toggleComplete(participantGoal)"> {{ participantGoal.description }}
+          <input ng-disabled="participantGoal.isDeleted" type="checkbox" ng-model="participantGoal.isCompleted" ng-change="goal.toggleComplete(participantGoal)"> {{ participantGoal.description }}
         </label>
+
+        <button ng-if="!participantGoal.isDeleted" class="btn btn-link pull-right delete" ng-click="goal.toggleDeleted(participantGoal)"><i class="fa fa-trash-o text-danger"></i></button>
+        <button ng-if="participantGoal.isDeleted" class="btn btn-link pull-right restore" ng-click="goal.toggleDeleted(participantGoal)"><i class="fa fa-undo"></i></button>
       </li>
     </ul>
 

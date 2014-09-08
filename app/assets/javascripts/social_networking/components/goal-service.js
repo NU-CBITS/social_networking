@@ -27,7 +27,8 @@
       var goal = new GoalResource({
         id: attributes.id,
         description: attributes.description,
-        isCompleted: attributes.isCompleted
+        isCompleted: attributes.isCompleted,
+        isDeleted: attributes.isDeleted
       });
 
       return goal.$save();

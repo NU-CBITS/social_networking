@@ -39,11 +39,14 @@ module SocialNetworking
     end
 
     def sanitized_params
-      {
-        participant_id: current_participant.id,
-        description: params[:description],
-        is_completed: params[:isCompleted]
-      }
+      s_params = { participant_id: current_participant.id }
+      [:description, :isCompleted, :isDeleted].each do |param|
+        unless params[param].nil?
+          s_params[param.to_s.underscore.to_sym] = params[param]
+        end
+      end
+
+      s_params
     end
 
     def model_errors
@@ -55,7 +58,8 @@ module SocialNetworking
         id: model.id,
         participantId: model.participant_id,
         description: model.description,
-        isCompleted: model.is_completed
+        isCompleted: model.is_completed,
+        isDeleted: model.is_deleted
       }
     end
   end

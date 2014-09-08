@@ -6,3 +6,12 @@ participant1_goal_beta:
   participant: participant1
   description: beta
   is_completed: true
+
+participant1_goal_gamma:
+  participant: participant1
+  description: gamma
+
+participant1_goal_delta:
+  participant: participant1
+  description: delta
+  is_deleted: true

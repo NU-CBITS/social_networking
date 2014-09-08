@@ -19,10 +19,12 @@
   GoalCtrl.BROWSE_MODE = 1;
   GoalCtrl.ENTRY_MODE = 2;
 
+  // Is this only available for goal browsing?
   GoalCtrl.prototype.inBrowseMode = function() {
     return this.mode === GoalCtrl.BROWSE_MODE;
   };
 
+  // Is this available for goal entry?
   GoalCtrl.prototype.inEntryMode = function() {
     return this.mode === GoalCtrl.ENTRY_MODE;
   };
@@ -33,11 +35,20 @@
     this._focus('new-goal');
   };
 
+  // Persist the isCompleted attribute to the server.
   GoalCtrl.prototype.toggleComplete = function(currentGoal) {
-    //currentGoal.isCompleted = !currentGoal.isCompleted;
     this._goals.update(currentGoal)
       .catch(function(goal) {
         currentGoal.isCompleted = goal.isCompleted;
+      });
+  };
+
+  // Persist the isDeleted attribute to the server.
+  GoalCtrl.prototype.toggleDeleted = function(currentGoal) {
+    currentGoal.isDeleted = !currentGoal.isDeleted;
+    this._goals.update(currentGoal)
+      .catch(function(goal) {
+        currentGoal.isDeleted = goal.isDeleted;
       });
   };
 
@@ -71,13 +82,17 @@
   GoalCtrl.prototype.filter = function(type) {
     switch(type) {
       case 'all':
-        this.currentFilter = {};
+        this.currentFilter = { isDeleted: false };
         break;
       case 'completed':
-        this.currentFilter = { isCompleted: true };
+        this.currentFilter = { isDeleted: false, isCompleted: true };
+        break;
+      case 'deleted':
+        this.currentFilter = { isDeleted: true };
     }
   };
 
+  // Specify a tab to display.
   GoalCtrl.prototype.selectTab = function(name) {
     this.selectedTab = name;
   };

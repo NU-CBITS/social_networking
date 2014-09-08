@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20140904201719) do
     t.string   "description",                    null: false
     t.integer  "participant_id",                 null: false
     t.boolean  "is_completed",   default: false, null: false
+    t.boolean  "is_deleted",     default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

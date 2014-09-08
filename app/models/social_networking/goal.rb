@@ -4,6 +4,6 @@ module SocialNetworking
     belongs_to :participant
 
     validates :participant, :description, presence: true
-    validates :is_completed, inclusion: { in: [true, false] }
+    validates :is_completed, :is_deleted, inclusion: { in: [true, false] }
   end
 end
