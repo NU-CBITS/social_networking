@@ -20,7 +20,7 @@
   // Summarizes an individual goal.
   function goal() {
     return {
-      template: '<p><input type="checkbox" ng-model="participantGoal.isComplete" ng-change="goal.toggleComplete(participantGoal)"> {{ participantGoal.description }}</p>'
+      template: '<p><input type="checkbox" ng-model="participantGoal.isCompleted" ng-change="goal.toggleComplete(participantGoal)"> {{ participantGoal.description }}</p>'
     };
   }
 

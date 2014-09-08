@@ -16,7 +16,7 @@
     </form>
 
     <ul class="list-group">
-      <li ng-repeat="participantGoal in goal.participantGoals | filter:goal.currentFilter | orderBy:'isComplete'" class="list-group-item"><goal /></li>
+      <li ng-repeat="participantGoal in goal.participantGoals | filter:goal.currentFilter | orderBy:'isCompleted'" class="list-group-item"><goal /></li>
     </ul>
 
     <nav class="navbar navbar-default navbar-fixed-bottom visible-xs-block" role="navigation">

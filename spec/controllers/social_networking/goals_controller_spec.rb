@@ -8,7 +8,7 @@ module SocialNetworking
              id: 8_675_309,
              participant_id: participant.id,
              description: "run a marathon",
-             is_complete: false)
+             is_completed: false)
     end
 
     describe "GET index" do
@@ -39,7 +39,7 @@ module SocialNetworking
           allow(Goal).to receive(:new).with(
             participant_id: participant.id,
             description: "run a marathon",
-            is_complete: true
+            is_completed: true
           ) { goal }
         end
 
@@ -49,7 +49,7 @@ module SocialNetworking
           it "should return the new record" do
             post :create,
                  description: "run a marathon",
-                 isComplete: true,
+                 isCompleted: true,
                  use_route: :social_networking
 
             assert_response 200
@@ -69,7 +69,7 @@ module SocialNetworking
           it "should return the error message" do
             post :create,
                  description: "run a marathon",
-                 isComplete: true,
+                 isCompleted: true,
                  use_route: :social_networking
 
             assert_response 400

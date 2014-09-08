@@ -34,10 +34,10 @@
   };
 
   GoalCtrl.prototype.toggleComplete = function(currentGoal) {
-    //currentGoal.isComplete = !currentGoal.isComplete;
+    //currentGoal.isCompleted = !currentGoal.isCompleted;
     this._goals.update(currentGoal)
       .catch(function(goal) {
-        currentGoal.isComplete = goal.isComplete;
+        currentGoal.isCompleted = goal.isCompleted;
       });
   };
 
@@ -58,7 +58,7 @@
   // Undo any changes.
   GoalCtrl.prototype.resetForm = function() {
     this.description = "";
-    this.isComplete = false;
+    this.isCompleted = false;
     this.mode = GoalCtrl.BROWSE_MODE;
   };
 
@@ -74,7 +74,7 @@
         this.currentFilter = {};
         break;
       case 'completed':
-        this.currentFilter = { isComplete: true };
+        this.currentFilter = { isCompleted: true };
     }
   };
 

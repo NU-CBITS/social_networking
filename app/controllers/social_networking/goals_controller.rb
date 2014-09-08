@@ -34,7 +34,7 @@ module SocialNetworking
       {
         participant_id: current_participant.id,
         description: params[:description],
-        is_complete: params[:isComplete]
+        is_completed: params[:isCompleted]
       }
     end
 
@@ -47,7 +47,7 @@ module SocialNetworking
         id: model.id,
         participantId: model.participant_id,
         description: model.description,
-        isComplete: model.is_complete
+        isCompleted: model.is_completed
       }
     end
   end
