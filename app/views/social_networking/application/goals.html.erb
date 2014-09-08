@@ -28,8 +28,11 @@
     <ul class="list-group">
       <li ng-repeat="participantGoal in goal.participantGoals | filter:goal.currentFilter | orderBy:'isCompleted'"
           class="list-group-item"
+          id="goal-{{ participantGoal.id }}"
           ng-class="participantGoal.isCompleted ? 'list-group-item-success' : ''">
-        <goal />
+        <label>
+          <input type="checkbox" ng-model="participantGoal.isCompleted" ng-change="goal.toggleComplete(participantGoal)"> {{ participantGoal.description }}
+        </label>
       </li>
     </ul>
 

@@ -1,0 +1,8 @@
+participant1_goal_alpha:
+  participant: participant1
+  description: alpha
+
+participant1_goal_beta:
+  participant: participant1
+  description: beta
+  is_completed: true

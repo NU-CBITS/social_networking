@@ -9,5 +9,9 @@ Documentation:
   Exclude:
     - spec/**/*
 
+PredicateName:
+  Exclude:
+    - spec/**/*
+
 StringLiterals:
   EnforcedStyle: double_quotes

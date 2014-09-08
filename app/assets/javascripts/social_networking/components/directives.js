@@ -17,13 +17,6 @@
     };
   }
 
-  // Summarizes an individual goal.
-  function goal() {
-    return {
-      template: '<p><input type="checkbox" ng-model="participantGoal.isCompleted" ng-change="goal.toggleComplete(participantGoal)"> {{ participantGoal.description }}</p>'
-    };
-  }
-
   // Listen for 'focusOn' event and focus on the input.
   function focusOn() {
     return function(scope, elem, attr) {
@@ -39,6 +32,5 @@
   angular.module('socialNetworking.directives', [])
     .directive('profileStatus', profileStatus)
     .directive('feedItem', feedItem)
-    .directive('goal', goal)
     .directive('focusOn', focusOn);
 })();
