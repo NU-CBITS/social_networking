@@ -1,6 +1,8 @@
 module SocialNetworking
   # Manage Goals.
   class GoalsController < ApplicationController
+    rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
     def index
       goals = Goal.where(participant_id: current_participant.id)
 
@@ -18,8 +20,10 @@ module SocialNetworking
     end
 
     def update
-      @goal = Goal.where(participant_id: current_participant.id)
-        .find(params[:id])
+      @goal = Goal.where(
+        participant_id: current_participant.id,
+        id: params[:id]
+      ).first || fail(ActiveRecord::RecordNotFound)
 
       if @goal.update(sanitized_params)
         render json: model_json(@goal)
@@ -29,6 +33,10 @@ module SocialNetworking
     end
 
     private
+
+    def record_not_found
+      render json: { error: "not found" }, status: 404
+    end
 
     def sanitized_params
       {

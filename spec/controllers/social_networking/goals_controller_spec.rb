@@ -10,6 +10,7 @@ module SocialNetworking
              description: "run a marathon",
              is_completed: false)
     end
+    let(:errors) { double("errors", full_messages: ["baz"]) }
 
     describe "GET index" do
       context "when the current participant is authenticated" do
@@ -60,8 +61,6 @@ module SocialNetworking
         end
 
         context "and the record doesn't save" do
-          let(:errors) { double("errors", full_messages: ["baz"]) }
-
           before do
             allow(goal).to receive_messages(save: false, errors: errors)
           end
@@ -74,6 +73,74 @@ module SocialNetworking
 
             assert_response 400
             expect(json["error"]).to eq("baz")
+          end
+        end
+      end
+    end
+
+    describe "POST update" do
+      context "when the participant is authenticated" do
+        before do
+          allow(controller).to receive(:authenticate_participant!)
+          allow(controller).to receive(:current_participant) { participant }
+        end
+
+        context "and the record is found" do
+          before do
+            allow(Goal).to receive(:where).with(
+              participant_id: participant.id,
+              id: "1234"
+            ) { [goal] }
+          end
+
+          context "and saves" do
+            before do
+              allow(goal).to receive(:update).with(
+                participant_id: participant.id,
+                description: "run a marathon",
+                is_completed: true
+              ) { true }
+            end
+
+            it "should return the record" do
+              post :update,
+                   id: 1234,
+                   description: goal.description,
+                   isCompleted: true,
+                   use_route: :social_networking
+
+              assert_response 200
+              expect(json["participantId"]).to eq(participant.id)
+            end
+          end
+
+          context "and doesn't save" do
+            before do
+              allow(goal).to receive(:update) { false }
+              allow(goal).to receive(:errors) { errors }
+            end
+
+            it "should return an error" do
+              post :update,
+                   id: 1234,
+                   use_route: :social_networking
+
+              assert_response 400
+            end
+          end
+        end
+
+        context "and the record is not found" do
+          before do
+            allow(Goal).to receive(:where) { [] }
+          end
+
+          it "should return an error" do
+            post :update,
+                 id: 1234,
+                 use_route: :social_networking
+
+            assert_response 404
           end
         end
       end

@@ -4,7 +4,7 @@ describe "goal creation", type: :feature, js: true do
   fixtures(:participants)
 
   scenario "Participant enters new goals" do
-    visit "/social_networking/create_goal"
+    visit "/social_networking/goal_tool"
     click_button "+ add a goal"
     fill_in "What is your goal?", with: "all of the things"
     click_button "Save"

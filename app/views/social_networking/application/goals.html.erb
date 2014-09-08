@@ -2,7 +2,19 @@
 
 <div ng-app="socialNetworking">
   <div ng-controller="GoalCtrl as goal">
-    <button class="btn btn-link hidden-xs" ng-click="goal.new()" ng-show="goal.inBrowseMode()">+ add a goal</button>
+    <div class="row hidden-xs">
+      <div class="col-sm-3 col-md-3 col-lg-3">
+        <button class="btn btn-link" ng-click="goal.new()" ng-show="goal.inBrowseMode()">+ add a goal</button>
+      </div>
+
+      <div class="col-sm-9 col-md-9 col-lg-9">
+        <ul class="nav nav-tabs" role="tablist">
+          <li ng-class="goal.selectedTab === 'all' ? 'active' : ''"><a href="" ng-click="goal.filter('all'); goal.selectTab('all')">All</a></li>
+          <li ng-class="goal.selectedTab === 'completed' ? 'active' : ''"><a href="" ng-click="goal.filter('completed'); goal.selectTab('completed')">Completed</a></li>
+          <li ng-class="goal.selectedTab === 'deleted' ? 'active' : ''"><a href="" ng-click="goal.filter('deleted'); goal.selectTab('deleted')">Deleted</a></li>
+        </ul>
+      </div>
+    </div>
 
     <form novalidate role="form" name="goalForm" class="row" ng-show="goal.inEntryMode()">
       <div class="form-group col-lg-8 col-md-8">
