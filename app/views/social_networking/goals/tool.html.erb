@@ -92,5 +92,6 @@
 
 <!-- bootstrap Angular app with current participant study end date -->
 <script>
-  angular.module('socialNetworking').value('participantStudyEndDate', '<%= current_participant.active_membership_end_date %>');
+  angular.module('socialNetworking.values').value('participantStudyEndDate', '<%= current_participant.active_membership_end_date %>');
+  angular.module('socialNetworking.values').value('currentGoals', <%= @goals.to_json.html_safe %>);
 </script>

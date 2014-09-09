@@ -4,7 +4,6 @@ describe('GoalCtrl', function() {
       focusService,
       scope,
       q,
-      getAllDeferred,
       createDeferred,
       updateDeferred;
 
@@ -12,11 +11,6 @@ describe('GoalCtrl', function() {
     module('socialNetworking.controllers');
 
     goalService = {
-      getAll: function() {
-                getAllDeferred = q.defer();
-
-                return getAllDeferred.promise;
-              },
       create: function(attributes) {
                 createDeferred = q.defer();
 
@@ -36,20 +30,14 @@ describe('GoalCtrl', function() {
     q = $q;
     controller = $controller('GoalCtrl', {
       Goals: goalService,
-      focus: focusService
+      focus: focusService,
+      currentGoals: []
     });
   }));
 
   it('should initialize the attributes and mode', function() {
     expect(controller.description).toBe('');
     expect(controller.inBrowseMode()).toBeTruthy();
-  });
-
-  it('should fetch the goals', function() {
-    getAllDeferred.resolve([{ name: 'goal1' }, { name: 'goal2' }]);
-    scope.$digest();
-
-    expect(controller.participantGoals.length).toBe(2);
   });
 
   describe('#new', function() {

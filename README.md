@@ -53,3 +53,8 @@ Run the specs
 ## Run JSHint
 
     rake jshint
+
+## Development
+
+Note that when updating Angular, it is necessary to update
+`spec/javascripts/helpers/angular-mocks.js`.

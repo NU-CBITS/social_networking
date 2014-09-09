@@ -2,7 +2,7 @@
   "use strict";
 
   // Provides management of goals.
-  function GoalCtrl(GoalService, focus) {
+  function GoalCtrl(GoalService, focus, currentGoals) {
     var self = this;
 
     this.resetForm();
@@ -10,10 +10,7 @@
     this.participantGoals = [];
     this._goals = GoalService;
     this._focus = focus;
-    this._goals.getAll()
-      .then(function(goals) {
-        self.participantGoals = goals;
-      });
+    this.participantGoals = currentGoals;
   }
 
   GoalCtrl.BROWSE_MODE = 1;
@@ -107,5 +104,5 @@
 
   // Create a module and register the controller.
   angular.module('socialNetworking.controllers')
-    .controller('GoalCtrl', ['Goals', 'focus', GoalCtrl]);
+    .controller('GoalCtrl', ['Goals', 'focus', 'currentGoals', GoalCtrl]);
 })();

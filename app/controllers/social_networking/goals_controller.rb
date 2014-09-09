@@ -3,6 +3,11 @@ module SocialNetworking
   class GoalsController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
+    def tool
+      goals = Goal.where(participant_id: current_participant.id)
+      @goals = goals.map { |g| model_json(g) }
+    end
+
     def index
       goals = Goal.where(participant_id: current_participant.id)
 

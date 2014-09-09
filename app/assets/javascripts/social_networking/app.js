@@ -4,9 +4,11 @@ angular.module('socialNetworking', [
   'socialNetworking.controllers',
   'socialNetworking.filters',
   'socialNetworking.directives',
-  'socialNetworking.services'
+  'socialNetworking.services',
+  'socialNetworking.values'
 ]);
 
 // Define submodules.
 angular.module('socialNetworking.controllers', []);
 angular.module('socialNetworking.services', []);
+angular.module('socialNetworking.values', []);
