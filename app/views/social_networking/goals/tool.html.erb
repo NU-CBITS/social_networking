@@ -21,6 +21,11 @@
     </div>
   </div>
 
+  <button type="button" class="btn btn-link" id="help-pop" data-trigger="focus" data-container="body" data-toggle="popover" data-placement="bottom" data-content="This is where example goals and tips for write a goal will appear">
+      Need some help writing a goal?
+  </button>
+  <script>$("#help-pop").popover();</script>
+
   <form novalidate role="form" name="goalForm" class="row" ng-show="goal.inEntryMode()">
     <input type="hidden" ng-model="goal.goalModel.id" ng-if="goal.goalModel.id !== null">
 
