@@ -2,34 +2,30 @@
   "use strict";
 
   // Provides management of goals.
-  function GoalCtrl(GoalService, focus, currentGoals) {
-    var self = this;
+  function GoalCtrl(GoalService, goalTool, currentGoals, studyEndDate) {
+    this._goals = GoalService;
+    this._goalTool = goalTool;
+    this.goalModel = this._goalTool.goalModel;
+    this.participantGoals = currentGoals;
+    this.studyEndDate = studyEndDate;
 
     this.resetForm();
     this.resetTabs();
-    this.participantGoals = [];
-    this._goals = GoalService;
-    this._focus = focus;
-    this.participantGoals = currentGoals;
   }
-
-  GoalCtrl.BROWSE_MODE = 1;
-  GoalCtrl.ENTRY_MODE = 2;
 
   // Is this only available for goal browsing?
   GoalCtrl.prototype.inBrowseMode = function() {
-    return this.mode === GoalCtrl.BROWSE_MODE;
+    return this._goalTool.getMode() === this._goalTool.BROWSE_MODE;
   };
 
   // Is this available for goal entry?
   GoalCtrl.prototype.inEntryMode = function() {
-    return this.mode === GoalCtrl.ENTRY_MODE;
+    return this._goalTool.getMode() === this._goalTool.ENTRY_MODE;
   };
 
   // Open a form.
   GoalCtrl.prototype.new = function() {
-    this.mode = GoalCtrl.ENTRY_MODE;
-    this._focus('new-goal');
+    this._goalTool.new();
   };
 
   // Persist the isCompleted attribute to the server.
@@ -53,10 +49,11 @@
   GoalCtrl.prototype.save = function() {
     var self = this;
 
-    this._goals.create(this)
+    this._goals.create(this._goalTool.goalModel)
       .then(function(goal) {
         self.resetForm();
         self.participantGoals.push(goal);
+        self.resetTabs();
       })
       .catch(function(message) {
         self.error = message.error;
@@ -65,33 +62,21 @@
 
   // Undo any changes.
   GoalCtrl.prototype.resetForm = function() {
-    this.description = "";
-    this.isCompleted = false;
-    this.mode = GoalCtrl.BROWSE_MODE;
+    this._goalTool.resetForm();
+    this._goalTool.setMode(this._goalTool.BROWSE_MODE);
   };
 
   GoalCtrl.prototype.resetTabs = function() {
-    this.filter('all');
-    this.selectTab('all');
+    this._goalTool.setFilter('all');
+    this._goalTool.setTab('all');
   };
 
-  // Select the current subset of goals to display.
-  GoalCtrl.prototype.filter = function(type) {
-    switch(type) {
-      case 'all':
-        this.currentFilter = { isDeleted: false };
-        break;
-      case 'completed':
-        this.currentFilter = { isDeleted: false, isCompleted: true };
-        break;
-      case 'deleted':
-        this.currentFilter = { isDeleted: true };
-    }
+  GoalCtrl.prototype.setTab = function(name) {
+    this._goalTool.setTab(name);
   };
 
-  // Specify a tab to display.
-  GoalCtrl.prototype.selectTab = function(name) {
-    this.selectedTab = name;
+  GoalCtrl.prototype.getTab = function() {
+    return this._goalTool.getTab();
   };
 
   GoalCtrl.prototype.dateInNWeeks = function(n) {
@@ -99,10 +84,23 @@
   };
 
   GoalCtrl.prototype.dateAtEndOfTrial = function() {
-    return moment().format('YYYY-MM-DD');
+    return moment(this.studyEndDate).format('YYYY-MM-DD');
+  };
+
+  GoalCtrl.prototype.atLeastNWeeksLeftInTrial = function(n) {
+    return moment().add(n, 'weeks').isBefore(moment(this.studyEndDate));
+  };
+
+  GoalCtrl.prototype.setFilter = function(type) {
+    this._goalTool.setFilter(type);
+  };
+
+  GoalCtrl.prototype.getFilter = function() {
+    return this._goalTool.getFilter();
   };
 
   // Create a module and register the controller.
   angular.module('socialNetworking.controllers')
-    .controller('GoalCtrl', ['Goals', 'focus', 'currentGoals', GoalCtrl]);
+    .controller('GoalCtrl', ['Goals', 'goalTool', 'currentGoals',
+                'participantStudyEndDate', GoalCtrl]);
 })();

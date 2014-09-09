@@ -1,7 +1,6 @@
 describe('GoalCtrl', function() {
   var controller,
       goalService,
-      focusService,
       scope,
       q,
       createDeferred,
@@ -9,6 +8,7 @@ describe('GoalCtrl', function() {
 
   beforeEach(function() {
     module('socialNetworking.controllers');
+    module('socialNetworking.services');
 
     goalService = {
       create: function(attributes) {
@@ -22,21 +22,20 @@ describe('GoalCtrl', function() {
                 return updateDeferred.promise;
               }
     };
-    focusService = function(name) {};
   });
 
-  beforeEach(inject(function($rootScope, $q, $controller) {
+  beforeEach(inject(function($rootScope, $q, $controller, goalTool) {
     scope = $rootScope;
     q = $q;
     controller = $controller('GoalCtrl', {
       Goals: goalService,
-      focus: focusService,
-      currentGoals: []
+      goalTool: goalTool,
+      currentGoals: [],
+      participantStudyEndDate: '2014-01-01'
     });
   }));
 
-  it('should initialize the attributes and mode', function() {
-    expect(controller.description).toBe('');
+  it('should initialize the mode', function() {
     expect(controller.inBrowseMode()).toBeTruthy();
   });
 

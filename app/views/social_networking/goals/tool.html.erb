@@ -6,89 +6,91 @@
   </ul>
 <% end %>
 
-<div ng-app="socialNetworking">
-  <div ng-controller="GoalCtrl as goal">
-    <div class="row hidden-xs">
-      <div class="col-sm-3 col-md-3 col-lg-3">
-        <button class="btn btn-link" ng-click="goal.new()" ng-show="goal.inBrowseMode()">+ add a goal</button>
-      </div>
+<div ng-controller="GoalCtrl as goal">
+  <div class="row hidden-xs">
+    <div class="col-sm-3 col-md-3 col-lg-3">
+      <button class="btn btn-link" ng-click="goal.new()" ng-show="goal.inBrowseMode()">+ add a goal</button>
+    </div>
 
-      <div class="col-sm-9 col-md-9 col-lg-9">
-        <ul class="nav nav-tabs" role="tablist">
-          <li ng-class="goal.selectedTab === 'all' ? 'active' : ''"><a href="" ng-click="goal.filter('all'); goal.selectTab('all')">All</a></li>
-          <li ng-class="goal.selectedTab === 'completed' ? 'active' : ''"><a href="" ng-click="goal.filter('completed'); goal.selectTab('completed')">Completed</a></li>
-          <li ng-class="goal.selectedTab === 'deleted' ? 'active' : ''"><a href="" ng-click="goal.filter('deleted'); goal.selectTab('deleted')">Deleted</a></li>
-        </ul>
+    <div class="col-sm-9 col-md-9 col-lg-9">
+      <ul class="nav nav-tabs" role="tablist" ng-show="goal.inBrowseMode()">
+        <li ng-class="goal.getTab() === 'all' ? 'active' : ''"><a href="" ng-click="goal.setFilter('all'); goal.setTab('all')">All</a></li>
+        <li ng-class="goal.getTab() === 'completed' ? 'active' : ''"><a href="" ng-click="goal.setFilter('completed'); goal.setTab('completed')">Completed</a></li>
+        <li ng-class="goal.getTab() === 'deleted' ? 'active' : ''"><a href="" ng-click="goal.setFilter('deleted'); goal.setTab('deleted')">Deleted</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <form novalidate role="form" name="goalForm" class="row" ng-show="goal.inEntryMode()">
+    <div class="form-group col-lg-8 col-md-8">
+      <label for="new-goal-description">What is your goal?</label>
+      <input type="text" class="form-control" id="new-goal-description" ng-model="goal.goalModel.description" ng-maxlength="255" required focus-on="new-goal">
+    </div>
+
+    <div class="form-group col-lg-8 col-md-8">
+      <label>When do you want it completed?</label>
+      <div class="radio">
+        <label>
+          <input type="radio" name="due-on" ng-model="goal.goalModel.dueOn" value=""> no specific date
+        </label>
+      </div>
+      <div class="radio" ng-if="goal.atLeastNWeeksLeftInTrial(1)">
+        <label>
+          <input type="radio" name="due-on" ng-model="goal.goalModel.dueOn" value="{{ goal.dateInNWeeks(1) }}"> end of one week
+        </label>
+      </div>
+      <div class="radio" ng-if="goal.atLeastNWeeksLeftInTrial(2)">
+        <label>
+          <input type="radio" name="due-on" ng-model="goal.goalModel.dueOn" value="{{ goal.dateInNWeeks(2) }}"> end of 2 weeks
+        </label>
+      </div>
+      <div class="radio" ng-if="goal.atLeastNWeeksLeftInTrial(4)">
+        <label>
+          <input type="radio" name="due-on" ng-model="goal.goalModel.dueOn" value="{{ goal.dateInNWeeks(4) }}"> end of 4 weeks
+        </label>
+      </div>
+      <div class="radio" ng-if="goal.dateAtEndOfTrial() !== null">
+        <label>
+          <input type="radio" name="due-on" ng-model="goal.goalModel.dueOn" value="{{ goal.dateAtEndOfTrial() }}"> end of the trial
+        </label>
       </div>
     </div>
 
-    <form novalidate role="form" name="goalForm" class="row" ng-show="goal.inEntryMode()">
-      <div class="form-group col-lg-8 col-md-8">
-        <label for="new-goal-description">What is your goal?</label>
-        <input type="text" class="form-control" id="new-goal-description" ng-model="goal.description" ng-maxlength="255" required focus-on="new-goal">
-      </div>
+    <div class="form-group col-lg-8 col-md-8">
+      <button class="btn btn-primary" ng-click="goal.save()" ng-disabled="goalForm.$invalid">Save</button>
+      <button class="btn btn-default" ng-click="goal.resetForm()">Cancel</button>
+    </div>
+  </form>
 
-      <div class="form-group col-lg-8 col-md-8">
-        <label>When do you want it completed?</label>
-        <div class="radio">
-          <label>
-            <input type="radio" name="due-on" ng-model="goal.dueOn" value=""> no specific date
-          </label>
-        </div>
-        <div class="radio">
-          <label>
-            <input type="radio" name="due-on" ng-model="goal.dueOn" value="{{ goal.dateInNWeeks(1) }}"> end of one week
-          </label>
-        </div>
-        <div class="radio">
-          <label>
-            <input type="radio" name="due-on" ng-model="goal.dueOn" value="{{ goal.dateInNWeeks(2) }}"> end of 2 weeks
-          </label>
-        </div>
-        <div class="radio">
-          <label>
-            <input type="radio" name="due-on" ng-model="goal.dueOn" value="{{ goal.dateInNWeeks(4) }}"> end of 4 weeks
-          </label>
-        </div>
-        <div class="radio">
-          <label>
-            <input type="radio" name="due-on" ng-model="goal.dueOn" value="{{ goal.dateAtEndOfTrial() }}"> end of the trial
-          </label>
-        </div>
-      </div>
+  <ul class="list-group" ng-show="goal.inBrowseMode()">
+    <li ng-repeat="participantGoal in goal.participantGoals | filter:goal.getFilter() | orderBy:'isCompleted'"
+        class="list-group-item"
+        id="goal-{{ participantGoal.id }}"
+        ng-class="participantGoal.isCompleted ? 'list-group-item-success' : ''">
+      <label>
+        <input ng-disabled="participantGoal.isDeleted" type="checkbox" ng-model="participantGoal.isCompleted" ng-change="goal.toggleComplete(participantGoal)"> {{ participantGoal.description }}
+      </label>
 
-      <div class="form-group col-lg-8 col-md-8">
-        <button class="btn btn-primary" ng-click="goal.save()" ng-disabled="goalForm.$invalid">Save</button>
-        <button class="btn btn-default" ng-click="goal.resetForm()">Cancel</button>
-      </div>
-    </form>
+      <button ng-if="!participantGoal.isDeleted" class="btn btn-link pull-right delete" ng-click="goal.toggleDeleted(participantGoal)"><i class="fa fa-trash-o text-danger"></i></button>
+      <button ng-if="participantGoal.isDeleted" class="btn btn-link pull-right restore" ng-click="goal.toggleDeleted(participantGoal)"><i class="fa fa-undo"></i></button>
+    </li>
+  </ul>
+</div>
 
-    <ul class="list-group">
-      <li ng-repeat="participantGoal in goal.participantGoals | filter:goal.currentFilter | orderBy:'isCompleted'"
-          class="list-group-item"
-          id="goal-{{ participantGoal.id }}"
-          ng-class="participantGoal.isCompleted ? 'list-group-item-success' : ''">
-        <label>
-          <input ng-disabled="participantGoal.isDeleted" type="checkbox" ng-model="participantGoal.isCompleted" ng-change="goal.toggleComplete(participantGoal)"> {{ participantGoal.description }}
-        </label>
-
-        <button ng-if="!participantGoal.isDeleted" class="btn btn-link pull-right delete" ng-click="goal.toggleDeleted(participantGoal)"><i class="fa fa-trash-o text-danger"></i></button>
-        <button ng-if="participantGoal.isDeleted" class="btn btn-link pull-right restore" ng-click="goal.toggleDeleted(participantGoal)"><i class="fa fa-undo"></i></button>
-      </li>
-    </ul>
-
-    <nav class="navbar navbar-default navbar-fixed-bottom visible-xs-block" role="navigation">
+<% content_for(:bottom) do %>
+  <div ng-controller="GoalCtrl as goal">
+    <nav class="navbar navbar-default navbar-fixed-bottom visible-xs-block" role="navigation" ng-show="goal.inBrowseMode()">
       <div class="container">
         <div class="row">
           <div class="col-xs-2"><button class="btn btn-link" ng-click="goal.new()">+</button></div>
-          <div class="col-xs-2" ng-class="goal.selectedTab === 'all' ? 'active' : ''" ng-click="goal.filter('all'); goal.selectTab('all')"><button class="btn btn-link">All</button></div>
-          <div class="col-xs-4" ng-class="goal.selectedTab === 'completed' ? 'active' : ''" ng-click="goal.filter('completed'); goal.selectTab('completed')"><button class="btn btn-link">Completed</button></div>
-          <div class="col-xs-4" ng-class="goal.selectedTab === 'deleted' ? 'active' : ''" ng-click="goal.filter('deleted'); goal.selectTab('deleted')"><button class="btn btn-link">Deleted</button></div>
+          <div class="col-xs-2" ng-class="goal.getTab() === 'all' ? 'active' : ''" ng-click="goal.setFilter('all'); goal.setTab('all')"><button class="btn btn-link">All</button></div>
+          <div class="col-xs-4" ng-class="goal.getTab() === 'completed' ? 'active' : ''" ng-click="goal.setFilter('completed'); goal.setTab('completed')"><button class="btn btn-link">Completed</button></div>
+          <div class="col-xs-4" ng-class="goal.getTab() === 'deleted' ? 'active' : ''" ng-click="goal.setFilter('deleted'); goal.setTab('deleted')"><button class="btn btn-link">Deleted</button></div>
         </div>
       </div>
     </nav>
   </div>
-</div>
+<% end %>
 
 <!-- bootstrap Angular app with current participant study end date -->
 <script>
