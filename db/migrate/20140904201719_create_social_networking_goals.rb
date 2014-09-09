@@ -5,6 +5,7 @@ class CreateSocialNetworkingGoals < ActiveRecord::Migration
       t.integer :participant_id, null: false
       t.boolean :is_completed, null: false, default: false
       t.boolean :is_deleted, null: false, default: false
+      t.date :due_on
 
       t.timestamps
     end

@@ -26,6 +26,38 @@
       <div class="form-group col-lg-8 col-md-8">
         <label for="new-goal-description">What is your goal?</label>
         <input type="text" class="form-control" id="new-goal-description" ng-model="goal.description" ng-maxlength="255" required focus-on="new-goal">
+      </div>
+
+      <div class="form-group col-lg-8 col-md-8">
+        <label>When do you want it completed?</label>
+        <div class="radio">
+          <label>
+            <input type="radio" name="due-on" ng-model="goal.dueOn" value=""> no specific date
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="due-on" ng-model="goal.dueOn" value="{{ goal.dateInNWeeks(1) }}"> end of one week
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="due-on" ng-model="goal.dueOn" value="{{ goal.dateInNWeeks(2) }}"> end of 2 weeks
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="due-on" ng-model="goal.dueOn" value="{{ goal.dateInNWeeks(4) }}"> end of 4 weeks
+          </label>
+        </div>
+        <div class="radio">
+          <label>
+            <input type="radio" name="due-on" ng-model="goal.dueOn" value="{{ goal.dateAtEndOfTrial() }}"> end of the trial
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group col-lg-8 col-md-8">
         <button class="btn btn-primary" ng-click="goal.save()" ng-disabled="goalForm.$invalid">Save</button>
         <button class="btn btn-default" ng-click="goal.resetForm()">Cancel</button>
       </div>
@@ -57,3 +89,8 @@
     </nav>
   </div>
 </div>
+
+<!-- bootstrap Angular app with current participant study end date -->
+<script>
+  angular.module('socialNetworking').value('participantStudyEndDate', '<%= current_participant.active_membership_end_date %>');
+</script>

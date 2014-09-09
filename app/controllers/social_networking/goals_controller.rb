@@ -40,7 +40,7 @@ module SocialNetworking
 
     def sanitized_params
       s_params = { participant_id: current_participant.id }
-      [:description, :isCompleted, :isDeleted].each do |param|
+      [:description, :isCompleted, :isDeleted, :dueOn].each do |param|
         unless params[param].nil?
           s_params[param.to_s.underscore.to_sym] = params[param]
         end
@@ -59,7 +59,8 @@ module SocialNetworking
         participantId: model.participant_id,
         description: model.description,
         isCompleted: model.is_completed,
-        isDeleted: model.is_deleted
+        isDeleted: model.is_deleted,
+        dueOn: model.due_on
       }
     end
   end

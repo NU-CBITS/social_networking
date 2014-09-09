@@ -9,7 +9,8 @@ module SocialNetworking
              participant_id: participant.id,
              description: "run a marathon",
              is_completed: false,
-             is_deleted: false)
+             is_deleted: false,
+             due_on: Date.today)
     end
     let(:errors) { double("errors", full_messages: ["baz"]) }
 

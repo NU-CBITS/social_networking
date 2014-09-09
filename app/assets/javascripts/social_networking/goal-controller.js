@@ -97,6 +97,14 @@
     this.selectedTab = name;
   };
 
+  GoalCtrl.prototype.dateInNWeeks = function(n) {
+    return moment().add(n, 'weeks').format('YYYY-MM-DD');
+  };
+
+  GoalCtrl.prototype.dateAtEndOfTrial = function() {
+    return moment().format('YYYY-MM-DD');
+  };
+
   // Create a module and register the controller.
   angular.module('socialNetworking.controllers')
     .controller('GoalCtrl', ['Goals', 'focus', GoalCtrl]);

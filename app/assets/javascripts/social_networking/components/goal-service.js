@@ -16,7 +16,8 @@
     Goal.create = function(attributes) {
       var goal = new GoalResource({
         description: attributes.description,
-        isCompleted: attributes.isCompleted
+        isCompleted: attributes.isCompleted,
+        dueOn: attributes.dueOn
       });
 
       return goal.$save();
@@ -28,7 +29,8 @@
         id: attributes.id,
         description: attributes.description,
         isCompleted: attributes.isCompleted,
-        isDeleted: attributes.isDeleted
+        isDeleted: attributes.isDeleted,
+        dueOn: attributes.dueOn
       });
 
       return goal.$save();
