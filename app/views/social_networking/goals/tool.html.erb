@@ -43,7 +43,7 @@
       </div>
       <div class="radio" ng-if="goal.atLeastNWeeksLeftInTrial(2)">
         <label>
-          <input type="radio" name="due-on" ng-model="goal.goalModel.dueOn" value="{{ goal.dateInNWeeks(2) }}"> end of 2 weeks
+          <input type="radio" name="due-on" ng-model="goal.goalModel.dueOn" id="due-in-2-weeks" value="{{ goal.dateInNWeeks(2) }}"> end of 2 weeks
         </label>
       </div>
       <div class="radio" ng-if="goal.atLeastNWeeksLeftInTrial(4)">

@@ -8,6 +8,7 @@ describe "goal tool", type: :feature, js: true do
   scenario "Participant enters a new goal" do
     click_button "+ add a goal"
     fill_in "What is your goal?", with: "all of the things"
+    choose "end of 2 weeks"
     click_button "Save"
 
     expect(page).to have_content("all of the things")
@@ -58,6 +59,15 @@ describe "goal tool", type: :feature, js: true do
     expect(page).to have_goal("delta")
   end
 
+  scenario "Participant edits a goal" do
+    edit "beta"
+    fill_in "What is your goal?", with: "beta foo"
+    choose "end of 4 weeks"
+    click_button "Save"
+
+    expect(page).to have_content("beta foo")
+  end
+
   def have_goal(label)
     have_css("li.list-group-item label", text: label)
   end
@@ -69,6 +79,11 @@ describe "goal tool", type: :feature, js: true do
   def delete(label)
     goal = SocialNetworking::Goal.find_by_description(label)
     find("li#goal-#{ goal.id } button.delete").click
+  end
+
+  def edit(label)
+    goal = SocialNetworking::Goal.find_by_description(label)
+    find("li#goal-#{ goal.id } button.edit").click
   end
 
   def restore(label)
