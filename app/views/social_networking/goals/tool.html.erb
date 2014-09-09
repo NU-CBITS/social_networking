@@ -22,6 +22,8 @@
   </div>
 
   <form novalidate role="form" name="goalForm" class="row" ng-show="goal.inEntryMode()">
+    <input type="hidden" ng-model="goal.goalModel.id" ng-if="goal.goalModel.id !== null">
+
     <div class="form-group col-lg-8 col-md-8">
       <label for="new-goal-description">What is your goal?</label>
       <input type="text" class="form-control" id="new-goal-description" ng-model="goal.goalModel.description" ng-maxlength="255" required focus-on="new-goal">
@@ -72,6 +74,7 @@
       </label>
 
       <button ng-if="!participantGoal.isDeleted" class="btn btn-link pull-right delete" ng-click="goal.toggleDeleted(participantGoal)"><i class="fa fa-trash-o text-danger"></i></button>
+      <button ng-if="!participantGoal.isDeleted" class="btn btn-link pull-right edit" ng-click="goal.edit(participantGoal)"><i class="fa fa-pencil"></i></button>
       <button ng-if="participantGoal.isDeleted" class="btn btn-link pull-right restore" ng-click="goal.toggleDeleted(participantGoal)"><i class="fa fa-undo"></i></button>
     </li>
   </ul>

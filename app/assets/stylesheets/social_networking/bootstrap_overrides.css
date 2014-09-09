@@ -1,11 +1,7 @@
 /* list group (for goals) */
 .list-group .list-group-item label {
-  margin-bottom: 0;
-  max-width: 90%;
-}
-
-.list-group .list-group-item button {
-  padding: 0;
+  max-width: 70%;
+  margin-top: 8px;
 }
 
 /* bottom navbar (for mobile) */

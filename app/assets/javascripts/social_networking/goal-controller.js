@@ -5,7 +5,7 @@
   function GoalCtrl(GoalService, goalTool, currentGoals, studyEndDate) {
     this._goals = GoalService;
     this._goalTool = goalTool;
-    this.goalModel = this._goalTool.goalModel;
+    this.goalModel = this._goalTool.getModel();
     this.participantGoals = currentGoals;
     this.studyEndDate = studyEndDate;
 
@@ -25,7 +25,11 @@
 
   // Open a form.
   GoalCtrl.prototype.new = function() {
-    this._goalTool.new();
+    this._goalTool.edit();
+  };
+
+  GoalCtrl.prototype.edit = function(goal) {
+    this._goalTool.edit(goal);
   };
 
   // Persist the isCompleted attribute to the server.
@@ -49,20 +53,41 @@
   GoalCtrl.prototype.save = function() {
     var self = this;
 
-    this._goals.create(this._goalTool.goalModel)
-      .then(function(goal) {
-        self.resetForm();
-        self.participantGoals.push(goal);
-        self.resetTabs();
-      })
-      .catch(function(message) {
-        self.error = message.error;
-      });
+    if (this._goalTool.getModel().id === null) {
+      this._goals.create(this._goalTool.getModel())
+        .then(function(goal) {
+          self.resetForm();
+          self.participantGoals.push(goal);
+          self.resetTabs();
+        })
+        .catch(function(message) {
+          self.error = message.error;
+        });
+    } else {
+      this._goals.update(this._goalTool.getModel())
+        .then(function(goal) {
+          // Update the model in the collection.
+          self.participantGoals.some(function(g, i, array) {
+            if (g.id === goal.id) {
+              self._goalTool.copy(goal, g);
+
+              return true;
+            }
+
+            return false;
+          });
+          self.resetForm();
+          self.resetTabs();
+        })
+        .catch(function(message) {
+          self.error = message.error;
+        });
+    }
   };
 
   // Undo any changes.
   GoalCtrl.prototype.resetForm = function() {
-    this._goalTool.resetForm();
+    this._goalTool.setModel();
     this._goalTool.setMode(this._goalTool.BROWSE_MODE);
   };
 
