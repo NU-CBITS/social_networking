@@ -33,7 +33,7 @@ require "jshintrb/jshinttask"
 Jshintrb::JshintTask.new :jshint do |t|
   t.pattern = "app/assets/javascripts/**/*.js"
   t.options = :defaults
-  t.globals = [:angular, :moment]
+  t.globals = [:angular, :moment, "$"]
 end
 
 require "rubocop/rake_task"

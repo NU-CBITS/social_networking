@@ -15,57 +15,57 @@ describe "goal tool", type: :feature, js: true do
   end
 
   scenario "Participant completes a goal" do
-    check "alpha"
+    check "p1 alpha"
 
-    expect(page).to have_completed_goal("alpha")
+    expect(page).to have_completed_goal("p1 alpha")
 
     click_link "Completed"
 
-    expect(page).to have_completed_goal("alpha")
+    expect(page).to have_completed_goal("p1 alpha")
   end
 
   scenario "Participant removes a goal's completed status" do
-    expect(page).to have_completed_goal("beta")
+    expect(page).to have_completed_goal("p1 beta")
 
-    uncheck "beta"
+    uncheck "p1 beta"
 
-    expect(page).not_to have_completed_goal("beta")
+    expect(page).not_to have_completed_goal("p1 beta")
 
     click_link "Completed"
 
-    expect(page).not_to have_content("beta")
+    expect(page).not_to have_content("p1 beta")
   end
 
   scenario "Participant deletes a goal" do
-    delete "gamma"
+    delete "p1 gamma"
 
-    expect(page).not_to have_goal("gamma")
+    expect(page).not_to have_goal("p1 gamma")
 
     click_link "Deleted"
 
-    expect(page).to have_goal("gamma")
+    expect(page).to have_goal("p1 gamma")
   end
 
   scenario "Participant restores a goal" do
-    expect(page).not_to have_goal("delta")
+    expect(page).not_to have_goal("p1 delta")
 
     click_link "Deleted"
-    restore "delta"
+    restore "p1 delta"
 
-    expect(page).not_to have_goal("delta")
+    expect(page).not_to have_goal("p1 delta")
 
     click_link "All"
 
-    expect(page).to have_goal("delta")
+    expect(page).to have_goal("p1 delta")
   end
 
   scenario "Participant edits a goal" do
-    edit "beta"
-    fill_in "What is your goal?", with: "beta foo"
+    edit "p1 beta"
+    fill_in "What is your goal?", with: "p1 beta foo"
     choose "end of 4 weeks"
     click_button "Save"
 
-    expect(page).to have_content("beta foo")
+    expect(page).to have_content("p1 beta foo")
   end
 
   def have_goal(label)

@@ -11,6 +11,9 @@
 
     this.resetForm();
     this.resetTabs();
+    if (typeof $ !== 'undefined') {
+      $("#help-pop").popover();
+    }
   }
 
   // Is this only available for goal browsing?

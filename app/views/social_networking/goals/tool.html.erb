@@ -2,7 +2,8 @@
 
 <%= content_for :navbar do %>
   <ul class="nav navbar-nav">
-    <li class="active"><%= link_to "Goals", social_networking_goals_path, data: { no_turbolink: true } %></li>
+    <li class="active"><%= link_to "My Goals", social_networking_goals_path, data: { no_turbolink: true } %></li>
+    <li><%= link_to "Others' Goals", social_networking_group_goals_path, data: { no_turbolink: true } %></li>
   </ul>
 <% end %>
 
@@ -24,7 +25,6 @@
   <button type="button" class="btn btn-link" id="help-pop" data-trigger="focus" data-container="body" data-toggle="popover" data-placement="bottom" data-content="This is where example goals and tips for write a goal will appear">
       Need some help writing a goal?
   </button>
-  <script>$("#help-pop").popover();</script>
 
   <form novalidate role="form" name="goalForm" class="row" ng-show="goal.inEntryMode()">
     <input type="hidden" ng-model="goal.goalModel.id" ng-if="goal.goalModel.id !== null">

@@ -1,17 +1,35 @@
 participant1_goal_alpha:
   participant: participant1
-  description: alpha
+  description: p1 alpha
 
 participant1_goal_beta:
   participant: participant1
-  description: beta
+  description: p1 beta
   is_completed: true
 
 participant1_goal_gamma:
   participant: participant1
-  description: gamma
+  description: p1 gamma
 
 participant1_goal_delta:
   participant: participant1
-  description: delta
+  description: p1 delta
+  is_deleted: true
+
+participant2_goal_alpha:
+  participant: participant2
+  description: p2 alpha
+
+participant2_goal_beta:
+  participant: participant2
+  description: p2 beta
+  is_completed: true
+
+participant2_goal_gamma:
+  participant: participant2
+  description: p2 gamma
+
+participant2_goal_delta:
+  participant: participant1
+  description: p2 delta
   is_deleted: true

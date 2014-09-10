@@ -4,6 +4,7 @@ SocialNetworking::Engine.routes.draw do
   get "/profiles", to: "application#profiles", as: :social_networking_profiles
   get "/feed", to: "application#feed", as: :social_networking_feed
   get "/goal_tool", to: "goals#tool", as: :social_networking_goals
+  get "/group_goals", to: "goals#group", as: :social_networking_group_goals
 
   # server api
   resources :participants, only: [:index, :show]

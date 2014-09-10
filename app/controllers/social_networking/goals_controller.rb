@@ -8,6 +8,12 @@ module SocialNetworking
       @goals = goals.map { |g| model_json(g) }
     end
 
+    def group
+      goals = Goal.where.not(participant_id: current_participant.id,
+                             is_deleted: true)
+      @goals = goals.map { |g| model_json(g) }
+    end
+
     def index
       goals = Goal.where(participant_id: current_participant.id)
 
