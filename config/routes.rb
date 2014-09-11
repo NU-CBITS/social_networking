@@ -11,5 +11,5 @@ SocialNetworking::Engine.routes.draw do
   resources :on_the_mind_statements, only: :create
   resources :goals, only: [:index, :create]
   post "goals/:id", to: "goals#update", as: :goal
-  resource :feed, only: :show
+  resource :home, only: :show
 end
