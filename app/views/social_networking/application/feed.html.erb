@@ -1,9 +1,7 @@
-<%= render "nav" %>
+<%= render "social_networking/shared/nav" %>
 
-<div ng-app="socialNetworking">
-  <div ng-controller="FeedCtrl as feed">
-    <div ng-repeat="item in feed.items">
-      <div feed-item></div>
-    </div>
+<div ng-controller="FeedCtrl as feed">
+  <div ng-repeat="item in feed.items">
+    <div feed-item></div>
   </div>
 </div>
