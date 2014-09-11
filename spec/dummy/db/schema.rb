@@ -86,4 +86,12 @@ ActiveRecord::Schema.define(version: 20140917151905) do
     t.datetime "updated_at"
   end
 
+  create_table "social_networking_shared_items", force: true do |t|
+    t.integer  "participant_id", null: false
+    t.integer  "item_id",        null: false
+    t.string   "item_type",      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
 end
