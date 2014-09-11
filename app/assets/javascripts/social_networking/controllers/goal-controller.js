@@ -18,12 +18,12 @@
 
   // Is this only available for goal browsing?
   GoalCtrl.prototype.inBrowseMode = function() {
-    return this._goalTool.getMode() === this._goalTool.BROWSE_MODE;
+    return this._goalTool.getMode() === this._goalTool.MODES.BROWSE;
   };
 
   // Is this available for goal entry?
   GoalCtrl.prototype.inEntryMode = function() {
-    return this._goalTool.getMode() === this._goalTool.ENTRY_MODE;
+    return this._goalTool.getMode() === this._goalTool.MODES.ENTRY;
   };
 
   // Open a form.
@@ -91,7 +91,7 @@
   // Undo any changes.
   GoalCtrl.prototype.resetForm = function() {
     this._goalTool.setModel();
-    this._goalTool.setMode(this._goalTool.BROWSE_MODE);
+    this._goalTool.setMode(this._goalTool.MODES.BROWSE);
   };
 
   GoalCtrl.prototype.resetTabs = function() {
