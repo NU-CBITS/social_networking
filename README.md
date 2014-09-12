@@ -21,6 +21,14 @@ Add the migrations and run them
 
     rake social_networking:install:migrations db:migrate
 
+Install PhantomJS
+
+    Download: http://phantomjs.org/download.html
+    Add the unzipped /bin folder to your $PATH:
+    ---
+    export PHANTOM_JS=$HOME_DIR/tools/phantomjs-1.9.7-linux-x86_64/bin/
+    PATH=$PATH:$PHANTOM_JS
+    ---
 
 ## Usage
 
