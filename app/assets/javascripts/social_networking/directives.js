@@ -9,14 +9,6 @@
     };
   }
 
-  // Summarizes an item to be displayed in a feed.
-  function feedItem() {
-    return {
-      template: '<p>{{ item.creator }}</p>' +
-                '<p>{{ item.createdAt | timeFromNow }}</p>'
-    };
-  }
-
   // Listen for 'focusOn' event and focus on the input.
   function focusOn() {
     return function(scope, elem, attr) {
@@ -31,6 +23,5 @@
   // Create a module and register the directives.
   angular.module('socialNetworking.directives', [])
     .directive('profileStatus', profileStatus)
-    .directive('feedItem', feedItem)
     .directive('focusOn', focusOn);
 })();

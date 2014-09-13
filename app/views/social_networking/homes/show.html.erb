@@ -1,9 +1,51 @@
+<%= stylesheet_link_tag "social_networking/bootstrap_overrides" %>
+
 <%= render "social_networking/shared/nav" %>
 
-<div ng-controller="FeedCtrl as feed">
-  <a href="">What's on your mind?</a>
+<div ng-controller="HomeCtrl as home">
+  <button class="btn btn-link" ng-click="home.newOnYourMindStatement()" ng-show="home.inFeedBrowseMode()">What's on your mind?</button>
 
-  <div ng-repeat="item in feed.items">
-    <div feed-item></div>
+  <form novalidate role="form" name="onYourMindForm" class="row" ng-show="home.inOnYourMindEntryMode()">
+    <div class="form-group col-lg-8 col-md-8">
+      <label for="new-on-your-mind-description">What's on your mind?</label>
+      <input type="text" class="form-control" id="new-on-your-mind-description" ng-model="home.onYourMindModel.description" ng-maxlength="255" required focus-on="new-goal">
+    </div>
+
+    <div class="form-group col-lg-8 col-md-8">
+      <button class="btn btn-primary" ng-click="home.saveOnYourMind()" ng-disabled="onYourMindForm.$invalid">Save</button>
+      <button class="btn btn-default" ng-click="home.cancelOnYourMindEntryMode()">Cancel</button>
+    </div>
+  </form>
+
+  <ul class="list-group">
+    <li ng-repeat="item in home.feedItems"
+        ng-show="home.inFeedBrowseMode()"
+        class="list-group-item">
+      <label>{{ item.description }}</label>
+    </li>
+  </ul>
+
+  <div ng-repeat="profile in home.memberProfiles">
+    <div profile-status></div>
   </div>
 </div>
+
+<% content_for(:bottom) do %>
+  <div ng-controller="HomeCtrl as home">
+    <nav class="navbar navbar-default navbar-fixed-bottom visible-xs-block" role="navigation" ng-show="home.inFeedBrowseMode()">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-2" ng-click="home.show('feed')"><button class="btn btn-link">Feed</button></div>
+          <div class="col-xs-2" ng-click="home.show('profiles')"><button class="btn btn-link">Profiles</button></div>
+        </div>
+      </div>
+    </nav>
+  </div>
+<% end %>
+
+<!-- bootstrap Angular app with data -->
+<script>
+  angular.module('socialNetworking.values')
+    .value('feedItems', <%= @feed_items.to_json.html_safe %>)
+    .value('memberProfiles', <%= @member_profiles.to_json.html_safe %>);
+</script>
