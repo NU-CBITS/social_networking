@@ -1,0 +1,7 @@
+profile1:
+  participant: participant1
+  active: true
+
+profile2:
+  participant: participant2
+  active: true
