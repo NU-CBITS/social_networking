@@ -21,6 +21,7 @@
     <li ng-repeat="item in home.feedItems"
         ng-show="home.inFeedBrowseMode()"
         class="list-group-item">
+      {{ item.participantId }}<br>
       <label>{{ item.description }}</label>
     </li>
   </ul>

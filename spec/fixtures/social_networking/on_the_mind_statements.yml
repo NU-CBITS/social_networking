@@ -1,0 +1,7 @@
+participant1_statement1:
+  participant: participant1
+  description: it's always sunny in Philadelphia
+
+participant2_statement1:
+  participant: participant2
+  description: what about Bob?
