@@ -11,7 +11,7 @@ module SocialNetworking
     end
 
     it "should prevent dates past the end of the study membership" do
-      participant = participants(:participant10)
+      participant = participants(:participant1)
       allow(participant).to receive(:active_membership_end_date) { Date.today }
       goal = Goal.create(participant: participant,
                          due_on: Date.today.advance(days: 1))
