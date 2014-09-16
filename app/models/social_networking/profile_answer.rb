@@ -1,9 +1,14 @@
 module SocialNetworking
-  # A question that is posed to participants when a profile is being created or updated.
+  # A question that is posed to participants when a profile is being created or
+  # updated.
   class ProfileAnswer < ActiveRecord::Base
-    belongs_to :social_networking_profile, :class_name => 'SocialNetworking::Profile'
-    has_one :social_networking_profile_question, :class_name => 'SocialNetworking::ProfileQuestion'
+    belongs_to :profile,
+               class_name: "SocialNetworking::Profile",
+               foreign_key: :social_networking_profile_id
+    belongs_to :profile_question,
+               class_name: "SocialNetworking::ProfileQuestion",
+               foreign_key: :social_networking_profile_question_id
 
-    validates :social_networking_profile, :social_networking_profile_question, presence: true
+    validates :profile, :profile_question, presence: true
   end
 end

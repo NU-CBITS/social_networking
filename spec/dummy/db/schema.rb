@@ -62,9 +62,10 @@ ActiveRecord::Schema.define(version: 20140915190633) do
   end
 
   create_table "social_networking_profile_answers", force: true do |t|
-    t.integer  "profile_question_id", null: false
+    t.integer  "social_networking_profile_id",          null: false
+    t.integer  "social_networking_profile_question_id", null: false
     t.integer  "order"
-    t.string   "answer_text",         null: false
+    t.string   "answer_text",                           null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
