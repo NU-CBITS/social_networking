@@ -6,25 +6,18 @@ module SocialNetworking
     def index
       participants = Participant.all
 
-      render json: participants.map { |p| model_json(p) }
+      render json: Serializers::ParticipantSerializer
+        .from_collection(participants)
     end
 
     def show
       participant = Participant.find(params[:id])
 
-      render json: model_json(participant)
+      render json: Serializers::ParticipantSerializer.new(participant)
+        .to_serialized
     end
 
     private
-
-    def model_json(model)
-      {
-        id: model.id,
-        username: model.email,
-        lastLogin: model.last_sign_in_at,
-        endOfTrial: model.active_membership_end_date
-      }
-    end
 
     def record_not_found
       render json: { error: "participant not found" }, status: 404

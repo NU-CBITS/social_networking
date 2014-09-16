@@ -5,11 +5,7 @@ module SocialNetworking
       @nudge = Nudge.new(sanitized_params)
 
       if @nudge.save
-        render json: {
-          id: @nudge.id,
-          initiatorId: @nudge.initiator_id,
-          recipientId: @nudge.recipient_id
-        }
+        render json: Serializers::NudgeSerializer.new(@nudge).to_serialized
       else
         render json: { error: model_errors }, status: 400
       end

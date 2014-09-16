@@ -5,26 +5,26 @@ module SocialNetworking
 
     def tool
       goals = Goal.where(participant_id: current_participant.id)
-      @goals = goals.map { |g| model_json(g) }
+      @goals = Serializers::GoalSerializer.from_collection(goals)
     end
 
     def group
       goals = Goal.where.not(participant_id: current_participant.id,
                              is_deleted: true)
-      @goals = goals.map { |g| model_json(g) }
+      @goals = Serializers::GoalSerializer.from_collection(goals)
     end
 
     def index
       goals = Goal.where(participant_id: current_participant.id)
 
-      render json: goals.map { |g| model_json(g) }
+      render json: Serializers::GoalSerializer.from_collection(goals)
     end
 
     def create
       @goal = Goal.new(sanitized_params)
 
       if @goal.save
-        render json: model_json(@goal)
+        render json: Serializers::GoalSerializer.new(@goal).to_serialized
       else
         render json: { error: model_errors }, status: 400
       end
@@ -37,7 +37,7 @@ module SocialNetworking
       ).first || fail(ActiveRecord::RecordNotFound)
 
       if @goal.update(sanitized_params)
-        render json: model_json(@goal)
+        render json: Serializers::GoalSerializer.new(@goal).to_serialized
       else
         render json: { error: model_errors }, status: 400
       end
@@ -62,17 +62,6 @@ module SocialNetworking
 
     def model_errors
       @goal.errors.full_messages.join(", ")
-    end
-
-    def model_json(model)
-      {
-        id: model.id,
-        participantId: model.participant_id,
-        description: model.description,
-        isCompleted: model.is_completed,
-        isDeleted: model.is_deleted,
-        dueOn: model.due_on
-      }
     end
   end
 end
