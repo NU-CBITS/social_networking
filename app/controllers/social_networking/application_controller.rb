@@ -4,6 +4,8 @@ module SocialNetworking
     before_action :authenticate_participant!
     after_action :set_csrf_cookie_for_ng
 
+    layout "engine"
+
     protected
 
     def verified_request?

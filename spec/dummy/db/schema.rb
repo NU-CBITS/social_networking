@@ -62,16 +62,14 @@ ActiveRecord::Schema.define(version: 20140916163623) do
   end
 
   create_table "social_networking_profile_answers", force: true do |t|
-    t.integer  "profile_question_id",          null: false
+    t.integer  "social_networking_profile_id",          null: false
+    t.integer  "social_networking_profile_question_id", null: false
     t.integer  "order"
-    t.string   "answer_text",                  null: false
+    t.string   "answer_text",                           null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "profile_id"
-    t.integer  "social_networking_profile_id"
-  end
-
-  add_index "social_networking_profile_answers", ["profile_id"], name: "index_social_networking_profile_answers_on_profile_id", using: :btree
+  end  
 
   create_table "social_networking_profile_questions", force: true do |t|
     t.integer  "order"
