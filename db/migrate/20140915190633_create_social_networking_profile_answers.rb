@@ -2,7 +2,7 @@ class CreateSocialNetworkingProfileAnswers < ActiveRecord::Migration
   def change
 
     create_table :social_networking_profile_answers do |t|
-      t.integer :profile_question_id, null: false
+      t.integer :social_networking_profile_question_id, null: false
       t.integer :order, null: true
       t.string :answer_text, null: false
 
@@ -14,7 +14,7 @@ class CreateSocialNetworkingProfileAnswers < ActiveRecord::Migration
         execute <<-SQL
           ALTER TABLE social_networking_profile_answers
             ADD CONSTRAINT fk_profile_answers_profile_questions
-            FOREIGN KEY (profile_question_id)
+            FOREIGN KEY (social_networking_profile_question_id)
             REFERENCES social_networking_profile_questions(id)
         SQL
       end

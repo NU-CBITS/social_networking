@@ -3,15 +3,18 @@ profile_question1:
   question_text: What are your hobbies?
   allowed_responses: 3
   deleted: false
+  id: 1
 
 profile_question2:
   order: 2
   question_text: What is your favorite color?
   allowed_responses: 1
   deleted: false
+  id: 2
 
 profile_question3:
   order: 3
   question_text: Animal, vegetable or mineral?
   allowed_responses: 1
   deleted: true
+  id: 3

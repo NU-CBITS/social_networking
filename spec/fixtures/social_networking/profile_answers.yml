@@ -1,17 +1,17 @@
 profile_answer1:
-  profile: profile1
-  profile_question: profile_question1
+  social_networking_profile: profile1
+  social_networking_profile_question_id: 1
   order: 1
   answer_text: running
 
 profile_answer2:
-  profile: profile1
-  profile_question: profile_question1
+  social_networking_profile: profile1
+  social_networking_profile_question_id: 1
   order: 2
   answer_text: jumping
 
 profile_question3:
-  profile: profile2
-  profile_question: profile_question2
+  social_networking_profile: profile2
+  social_networking_profile_question_id: 2
   order: 1
   answer_text: blue
