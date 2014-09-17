@@ -5,6 +5,7 @@ module SocialNetworking
       def to_serialized
         {
           id: model.id,
+          participant_id: model.participant.id,
           username: model.participant.email,
           lastLogin: model.participant.last_sign_in_at,
           endOfTrial: model.participant.active_membership_end_date

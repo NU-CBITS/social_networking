@@ -3,7 +3,6 @@
 <%= render "social_networking/shared/nav" %>
 
 <div ng-controller="ProfileCtrl as profile">
-  <div profile-status></div>
   <a href="" ng-click="profile.nudge()">Nudge</a>
   <a href="" ng-click="profile.edit()">Edit my profile</a>
   <dl>
@@ -12,7 +11,11 @@
   </dl>
 </div>
 
+<div ng-controller="ParticipantCtrl as participant">
+  <div profile-status></div>
+</div>
+
 <!-- bootstrap Angular app with current participant id -->
 <script>
-  angular.module('socialNetworking').value('participantId', <%= current_participant.id %>);
+  angular.module('socialNetworking').value('participantId', <%= current_participant.id %>).value('profileId', <%= @profile.id %>);
 </script>

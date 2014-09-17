@@ -2,16 +2,16 @@
   "use strict";
 
   // Provide access to all group profiles.
-  function ProfilesCtrl(Participants) {
+  function ProfilesCtrl(Profiles) {
     var self = this;
 
-    Participants.getAll().then(function(participants) {
-      self.members = participants;
+    Profiles.getAll().then(function(profiles) {
+      self.members = profiles;
     });
   }
 
   // Create a module and register the controllers.
   angular.module('socialNetworking.controllers')
-    .controller('ProfilesCtrl', ['Participants', ProfilesCtrl]);
+    .controller('ProfilesCtrl', ['Profiles', ProfilesCtrl]);
 })();
 

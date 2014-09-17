@@ -3,7 +3,7 @@
 
   function Participants($resource) {
     var ParticipantResource = $resource('/social_networking/participants/:id',
-      { id: '@id' });
+      { id: '@participant_id' });
 
     function Participant() {}
 
@@ -11,8 +11,8 @@
       return ParticipantResource.query().$promise;
     };
 
-    Participant.getOne = function(id) {
-      return ParticipantResource.get({ id: id }).$promise;
+    Participant.getOne = function(participant_id) {
+      return ParticipantResource.get({ id: participant_id }).$promise;
     };
 
     return Participant;

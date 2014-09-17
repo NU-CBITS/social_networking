@@ -1,6 +1,6 @@
 describe('ProfileCtrl', function() {
   var controller,
-      participantService,
+      profileService,
       nudgeService,
       scope,
       q,
@@ -10,10 +10,9 @@ describe('ProfileCtrl', function() {
     // load the module with the controller to test
     module('socialNetworking.controllers');
 
-    participantService = {
-      getOne: function(id) {
+    profileService = {
+      getOne: function(profileId) {
                 deferred = q.defer();
-
                 return deferred.promise;
               }
     };
@@ -24,23 +23,18 @@ describe('ProfileCtrl', function() {
     scope = $rootScope;
     q = $q;
     controller = $controller('ProfileCtrl', {
+      profileId: 1,
       participantId: 123,
-      Participants: participantService,
+      Profiles: profileService,
       Nudges: nudgeService
     });
   }));
 
-  it('should set the username', function() {
-    deferred.resolve({ username: 'Billy' });
+  it('should set the id', function() {
+    deferred.resolve({ id: '1' });
     scope.$digest();
 
-    expect(controller.username).toBe('Billy');
+    expect(controller.id).toBe('1');
   });
 
-  it('should set the last login', function() {
-    deferred.resolve({ lastLogin: '2014-08-12T16:55:29Z' });
-    scope.$digest();
-
-    expect(controller.lastLogin).toBe('2014-08-12T16:55:29Z');
-  });
 });
