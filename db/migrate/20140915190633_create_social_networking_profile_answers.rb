@@ -2,7 +2,7 @@ class CreateSocialNetworkingProfileAnswers < ActiveRecord::Migration
   def change
 
     create_table :social_networking_profile_answers do |t|
-      t.integer :profile_question_id, null: false
+      t.integer :social_networking_profile_question_id, null: false
       t.integer :order, null: true
       t.string :answer_text, null: false
 
