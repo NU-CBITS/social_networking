@@ -4,10 +4,15 @@
 
 <div ng-controller="ProfilesCtrl as profiles">
   <div ng-repeat="profile in profiles.members">
-    <div profile-status></div>
+
+    <div ng-controller="ParticipantCtrl as participants">
+        <div profile-status></div>
+    </div>
     <dl>
       <dt ng-repeat-start="r in profile.responses">{{ r.question }}</dt>
       <dd ng-repeat-end>{{ r.text }}</dd>
     </dl>
   </div>
 </div>
+
+

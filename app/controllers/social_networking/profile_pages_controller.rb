@@ -19,6 +19,10 @@ module SocialNetworking
       else
         @profile = profile_result.first!
       end
+      participant = Participant.where(id: @profile.participant_id).first
+      @profile.user_name = participant.email
+      @profile.last_sign_in = participant.last_sign_in_at
+      @profile.active_membership_end_date = participant.active_membership_end_date
     end
 
     def record_not_found

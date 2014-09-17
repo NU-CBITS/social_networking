@@ -3,16 +3,15 @@
 <%= render "social_networking/shared/nav" %>
 
 <div ng-controller="ProfileCtrl as profile">
+
+  <div profile-status></div>
+
   <a href="" ng-click="profile.nudge()">Nudge</a>
   <a href="" ng-click="profile.edit()">Edit my profile</a>
   <dl>
     <dt ng-repeat-start="r in profile.responses">{{ r.question }}</dt>
     <dd ng-repeat-end>{{ r.text }}</dd>
   </dl>
-</div>
-
-<div ng-controller="ParticipantCtrl as participant">
-  <div profile-status></div>
 </div>
 
 <!-- bootstrap Angular app with current participant id -->
