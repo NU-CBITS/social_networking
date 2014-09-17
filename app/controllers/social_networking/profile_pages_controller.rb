@@ -13,9 +13,7 @@ module SocialNetworking
     private
 
     def set_current_profile
-      puts '$%^'
       @profile = Profile.where(participant_id: current_participant.id).first
-      puts @profile.inspect
     end
 
     def record_not_found
