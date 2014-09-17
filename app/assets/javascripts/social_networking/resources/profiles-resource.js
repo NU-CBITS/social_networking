@@ -5,10 +5,12 @@
         var ProfileResource = $resource('/social_networking/profiles/:id',
             { id: '@id' });
 
+        var ProfilesResource = $resource('/social_networking/profiles');
+
         function Profile() {}
 
         Profile.getAll = function() {
-            return ProfileResource.query().$promise;
+            return ProfilesResource.query().$promise;
         };
 
         Profile.getOne = function(id) {

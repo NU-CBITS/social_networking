@@ -36,7 +36,7 @@ Mount the engine in `config/routes.rb`
 
     mount SocialNetworking::Engine, at: "social_networking"
 
-Include the JavaScript in your manifest
+Include the JavaScript in your 'engine' manifest
 
     //= require social_networking
 
