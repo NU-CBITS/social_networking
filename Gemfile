@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-# Declare your gem's dependencies in social_networking.gemspec.
+# Declare your gem"s dependencies in social_networking.gemspec.
 # Bundler will treat runtime dependencies like base dependencies, and
 # development dependencies will be added by default to the :development group.
 gemspec
@@ -11,4 +11,6 @@ gemspec
 # your gem to rubygems.org.
 
 # To use debugger
-# gem 'debugger'
+# gem "debugger"
+gem "jquery-rails", "~> 3.1"
+gem "bootstrap-sass", "~> 3.1"
