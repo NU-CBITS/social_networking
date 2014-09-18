@@ -13,16 +13,16 @@ module SocialNetworking
     private
 
     def set_current_profile
-      profile_result = Profile.where(participant_id: current_participant.id)
-      if profile_result.empty?
-        @profile = Profile.create(participant_id: current_participant.id, active: true)
-      else
-        @profile = profile_result.first!
+      @profile =
+        Profile.find_or_initialize_by(participant_id: current_participant.id)
+      if @profile.id.nil?
+        @profile.active = true
+        @profile.save
       end
-      participant = Participant.where(id: @profile.participant_id).first
-      @profile.user_name = participant.email
-      @profile.last_sign_in = participant.last_sign_in_at
-      @profile.active_membership_end_date = participant.active_membership_end_date
+      @profile.user_name = current_participant.email
+      @profile.last_sign_in = current_participant.last_sign_in_at
+      @profile.active_membership_end_date =
+        current_participant.active_membership_end_date
     end
 
     def record_not_found

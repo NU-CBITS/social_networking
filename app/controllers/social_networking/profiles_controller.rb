@@ -11,7 +11,8 @@ module SocialNetworking
     def show
       profile_result = Profile.where(participant_id: current_participant.id)
       if profile_result.empty?
-        profile = Profile.create(participant_id: current_participant.id, active: true)
+        profile = Profile.create(participant_id: current_participant.id,
+                                 active: true)
       else
         profile = profile_result.first!
       end
