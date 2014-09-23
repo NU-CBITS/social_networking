@@ -12,7 +12,44 @@
   </dl>
 </div>
 
+
+<h3>Profile Questions</h3>
+
+<ul class="list-group" ng-controller="ProfileQuestionsCtrl as profileQuestions">
+  <li ng-repeat="question in profileQuestions.questions | orderBy:'order'"
+      class="list-group-item"
+      id="question-{{ question.id }}">
+    <label>
+      {{ question.question_text }}
+    </label>
+
+    <form novalidate role="form" name="answerForm" class="row" ng-show="answer.inEntryMode()">
+      <input type="hidden" ng-model="answer.answerModel.id" ng-if="answer.answerModel.id !== null">
+
+      <div class="form-group col-lg-8 col-md-8">
+        <input type="text" class="form-control" id="new-answer-description" ng-model="answer.answerModel.answer_text" ng-maxlength="255" required focus-on="new-answer">
+      </div>
+
+      <div class="form-group col-lg-8 col-md-8">
+        <button class="btn btn-primary" ng-click="answer.save()" ng-disabled="answerForm.$invalid">Save</button>
+        <button class="btn btn-default" ng-click="answer.resetForm()">Cancel</button>
+      </div>
+    </form>
+
+    <div class="list-group" ng-show="answer.inBrowseMode()">
+        <label>
+          {{ answer.answer_text }}
+        </label>
+        <button class="btn btn-link pull-right edit" ng-click="profileAnswer.edit(answer)"><i class="fa fa-pencil"></i></button>
+    </div>
+
+  </li>
+</ul>
+
 <!-- bootstrap Angular app with current participant id -->
 <script>
-  angular.module('socialNetworking').value('participantId', <%= current_participant.id %>).value('profileId', <%= @profile.id %>);
+  angular.module('socialNetworking')
+          .value('participantId', <%= current_participant.id %>)
+          .value('profileId', <%= @profile.id %>)
+          .value('ProfileQuestions', <%= @profile_questions.to_json.html_safe %>);
 </script>

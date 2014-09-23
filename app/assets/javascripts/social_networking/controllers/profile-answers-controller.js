@@ -12,6 +12,6 @@
 
     // Create a module and register the controllers.
     angular.module('socialNetworking.controllers')
-        .controller('ProfileAnswerCtrl', ['ProfileAnswers', ProfileAnswerCtrl]);
+        .controller('ProfileAnswerCtrl', ['ProfileAnswers', 'answerTool', ProfileAnswerCtrl]);
 })();
 

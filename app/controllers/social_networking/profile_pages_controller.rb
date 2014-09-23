@@ -2,7 +2,7 @@ module SocialNetworking
   # Manage Participants.
   class ProfilePagesController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-    before_action :set_current_profile
+    before_action :set_current_profile, :set_profile_questions
 
     def index
     end
@@ -23,6 +23,10 @@ module SocialNetworking
       @profile.last_sign_in = current_participant.last_sign_in_at
       @profile.active_membership_end_date =
         current_participant.active_membership_end_date
+    end
+
+    def set_profile_questions
+      @profile_questions = ProfileQuestion.all
     end
 
     def record_not_found
