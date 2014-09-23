@@ -21,7 +21,8 @@ module SocialNetworking
       end
       @profile.user_name = current_participant.email
       @profile.last_sign_in = current_participant.last_sign_in_at
-      @profile.active_membership_end_date = current_participant.active_membership_end_date
+      @profile.active_membership_end_date =
+        current_participant.active_membership_end_date
     end
 
     def record_not_found
