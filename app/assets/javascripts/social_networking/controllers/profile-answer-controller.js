@@ -2,7 +2,7 @@
     "use strict";
 
     // Provide interaction with a participant's profile answers to profile questions.
-    function ProfileAnswerCtrl(profileAnswerId, ProfileAnswer) {
+    function ProfileAnswerCtrl(profileAnswerId, ProfileAnswers) {
         var self = this;
 
         ProfileAnswers.getOne(profileAnswerId)
@@ -22,5 +22,5 @@
 
     // Create a module and register the controllers.
     angular.module('socialNetworking.controllers')
-        .controller('ProfileAnswerCtrl', ['profileAnswerId', 'ProfileAnswer', ProfileAnswerCtrl]);
+        .controller('ProfileAnswerCtrl', ['profileAnswerId', 'ProfileAnswers', ProfileAnswerCtrl]);
 })();
