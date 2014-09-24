@@ -37,13 +37,16 @@ Jshintrb::JshintTask.new :jshint do |t|
   t.globals = [:angular, :moment, "$"]
 end
 
-require "rubocop/rake_task"
-RuboCop::RakeTask.new
+desc "Run rubocop"
+task :rb_lint do
+  dir = File.dirname(__FILE__)
+  puts `#{ File.join(dir, "bin", "rubocop") } #{ File.join(dir, ".") }`
+end
 
 desc "Run all linters"
 task :lint do
   Rake::Task["jshint"].invoke
-  Rake::Task["rubocop"].invoke
+  Rake::Task["rb_lint"].invoke
 end
 
 desc "Run all specs and linters"
