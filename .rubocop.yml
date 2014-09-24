@@ -4,6 +4,7 @@ AllCops:
     - config/**/*
     - db/**/*
     - spec/dummy/**/*
+    - vendor/**/*
 
 Documentation:
   Exclude:
