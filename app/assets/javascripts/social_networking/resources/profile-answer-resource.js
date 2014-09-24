@@ -12,7 +12,7 @@
         };
 
         ProfileAnswer.getOne = function(profile_id, profile_question_id) {
-            return ProfileAnswerResource.get({ profile_id: profile_answer_id, profile_question_id: profile_question_id }).$promise;
+            return ProfileAnswerResource.get({ profile_id: profile_id, profile_question_id: profile_question_id }).$promise;
         };
 
 

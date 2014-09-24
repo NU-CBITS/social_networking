@@ -44,7 +44,6 @@
 
     // Persist a profile from the form.
     ProfileAnswerCtrl.save = function() {
-      window.console.log('blarg')
       var self = this;
 
       if (this._answerTool.getModel().id === null) {
