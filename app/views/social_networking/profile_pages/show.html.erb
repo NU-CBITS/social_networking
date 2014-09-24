@@ -23,26 +23,27 @@
       {{ question.question_text }}
     </label>
 
-    <form novalidate role="form" name="answerForm" class="row" ng-show="answer.inEntryMode()">
-      <input type="hidden" ng-model="answer.answerModel.id" ng-if="answer.answerModel.id !== null">
+    <div ng-controller="ProfileAnswerCtrl as answer">
 
-      <div class="form-group col-lg-8 col-md-8">
-        <input type="text" class="form-control" id="new-answer-description" ng-model="answer.answerModel.answer_text" ng-maxlength="255" required focus-on="new-answer">
-      </div>
+      <form novalidate role="form" name="answerForm" class="row">
+        <input type="hidden" ng-model="answer.answerModel.id" ng-if="answer.answerModel.id !== null">
+        <div class="form-group col-lg-8 col-md-8">
+          <input type="text" class="form-control" id="new-answer-description" ng-model="answer.answerModel.answer_text" ng-maxlength="255">
+        </div>
+        <div class="form-group col-lg-8 col-md-8">
+          <button class="btn btn-primary" ng-click="answer.save()">Save</button>
+          <button class="btn btn-default" ng-click="answer.resetForm()">Cancel</button>
+        </div>
+      </form>
 
-      <div class="form-group col-lg-8 col-md-8">
-        <button class="btn btn-primary" ng-click="answer.save()" ng-disabled="answerForm.$invalid">Save</button>
-        <button class="btn btn-default" ng-click="answer.resetForm()">Cancel</button>
-      </div>
-    </form>
-
-    <div class="list-group" ng-show="answer.inBrowseMode()">
+      <div class="list-group" ng-show="answer.inBrowseMode()">
         <label>
           {{ answer.answer_text }}
         </label>
         <button class="btn btn-link pull-right edit" ng-click="profileAnswer.edit(answer)"><i class="fa fa-pencil"></i></button>
-    </div>
+      </div>
 
+    </div>
   </li>
 </ul>
 
