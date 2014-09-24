@@ -17,4 +17,5 @@ gem "bootstrap-sass", "~> 3.1"
 
 group :development, :test do
   gem "jasmine-rails", "~> 0.10"
+  gem "rubocop", "~> 0.25"
 end

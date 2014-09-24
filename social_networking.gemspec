@@ -28,7 +28,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "capybara", "~> 2"
   s.add_development_dependency "poltergeist"
   s.add_development_dependency "jshintrb", "~> 0.2"
-  s.add_development_dependency "rubocop", "~> 0.25"
   # needed in CI environment
   s.add_development_dependency "therubyracer"
 end
