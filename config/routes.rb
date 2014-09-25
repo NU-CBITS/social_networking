@@ -15,4 +15,5 @@ SocialNetworking::Engine.routes.draw do
   post "goals/:id", to: "goals#update", as: :goal
   resource :home, only: :show
   resources :profile_answers, only: [:index, :show, :create, :update]
+  resources :comments, only: :create
 end
