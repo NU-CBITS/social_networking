@@ -6,11 +6,16 @@ describe "home tool", type: :feature, js: true do
   let(:statement) do
     social_networking_on_the_mind_statements(:participant2_statement1)
   end
+  let(:participant1) { participants(:participant1) }
+  let(:participant2) { participants(:participant2) }
 
   before { visit "/social_networking/home" }
 
   scenario "Participant views feed" do
     expect(page).to have_content(statement.description)
+    expect(page).to have_content(
+      "#{ participant1.id } nudged #{ participant2.id }"
+    )
   end
 
   scenario "Participant enters a new \"What's on your mind?\"" do

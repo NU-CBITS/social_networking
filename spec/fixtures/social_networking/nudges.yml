@@ -1,0 +1,19 @@
+participant1_to_participant2_yesterday:
+  initiator: participant1
+  recipient: participant2
+  created_at: <%= DateTime.now.advance(days: -1) %>
+
+participant1_to_participant2_today:
+  initiator: participant1
+  recipient: participant2
+  created_at: <%= DateTime.now %>
+
+participant2_to_participant1_yesterday:
+  initiator: participant2
+  recipient: participant1
+  created_at: <%= DateTime.now.advance(days: -1) %>
+
+participant2_to_participant1_today:
+  initiator: participant2
+  recipient: participant1
+  created_at: <%= DateTime.now %>

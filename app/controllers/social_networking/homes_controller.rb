@@ -5,7 +5,8 @@ module SocialNetworking
       @feed_items = (
         Serializers::OnTheMindStatementSerializer
           .from_collection(OnTheMindStatement.all) +
-        Serializers::GoalSerializer.from_collection(Goal.all)
+        Serializers::GoalSerializer.from_collection(Goal.all) +
+        Serializers::NudgeSerializer.from_collection(Nudge.all)
       )
       @member_profiles = []
     end

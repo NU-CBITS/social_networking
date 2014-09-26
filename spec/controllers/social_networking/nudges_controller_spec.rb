@@ -9,7 +9,8 @@ module SocialNetworking
           double("nudge",
                  id: 8_675_309,
                  initiator_id: participant.id,
-                 recipient_id: 123)
+                 recipient_id: 123,
+                 comments: [])
         end
 
         before do
