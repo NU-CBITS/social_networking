@@ -7,9 +7,7 @@
 
         function ProfileAnswer() {}
 
-        ProfileAnswer.getAll = function() {
-            return ProfileAnswerResource.query().$promise;
-        };
+        ProfileAnswer.getAll = function() { return ProfileAnswerResource.query().$promise; };
 
         ProfileAnswer.getOne = function(profile_id, profile_question_id) {
             return ProfileAnswerResource.get({ profile_id: profile_id, profile_question_id: profile_question_id }).$promise;

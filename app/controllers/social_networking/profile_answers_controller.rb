@@ -4,13 +4,19 @@ module SocialNetworking
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
     def index
-      ProfileAnswer.where(social_networking_profile_id: profile_answer_params[:profile_id],
-                          social_networking_profile_question_id: profile_answer_params[:profile_question_id]).first!
+
+
+      if !profile_answer_params[:profile_id].blank? &&
+         !profile_answer_params[:profile_question_id].blank?
+
+        answer = ProfileAnswer.where(social_networking_profile_id: profile_answer_params[:profile_id],
+                                     social_networking_profile_question_id: profile_answer_params[:profile_question_id]).first
+      end
+
+      render json: Serializers::ProfileAnswerSerializer.new(answer).to_serialized
     end
 
     def show
-      ProfileAnswer.where(social_networking_profile_id: profile_answer_params[:profile_id],
-                          social_networking_profile_question_id: profile_answer_params[:profile_question_id]).first!
     end
 
     def create
@@ -24,8 +30,7 @@ module SocialNetworking
     end
 
     def update
-      @profile_answer = ProfileAnswerwhere(social_networking_profile_id: profile_answer_params[:profile_id],
-                                           social_networking_profile_question_id: profile_answer_params[:profile_question_id]).first! ||
+      @profile_answer = ProfileAnswer.where(id: id).first! ||
          fail(ActiveRecord::RecordNotFound)
 
       if @profile_answer.update(profile_answer_params)
@@ -39,7 +44,8 @@ module SocialNetworking
 
     def profile_answer_params
       s_params = { participant_id: current_participant.id }
-      [:profileId, :profileQuestionId].each do |param|
+      [:profile_id, :profile_question_id, :id].each do |param|
+
         unless params[param].nil?
           s_params[param.to_s.underscore.to_sym] = params[param]
         end

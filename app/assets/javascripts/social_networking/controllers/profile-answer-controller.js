@@ -4,18 +4,29 @@
     // Provide interaction with a participant's profile answers to profile questions.
     function ProfileAnswerCtrl(answerTool, ProfileAnswers) {
       var self = this;
+      self._answerResource = ProfileAnswers;
+      self._answerTool = answerTool;
+      self.answerModel = self._answerTool.getModel();
+      self.answerModel.id = this.getAnswerId();
+      window.console.log(self.answerModel);
+    }
 
-      this._answersResource = ProfileAnswers;
-      this._answerTool = answerTool;
-      this.answerModel = this._answerTool.getModel();
-
-      this._answersResource.getOne(this.profileId, this.questionId)
+    ProfileAnswerCtrl.prototype.init = function(profileId, questionId) {
+      this._answerResource.getOne(profileId, questionId)
         .then(function(profileAnswer) {
-          self.id = profileAnswer.id;
-        })
-        .catch(function(error) {
-          window.console.log(error);
-        });
+            this.setAnswerId(profileAnswer.id);
+          })
+          .catch(function(error) {
+            window.console.log(error);
+          });
+    };
+
+    ProfileAnswerCtrl.prototype.setAnswerId = function(id) {
+      this.id = id;
+    }
+
+    ProfileAnswerCtrl.prototype.getAnswerId = function() {
+      return this.id;
     }
 
     // Initiate profile editor interface.
@@ -43,11 +54,16 @@
     };
 
     // Persist a profile from the form.
-    ProfileAnswerCtrl.save = function() {
+    ProfileAnswerCtrl.prototype.save = function() {
       var self = this;
 
-      if (this._answerTool.getModel().id === null) {
-        this._answersResource.create(this._answerTool.getModel())
+      if (this._answerTool.getModel().id === undefined) {
+        this._answerModel['profile_id'] = self.profileId;
+        this._answerModel['profile_question_id'] = self.questionId;
+
+        window.console.log('blarg1');
+
+        this._answerResource.create(this._answerTool.getModel())
             .then(function() {
         self.resetForm();
         self.resetTabs();
@@ -55,7 +71,9 @@
           self.error = message.error;
         });
       } else {
-        this._answersResource.update(this._answerTool.getModel())
+        this._answerModel.id = self.id
+        window.console.log(this._answerTool.getModel())
+        this._answerResource.update(this._answerTool.getModel())
           .then(function() {
             self.resetForm();
             self.resetTabs();
@@ -68,4 +86,7 @@
     // Create a module and register the controllers.
     angular.module('socialNetworking.controllers')
         .controller('ProfileAnswerCtrl', ['answerTool', 'ProfileAnswers', ProfileAnswerCtrl]);
+
+
+
 })();

@@ -23,12 +23,16 @@
       {{ question.question_text }}
     </label>
 
-    <div ng-controller="ProfileAnswerCtrl as answer">
+    <div ng-controller="ProfileAnswerCtrl as answer" ng-init="answer.init(<%= @profile.id %>, question.id)">
+
+      {{answer.id}}
 
       <form novalidate role="form" name="answerForm" class="row">
-        <input type="hidden" ng-model="answer.answerModel.id" ng-if="answer.answerModel.id !== null">
+        <input type="hidden" name="profile_question_id" value="{{ question.id }}" ng-if="answer.answerModel.id === null">
+        <input type="hidden" name="profile_id" value="<%= @profile.id %>" ng-if="answer.answerModel.id === null">
+        <input type="hidden" name="id" ng-if="answer.answerModel.id !== null">
         <div class="form-group col-lg-8 col-md-8">
-          <input type="text" class="form-control" id="new-answer-description" ng-model="answer.answerModel.answer_text" ng-maxlength="255">
+          <input type="text" class="form-control" id="new-answer-description-{{question.id}}" ng-model="answer.answerModel.answer_text" ng-maxlength="255">
         </div>
         <div class="form-group col-lg-8 col-md-8">
           <button class="btn btn-primary" ng-click="answer.save()">Save</button>
