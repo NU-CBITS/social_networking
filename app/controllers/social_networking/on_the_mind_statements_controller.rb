@@ -5,11 +5,8 @@ module SocialNetworking
       @on_the_mind_statement = OnTheMindStatement.new(sanitized_params)
 
       if @on_the_mind_statement.save
-        render json: {
-          id: @on_the_mind_statement.id,
-          participantId: @on_the_mind_statement.participant_id,
-          description: @on_the_mind_statement.description
-        }
+        render json: Serializers::OnTheMindStatementSerializer
+          .new(@on_the_mind_statement).to_serialized
       else
         render json: { error: model_errors }, status: 400
       end

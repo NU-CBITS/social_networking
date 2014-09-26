@@ -9,7 +9,8 @@ module SocialNetworking
           double("on_the_mind_statement",
                  id: 8_675_309,
                  participant_id: participant.id,
-                 description: "foo")
+                 description: "foo",
+                 comments: [])
         end
 
         before do

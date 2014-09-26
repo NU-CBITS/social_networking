@@ -8,14 +8,20 @@
 
     function Comment() {}
 
+    // Persist a Comment to the server.
     Comment.create = function(attributes) {
-      var comment = new CommentResource(attributes);
-      comment.$save();
+      var comment = new CommentResource({
+        text: attributes.text,
+        itemType: attributes.itemType,
+        itemId: attributes.itemId
+      });
+
+      return comment.$save();
     };
 
     return Comment;
   }
 
   angular.module('socialNetworking.services')
-    .service('Comments', ['$resource', Comments]);
+    .service('CommentResource', ['$resource', Comments]);
 })();

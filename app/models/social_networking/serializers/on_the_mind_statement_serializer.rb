@@ -4,9 +4,11 @@ module SocialNetworking
     class OnTheMindStatementSerializer < Serializer
       def to_serialized
         {
+          className: "SocialNetworking::OnTheMindStatement",
           id: model.id,
           participantId: model.participant_id,
-          description: model.description
+          description: model.description,
+          comments: CommentSerializer.from_collection(model.comments)
         }
       end
     end

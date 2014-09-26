@@ -1,6 +1,7 @@
 describe('HomeCtrl', function() {
   var controller,
       onYourMindResource,
+      commentResource,
       scope,
       q,
       deferred;
@@ -16,16 +17,25 @@ describe('HomeCtrl', function() {
                 return deferred.promise;
               }
     };
+    commentResource = {
+      create: function() {
+                deferred = q.defer();
+
+                return deferred.promise;
+              }
+    };
   });
 
-  beforeEach(inject(function($rootScope, $q, $controller, homeTool) {
+  beforeEach(inject(function($rootScope, $q, $controller, $filter, homeTool) {
     scope = $rootScope;
     q = $q;
     controller = $controller('HomeCtrl', {
       OnYourMindResource: onYourMindResource,
+      CommentResource: commentResource,
       homeTool: homeTool,
       feedItems: [],
-      memberProfiles: []
+      memberProfiles: [],
+      $filter: $filter
     });
   }));
 

@@ -2,12 +2,18 @@
   "use strict";
 
   // Provides access to the feed and its items.
-  function HomeCtrl(OnYourMindResource, homeTool, feedItems, memberProfiles) {
-    this._onYourMindResource = OnYourMindResource;
+  function HomeCtrl(OnYourMindResource, CommentResource, homeTool, feedItems,
+                    memberProfiles, $filter) {
     this.feedItems = feedItems;
     this.memberProfiles = memberProfiles;
     this._homeTool = homeTool;
     this.onYourMindModel = this._homeTool.getOnYourMindStatementModel();
+    this.commentModel = this._homeTool.getCommentModel();
+    this._onYourMindResource = OnYourMindResource;
+    this._commentResource = CommentResource;
+    this._findFeedItem = function(filter) {
+      return $filter('filter')(this.feedItems, filter)[0];
+    };
   }
 
   // Prepare to add a new On Your Mind Statement.
@@ -15,7 +21,7 @@
     this._homeTool.editOnYourMindStatement();
   };
 
-  // Persist a new 'On Your Mind' object.
+  // Persist a new On Your Mind statement.
   HomeCtrl.prototype.saveOnYourMind = function() {
     var self = this;
     var model = this._homeTool.getOnYourMindStatementModel();
@@ -28,6 +34,32 @@
       .catch(function(message) {
         self.error = message.error;
       });
+  };
+
+  // Persist a new Comment.
+  HomeCtrl.prototype.saveComment = function() {
+    var self = this;
+    var model = this._homeTool.getCommentModel();
+
+    this._commentResource.create(model)
+      .then(function(comment) {
+        var item = self._findFeedItem({
+          className: comment.itemType,
+          id: comment.itemId
+        });
+        if (typeof item !== 'undefined') {
+          item.comments.push(comment);
+        }
+        self.cancelOnYourMindEntryMode();
+      })
+      .catch(function(message) {
+        self.error = message.error;
+      });
+  };
+
+  // Prepare to comment on a feed item.
+  HomeCtrl.prototype.commentOn = function(item) {
+    this._homeTool.newCommentOn(item);
   };
 
   // Is the tool in Feed Browse Mode?
@@ -46,8 +78,18 @@
            this._homeTool.MODES.ON_YOUR_MIND_ENTRY;
   };
 
+  // Is the tool in Comment On Mode?
+  HomeCtrl.prototype.inCommentOnMode = function() {
+    return this._homeTool.getMode() === this._homeTool.MODES.COMMENT_ON;
+  };
+
   // Leave On Your Mind Entry Mode.
   HomeCtrl.prototype.cancelOnYourMindEntryMode = function() {
+    this._homeTool.setMode(this._homeTool.MODES.FEED);
+  };
+
+  // Leave Comment On Mode.
+  HomeCtrl.prototype.cancelCommentOnMode = function() {
     this._homeTool.setMode(this._homeTool.MODES.FEED);
   };
 
@@ -64,6 +106,6 @@
 
   // Create a module and register the controller.
   angular.module('socialNetworking.controllers')
-    .controller('HomeCtrl', ['OnYourMindResource', 'homeTool', 'feedItems',
-                'memberProfiles', HomeCtrl]);
+    .controller('HomeCtrl', ['OnYourMindResource', 'CommentResource',
+        'homeTool', 'feedItems', 'memberProfiles', '$filter', HomeCtrl]);
 })();

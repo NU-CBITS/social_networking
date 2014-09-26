@@ -12,13 +12,15 @@
     function HomeTool() {
       this._mode = HomeTool.MODES.FEED;
       this._onYourMindStatementModel = {};
+      this._commentModel = {};
     }
 
     // Tool modes triggered by user actions.
     HomeTool.MODES = {
       PROFILES: 0,
       FEED: 1,
-      ON_YOUR_MIND_ENTRY: 2
+      ON_YOUR_MIND_ENTRY: 2,
+      COMMENT_ON: 3
     };
     HomeTool.prototype.MODES = HomeTool.MODES;
 
@@ -32,17 +34,44 @@
       this.setMode(this.MODES.ON_YOUR_MIND_ENTRY);
     };
 
+    HomeTool.prototype.newCommentOn = function(item) {
+      this._setCommentModel({
+        text: '',
+        itemType: item.className,
+        itemId: item.id
+      });
+      this.setMode(this.MODES.COMMENT_ON);
+    };
+
     HomeTool.prototype.getOnYourMindStatementModel = function() {
       return this._onYourMindStatementModel;
     };
 
+    HomeTool.prototype.getCommentModel = function() {
+      return this._commentModel;
+    };
+
+    // Reset On Your Mind Statement properties to defaults.
     HomeTool.prototype._setOnYourMindStatementModel = function() {
       this._copyOnYourMindStatement(onYourMindStatementDefaults,
                                     this._onYourMindStatementModel);
     };
 
+    // Copy On Your Mind Statement properties.
     HomeTool.prototype._copyOnYourMindStatement = function(src, dst) {
       dst.description = src.description;
+    };
+
+    // Reset Comment properties to defaults.
+    HomeTool.prototype._setCommentModel = function(attributes) {
+      this._copyComment(attributes, this._commentModel);
+    };
+
+    // Copy Comment properties.
+    HomeTool.prototype._copyComment = function(src, dst) {
+      dst.text = src.text;
+      dst.itemId = src.itemId;
+      dst.itemType = src.itemType;
     };
 
     return new HomeTool();
