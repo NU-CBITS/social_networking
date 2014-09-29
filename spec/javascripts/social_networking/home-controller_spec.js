@@ -33,6 +33,7 @@ describe('HomeCtrl', function() {
       OnYourMindResource: onYourMindResource,
       CommentResource: commentResource,
       homeTool: homeTool,
+      actionItems: [],
       feedItems: [],
       memberProfiles: [],
       $filter: $filter

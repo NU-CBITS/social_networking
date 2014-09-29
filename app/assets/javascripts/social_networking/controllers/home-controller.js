@@ -2,8 +2,9 @@
   "use strict";
 
   // Provides access to the feed and its items.
-  function HomeCtrl(OnYourMindResource, CommentResource, homeTool, feedItems,
-                    memberProfiles, $filter) {
+  function HomeCtrl(OnYourMindResource, CommentResource, homeTool, actionItems,
+                    feedItems, memberProfiles, $filter) {
+    this.actionItems = actionItems;
     this.feedItems = feedItems;
     this.memberProfiles = memberProfiles;
     this._homeTool = homeTool;
@@ -107,5 +108,6 @@
   // Create a module and register the controller.
   angular.module('socialNetworking.controllers')
     .controller('HomeCtrl', ['OnYourMindResource', 'CommentResource',
-        'homeTool', 'feedItems', 'memberProfiles', '$filter', HomeCtrl]);
+        'homeTool', 'actionItems', 'feedItems', 'memberProfiles', '$filter',
+        HomeCtrl]);
 })();

@@ -27,6 +27,10 @@
     </div>
   </form>
 
+  <div ng-repeat="item in home.actionItems">
+    <a href="{{ item.link }}">{{ item.label }}</a>
+  </div>
+
   <ul class="list-group">
     <li ng-repeat="item in home.feedItems"
         ng-show="home.inFeedBrowseMode()"
@@ -62,6 +66,7 @@
 <!-- bootstrap Angular app with data -->
 <script>
   angular.module('socialNetworking.values')
+    .value('actionItems', <%= @action_items.to_json.html_safe %>)
     .value('feedItems', <%= @feed_items.to_json.html_safe %>)
     .value('memberProfiles', <%= @member_profiles.to_json.html_safe %>);
 </script>
