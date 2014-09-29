@@ -21,8 +21,10 @@
         ProfileAnswerTool.prototype.setMode = function(mode) { this._mode = mode; };
 
         ProfileAnswerTool.prototype.setModel = function(answer) {
-            var a = answer;
-            this._answerModel.id = a.id;
+            this._answerModel.id = answer.id;
+            this._answerModel.profile_id = answer.profile_id;
+            this._answerModel.profile_question_id = answer.profile_question_id;
+            this._answerModel.answer_text = answer.answer_text;
         };
 
         ProfileAnswerTool.prototype.getModel = function() { return this._answerModel; };

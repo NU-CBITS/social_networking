@@ -23,9 +23,7 @@
       {{ question.question_text }}
     </label>
 
-    <div ng-controller="ProfileAnswerCtrl as answer" ng-init="answer.init(<%= @profile.id %>, question.id)">
-
-      {{answer.id}}
+    <div ng-controller="ProfileAnswerCtrl as answer" ng-init="answer.init(<%= @profile.id %>, question.id, answer);">
 
       <form novalidate role="form" name="answerForm" class="row">
         <input type="hidden" name="profile_question_id" value="{{ question.id }}" ng-if="answer.answerModel.id === null">
@@ -35,14 +33,14 @@
           <input type="text" class="form-control" id="new-answer-description-{{question.id}}" ng-model="answer.answerModel.answer_text" ng-maxlength="255">
         </div>
         <div class="form-group col-lg-8 col-md-8">
-          <button class="btn btn-primary" ng-click="answer.save()">Save</button>
+          <button class="btn btn-primary" ng-click="answer.save(<%= @profile.id %>, question.id, answer)">Save</button>
           <button class="btn btn-default" ng-click="answer.resetForm()">Cancel</button>
         </div>
       </form>
 
-      <div class="list-group" ng-show="answer.inBrowseMode()">
+      <div class="list-group">
         <label>
-          {{ answer.answer_text }}
+          {{ answer.answerModel.answer_text }}
         </label>
         <button class="btn btn-link pull-right edit" ng-click="profileAnswer.edit(answer)"><i class="fa fa-pencil"></i></button>
       </div>

@@ -7,14 +7,16 @@
       self._answerResource = ProfileAnswers;
       self._answerTool = answerTool;
       self.answerModel = self._answerTool.getModel();
-      self.answerModel.id = this.getAnswerId();
-      window.console.log(self.answerModel);
+      self.answerModel.id = self.getAnswerId();
     }
 
-    ProfileAnswerCtrl.prototype.init = function(profileId, questionId) {
+    ProfileAnswerCtrl.prototype.init = function(profileId, questionId, controller) {
       this._answerResource.getOne(profileId, questionId)
         .then(function(profileAnswer) {
-            this.setAnswerId(profileAnswer.id);
+            window.console.log(profileAnswer)
+            controller.setAnswerId(profileAnswer.id);
+            controller._answerTool.setModel(profileAnswer);
+            window.console.log(controller._answerTool.getModel());
           })
           .catch(function(error) {
             window.console.log(error);
@@ -54,33 +56,27 @@
     };
 
     // Persist a profile from the form.
-    ProfileAnswerCtrl.prototype.save = function() {
-      var self = this;
+    ProfileAnswerCtrl.prototype.save = function(profileId, questionId, controller) {
 
-      if (this._answerTool.getModel().id === undefined) {
-        this._answerModel['profile_id'] = self.profileId;
-        this._answerModel['profile_question_id'] = self.questionId;
-
-        window.console.log('blarg1');
-
-        this._answerResource.create(this._answerTool.getModel())
-            .then(function() {
-        self.resetForm();
-        self.resetTabs();
+      if (controller._answerTool.getModel().id === undefined) {
+        controller.answerModel.profile_id = profileId;
+        controller.answerModel.profile_question_id = questionId;
+        controller._answerResource.create(controller._answerTool.getModel()).then(function() {
+          controller.resetForm();
+          controller.resetTabs();
         }).catch(function(message) {
-          self.error = message.error;
-        });
+        controller.error = message.error;
+      });
       } else {
-        this._answerModel.id = self.id
-        window.console.log(this._answerTool.getModel())
-        this._answerResource.update(this._answerTool.getModel())
-          .then(function() {
-            self.resetForm();
-            self.resetTabs();
-          }).catch(function(message) {
-            self.error = message.error;
-          });
-        }
+        controller.answerModel.profile_id = profileId;
+        controller.answerModel.profile_question_id = questionId;
+        controller._answerResource.update(controller._answerTool.getModel()).then(function() {
+          controller.resetForm();
+          controller.resetTabs();
+        }).catch(function(message) {
+          controller.error = message.error;
+        });
+      }
     };
 
     // Create a module and register the controllers.

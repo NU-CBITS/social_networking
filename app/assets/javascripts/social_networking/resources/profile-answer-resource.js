@@ -2,8 +2,7 @@
     'use strict';
 
     function ProfileAnswers($resource) {
-        var ProfileAnswerResource = $resource('/social_networking/profile_answers',
-            { id: '@profile_answer_id' });
+        var ProfileAnswerResource = $resource('/social_networking/profile_answers/:id', { id: '@id' });
 
         function ProfileAnswer() {}
 
@@ -18,7 +17,7 @@
         ProfileAnswer.create = function(attributes) {
             var answer = new ProfileAnswerResource({
                 profile_id: attributes.profile_id,
-                question_id: attributes.question_id,
+                profile_question_id: attributes.profile_question_id,
                 answer_text: attributes.answer_text
             });
 
@@ -30,7 +29,7 @@
             var answer = new ProfileAnswerResource({
                 id: attributes.id,
                 profile_id: attributes.profile_id,
-                question_id: attributes.question_id,
+                profile_question_id: attributes.profile_question_id,
                 answer_text: attributes.answer_text
             });
 
