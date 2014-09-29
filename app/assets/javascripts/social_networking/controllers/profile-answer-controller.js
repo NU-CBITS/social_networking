@@ -25,11 +25,11 @@
 
     ProfileAnswerCtrl.prototype.setAnswerId = function(id) {
       this.id = id;
-    }
+    };
 
     ProfileAnswerCtrl.prototype.getAnswerId = function() {
       return this.id;
-    }
+    };
 
     // Initiate profile editor interface.
     ProfileAnswerCtrl.prototype.edit = function() {

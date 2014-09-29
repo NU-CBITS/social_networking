@@ -29,7 +29,8 @@ module SocialNetworking
       )
 
       if @profile_answer.save
-        render json: Serializers::ProfileAnswerSerializer.new(@profile_answer).to_serialized
+        render json: Serializers::ProfileAnswerSerializer.new(@profile_answer)
+                       .to_serialized
       else
         render json: { error: model_errors }, status: 400
       end
