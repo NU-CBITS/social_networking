@@ -23,11 +23,11 @@
 
     ProfileAnswerCtrl.prototype.setAnswerId = function(id) {
       this.id = id;
-    }
+    };
 
     ProfileAnswerCtrl.prototype.getAnswerId = function() {
       return this.id;
-    }
+    };
 
     // Initiate profile editor interface.
     ProfileAnswerCtrl.prototype.edit = function() {
@@ -58,8 +58,8 @@
       var self = this;
 
       if (this._answerTool.getModel().id === undefined) {
-        this._answerModel['profile_id'] = self.profileId;
-        this._answerModel['profile_question_id'] = self.questionId;
+        this._answerModel.profile_id = self.profileId;
+        this._answerModel.profile_question_id = self.questionId;
 
         window.console.log('blarg1');
 
@@ -71,8 +71,8 @@
           self.error = message.error;
         });
       } else {
-        this._answerModel.id = self.id
-        window.console.log(this._answerTool.getModel())
+        this._answerModel.id = self.id;
+        window.console.log(this._answerTool.getModel());
         this._answerResource.update(this._answerTool.getModel())
           .then(function() {
             self.resetForm();

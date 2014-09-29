@@ -4,16 +4,18 @@ module SocialNetworking
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
     def index
+      profile_id = profile_answer_params[:profile_id]
+      question_id = profile_answer_params[:profile_question_id]
 
-
-      if !profile_answer_params[:profile_id].blank? &&
-         !profile_answer_params[:profile_question_id].blank?
-
-        answer = ProfileAnswer.where(social_networking_profile_id: profile_answer_params[:profile_id],
-                                     social_networking_profile_question_id: profile_answer_params[:profile_question_id]).first
+      if profile_id.present? && question_id.present?
+        answer = ProfileAnswer
+          .where(social_networking_profile_id: profile_id,
+                 social_networking_profile_question_id: question_id)
+          .first
       end
 
-      render json: Serializers::ProfileAnswerSerializer.new(answer).to_serialized
+      render json: Serializers::ProfileAnswerSerializer.new(answer)
+                     .to_serialized
     end
 
     def show
@@ -23,7 +25,8 @@ module SocialNetworking
       @profile_answer = ProfileAnswer.new(profile_answer_params)
 
       if @profile_answer.save
-        render json: Serializers::ProfileAnswerSerializer.new(@profile_answer).to_serialized
+        render json: Serializers::ProfileAnswerSerializer.new(@profile_answer)
+                       .to_serialized
       else
         render json: { error: model_errors }, status: 400
       end
@@ -34,7 +37,8 @@ module SocialNetworking
          fail(ActiveRecord::RecordNotFound)
 
       if @profile_answer.update(profile_answer_params)
-        render json: Serializers::ProfileAnswerSerializer.new(@profile_answer).to_serialized
+        render json: Serializers::ProfileAnswerSerializer.new(@profile_answer)
+                       .to_serialized
       else
         render json: { error: model_errors }, status: 400
       end
