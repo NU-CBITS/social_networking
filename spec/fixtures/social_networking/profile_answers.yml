@@ -6,9 +6,9 @@ profile_answer1:
 
 profile_answer2:
   profile: profile1
-  social_networking_profile_question_id: 1
+  social_networking_profile_question_id: 2
   order: 2
-  answer_text: jumping
+  answer_text: green
 
 profile_question3:
   profile: profile2
