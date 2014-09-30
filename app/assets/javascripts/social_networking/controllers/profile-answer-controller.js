@@ -2,77 +2,73 @@
     "use strict";
 
     // Provide interaction with a participant's profile answers to profile questions.
-    function ProfileAnswerCtrl(answerTool, ProfileAnswers) {
+    function ProfileAnswerCtrl(ProfileAnswers) {
       var self = this;
       self._answerResource = ProfileAnswers;
-      self._answerTool = answerTool;
-      self.answerModel = self._answerTool.getModel();
-      self.answerModel.id = self.getAnswerId();
+      self.answerModels = {};
+      self._answerStates = {};
     }
 
-    ProfileAnswerCtrl.prototype.init = function(profileId, questionId, controller) {
+    ProfileAnswerCtrl.prototype.storeAnswer = function(profileId, questionId, controller) {
       this._answerResource.getOne(profileId, questionId)
         .then(function(profileAnswer) {
-            window.console.log(profileAnswer)
-            controller.setAnswerId(profileAnswer.id);
-            controller._answerTool.setModel(profileAnswer);
-            window.console.log(controller._answerTool.getModel());
+            window.console.log('entering storeAnswer, answer response: ' + profileAnswer);
+            controller.answerModels[questionId] = profileAnswer;
+            controller.setModel(profileAnswer, controller);
+            controller._answerStates[questionId] = {};
+            controller._answerStates[questionId].editable = false;
+            window.console.log('editable: ' + controller._answerStates[questionId]);
+            window.console.log('exiting storeAnswer, stored model: ' + controller.getModel(questionId, controller));
           })
           .catch(function(error) {
             window.console.log(error);
           });
     };
 
-    ProfileAnswerCtrl.prototype.setAnswerId = function(id) {
-      this.id = id;
+    ProfileAnswerCtrl.prototype.setModel = function(answer, controller) {
+        var answerModel = {};
+        answerModel.id = answer.id;
+        answerModel.profile_id = answer.profile_id;
+        answerModel.profile_question_id = answer.profile_question_id;
+        answerModel.answer_text = answer.answer_text;
+        controller.answerModels[answer.profile_question_id] = answerModel;
     };
 
-    ProfileAnswerCtrl.prototype.getAnswerId = function() {
-      return this.id;
+    ProfileAnswerCtrl.prototype.getModel = function(question_id, controller) { return controller.answerModels[question_id]; };
+
+    // Initiate answer editor interface.
+    ProfileAnswerCtrl.prototype.edit = function(question_id, controller) {
+      window.console.log("entering edit mode...");
+      controller._answerStates[question_id].editable = true;
     };
 
-    // Initiate profile editor interface.
-    ProfileAnswerCtrl.prototype.edit = function() {
-      window.console.log("edit");
-    };
-
-    // Is this only available for profile browsing?
-    ProfileAnswerCtrl.prototype.inBrowseMode = function() {
-      return this._answerTool.getMode() === this._answerTool.MODES.BROWSE;
-    };
-
-    // Is this available for answer entry?
-    ProfileAnswerCtrl.prototype.inEntryMode = function() {
-      return this._answerTool.getMode() === this._answerTool.MODES.ENTRY;
-    };
-
-    // Open a form.
-    ProfileAnswerCtrl.prototype.new = function() {
-      this._answerTool.edit();
-    };
-
-    ProfileAnswerCtrl.prototype.edit = function(answer) {
-      this._answerTool.edit(answer);
+    // Exit answer editor interface.
+    ProfileAnswerCtrl.prototype.cancelEdit = function(question_id, controller) {
+        window.console.log("exiting edit mode...");
+        controller._answerStates[question_id].editable = false;
     };
 
     // Persist a profile from the form.
     ProfileAnswerCtrl.prototype.save = function(profileId, questionId, controller) {
 
-      if (controller._answerTool.getModel().id === undefined) {
-        controller.answerModel.profile_id = profileId;
-        controller.answerModel.profile_question_id = questionId;
-        controller._answerResource.create(controller._answerTool.getModel()).then(function() {
-          controller.resetForm();
-          controller.resetTabs();
+      var answerModel = controller.getModel(questionId, controller);
+      if (answerModel.id === undefined) {
+        window.console.log('start save process...')
+        answerModel.profile_id = profileId;
+        answerModel.profile_question_id = questionId;
+        controller._answerResource.create(answerModel).then(function() {
+          window.console.log('save success.')
+          controller._answerStates[questionId].editable = false;
         }).catch(function(message) {
         controller.error = message.error;
       });
       } else {
-        controller.answerModel.profile_id = profileId;
-        controller.answerModel.profile_question_id = questionId;
-        controller._answerResource.update(controller._answerTool.getModel()).then(function() {
-          controller.resetForm();
-          controller.resetTabs();
+        window.console.log('start update process...')
+        answerModel.profile_id = profileId;
+        answerModel.profile_question_id = questionId;
+        controller._answerResource.update(answerModel).then(function() {
+          window.console.log('update success.')
+          controller._answerStates[questionId].editable = false;
         }).catch(function(message) {
           controller.error = message.error;
         });
@@ -81,8 +77,5 @@
 
     // Create a module and register the controllers.
     angular.module('socialNetworking.controllers')
-        .controller('ProfileAnswerCtrl', ['answerTool', 'ProfileAnswers', ProfileAnswerCtrl]);
-
-
-
+        .controller('ProfileAnswerCtrl', ['ProfileAnswers', ProfileAnswerCtrl]);
 })();
