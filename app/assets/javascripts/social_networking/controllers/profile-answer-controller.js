@@ -12,13 +12,10 @@
     ProfileAnswerCtrl.prototype.storeAnswer = function(profileId, questionId, controller) {
       this._answerResource.getOne(profileId, questionId)
         .then(function(profileAnswer) {
-            window.console.log('entering storeAnswer, answer response: ' + profileAnswer);
             controller.answerModels[questionId] = profileAnswer;
             controller.setModel(profileAnswer, controller);
             controller._answerStates[questionId] = {};
             controller._answerStates[questionId].editable = false;
-            window.console.log('editable: ' + controller._answerStates[questionId]);
-            window.console.log('exiting storeAnswer, stored model: ' + controller.getModel(questionId, controller));
           })
           .catch(function(error) {
             window.console.log(error);
@@ -38,13 +35,11 @@
 
     // Initiate answer editor interface.
     ProfileAnswerCtrl.prototype.edit = function(question_id, controller) {
-      window.console.log("entering edit mode...");
       controller._answerStates[question_id].editable = true;
     };
 
     // Exit answer editor interface.
     ProfileAnswerCtrl.prototype.cancelEdit = function(question_id, controller) {
-        window.console.log("exiting edit mode...");
         controller._answerStates[question_id].editable = false;
     };
 
@@ -53,21 +48,19 @@
 
       var answerModel = controller.getModel(questionId, controller);
       if (answerModel.id === undefined) {
-        window.console.log('start save process...')
         answerModel.profile_id = profileId;
         answerModel.profile_question_id = questionId;
         controller._answerResource.create(answerModel).then(function() {
-          window.console.log('save success.')
           controller._answerStates[questionId].editable = false;
         }).catch(function(message) {
         controller.error = message.error;
       });
       } else {
-        window.console.log('start update process...')
+        window.console.log('start update process...');
         answerModel.profile_id = profileId;
         answerModel.profile_question_id = questionId;
         controller._answerResource.update(answerModel).then(function() {
-          window.console.log('update success.')
+          window.console.log('update success.');
           controller._answerStates[questionId].editable = false;
         }).catch(function(message) {
           controller.error = message.error;
