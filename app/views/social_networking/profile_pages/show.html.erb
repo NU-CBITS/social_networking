@@ -2,7 +2,13 @@
 
 <div ng-controller="ProfileCtrl as profile">
 
-  <div profile-status></div>
+  <div class="profiles-username">
+    <h2><%= @profile.user_name %></h2>
+  </div>
+  <div class="profiles-last-online">
+    <h3>Last seen: {{ '<%= @profile.last_sign_in %>' | timeFromNow }}</h3>
+  </div>
+
   <a href="" ng-click="profile.nudge()">Nudge</a>
   <a href="" ng-click="profile.edit()">Edit my profile</a>
   <dl>
@@ -39,9 +45,12 @@
         <label>
           {{ answer.answerModels[question.id].answer_text }}
         </label>
+
+        <% if current_participant.id == @profile.participant_id %>
         <div class="form-group">
-        <button class="btn btn-link pull-right edit" ng-click="answer.edit(question.id, answer)"><i class="fa fa-pencil"></i></button>
-          </div>
+          <button class="btn btn-link pull-right edit" ng-click="answer.edit(question.id, answer)"><i class="fa fa-pencil"></i></button>
+        </div>
+        <% end %>
       </div>
     </li>
   </div>

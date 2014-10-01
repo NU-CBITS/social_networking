@@ -12,14 +12,22 @@
     ProfileAnswerCtrl.prototype.storeAnswer = function(profileId, questionId, controller) {
       this._answerResource.getOne(profileId, questionId)
         .then(function(profileAnswer) {
-            controller.answerModels[questionId] = profileAnswer;
-            controller.setModel(profileAnswer, controller);
-            controller._answerStates[questionId] = {};
-            controller._answerStates[questionId].editable = false;
-          })
+          controller.answerModels[questionId] = profileAnswer;
+          controller.setModel(profileAnswer, controller);
+          controller._answerStates[questionId] = {};
+          controller._answerStates[questionId].editable = false;
+        })
           .catch(function(error) {
             window.console.log(error);
-          });
+
+            controller.answerModels[questionId] = {};
+            var answerModel = {};
+            answerModel.profile_id = profileId;
+            answerModel.profile_question_id = questionId;
+            controller.answerModels[questionId] = answerModel;
+            controller._answerStates[questionId] = {};
+            controller._answerStates[questionId].editable = false;
+        });
     };
 
     ProfileAnswerCtrl.prototype.setModel = function(answer, controller) {

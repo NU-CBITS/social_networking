@@ -1,11 +1,11 @@
 ;(function() {
   "use strict";
 
-  // Displays pertinent information about a participant.
+  // Displays pertinent information about a profile.
   function profileStatus() {
     return {
-      template: '<h2>{{ profile.user_name }}</h2>' +
-                '<h3>{{ profile.lastLogin | timeFromNow }}</h3>'
+      template: '<h2>{{ profile.username }}</h2>' +
+                '<h3>Last seen: {{ profile.lastLogin | timeFromNow }}</h3>'
     };
   }
 
