@@ -39,9 +39,12 @@
       {{ item.participantId }}<br>
       <label>{{ item.description }}</label>
 
-      <button class="btn btn-link pull-right comment" ng-click="home.commentOn(item)"><i class="fa fa-comment text-primary"></i></button>
+      <div class="comments">
+        <button class="btn btn-link comment" ng-click="home.commentOn(item)"><i class="fa fa-comment text-primary"></i></button>
+        <button class="btn btn-link comments"  ng-show="!!item.comments.length" ng-click="item.showComments = !item.showComments">comments <span class="badge">{{ item.comments.length }}</span></button>
+      </div>
 
-      <p class="comment text-muted" ng-repeat="comment in item.comments">{{ comment.participantId }}: <span class="text-info">{{ comment.text }}</span></p>
+      <p ng-show="!!item.showComments" class="comment text-muted" ng-repeat="comment in item.comments">{{ comment.participantId }}: <span class="text-info">{{ comment.text }}</span></p>
     </li>
   </ul>
 

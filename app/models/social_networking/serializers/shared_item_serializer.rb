@@ -8,6 +8,7 @@ module SocialNetworking
         {
           className: "SocialNetworking::SharedItem",
           id: model.id,
+          participantId: item.participant_id,
           createdAt: model.created_at,
           description: "#{ item.participant_id } added a #{ label }" \
                        "#{ model.is_public ? ": " + item.description : "" }",

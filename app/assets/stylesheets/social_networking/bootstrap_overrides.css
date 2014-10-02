@@ -1,13 +1,3 @@
-/* list group (for goals, feed items) */
-.list-group .list-group-item label {
-  max-width: 70%;
-  margin-top: 8px;
-}
-
-.list-group .list-group-item .comment {
-  max-width: 70%;
-}
-
 /* bottom navbar (for mobile) */
 .navbar-fixed-bottom .container {
   min-height: 50px;
@@ -50,4 +40,20 @@
 
 .navbar-fixed-bottom .btn-link:active {
   background-color: #e7e7e7;
+}
+
+@media (max-width: 767px) {
+  .navbar {
+    margin-bottom: 0;
+  }
+}
+
+.comments .btn-link:focus {
+  outline: none;
+  text-decoration: none;
+}
+
+.comments .btn-link:hover {
+  outline: none;
+  text-decoration: none;
 }

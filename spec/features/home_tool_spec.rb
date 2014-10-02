@@ -30,6 +30,7 @@ describe "home tool", type: :feature, js: true do
     comment_on statement
     fill_in "What do you think?", with: "brilliant!"
     click_button "Save"
+    expand_comments_on statement
 
     expect(page).to have_content("brilliant!")
   end
@@ -37,5 +38,10 @@ describe "home tool", type: :feature, js: true do
   def comment_on(item)
     find(:xpath, "//*[@id='#{ item.class }-#{ item.id }']")
       .find("button.comment").click
+  end
+
+  def expand_comments_on(item)
+    find(:xpath, "//*[@id='#{ item.class }-#{ item.id }']")
+      .find("button.comments").click
   end
 end
