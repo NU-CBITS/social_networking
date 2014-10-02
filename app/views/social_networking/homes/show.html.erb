@@ -32,7 +32,7 @@
   </div>
 
   <ul class="list-group">
-    <li ng-repeat="item in home.feedItems"
+    <li ng-repeat="item in home.feedItems | orderBy:'createdAt':true"
         ng-show="home.inFeedBrowseMode()"
         class="list-group-item"
         id="{{ item.className }}-{{ item.id }}">

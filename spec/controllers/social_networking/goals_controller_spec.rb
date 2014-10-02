@@ -6,6 +6,7 @@ module SocialNetworking
     let(:goal) do
       double("goal",
              id: 8_675_309,
+             created_at: DateTime.new,
              participant_id: participant.id,
              description: "run a marathon",
              is_completed: false,

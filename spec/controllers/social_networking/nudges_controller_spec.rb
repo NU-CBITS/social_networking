@@ -8,6 +8,7 @@ module SocialNetworking
         let(:nudge) do
           double("nudge",
                  id: 8_675_309,
+                 created_at: DateTime.new,
                  initiator_id: participant.id,
                  recipient_id: 123,
                  comments: [])

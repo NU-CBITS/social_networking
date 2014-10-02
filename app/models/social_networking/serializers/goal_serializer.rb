@@ -6,6 +6,7 @@ module SocialNetworking
         {
           className: "SocialNetworking::Goal",
           id: model.id,
+          createdAt: model.created_at,
           participantId: model.participant_id,
           description: model.description,
           isCompleted: model.is_completed,

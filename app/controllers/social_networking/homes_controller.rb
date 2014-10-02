@@ -7,7 +7,8 @@ module SocialNetworking
         Serializers::OnTheMindStatementSerializer
           .from_collection(OnTheMindStatement.all) +
         Serializers::GoalSerializer.from_collection(Goal.all) +
-        Serializers::NudgeSerializer.from_collection(Nudge.all)
+        Serializers::NudgeSerializer.from_collection(Nudge.all) +
+        Serializers::SharedItemSerializer.from_collection(SharedItem.all)
       )
       @member_profiles = []
     end

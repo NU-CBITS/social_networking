@@ -8,6 +8,7 @@ module SocialNetworking
         let(:on_the_mind_statement) do
           double("on_the_mind_statement",
                  id: 8_675_309,
+                 created_at: DateTime.new,
                  participant_id: participant.id,
                  description: "foo",
                  comments: [])
