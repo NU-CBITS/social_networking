@@ -8,6 +8,8 @@ module SocialNetworking
           id: model.id,
           createdAt: model.created_at,
           participantId: model.participant_id,
+          summary: "#{ model.participant_id } set the goal " \
+                   "#{ model.description }",
           description: model.description,
           isCompleted: model.is_completed,
           isDeleted: model.is_deleted,

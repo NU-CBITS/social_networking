@@ -18,4 +18,5 @@ SocialNetworking::Engine.routes.draw do
   resources :profile_answers, only: [:index, :show, :create]
   post "profile_answers/:id", to: "profile_answers#update"
   resources :comments, only: :create
+  get "/templates/:path.html" => "templates#page", constraints: { path: /.+/  }
 end

@@ -36,13 +36,25 @@
         ng-show="home.inFeedBrowseMode()"
         class="list-group-item"
         id="{{ item.className }}-{{ item.id }}">
-      {{ item.participantId }}<br>
-      <label>{{ item.description }}</label>
+      <p>{{ item.summary }}</p>
 
-      <div class="comments">
-        <button class="btn btn-link comment" ng-click="home.commentOn(item)"><i class="fa fa-comment text-primary"></i></button>
-        <button class="btn btn-link comments"  ng-show="!!item.comments.length" ng-click="item.showComments = !item.showComments">comments <span class="badge">{{ item.comments.length }}</span></button>
+      <div class="actions">
+        <button class="btn btn-link comment" ng-click="home.commentOn(item)">
+          <span class="fa-stack">
+            <i class="fa fa-comment text-primary fa-stack-2x"></i>
+            <i class="fa fa-plus fa-stack-1x fa-inverse"></i>
+          </span>
+        </button>
+        <button class="btn btn-link comments" ng-show="!!item.comments.length" ng-click="item.showComments = !item.showComments">
+          <i class="fa fa-comments fa-2x"></i>
+          <i class="fa fa-2x">{{ item.comments.length }}</i>
+        </button>
+        <button class="btn btn-link" ng-if="!!item.isPublic" ng-click="item.showSummary = !item.showSummary">
+          <i class="fa fa-folder-open fa-2x" ng-if="!item.showSummary"></i><i class="fa fa-folder fa-2x" ng-if="!!item.showSummary"></i>
+        </button>
       </div>
+
+      <div ng-if="!!item.isPublic" ng-show="!!item.showSummary" ng-include src="item.templatePath + '/_summary.html'"></div>
 
       <p ng-show="!!item.showComments" class="comment text-muted" ng-repeat="comment in item.comments">{{ comment.participantId }}: <span class="text-info">{{ comment.text }}</span></p>
     </li>

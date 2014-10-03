@@ -48,12 +48,12 @@
   }
 }
 
-.comments .btn-link:focus {
+.actions .btn-link:focus {
   outline: none;
   text-decoration: none;
 }
 
-.comments .btn-link:hover {
+.actions .btn-link:hover {
   outline: none;
   text-decoration: none;
 }

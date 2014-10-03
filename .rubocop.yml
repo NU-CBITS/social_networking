@@ -11,7 +11,7 @@ Documentation:
     - spec/**/*
 
 MethodLength:
-  Max: 15
+  Max: 20
 
 PredicateName:
   Exclude:

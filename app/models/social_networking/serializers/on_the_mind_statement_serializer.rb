@@ -8,6 +8,7 @@ module SocialNetworking
           id: model.id,
           createdAt: model.created_at,
           participantId: model.participant_id,
+          summary: "#{ model.participant_id } says #{ model.description }",
           description: model.description,
           comments: CommentSerializer.from_collection(model.comments)
         }
