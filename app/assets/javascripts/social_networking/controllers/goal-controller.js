@@ -37,6 +37,7 @@
 
   // Persist the isCompleted attribute to the server.
   GoalCtrl.prototype.toggleComplete = function(currentGoal) {
+    currentGoal.isCompleted = !currentGoal.isCompleted;
     this._goals.update(currentGoal)
       .catch(function(goal) {
         currentGoal.isCompleted = goal.isCompleted;

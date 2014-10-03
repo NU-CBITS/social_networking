@@ -67,13 +67,19 @@
         class="list-group-item"
         id="goal-{{ participantGoal.id }}"
         ng-class="participantGoal.isCompleted ? 'list-group-item-success' : ''">
-      <label>
-        <input ng-disabled="participantGoal.isDeleted" type="checkbox" ng-model="participantGoal.isCompleted" ng-change="goal.toggleComplete(participantGoal)"> {{ participantGoal.description }}
-      </label>
+      <p>{{ participantGoal.description }}</p>
 
-      <button ng-if="!participantGoal.isDeleted" class="btn btn-link pull-right delete" ng-click="goal.toggleDeleted(participantGoal)"><i class="fa fa-trash-o text-danger"></i></button>
-      <button ng-if="!participantGoal.isDeleted" class="btn btn-link pull-right edit" ng-click="goal.edit(participantGoal)"><i class="fa fa-pencil"></i></button>
-      <button ng-if="participantGoal.isDeleted" class="btn btn-link pull-right restore" ng-click="goal.toggleDeleted(participantGoal)"><i class="fa fa-undo"></i></button>
+      <div>
+        <button class="btn btn-link complete" ng-click="goal.toggleComplete(participantGoal)" ng-if="!participantGoal.isDeleted">
+          <span class="fa-stack">
+            <i class="fa fa-square-o fa-stack-2x"></i>
+            <i class="fa fa-check fa-stack-2x" ng-if="participantGoal.isCompleted"></i>
+          </span>
+        </button>
+        <button ng-if="!participantGoal.isDeleted" class="btn btn-link edit" ng-click="goal.edit(participantGoal)"><i class="fa fa-pencil fa-2x"></i></button>
+        <button ng-if="!participantGoal.isDeleted" class="btn btn-link delete" ng-click="goal.toggleDeleted(participantGoal)"><i class="fa fa-trash text-danger fa-2x"></i></button>
+        <button ng-if="participantGoal.isDeleted" class="btn btn-link restore" ng-click="goal.toggleDeleted(participantGoal)"><i class="fa fa-undo fa-2x"></i></button>
+      </div>
     </li>
   </ul>
 </div>

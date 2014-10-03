@@ -15,7 +15,7 @@ describe "goal tool", type: :feature, js: true do
   end
 
   scenario "Participant completes a goal" do
-    check "p1 alpha"
+    complete "p1 alpha"
 
     expect(page).to have_completed_goal("p1 alpha")
 
@@ -27,7 +27,7 @@ describe "goal tool", type: :feature, js: true do
   scenario "Participant removes a goal's completed status" do
     expect(page).to have_completed_goal("p1 beta")
 
-    uncheck "p1 beta"
+    uncomplete "p1 beta"
 
     expect(page).not_to have_completed_goal("p1 beta")
 
@@ -69,11 +69,21 @@ describe "goal tool", type: :feature, js: true do
   end
 
   def have_goal(label)
-    have_css("li.list-group-item label", text: label)
+    have_css("li.list-group-item p", text: label)
   end
 
   def have_completed_goal(label)
-    have_css("li.list-group-item-success label", text: label)
+    have_css("li.list-group-item-success p", text: label)
+  end
+
+  def complete(label)
+    goal = SocialNetworking::Goal.find_by_description(label)
+    find("li#goal-#{ goal.id } button.complete").click
+  end
+
+  def uncomplete(label)
+    goal = SocialNetworking::Goal.find_by_description(label)
+    find("li#goal-#{ goal.id } button.complete").click
   end
 
   def delete(label)
