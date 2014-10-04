@@ -15,11 +15,19 @@ module SocialNetworking
           templatePath: "/social_networking/templates/#{ path }",
           isPublic: model.is_public,
           data: item.to_serialized,
-          summary: "#{ item.participant_id } added a #{ label }" \
+          summary: "#{ item.participant_id } #{ model.action_type } " \
+                   "#{ indefinite_articlerize(label) }" \
                    "#{ model.is_public ? ": " + item.description : "" }",
           description: item.description,
           comments: CommentSerializer.from_collection(model.comments)
         }
+      end
+
+      private
+
+      # lifted from http://stackoverflow.com/questions/5381738/rails-article-helper-a-or-an
+      def indefinite_articlerize(word)
+        %w(a e i o u).include?(word[0]) ? "an #{ word }" : "a #{ word }"
       end
     end
   end

@@ -16,6 +16,11 @@ participant1_goal_delta:
   description: p1 delta
   is_deleted: true
 
+participant1_goal_epsilon:
+  participant: participant1
+  description: p1 epsilon
+  is_completed: true
+
 participant2_goal_alpha:
   participant: participant2
   description: p2 alpha
@@ -30,6 +35,6 @@ participant2_goal_gamma:
   description: p2 gamma
 
 participant2_goal_delta:
-  participant: participant1
+  participant: participant2
   description: p2 delta
   is_deleted: true

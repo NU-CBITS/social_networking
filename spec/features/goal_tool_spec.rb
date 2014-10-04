@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe "goal tool", type: :feature, js: true do
-  fixtures(:all)
+  fixtures :all
 
   before { visit "/social_networking/goal_tool" }
 
@@ -25,15 +25,15 @@ describe "goal tool", type: :feature, js: true do
   end
 
   scenario "Participant removes a goal's completed status" do
-    expect(page).to have_completed_goal("p1 beta")
+    expect(page).to have_completed_goal("p1 epsilon")
 
-    uncomplete "p1 beta"
+    uncomplete "p1 epsilon"
 
-    expect(page).not_to have_completed_goal("p1 beta")
+    expect(page).not_to have_completed_goal("p1 epsilon")
 
     click_link "Completed"
 
-    expect(page).not_to have_content("p1 beta")
+    expect(page).not_to have_content("p1 epsilon")
   end
 
   scenario "Participant deletes a goal" do
