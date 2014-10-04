@@ -14,8 +14,6 @@ module SocialNetworking
         profile
       end
 
-      puts profiles.inspect
-
       render json: Serializers::ProfileSerializer.from_collection(profiles)
     end
 

@@ -40,7 +40,7 @@ end
 desc "Run rubocop"
 task :rb_lint do
   dir = File.dirname(__FILE__)
-  puts `#{ File.join(dir, "bin", "rubocop") } #{ File.join(dir, ".") }`
+  puts `#{ File.join(dir, "bin", "rubocop") } -R #{ File.join(dir, ".") }`
 end
 
 desc "Run all linters"
