@@ -16,6 +16,10 @@ gem "jquery-rails", "~> 3.1"
 gem "bootstrap-sass", "~> 3.1"
 
 group :development, :test do
-  gem "jasmine-rails", "~> 0.10"
+  gem "jasmine-rails", "= 0.10.0"
   gem "rubocop", "~> 0.25"
+end
+
+group :development do
+  gem "brakeman", require: false
 end
