@@ -49,7 +49,10 @@ module SocialNetworking
         end
 
         context "and the record saves" do
-          before { allow(goal).to receive(:save) { true } }
+          before do
+            allow(goal).to receive(:save) { true }
+            allow(SharedItem).to receive(:create)
+          end
 
           it "should return the new record" do
             post :create,
@@ -104,6 +107,9 @@ module SocialNetworking
                 description: "run a marathon",
                 is_completed: true
               ) { true }
+              allow(goal).to receive(:previous_changes)
+                .and_return("is_completed" => [false, true])
+              allow(SharedItem).to receive(:create)
             end
 
             it "should return the record" do

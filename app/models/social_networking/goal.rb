@@ -1,6 +1,9 @@
 module SocialNetworking
   # Something to be completed by a Participant.
   class Goal < ActiveRecord::Base
+    ACTION_TYPES = %w( created completed )
+    Actions = Struct.new(*ACTION_TYPES.map(&:to_sym)).new(*ACTION_TYPES)
+
     belongs_to :participant
     has_many :comments, as: "item"
 
@@ -8,6 +11,13 @@ module SocialNetworking
     validates :is_completed, :is_deleted, inclusion: { in: [true, false] }
     validate :not_due_in_the_past, on: :create
     validate :due_before_membership_ends, on: :create
+
+    def to_serialized
+      {
+        description: description,
+        dueOn: due_on
+      }
+    end
 
     private
 

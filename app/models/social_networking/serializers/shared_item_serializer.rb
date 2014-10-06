@@ -5,7 +5,7 @@ module SocialNetworking
       def to_serialized
         item = model.item
         path = item.class.to_s.pluralize.underscore
-        label = item.class.to_s.underscore.gsub(/_/m, " ")
+        label = ActiveSupport::Inflector.demodulize(item.class).humanize
 
         {
           className: "SocialNetworking::SharedItem",
@@ -27,7 +27,7 @@ module SocialNetworking
 
       # lifted from http://stackoverflow.com/questions/5381738/rails-article-helper-a-or-an
       def indefinite_articlerize(word)
-        %w(a e i o u).include?(word[0]) ? "an #{ word }" : "a #{ word }"
+        "a#{ %w(a e i o u).include?(word[0].downcase) ? "n" : "" } #{ word }"
       end
     end
   end

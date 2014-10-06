@@ -24,6 +24,7 @@ module SocialNetworking
       @goal = Goal.new(sanitized_params)
 
       if @goal.save
+        SharedItem.create(item: @goal, action_type: Goal::Actions.created)
         render json: Serializers::GoalSerializer.new(@goal).to_serialized
       else
         render json: { error: model_errors }, status: 400
@@ -37,6 +38,9 @@ module SocialNetworking
       ).first || fail(ActiveRecord::RecordNotFound)
 
       if @goal.update(sanitized_params)
+        if @goal.previous_changes["is_completed"] == [false, true]
+          SharedItem.create(item: @goal, action_type: Goal::Actions.completed)
+        end
         render json: Serializers::GoalSerializer.new(@goal).to_serialized
       else
         render json: { error: model_errors }, status: 400
