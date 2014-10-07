@@ -54,9 +54,9 @@ Run the specs
 
     rake js_spec
 
-## Run rubocop (Ruby linter)
+## Run Ruby linter
 
-    rake rubocop
+    rake rb_lint
 
 ## Run JSHint
 

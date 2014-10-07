@@ -5,7 +5,8 @@ module SocialNetworking
       def to_serialized
         item = model.item
         path = item.class.to_s.pluralize.underscore
-        label = item.class.to_s.underscore.gsub(/_/m, " ")
+        label = model.item_label ||
+          ActiveSupport::Inflector.demodulize(item.class).humanize
 
         {
           className: "SocialNetworking::SharedItem",
@@ -15,11 +16,20 @@ module SocialNetworking
           templatePath: "/social_networking/templates/#{ path }",
           isPublic: model.is_public,
           data: item.to_serialized,
-          summary: "#{ item.participant_id } added a #{ label }" \
+          summary: "#{ item.participant_id } #{ model.action_type } " \
+                   "#{ indefinite_articlerize(label) }" \
                    "#{ model.is_public ? ": " + item.description : "" }",
           description: item.description,
-          comments: CommentSerializer.from_collection(model.comments)
+          comments: CommentSerializer.from_collection(model.comments),
+          likes: LikeSerializer.from_collection(model.likes)
         }
+      end
+
+      private
+
+      # lifted from http://stackoverflow.com/questions/5381738/rails-article-helper-a-or-an
+      def indefinite_articlerize(word)
+        "a#{ %w(a e i o u).include?(word[0].downcase) ? "n" : "" } #{ word }"
       end
     end
   end

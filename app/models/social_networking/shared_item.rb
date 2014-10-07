@@ -3,5 +3,6 @@ module SocialNetworking
   class SharedItem < ActiveRecord::Base
     belongs_to :item, polymorphic: true
     has_many :comments, as: "item"
+    has_many :likes, as: "item"
   end
 end

@@ -37,14 +37,21 @@ Jshintrb::JshintTask.new :jshint do |t|
   t.globals = [:angular, :moment, "$"]
 end
 
-desc "Run rubocop"
+desc "Run RuboCop"
 task :rb_lint do
   dir = File.dirname(__FILE__)
-  puts `#{ File.join(dir, "bin", "rubocop") } #{ File.join(dir, ".") }`
+  puts `#{ File.join(dir, "bin", "rubocop") } -R #{ File.join(dir, ".") }`
+end
+
+desc "Run Brakeman"
+task :brakeman do
+  dir = File.dirname(__FILE__)
+  puts `#{ File.join(dir, "bin", "brakeman") } #{ File.join(dir, ".") }`
 end
 
 desc "Run all linters"
 task :lint do
+  Rake::Task["brakeman"].invoke
   Rake::Task["jshint"].invoke
   Rake::Task["rb_lint"].invoke
 end

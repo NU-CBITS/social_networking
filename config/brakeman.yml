@@ -1,0 +1,3 @@
+---
+:skip_files:
+- app/controllers/social_networking/templates_controller.rb

@@ -23,6 +23,10 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 4.1"
 
+  # there was a breaking change in 2.1.4; locking version
+  # (https://github.com/rails/sprockets-rails/issues/167)
+  s.add_dependency "sprockets-rails", "= 2.1.3"
+
   s.add_development_dependency "pg"
   s.add_development_dependency "rspec-rails", "~> 3"
   s.add_development_dependency "capybara", "~> 2"
