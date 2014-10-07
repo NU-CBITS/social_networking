@@ -2,18 +2,26 @@
   "use strict";
 
   // Provides access to the feed and its items.
-  function HomeCtrl(OnYourMindResource, CommentResource, homeTool, actionItems,
-                    feedItems, memberProfiles, $filter) {
+  function HomeCtrl(OnYourMindResource, CommentResource, LikeResource,
+                    homeTool, currentParticipantId, actionItems, feedItems,
+                    memberProfiles, $filter) {
     this.actionItems = actionItems;
     this.feedItems = feedItems;
     this.memberProfiles = memberProfiles;
     this._homeTool = homeTool;
+    this._currentParticipantId = currentParticipantId;
     this.onYourMindModel = this._homeTool.getOnYourMindStatementModel();
     this.commentModel = this._homeTool.getCommentModel();
     this._onYourMindResource = OnYourMindResource;
     this._commentResource = CommentResource;
+    this._likeResource = LikeResource;
+
     this._findFeedItem = function(filter) {
       return $filter('filter')(this.feedItems, filter)[0];
+    };
+
+    this._findLikes = function(likes, filter) {
+      return $filter('filter')(likes, filter);
     };
   }
 
@@ -48,7 +56,7 @@
           className: comment.itemType,
           id: comment.itemId
         });
-        if (typeof item !== 'undefined') {
+        if (item !== void 0) {
           item.comments.push(comment);
         }
         self.cancelOnYourMindEntryMode();
@@ -61,6 +69,26 @@
   // Prepare to comment on a feed item.
   HomeCtrl.prototype.commentOn = function(item) {
     this._homeTool.newCommentOn(item);
+  };
+
+  // A Participant may only like a feed item once.
+  HomeCtrl.prototype.canAddLikeTo = function(item) {
+    return (this._findLikes(item.likes, {
+      participantId: this._currentParticipantId
+    }) || []).length === 0;
+  };
+
+  // "Like" a feed item.
+  HomeCtrl.prototype.addLikeTo = function(item) {
+    var self = this;
+
+    this._likeResource.create({ itemType: item.className, itemId: item.id })
+      .then(function(like) {
+        item.likes.push(like);
+      })
+      .catch(function(message) {
+        self.error = message.error;
+      });
   };
 
   // Is the tool in Feed Browse Mode?
@@ -108,6 +136,6 @@
   // Create a module and register the controller.
   angular.module('socialNetworking.controllers')
     .controller('HomeCtrl', ['OnYourMindResource', 'CommentResource',
-        'homeTool', 'actionItems', 'feedItems', 'memberProfiles', '$filter',
-        HomeCtrl]);
+        'LikeResource', 'homeTool', 'currentParticipantId', 'actionItems',
+        'feedItems', 'memberProfiles', '$filter', HomeCtrl]);
 })();

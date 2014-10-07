@@ -20,7 +20,8 @@ module SocialNetworking
                    "#{ indefinite_articlerize(label) }" \
                    "#{ model.is_public ? ": " + item.description : "" }",
           description: item.description,
-          comments: CommentSerializer.from_collection(model.comments)
+          comments: CommentSerializer.from_collection(model.comments),
+          likes: LikeSerializer.from_collection(model.likes)
         }
       end
 

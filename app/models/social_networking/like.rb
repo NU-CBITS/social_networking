@@ -5,5 +5,7 @@ module SocialNetworking
     belongs_to :item, polymorphic: true
 
     validates :participant, :item, presence: true
+    # a Participant may only Like an item once
+    validates :item_id, uniqueness: { scope: [:item_type, :participant_id] }
   end
 end

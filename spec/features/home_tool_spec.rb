@@ -35,6 +35,14 @@ describe "home tool", type: :feature, js: true do
     expect(page).to have_content("brilliant!")
   end
 
+  scenario "Participant likes a Goal" do
+    expect(page).not_to have_selector("button.likes")
+
+    like social_networking_shared_items(:participant1_goal_alpha)
+
+    expect(page).to have_selector("button.likes")
+  end
+
   def comment_on(item)
     find(:xpath, "//*[@id='#{ item.class }-#{ item.id }']")
       .find("button.comment").click
@@ -43,5 +51,10 @@ describe "home tool", type: :feature, js: true do
   def expand_comments_on(item)
     find(:xpath, "//*[@id='#{ item.class }-#{ item.id }']")
       .find("button.comments").click
+  end
+
+  def like(item)
+    find(:xpath, "//*[@id='#{ item.class }-#{ item.id }']")
+      .find("button.like").click
   end
 end

@@ -39,6 +39,16 @@
       <p>{{ item.summary }}</p>
 
       <div class="actions">
+        <button ng-if="home.canAddLikeTo(item)" class="btn btn-link like" ng-click="home.addLikeTo(item)">
+          <span class="fa-stack">
+            <i class="fa fa-thumbs-o-up fa-stack-2x"></i>
+            <i class="fa fa-plus fa-stack-1x" style="top: 2px;left: 1px;"></i>
+          </span>
+        </button>
+        <button class="btn btn-link likes" ng-show="!!item.likes.length" ng-click="item.showLikes = !item.showLikes">
+          <i class="fa fa-thumbs-up fa-2x"></i>
+          <i class="fa fa-2x">{{ item.likes.length }}</i>
+        </button>
         <button class="btn btn-link comment" ng-click="home.commentOn(item)">
           <span class="fa-stack">
             <i class="fa fa-comment text-primary fa-stack-2x"></i>
@@ -57,6 +67,10 @@
       <div ng-if="!!item.isPublic" ng-show="!!item.showSummary" ng-include src="item.templatePath + '/_summary.html'"></div>
 
       <p ng-show="!!item.showComments" class="comment text-muted" ng-repeat="comment in item.comments">{{ comment.participantId }}: <span class="text-info">{{ comment.text }}</span></p>
+
+      <p ng-show="!!item.showLikes">
+        Liked by: <span ng-repeat="like in item.likes">{{ like.participantId }} </span>
+      </p>
     </li>
   </ul>
 
@@ -81,6 +95,7 @@
 <!-- bootstrap Angular app with data -->
 <script>
   angular.module('socialNetworking.values')
+    .value('currentParticipantId', <%= current_participant.id %>)
     .value('actionItems', <%= @action_items.to_json.html_safe %>)
     .value('feedItems', <%= @feed_items.to_json.html_safe %>)
     .value('memberProfiles', <%= @member_profiles.to_json.html_safe %>);

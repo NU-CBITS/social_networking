@@ -2,6 +2,7 @@ describe('HomeCtrl', function() {
   var controller,
       onYourMindResource,
       commentResource,
+      likeResource,
       scope,
       q,
       deferred;
@@ -24,6 +25,13 @@ describe('HomeCtrl', function() {
                 return deferred.promise;
               }
     };
+    likeResource = {
+      create: function() {
+                deferred = q.defer();
+
+                return deferred.promise;
+              }
+    };
   });
 
   beforeEach(inject(function($rootScope, $q, $controller, $filter, homeTool) {
@@ -32,7 +40,9 @@ describe('HomeCtrl', function() {
     controller = $controller('HomeCtrl', {
       OnYourMindResource: onYourMindResource,
       CommentResource: commentResource,
+      LikeResource: likeResource,
       homeTool: homeTool,
+      currentParticipantId: 123,
       actionItems: [],
       feedItems: [],
       memberProfiles: [],

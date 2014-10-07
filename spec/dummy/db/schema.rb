@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141006200325) do
+ActiveRecord::Schema.define(version: 20141007141541) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,8 @@ ActiveRecord::Schema.define(version: 20141006200325) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "social_networking_likes", ["participant_id", "item_id", "item_type"], name: "one_like_per_item", unique: true, using: :btree
 
   create_table "social_networking_nudges", force: true do |t|
     t.integer  "initiator_id", null: false

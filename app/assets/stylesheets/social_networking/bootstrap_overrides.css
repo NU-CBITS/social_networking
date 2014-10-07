@@ -48,6 +48,10 @@
   }
 }
 
+.actions .btn-link {
+  padding: 5px;
+}
+
 .actions .btn-link:focus {
   outline: none;
   text-decoration: none;

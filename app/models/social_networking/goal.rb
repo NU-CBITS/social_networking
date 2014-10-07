@@ -6,6 +6,7 @@ module SocialNetworking
 
     belongs_to :participant
     has_many :comments, as: "item"
+    has_many :likes, as: "item"
 
     validates :participant, :description, presence: true
     validates :is_completed, :is_deleted, inclusion: { in: [true, false] }
