@@ -74,12 +74,12 @@
           <i class="fa fa-comments fa-2x"></i>
           <i class="fa fa-2x">{{ item.comments.length }}</i>
         </button>
-        <button class="btn btn-link" ng-if="!!item.isPublic" ng-click="item.showSummary = !item.showSummary">
+        <button class="btn btn-link" ng-if="home.hasSummary(item)" ng-click="item.showSummary = !item.showSummary">
           <i class="fa fa-folder-open fa-2x" ng-if="!item.showSummary"></i><i class="fa fa-folder fa-2x" ng-if="!!item.showSummary"></i>
         </button>
       </div>
 
-      <div ng-if="!!item.isPublic" ng-show="!!item.showSummary" ng-include src="item.templatePath + '/_summary.html'"></div>
+      <div ng-if="home.hasSummary(item)" ng-show="!!item.showSummary" ng-include src="item.templatePath + '/_summary.html'"></div>
 
       <p ng-show="!!item.showComments" class="comment text-muted" ng-repeat="comment in item.comments">{{ comment.participantId }}: <span class="text-info">{{ comment.text }}</span></p>
 

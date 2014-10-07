@@ -33,6 +33,10 @@
     return this._homeTool.getSelectedItem();
   };
 
+  HomeCtrl.prototype.hasSummary = function(item) {
+    return !!item.isPublic && !angular.equals(item.data, {});
+  };
+
   // Prepare to add a new On Your Mind Statement.
   HomeCtrl.prototype.newOnYourMindStatement = function() {
     this._homeTool.editOnYourMindStatement();
