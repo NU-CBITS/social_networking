@@ -16,11 +16,27 @@
   <% end %>
 </div>
 
-<ul class="list-group" ng-controller="NudgeCtrl as nudgeController">
-  <li ng-repeat="nudge in NudgeCtrl.members" class="list-group-item" id="nudge-{{ nudge.id }}" ng-init="nudgeController.setRecipient(<%= @profile.participant_id %>)">
-    {{ nudge.id }} nudged you!
-  </li>
-</ul>
+<% if current_participant.id == @profile.participant_id && !@nudges.empty? %>
+    <div class="alert alert-info" id="nudge-alert">
+      <button type="button" class="close" data-dismiss="alert" onclick="$('#nudge-alert').hide();"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <% if @nudges.size == 1 %>
+        <%= @nudges[0].email %>
+      <% elsif @nudges == 2 %>
+        <%= @nudges[0] %> and <%= @nudges[0] %>
+      <% else %>
+        <% @nudges.each_with_index do |nudge, index| %>
+
+           <% if index == (@nudges.size - 1) %>
+            and <%= nudge.email %>
+           <% else %>
+           <%= nudge.email %><% if @nudges.size > 2 %>,<% end %>
+           <% end %>
+
+        <% end %>
+      <% end %>
+      buzzed you!
+    </div>
+<% end %>
 
 <h3>Profile Questions</h3>
 
@@ -67,4 +83,5 @@
           .value('participantId', <%= current_participant.id %>)
           .value('profileId', <%= @profile.id %>)
           .value('ProfileQuestions', <%= @profile_questions.to_json.html_safe %>);
+
 </script>
