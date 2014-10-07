@@ -23,6 +23,12 @@
   </form>
 
   <form novalidate role="form" name="commentOnForm" class="row" ng-show="home.inCommentOnMode()">
+    <ul class="list-group">
+      <li class="list-group-item">
+        <p>{{ home.getSelectedItem().summary }}</p>
+      </li>
+    </ul>
+
     <div class="form-group col-lg-8 col-md-8">
       <label for="comment-text">What do you think?</label>
       <input type="text" class="form-control" id="comment-text" ng-model="home.commentModel.text" ng-maxlength="255" required focus-on="new-comment">
@@ -32,6 +38,12 @@
       <button class="btn btn-primary" ng-click="home.saveComment()" ng-disabled="commentOnForm.$invalid">Save</button>
       <button class="btn btn-default" ng-click="home.cancelCommentOnMode()">Cancel</button>
     </div>
+
+    <ul class="list-group">
+      <li class="list-group-item">
+        <p class="comment text-muted" ng-repeat="comment in home.getSelectedItem().comments">{{ comment.participantId }}: <span class="text-info">{{ comment.text }}</span></p>
+      </li>
+    </ul>
   </form>
 
   <ul class="list-group">
