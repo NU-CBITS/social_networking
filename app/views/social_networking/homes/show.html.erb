@@ -1,7 +1,14 @@
 <%= render "social_networking/shared/nav" %>
 
 <div ng-controller="HomeCtrl as home">
-  <button class="btn btn-link" ng-click="home.newOnYourMindStatement()" ng-show="home.inFeedBrowseMode()">What's on your mind?</button>
+  <ul class="list-group action-items" ng-if="home.inFeedBrowseMode()">
+    <li class="list-group-item">
+      <button class="btn btn-link" ng-click="home.newOnYourMindStatement()">What's on your mind?</button>
+    </li>
+    <li class="list-group-item" ng-repeat="item in home.actionItems">
+      <a class="btn btn-link" href="{{ item.link }}">{{ item.label }}</a>
+    </li>
+  </ul>
 
   <form novalidate role="form" name="onYourMindForm" class="row" ng-show="home.inOnYourMindEntryMode()">
     <div class="form-group col-lg-8 col-md-8">
@@ -26,10 +33,6 @@
       <button class="btn btn-default" ng-click="home.cancelCommentOnMode()">Cancel</button>
     </div>
   </form>
-
-  <div ng-repeat="item in home.actionItems">
-    <a href="{{ item.link }}">{{ item.label }}</a>
-  </div>
 
   <ul class="list-group">
     <li ng-repeat="item in home.feedItems | orderBy:'createdAt':true"
