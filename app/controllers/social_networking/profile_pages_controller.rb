@@ -10,6 +10,7 @@ module SocialNetworking
     def show
       return @profile if params[:id].blank?
       @profile = Profile.find(params[:id])
+      set_notifications(@profile.participant_id)
       participant = Participant.find(@profile.participant_id)
       @profile.user_name = participant.email
       @profile.last_sign_in = participant.last_sign_in_at
@@ -26,10 +27,15 @@ module SocialNetworking
         @profile.active = true
         @profile.save
       end
+      set_notifications(@profile.participant_id)
       @profile.user_name = current_participant.email
       @profile.last_sign_in = current_participant.last_sign_in_at
       @profile.active_membership_end_date =
          current_participant.active_membership_end_date
+    end
+
+    def set_notifications(participant_id)
+      @notificaitons = Nudge.where("recipient_id = ? AND created_at > ?", participant_id, 1.day.ago)
     end
 
     def set_profile_questions

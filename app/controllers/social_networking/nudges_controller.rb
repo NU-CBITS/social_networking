@@ -1,6 +1,12 @@
 module SocialNetworking
   # Manage Nudges.
   class NudgesController < ApplicationController
+    def index
+      @nudges = Nudge.search(sanitized_params[:recipient_id])
+
+      render json: Serializers::NudgeSerializer.from_collection(@nudges)
+    end
+
     def create
       @nudge = Nudge.new(sanitized_params)
 

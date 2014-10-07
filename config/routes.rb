@@ -10,7 +10,7 @@ SocialNetworking::Engine.routes.draw do
 
   # server api
   resources :participants, only: [:index, :show]
-  resources :nudges, only: :create
+  resources :nudges, only: [:create, :index]
   resources :on_the_mind_statements, only: :create
   resources :goals, only: [:index, :create]
   post "goals/:id", to: "goals#update", as: :goal

@@ -14,6 +14,9 @@
       nudge.$save();
     };
 
+    Nudge.search = function(recipient_id) { return NudgeResource.query({recipient_id:recipient_id}).$promise; };
+    console.log(Nudge)
+
     return Nudge;
   }
 

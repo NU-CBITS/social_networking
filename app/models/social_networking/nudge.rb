@@ -6,5 +6,13 @@ module SocialNetworking
     has_many :comments, as: "item"
 
     validates :initiator, :recipient, presence: true
+
+    def self.search(recipient_id)
+      if recipient_id
+        where(recipient_id: recipient_id).where("created_date < ?", 1.day.ago)
+      else
+        all
+      end
+    end
   end
 end

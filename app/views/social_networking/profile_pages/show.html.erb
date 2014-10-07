@@ -16,6 +16,12 @@
   <% end %>
 </div>
 
+<ul class="list-group" ng-controller="NudgeCtrl as nudgeController">
+  <li ng-repeat="nudge in NudgeCtrl.members" class="list-group-item" id="nudge-{{ nudge.id }}" ng-init="nudgeController.setRecipient(<%= @profile.participant_id %>)">
+    {{ nudge.id }} nudged you!
+  </li>
+</ul>
+
 <h3>Profile Questions</h3>
 
 <ul class="list-group" ng-controller="ProfileQuestionsCtrl as profileQuestions">
