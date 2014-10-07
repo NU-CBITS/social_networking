@@ -13,6 +13,7 @@
       this._mode = HomeTool.MODES.FEED;
       this._onYourMindStatementModel = {};
       this._commentModel = {};
+      this._selectedItem = null;
     }
 
     // Tool modes triggered by user actions.
@@ -49,6 +50,14 @@
 
     HomeTool.prototype.getCommentModel = function() {
       return this._commentModel;
+    };
+
+    HomeTool.prototype.setSelectedItem = function(item) {
+      this._selectedItem = item;
+    };
+
+    HomeTool.prototype.getSelectedItem = function() {
+      return this._selectedItem;
     };
 
     // Reset On Your Mind Statement properties to defaults.

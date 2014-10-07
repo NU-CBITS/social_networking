@@ -25,6 +25,14 @@
     };
   }
 
+  HomeCtrl.prototype.setSelectedItem = function(item) {
+    this._homeTool.setSelectedItem(item);
+  };
+
+  HomeCtrl.prototype.getSelectedItem = function() {
+    return this._homeTool.getSelectedItem();
+  };
+
   // Prepare to add a new On Your Mind Statement.
   HomeCtrl.prototype.newOnYourMindStatement = function() {
     this._homeTool.editOnYourMindStatement();
@@ -68,6 +76,7 @@
 
   // Prepare to comment on a feed item.
   HomeCtrl.prototype.commentOn = function(item) {
+    this.setSelectedItem(item);
     this._homeTool.newCommentOn(item);
   };
 
