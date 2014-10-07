@@ -10,7 +10,7 @@ module SocialNetworking
     def show
       return @profile if params[:id].blank?
       @profile = Profile.find(params[:id])
-      set_nudge_initiators(@profile.participant_id)
+      store_nudge_initiators(@profile.participant_id)
       participant = Participant.find(@profile.participant_id)
       @profile.user_name = participant.email
       @profile.last_sign_in = participant.last_sign_in_at
@@ -27,16 +27,15 @@ module SocialNetworking
         @profile.active = true
         @profile.save
       end
-      set_nudge_initiators(@profile.participant_id)
+      store_nudge_initiators(@profile.participant_id)
       @profile.user_name = current_participant.email
       @profile.last_sign_in = current_participant.last_sign_in_at
       @profile.active_membership_end_date =
          current_participant.active_membership_end_date
     end
 
-    def set_nudge_initiators(participant_id)
+    def store_nudge_initiators(participant_id)
       @notifications = Nudge.search(participant_id)
-      puts '~~~~~~~' + @notifications.inspect
       @nudges = []
       @notifications.each do | notification |
         @nudges.push(notification.initiator)
