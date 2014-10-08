@@ -94,19 +94,6 @@
   </div>
 </div>
 
-<% content_for(:bottom) do %>
-  <div ng-controller="HomeCtrl as home">
-    <nav class="navbar navbar-default navbar-fixed-bottom visible-xs-block" role="navigation" ng-show="home.inFeedBrowseMode()">
-      <div class="container">
-        <div class="row">
-          <div class="col-xs-2" ng-click="home.show('feed')"><button class="btn btn-link">Feed</button></div>
-          <div class="col-xs-2" ng-click="home.show('profiles')"><button class="btn btn-link">Profiles</button></div>
-        </div>
-      </div>
-    </nav>
-  </div>
-<% end %>
-
 <!-- bootstrap Angular app with data -->
 <script>
   angular.module('socialNetworking.values')
