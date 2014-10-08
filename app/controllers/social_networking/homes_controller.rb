@@ -6,7 +6,6 @@ module SocialNetworking
       @feed_items = (
         Serializers::OnTheMindStatementSerializer
           .from_collection(OnTheMindStatement.includes(:comments)) +
-        Serializers::GoalSerializer.from_collection(Goal.includes(:comments)) +
         Serializers::NudgeSerializer
           .from_collection(Nudge.includes(:comments)) +
         Serializers::SharedItemSerializer

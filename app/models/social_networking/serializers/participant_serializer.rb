@@ -6,7 +6,7 @@ module SocialNetworking
         {
           id: model.id,
           username: model.email,
-          lastLogin: model.last_sign_in_at,
+          latestAction: model.latest_action_at,
           endOfTrial: model.active_membership_end_date
         }
       end

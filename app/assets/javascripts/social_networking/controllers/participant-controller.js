@@ -10,7 +10,7 @@
             .then(function(participant) {
                 self.id = participant.id;
                 self.username = participant.username;
-                self.lastLogin = participant.lastLogin;
+                self.latestAction = participant.latestAction;
             })
             .catch(function(error) {
                 window.console.log(error);

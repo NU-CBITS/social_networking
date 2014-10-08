@@ -7,7 +7,7 @@
       <a href="<%= social_networking_profile_path %>/{{ profile.id }}">{{ profile.username }}</a>
     </div>
     <div class="profiles-last-online">
-      Last seen: {{ profile.lastLogin | timeFromNow }}
+      Last seen: {{ profile.latestAction | timeFromNow }}
     </div>
     <dl>
       <dt ng-repeat-start="r in profile.responses">{{ r.question }}</dt>

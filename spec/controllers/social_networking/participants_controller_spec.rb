@@ -6,7 +6,7 @@ module SocialNetworking
       double("participant",
              id: 987,
              email: "foo@bar.com",
-             last_sign_in_at: "2014-04-29T15:39:04.244-05:00",
+             latest_action_at: "2014-04-29T15:39:04.244-05:00",
              active_membership_end_date: nil)
     end
 

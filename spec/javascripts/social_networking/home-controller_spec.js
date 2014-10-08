@@ -42,7 +42,7 @@ describe('HomeCtrl', function() {
       CommentResource: commentResource,
       LikeResource: likeResource,
       homeTool: homeTool,
-      currentParticipantId: 123,
+      participantId: 123,
       actionItems: [],
       feedItems: [],
       memberProfiles: [],

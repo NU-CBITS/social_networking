@@ -1,52 +1,52 @@
 <%= render "social_networking/shared/nav" %>
 
 <div class="modal-container">
-    <div class="modal fade" id="profile-icon-selection" tabindex="-1" role="dialog" aria-labelledby="icon-modal" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
+  <div class="modal fade" id="profile-icon-selection" tabindex="-1" role="dialog" aria-labelledby="icon-modal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
 
-          <div class="modal-header">
-            <h3 id="icon-modal">Choose a profile icon:</h3>
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          </div>
+        <div class="modal-header">
+          <h3 id="icon-modal">Choose a profile icon:</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        </div>
 
-          <div class="modal-body">
-            <% @profile_icons.each_with_index do |icon_name, index| %>
-            <% if 0 == index % 6 %><div class="row" style="margin-top: 20px;"><% end %>
+        <div class="modal-body">
+          <% @profile_icons.each_with_index do |icon_name, index| %>
+              <% if 0 == index % 6 %><div class="row" style="margin-top: 20px;"><% end %>
               <div class="col-lg-2 col-sm-2 col-xs-2 text-center" style="padding-top: 5px; padding-bottom: 5px;<% if 1 == index %>border: 2px dotted #eee;<% end %>">
                 <%= image_tag 'social_networking/profile_icon_'+ icon_name +'.png', :size => '48' %>
               </div>
-            <% if 5 == index % 6 || index + 1 == @profile_icons.size %></div><% end %>
-            <% end %>
-          </div>
-
+              <% if 5 == index % 6 || index + 1 == @profile_icons.size %></div><% end %>
+          <% end %>
         </div>
+
       </div>
     </div>
+  </div>
 </div>
 
 <div ng-controller="ProfileCtrl as profile">
   <div class="text-center" id="profile-box">
-      <a href="#" data-toggle="modal" data-target="#profile-icon-selection">
-        <% if @profile.icon_name.nil? || @profile.icon_name.blank? %>
-            <%= image_tag ('social_networking/profile_icon_questionmark.png') %>
-        <% else %>
-            <%= image_tag ('social_networking/profile_icon_' + @profile.icon_name + '.png') %>
-        <% end %>
-      </a>
-
-      <div class="profiles-username">
-        <h2><%= @profile.user_name %></h2>
-      </div>
-      <div class="profiles-last-online">
-        <h3>Last seen: {{ '<%= @profile.last_sign_in %>' | timeFromNow }}</h3>
-      </div>
-
-      <% if current_participant.id != @profile.participant_id %>
-        <div id="profile-nudge">
-          <a href="" ng-click="profile.nudge()">Nudge</a>
-        </div>
+    <a href="#" data-toggle="modal" data-target="#profile-icon-selection">
+      <% if @profile.icon_name.nil? || @profile.icon_name.blank? %>
+          <%= image_tag ('social_networking/profile_icon_questionmark.png') %>
+      <% else %>
+          <%= image_tag ('social_networking/profile_icon_' + @profile.icon_name + '.png') %>
       <% end %>
+    </a>
+    
+  <div class="profiles-username">
+    <h2><%= @profile.user_name %></h2>
+  </div>
+  <div class="profiles-last-online">
+    <h3>Last seen: {{ '<%= @profile.latest_action_at %>' | timeFromNow }}</h3>
+  </div>
+
+  <% if current_participant.id != @profile.participant_id %>
+    <div id="profile-nudge">
+      <a href="" ng-click="profile.nudge()">Nudge</a>
+    </div>
+  <% end %>
   </div>
 </div>
 
@@ -96,11 +96,24 @@
   </div>
 </ul>
 
+<div ng-controller="HomeCtrl as feed">
+  <ul class="list-group">
+    <li ng-repeat="item in feed.feedItems | orderBy:'createdAt':true"
+        class="list-group-item"
+        id="{{ item.className }}-{{ item.id }}">
+      <p>{{ item.summary }}</p>
+    </li>
+  </ul>
+</div>
+
 <!-- bootstrap Angular app with current participant id -->
 <script>
   angular.module('socialNetworking')
           .value('participantId', <%= current_participant.id %>)
           .value('profileId', <%= @profile.id %>)
-          .value('ProfileQuestions', <%= @profile_questions.to_json.html_safe %>);
+          .value('ProfileQuestions', <%= @profile_questions.to_json.html_safe %>)
+          .value('actionItems', [])
+          .value('memberProfiles', [])
+          .value('feedItems', <%= @feed_items.to_json.html_safe %>);          
   $('.modal-container .modal').appendTo($("body"));
 </script>

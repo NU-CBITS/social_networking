@@ -8,7 +8,7 @@ module SocialNetworking
       profiles = profiles.map do | profile |
         participant = Participant.find(profile.participant_id)
         profile.user_name = participant.email
-        profile.last_sign_in = participant.last_sign_in_at
+        profile.latest_action_at = participant.latest_action_at
         profile.active_membership_end_date =
            participant.active_membership_end_date
         profile
@@ -22,7 +22,7 @@ module SocialNetworking
          participant_id: current_participant.id)
       profile.update(active: true) if profile.new_record?
       profile.user_name = current_participant.email
-      profile.last_sign_in = current_participant.last_sign_in_at
+      profile.latest_action_at = current_participant.latest_action_at
       profile.active_membership_end_date =
         current_participant.active_membership_end_date
 
