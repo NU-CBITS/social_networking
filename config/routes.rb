@@ -20,4 +20,5 @@ SocialNetworking::Engine.routes.draw do
   resources :comments, only: :create
   resources :likes, only: :create
   get "/templates/:path.html" => "templates#page", constraints: { path: /.+/  }
+  post "profiles/:profile_id/profile_icon_name/:icon_name", to: "profile_icon#save"
 end

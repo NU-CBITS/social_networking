@@ -1,40 +1,59 @@
 <%= render "social_networking/shared/nav" %>
 
-<div ng-controller="ProfileCtrl as profile">
+<div class="modal-container">
+    <div class="modal fade" id="profile-icon-selection" tabindex="-1" role="dialog" aria-labelledby="icon-modal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
 
-  <div class="profiles-username">
-    <h2><%= @profile.user_name %></h2>
-  </div>
-  <div class="profiles-last-online">
-    <h3>Last seen: {{ '<%= @profile.last_sign_in %>' | timeFromNow }}</h3>
-  </div>
+          <div class="modal-header">
+            <h3 id="icon-modal">Choose a profile icon:</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          </div>
 
-  <% if current_participant.id != @profile.participant_id %>
-    <div id="profile-nudge">
-      <a href="" ng-click="profile.nudge()">Nudge</a>
+          <div class="modal-body">
+            <% @profile_icons.each_with_index do |icon_name, index| %>
+            <% if 0 == index % 6 %><div class="row" style="margin-top: 20px;"><% end %>
+              <div class="col-lg-2 col-sm-2 col-xs-2 text-center" style="padding-top: 5px; padding-bottom: 5px;<% if 1 == index %>border: 2px dotted #eee;<% end %>">
+                <%= image_tag 'social_networking/profile_icon_'+ icon_name +'.png', :size => '48' %>
+              </div>
+            <% if 5 == index % 6 || index + 1 == @profile_icons.size %></div><% end %>
+            <% end %>
+          </div>
+
+        </div>
+      </div>
     </div>
-  <% end %>
+</div>
+
+<div ng-controller="ProfileCtrl as profile">
+  <div class="text-center" id="profile-box">
+      <a href="#" data-toggle="modal" data-target="#profile-icon-selection">
+        <% if @profile.icon_name.nil? || @profile.icon_name.blank? %>
+            <%= image_tag ('social_networking/profile_icon_questionmark.png') %>
+        <% else %>
+            <%= image_tag ('social_networking/profile_icon_' + @profile.icon_name + '.png') %>
+        <% end %>
+      </a>
+
+      <div class="profiles-username">
+        <h2><%= @profile.user_name %></h2>
+      </div>
+      <div class="profiles-last-online">
+        <h3>Last seen: {{ '<%= @profile.last_sign_in %>' | timeFromNow }}</h3>
+      </div>
+
+      <% if current_participant.id != @profile.participant_id %>
+        <div id="profile-nudge">
+          <a href="" ng-click="profile.nudge()">Nudge</a>
+        </div>
+      <% end %>
+  </div>
 </div>
 
 <% if current_participant.id == @profile.participant_id && !@nudges.empty? %>
     <div class="alert alert-info" id="nudge-alert">
       <button type="button" class="close" data-dismiss="alert" onclick="$('#nudge-alert').hide();"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      <% if @nudges.size == 1 %>
-        <%= @nudges[0].email %>
-      <% elsif @nudges == 2 %>
-        <%= @nudges[0] %> and <%= @nudges[0] %>
-      <% else %>
-        <% @nudges.each_with_index do |nudge, index| %>
-
-           <% if index == (@nudges.size - 1) %>
-            and <%= nudge.email %>
-           <% else %>
-           <%= nudge.email %><% if @nudges.size > 2 %>,<% end %>
-           <% end %>
-
-        <% end %>
-      <% end %>
-      buzzed you!
+      <%= @nudges.to_sentence %> buzzed you!
     </div>
 <% end %>
 
@@ -83,5 +102,5 @@
           .value('participantId', <%= current_participant.id %>)
           .value('profileId', <%= @profile.id %>)
           .value('ProfileQuestions', <%= @profile_questions.to_json.html_safe %>);
-
+  $('.modal-container .modal').appendTo($("body"));
 </script>
