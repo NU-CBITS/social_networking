@@ -77,11 +77,24 @@
   </div>
 </ul>
 
+<div ng-controller="HomeCtrl as feed">
+  <ul class="list-group">
+    <li ng-repeat="item in feed.feedItems | orderBy:'createdAt':true"
+        class="list-group-item"
+        id="{{ item.className }}-{{ item.id }}">
+      <p>{{ item.summary }}</p>
+    </li>
+  </ul>
+</div>
+
 <!-- bootstrap Angular app with current participant id -->
 <script>
   angular.module('socialNetworking')
           .value('participantId', <%= current_participant.id %>)
           .value('profileId', <%= @profile.id %>)
-          .value('ProfileQuestions', <%= @profile_questions.to_json.html_safe %>);
+          .value('ProfileQuestions', <%= @profile_questions.to_json.html_safe %>)
+          .value('actionItems', [])
+          .value('memberProfiles', [])
+          .value('feedItems', <%= @feed_items.to_json.html_safe %>);
 
 </script>

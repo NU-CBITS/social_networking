@@ -110,7 +110,7 @@
 <!-- bootstrap Angular app with data -->
 <script>
   angular.module('socialNetworking.values')
-    .value('currentParticipantId', <%= current_participant.id %>)
+    .value('participantId', <%= current_participant.id %>)
     .value('actionItems', <%= @action_items.to_json.html_safe %>)
     .value('feedItems', <%= @feed_items.to_json.html_safe %>)
     .value('memberProfiles', <%= @member_profiles.to_json.html_safe %>);

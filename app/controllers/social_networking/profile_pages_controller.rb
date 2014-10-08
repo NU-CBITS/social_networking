@@ -8,14 +8,17 @@ module SocialNetworking
     end
 
     def show
-      return @profile if params[:id].blank?
-      @profile = Profile.find(params[:id])
-      store_nudge_initiators(@profile.participant_id)
-      participant = Participant.find(@profile.participant_id)
-      @profile.user_name = participant.email
-      @profile.latest_action_at = participant.latest_action_at
-      @profile.active_membership_end_date =
-         participant.active_membership_end_date
+      if params[:id].present?
+        @profile = Profile.find(params[:id])
+        store_nudge_initiators(@profile.participant_id)
+        participant = Participant.find(@profile.participant_id)
+        @profile.user_name = participant.email
+        @profile.latest_action_at = participant.latest_action_at
+        @profile.active_membership_end_date =
+           participant.active_membership_end_date
+      end
+
+      load_feed_items
     end
 
     private
@@ -48,6 +51,23 @@ module SocialNetworking
 
     def record_not_found
       render json: { error: "profile not found" }, status: 404
+    end
+
+    def load_feed_items
+      pid = @profile.participant_id
+      @feed_items = (
+        Serializers::OnTheMindStatementSerializer.from_collection(
+          OnTheMindStatement.where(participant_id: pid).includes(:comments)
+        ) +
+        Serializers::NudgeSerializer.from_collection(
+          Nudge.where(initiator_id: pid).includes(:comments)
+        ) +
+        Serializers::SharedItemSerializer.from_collection(
+          SharedItem.includes(:item, :comments).to_a.select do |s|
+            s.item.participant_id == pid
+          end
+        )
+      )
     end
   end
 end

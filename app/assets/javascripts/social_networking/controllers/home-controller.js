@@ -149,6 +149,6 @@
   // Create a module and register the controller.
   angular.module('socialNetworking.controllers')
     .controller('HomeCtrl', ['OnYourMindResource', 'CommentResource',
-        'LikeResource', 'homeTool', 'currentParticipantId', 'actionItems',
+        'LikeResource', 'homeTool', 'participantId', 'actionItems',
         'feedItems', 'memberProfiles', '$filter', HomeCtrl]);
 })();
