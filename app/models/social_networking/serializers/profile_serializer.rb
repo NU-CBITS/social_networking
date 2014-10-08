@@ -7,7 +7,7 @@ module SocialNetworking
           id: model.id,
           participant_id: model.participant_id,
           username: model.user_name,
-          lastLogin: model.last_sign_in,
+          latestAction: model.latest_action_at,
           endOfTrial: model.active_membership_end_date
         }
       end

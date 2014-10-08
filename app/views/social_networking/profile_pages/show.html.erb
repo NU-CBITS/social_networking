@@ -6,7 +6,7 @@
     <h2><%= @profile.user_name %></h2>
   </div>
   <div class="profiles-last-online">
-    <h3>Last seen: {{ '<%= @profile.last_sign_in %>' | timeFromNow }}</h3>
+    <h3>Last seen: {{ '<%= @profile.latest_action_at %>' | timeFromNow }}</h3>
   </div>
 
   <% if current_participant.id != @profile.participant_id %>

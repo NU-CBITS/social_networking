@@ -5,7 +5,7 @@
   function profileStatus() {
     return {
       template: '<h2>{{ profile.username }}</h2>' +
-                '<h3>Last seen: {{ profile.lastLogin | timeFromNow }}</h3>'
+                '<h3>Last seen: {{ profile.latestAction | timeFromNow }}</h3>'
     };
   }
 
