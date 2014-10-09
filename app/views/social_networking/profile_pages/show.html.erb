@@ -7,13 +7,13 @@
 
         <div class="modal-header">
           <h3 id="icon-modal">Choose a profile icon:</h3>
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="icon-selection-button">×</button>
         </div>
 
         <div class="modal-body">
           <% @profile_icons.each_with_index do |icon_name, index| %>
               <% if 0 == index % 6 %><div class="row" style="margin-top: 20px;"><% end %>
-              <div class="col-lg-2 col-sm-2 col-xs-2 text-center" style="padding-top: 5px; padding-bottom: 5px;<% if 1 == index %>border: 2px dotted #eee;<% end %>">
+              <div onclick="update_icon_and_submit('<%= icon_name %>')" class="col-lg-2 col-sm-2 col-xs-2 text-center" style="padding-top: 5px; padding-bottom: 5px;">
                 <%= image_tag 'social_networking/profile_icon_'+ icon_name +'.png', :size => '48' %>
               </div>
               <% if 5 == index % 6 || index + 1 == @profile_icons.size %></div><% end %>
@@ -29,9 +29,9 @@
   <div class="text-center" id="profile-box">
     <a href="#" data-toggle="modal" data-target="#profile-icon-selection">
       <% if @profile.icon_name.nil? || @profile.icon_name.blank? %>
-          <%= image_tag ('social_networking/profile_icon_questionmark.png') %>
+          <%= image_tag 'social_networking/profile_icon_questionmark.png', id: 'profile_icon_image' %>
       <% else %>
-          <%= image_tag ('social_networking/profile_icon_' + @profile.icon_name + '.png') %>
+          <%= image_tag 'social_networking/profile_icon_' + @profile.icon_name + '.png', id: 'profile-icon-image' %>
       <% end %>
     </a>
     
@@ -106,6 +106,11 @@
   </ul>
 </div>
 
+<form accept-charset="UTF-8" action="/social_networking/profile_icons" id="icon_change" method="post">
+  <input id="profile_id" name="profile[profile_id]" type="hidden" value="<%= @profile.id %>"/>
+  <input id="icon_name" name="profile[icon_name]" type="hidden" value="<%= @profile.icon_name %>"/>
+</form>
+
 <!-- bootstrap Angular app with current participant id -->
 <script>
   angular.module('socialNetworking')
@@ -116,4 +121,17 @@
           .value('memberProfiles', [])
           .value('feedItems', <%= @feed_items.to_json.html_safe %>);          
   $('.modal-container .modal').appendTo($("body"));
+
+  var update_icon_and_submit = function(icon_name) {
+    $("#icon_name").val(icon_name);
+    $.ajax({
+        type: "POST",
+        url: $("#icon_change").attr('action'),  // read the action attribute of the form
+        data: $("#icon_change").serialize(),  // what data should go there?
+        success: function() {
+          $('#icon-selection-button').click();
+          $('#profile-icon-image').attr('src', '/assets/social_networking/profile_icon_'+icon_name+'.png')
+        }
+      });
+  };
 </script>
