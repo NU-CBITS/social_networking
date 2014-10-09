@@ -2,7 +2,9 @@ module SocialNetworking
   # Manage Participants.
   class ProfilePagesController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
-    before_action :set_current_profile, :set_profile_questions, :set_profile_icon_names
+    before_action :set_current_profile,
+                  :set_profile_questions,
+                  :set_profile_icon_names
 
     def index
     end
@@ -71,11 +73,36 @@ module SocialNetworking
     end
 
     def set_profile_icon_names
-      @profile_icons = %w(art bike bolt bookshelf die fashion flower
-          genius heart helicopter hourglass keyboard magnifyingglass
-          megaphone2 microphone music paintbrush2 plane polaroidcamera
-          present recycle scooter shipwheel shoeprints star travelerbag
-          ufo umbrella weather)
+      @profile_icons = %w(
+        art
+        bike
+        bolt
+        bookshelf
+        die
+        fashion
+        flower
+        genius
+        heart
+        helicopter
+        hourglass
+        keyboard
+        magnifyingglass
+        megaphone2
+        microphone
+        music
+        paintbrush2
+        plane
+        polaroidcamera
+        present
+        recycle
+        scooter
+        shipwheel
+        shoeprints
+        star
+        travelerbag
+        ufo
+        umbrella
+        weather)
     end
   end
 end
