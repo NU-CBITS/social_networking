@@ -7,7 +7,7 @@
                     memberProfiles, $filter) {
     this.actionItems = actionItems;
     this.feedItems = feedItems;
-    this.memberProfiles = memberProfiles;
+    this._memberProfiles = memberProfiles;
     this._homeTool = homeTool;
     this._currentParticipantId = currentParticipantId;
     this.onYourMindModel = this._homeTool.getOnYourMindStatementModel();
@@ -143,6 +143,14 @@
         break;
       case 'profiles':
         this._homeTool.setMode(this._homeTool.MODES.PROFILES);
+    }
+  };
+
+  HomeCtrl.prototype.profileIconSrcFor = function(item) {
+    for (var i = 0; i < this._memberProfiles.length; i += 1) {
+      if (this._memberProfiles[i].participantId === item.participantId) {
+        return this._memberProfiles[i].iconSrc;
+      }
     }
   };
 

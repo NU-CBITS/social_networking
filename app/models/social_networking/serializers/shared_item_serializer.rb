@@ -16,8 +16,7 @@ module SocialNetworking
           templatePath: "/social_networking/templates/#{ path }",
           isPublic: model.is_public,
           data: item.to_serialized,
-          summary: "#{ item.participant_id } #{ model.action_type } " \
-                   "#{ indefinite_articlerize(label) }" \
+          summary: "#{ model.action_type } #{ indefinite_articlerize(label) }" \
                    "#{ model.is_public ? ": " + item.description : "" }",
           description: item.description,
           comments: CommentSerializer.from_collection(model.comments),

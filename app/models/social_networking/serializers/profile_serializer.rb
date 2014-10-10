@@ -2,13 +2,18 @@ module SocialNetworking
   module Serializers
     # Serializes Profile models.
     class ProfileSerializer < Serializer
+      DEFAULT_ICON = "questionmark"
+
       def to_serialized
         {
           id: model.id,
-          participant_id: model.participant_id,
+          participantId: model.participant_id,
           username: model.user_name,
           latestAction: model.latest_action_at,
-          endOfTrial: model.active_membership_end_date
+          endOfTrial: model.active_membership_end_date,
+          iconSrc: Class.new.extend(ActionView::Helpers::AssetUrlHelper)
+                     .asset_path("assets/social_networking/profile_icon_" +
+                                 (model.icon_name || DEFAULT_ICON) + ".png")
         }
       end
     end

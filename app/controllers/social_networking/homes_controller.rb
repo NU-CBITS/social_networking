@@ -11,7 +11,8 @@ module SocialNetworking
         Serializers::SharedItemSerializer
           .from_collection(SharedItem.includes(:item, :comments))
       )
-      @member_profiles = []
+      @member_profiles = Serializers::ProfileSerializer
+        .from_collection(Profile.all)
     end
   end
 end
