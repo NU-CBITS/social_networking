@@ -72,6 +72,7 @@ module SocialNetworking
       )
     end
 
+    # rubocop:disable Metrics/MethodLength
     def set_profile_icon_names
       @profile_icons = %w(
         art
@@ -104,5 +105,6 @@ module SocialNetworking
         umbrella
         weather)
     end
+    # rubocop:enable Metrics/MethodLength
   end
 end
