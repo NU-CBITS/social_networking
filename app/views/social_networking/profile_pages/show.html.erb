@@ -27,13 +27,17 @@
 
 <div ng-controller="ProfileCtrl as profile">
   <div class="text-center" id="profile-box">
-    <a href="#" data-toggle="modal" data-target="#profile-icon-selection">
+    <% if current_participant.id == @profile.participant_id %>
+      <a href="#" data-toggle="modal" data-target="#profile-icon-selection">
+    <% end %>
       <% if @profile.icon_name.nil? || @profile.icon_name.blank? %>
           <%= image_tag 'social_networking/profile_icon_questionmark.png', id: 'profile_icon_image' %>
       <% else %>
           <%= image_tag 'social_networking/profile_icon_' + @profile.icon_name + '.png', id: 'profile-icon-image' %>
       <% end %>
-    </a>
+    <% if current_participant.id == @profile.participant_id %>
+        </a>
+    <% end %>
     
   <div class="profiles-username">
     <h2><%= @profile.user_name %></h2>
@@ -44,7 +48,7 @@
 
   <% if current_participant.id != @profile.participant_id %>
     <div id="profile-nudge">
-      <a href="" ng-click="profile.nudge()">Nudge</a>
+      <a href="" id="nudge-link" ng-click="profile.nudge(<%= @profile.participant_id %>)">Nudge</a>
     </div>
   <% end %>
   </div>
@@ -130,8 +134,12 @@
         data: $("#icon_change").serialize(),  // what data should go there?
         success: function() {
           $('#icon-selection-button').click();
-          $('#profile-icon-image').attr('src', '/assets/social_networking/profile_icon_'+icon_name+'.png')
+          $('#profile-icon-image').attr('src', '/assets/social_networking/profile_icon_'+icon_name+'.png');
         }
       });
   };
+
+  $("#nudge-link").click(function() {
+    $("#profile-nudge").html('Nudge sent!');
+  });
 </script>

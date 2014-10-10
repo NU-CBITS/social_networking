@@ -9,6 +9,7 @@ module SocialNetworking
 
     def create
       @nudge = Nudge.new(sanitized_params)
+      puts params.inspect
 
       if @nudge.save
         render json: Serializers::NudgeSerializer.new(@nudge).to_serialized

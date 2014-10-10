@@ -18,8 +18,8 @@
   }
 
   // Send a nudge from one participant to another.
-  ProfileCtrl.prototype.nudge = function() {
-    this._nudges.create({ recipient: this });
+  ProfileCtrl.prototype.nudge = function(recipient_id) {
+    this._nudges.create(recipient_id);
   };
 
   // Initiate profile editor interface.

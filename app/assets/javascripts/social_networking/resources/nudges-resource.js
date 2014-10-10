@@ -3,13 +3,13 @@
 
   function Nudges($resource) {
     var NudgeResource = $resource('/social_networking/nudges/:id',
-      { id: '@id', recipient_id: '@recipient_id'});
+      { id: '@id' });
 
     function Nudge() {}
 
-    Nudge.create = function(attributes) {
+    Nudge.create = function(recipient_id) {
       var nudge = new NudgeResource({
-        recipientId: attributes.recipient.id
+        recipientId: recipient_id
       });
       nudge.$save();
     };
