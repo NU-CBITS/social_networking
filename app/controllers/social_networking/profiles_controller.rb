@@ -29,7 +29,20 @@ module SocialNetworking
       render json: Serializers::ProfileSerializer.new(profile).to_serialized
     end
 
+    def update
+      profile = Profile.find(profile_params[:id])
+      profile.icon_name = profile_params[:icon_name]
+      profile.save
+      profile = Profile.find(profile_params[:id])
+
+      render json: Serializers::ProfileSerializer.new(profile).to_serialized
+    end
+
     private
+
+    def profile_params
+      params.permit(:profile, :id, :icon_name)
+    end
 
     def record_not_found
       render json: { error: "profile not found" }, status: 404

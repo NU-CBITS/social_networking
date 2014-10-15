@@ -1,56 +1,58 @@
 <%= render "social_networking/shared/nav" %>
 
-<div class="modal-container">
-  <div class="modal fade" id="profile-icon-selection" tabindex="-1" role="dialog" aria-labelledby="icon-modal" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
+<div ng-controller="ProfileCtrl as profile">
 
-        <div class="modal-header">
-          <h3 id="icon-modal">Choose a profile icon:</h3>
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="icon-selection-button">×</button>
+  <div class="modal-container">
+    <div class="modal fade" id="profile-icon-selection" tabindex="-1" role="dialog" aria-labelledby="icon-modal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <h3 id="icon-modal">Choose a profile icon:</h3>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="icon-selection-button">×</button>
+          </div>
+
+          <div class="modal-body">
+            <% @profile_icons.each_with_index do |icon_name, index| %>
+                <% if 0 == index % 6 %><div class="row" style="margin-top: 20px;"><% end %>
+                <div ng-click="profile.update_profile_icon('<%= icon_name %>', profile)" class="col-lg-2 col-sm-2 col-xs-2 text-center" style="padding-top: 5px; padding-bottom: 5px;">
+                  <%= image_tag 'social_networking/profile_icon_'+ icon_name +'.png', :size => '42' %>
+                </div>
+                <% if 5 == index % 6 || index + 1 == @profile_icons.size %></div><% end %>
+            <% end %>
+          </div>
+
         </div>
-
-        <div class="modal-body">
-          <% @profile_icons.each_with_index do |icon_name, index| %>
-              <% if 0 == index % 6 %><div class="row" style="margin-top: 20px;"><% end %>
-              <div onclick="update_icon_and_submit('<%= icon_name %>')" class="col-lg-2 col-sm-2 col-xs-2 text-center" style="padding-top: 5px; padding-bottom: 5px;">
-                <%= image_tag 'social_networking/profile_icon_'+ icon_name +'.png', :size => '48' %>
-              </div>
-              <% if 5 == index % 6 || index + 1 == @profile_icons.size %></div><% end %>
-          <% end %>
-        </div>
-
       </div>
     </div>
   </div>
-</div>
 
-<div ng-controller="ProfileCtrl as profile">
   <div class="text-center" id="profile-box">
-    <% if current_participant.id == @profile.participant_id %>
-      <a href="#" data-toggle="modal" data-target="#profile-icon-selection">
-    <% end %>
-      <% if @profile.icon_name.nil? || @profile.icon_name.blank? %>
-          <%= image_tag 'social_networking/profile_icon_questionmark.png', id: 'profile_icon_image' %>
-      <% else %>
-          <%= image_tag 'social_networking/profile_icon_' + @profile.icon_name + '.png', id: 'profile-icon-image' %>
-      <% end %>
-    <% if current_participant.id == @profile.participant_id %>
-        </a>
-    <% end %>
-    
-  <div class="profiles-username">
-    <h2><%= @profile.user_name %></h2>
-  </div>
-  <div class="profiles-last-online">
-    <h3>Last seen: {{ '<%= @profile.latest_action_at %>' | timeFromNow }}</h3>
-  </div>
 
-  <% if current_participant.id != @profile.participant_id %>
-    <div id="profile-nudge">
+    <div class="profile-box-content profile-box-border">
+
+      <% if current_participant.id == @profile.participant_id %>
+        <a href="#" data-toggle="modal" data-target="#profile-icon-selection">
+      <% end %>
+          <img ng-src="{{ profile.profile.iconSrc }}">
+      <% if current_participant.id == @profile.participant_id %>
+        </a>
+      <% end %>
+
+      <div class="profiles-username">
+        <h3>{{ profile.profile.username }}</h3>
+      </div>
+    </div>
+
+    <div class="profiles-last-online profile-box-border">
+      <h3>Last seen: {{ profile.profile.latestAction | timeFromNow }}</h3>
+    </div>
+
+    <% if current_participant.id != @profile.participant_id %>
+    <div class="profiles-nudge profile-box-border">
       <a href="" id="nudge-link" ng-click="profile.nudge(<%= @profile.participant_id %>)">Nudge</a>
     </div>
-  <% end %>
+    <% end %>
   </div>
 </div>
 
@@ -123,21 +125,7 @@
           .value('ProfileQuestions', <%= @profile_questions.to_json.html_safe %>)
           .value('actionItems', [])
           .value('memberProfiles', [])
-          .value('feedItems', <%= @feed_items.to_json.html_safe %>);          
-  $('.modal-container .modal').appendTo($("body"));
-
-  var update_icon_and_submit = function(icon_name) {
-    $("#icon_name").val(icon_name);
-    $.ajax({
-        type: "POST",
-        url: $("#icon_change").attr('action'),  // read the action attribute of the form
-        data: $("#icon_change").serialize(),  // what data should go there?
-        success: function() {
-          $('#icon-selection-button').click();
-          $('#profile-icon-image').attr('src', '/assets/social_networking/profile_icon_'+icon_name+'.png');
-        }
-      });
-  };
+          .value('feedItems', <%= @feed_items.to_json.html_safe %>);
 
   $("#nudge-link").click(function() {
     $("#profile-nudge").html('Nudge sent!');

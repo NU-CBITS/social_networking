@@ -1,7 +1,5 @@
 SocialNetworking::Engine.routes.draw do
   # client interfaces
-  resources :profiles, only: [:show, :index]
-
   get "/profile_page", to: "profile_pages#show", as: :social_networking_profile
   get "/profile_page/:id", to: "profile_pages#show", as: :social_networking_profile_with_id
   get "/profiles_page", to: "profile_pages#index", as: :social_networking_profiles
@@ -9,6 +7,8 @@ SocialNetworking::Engine.routes.draw do
   get "/group_goals", to: "goals#group", as: :social_networking_group_goals
 
   # server api
+  put "profiles/:id", to: "profiles#update", as: :profile
+  resources :profiles, only: [:index, :show]
   resources :participants, only: [:index, :show]
   resources :nudges, only: [:create, :index]
   resources :on_the_mind_statements, only: :create
