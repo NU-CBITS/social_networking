@@ -11,7 +11,8 @@ module SocialNetworking
                  created_at: DateTime.new,
                  participant_id: participant.id,
                  description: "foo",
-                 comments: [])
+                 comments: [],
+                 likes: [])
         end
 
         before do

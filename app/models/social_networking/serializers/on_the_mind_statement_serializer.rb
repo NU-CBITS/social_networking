@@ -10,7 +10,8 @@ module SocialNetworking
           participantId: model.participant_id,
           summary: "said #{ model.description }",
           description: model.description,
-          comments: CommentSerializer.from_collection(model.comments)
+          comments: CommentSerializer.from_collection(model.comments),
+          likes: LikeSerializer.from_collection(model.likes)
         }
       end
     end

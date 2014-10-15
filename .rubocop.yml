@@ -5,6 +5,7 @@ AllCops:
     - db/**/*
     - spec/dummy/**/*
     - vendor/**/*
+  RunRailsCops: true
 
 Documentation:
   Exclude:
