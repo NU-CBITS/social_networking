@@ -4,7 +4,6 @@ SocialNetworking::Engine.routes.draw do
   get "/profile_page/:id", to: "profile_pages#show", as: :social_networking_profile_with_id
   get "/profiles_page", to: "profile_pages#index", as: :social_networking_profiles
   get "/goal_tool", to: "goals#tool", as: :social_networking_goals
-  get "/group_goals", to: "goals#group", as: :social_networking_group_goals
 
   # server api
   put "profiles/:id", to: "profiles#update", as: :profile

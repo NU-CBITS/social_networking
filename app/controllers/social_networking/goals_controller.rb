@@ -8,12 +8,6 @@ module SocialNetworking
       @goals = Serializers::GoalSerializer.from_collection(goals)
     end
 
-    def group
-      goals = Goal.where.not(participant_id: current_participant.id,
-                             is_deleted: true)
-      @goals = Serializers::GoalSerializer.from_collection(goals)
-    end
-
     def index
       goals = Goal.where(participant_id: current_participant.id)
 

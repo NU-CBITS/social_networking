@@ -1,7 +1,6 @@
 <%= content_for :desktop_nav_items do %>
   <li><%= link_to "Home", social_networking.home_path, data: { no_turbolink: true } %></li>
   <li><%= link_to "My Goals", social_networking.social_networking_goals_path, data: { no_turbolink: true } %></li>
-  <li><%= link_to "Others' Goals", social_networking.social_networking_group_goals_path, data: { no_turbolink: true } %></li>
   <li><%= link_to "My Profile", social_networking.social_networking_profile_path, data: { no_turbolink: true } %></li>
   <li><%= link_to "All Profiles", social_networking.social_networking_profiles_path, data: { no_turbolink: true } %></li>
 <% end %>
@@ -9,7 +8,6 @@
 <%= content_for :mobile_nav_items do %>
   <li><%= link_to "Home", social_networking.home_path, data: { no_turbolink: true } %></li>
   <li><%= link_to "My Goals", social_networking.social_networking_goals_path, data: { no_turbolink: true } %></li>
-  <li><%= link_to "Others' Goals", social_networking.social_networking_group_goals_path, data: { no_turbolink: true } %></li>
   <li><%= link_to "My Profile", social_networking.social_networking_profile_path, data: { no_turbolink: true } %></li>
 <% end %>
 
