@@ -32,6 +32,10 @@ describe "Profile", type: :feature, js: true do
       click_on "Nudge"
 
       expect(page).to have_content("Nudge sent!")
+
+      visit "/social_networking/home"
+
+      expect(page).to have_content("nudged #{ profile2.user_name }")
     end
   end
 

@@ -22,6 +22,8 @@ module SocialNetworking
             initiator_id: participant.id,
             recipient_id: "123"
           ) { nudge }
+          allow(Profile).to receive(:find_by_participant_id)
+            .and_return(double("profile", user_name: "F. Bar"))
         end
 
         context "and the record saves" do

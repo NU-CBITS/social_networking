@@ -14,7 +14,7 @@ describe "home tool", type: :feature, js: true do
   scenario "Participant views feed" do
     expect(page).to have_content(statement.description)
     expect(page).to have_content(
-      "#{ participant1.id } nudged #{ participant2.id }"
+      "nudged #{ social_networking_profiles(:profile2).user_name }"
     )
   end
 
