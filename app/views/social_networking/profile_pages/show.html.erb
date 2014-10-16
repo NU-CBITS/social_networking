@@ -71,7 +71,6 @@
       <label for="new-answer-description-{{ question.id }}">{{ question.question_text }}</label>
 
       <form novalidate role="form" name="answerForm" class="row" ng-show="answer._answerStates[question.id].editable">
-
         <input type="hidden" name="profile_question_id" value="{{ question.id }}" ng-if="answer.answerModels[question.id].id === null">
         <input type="hidden" name="profile_id" value="<%= @profile.id %>" ng-if="answer.answerModels[question.id].id === null">
         <input type="hidden" name="id" ng-if="answer.answerModels[question.id].id !== null">
@@ -82,9 +81,8 @@
 
         <div class="form-group col-lg-8 col-md-8">
           <button class="btn btn-primary" ng-click="answer.save(<%= @profile.id %>, question.id, answer)">Save</button>
-          <button class="btn btn-default" ng-click="answer.cancelEdit(question.id, answer)">Cancel</button>
+          <button class="btn btn-default" ng-click="answer.cancelEdit(question.id)">Cancel</button>
         </div>
-
       </form>
 
       <div class="list-group" ng-show="!answer._answerStates[question.id].editable">
@@ -94,7 +92,7 @@
 
         <% if current_participant.id == @profile.participant_id %>
         <div class="form-group">
-          <button class="btn btn-link pull-right edit" ng-click="answer.edit(question.id, answer)"><i class="fa fa-pencil"></i></button>
+          <button class="btn btn-link pull-right edit" ng-click="answer.edit(question.id)"><i class="fa fa-pencil"></i></button>
         </div>
         <% end %>
       </div>

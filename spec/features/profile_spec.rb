@@ -17,9 +17,10 @@ describe "Profile", type: :feature, js: true do
 
   scenario "Participant answers a profile question" do
     question = social_networking_profile_questions(:profile_question1)
-    find("#question-#{ question.id } button.edit").click
     fill_in question.question_text, with: "golf, hand grenades"
-    click_on "Save"
+    within "#question-#{ question.id }" do
+      click_on "Save"
+    end
 
     expect(page).to have_content("golf, hand grenades")
   end
