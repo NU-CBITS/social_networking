@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141008150325) do
+ActiveRecord::Schema.define(version: 20141016015415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,10 +75,7 @@ ActiveRecord::Schema.define(version: 20141008150325) do
   add_index "social_networking_profile_answers", ["social_networking_profile_id", "social_networking_profile_question_id"], name: "profile_answers_unique", unique: true, using: :btree
 
   create_table "social_networking_profile_questions", force: true do |t|
-    t.integer  "order"
-    t.integer  "allowed_responses", default: 1, null: false
-    t.string   "question_text",                 null: false
-    t.boolean  "deleted",                       null: false
+    t.string   "question_text", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
