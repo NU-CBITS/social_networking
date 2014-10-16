@@ -18,7 +18,12 @@
 
   // Send a nudge from one participant to another.
   ProfileCtrl.prototype.nudge = function(recipient_id) {
-    this._nudges.create(recipient_id);
+    var self = this;
+
+    this._nudges.create(recipient_id)
+      .then(function() {
+        self.nudgeAlert = "Nudge sent!";
+      });
   };
 
   // Update the profile icon

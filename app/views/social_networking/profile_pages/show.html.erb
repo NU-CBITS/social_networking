@@ -1,7 +1,6 @@
 <%= render "social_networking/shared/nav" %>
 
 <div ng-controller="ProfileCtrl as profile">
-
   <div class="modal-container">
     <div class="modal fade" id="profile-icon-selection" tabindex="-1" role="dialog" aria-labelledby="icon-modal" aria-hidden="true">
       <div class="modal-dialog">
@@ -14,11 +13,11 @@
 
           <div class="modal-body">
             <% @profile_icons.each_with_index do |icon_name, index| %>
-                <% if 0 == index % 6 %><div class="row" style="margin-top: 20px;"><% end %>
-                <div ng-click="profile.update_profile_icon('<%= icon_name %>', profile)" class="col-lg-2 col-sm-2 col-xs-2 text-center icon-selection" style="padding-top: 5px; padding-bottom: 5px;">
-                  <%= image_tag 'social_networking/profile_icon_'+ icon_name +'.png', :size => '42' %>
-                </div>
-                <% if 5 == index % 6 || index + 1 == @profile_icons.size %></div><% end %>
+              <% if 0 == index % 6 %><div class="row" style="margin-top: 20px;"><% end %>
+              <div ng-click="profile.update_profile_icon('<%= icon_name %>', profile)" class="col-lg-2 col-sm-2 col-xs-2 text-center icon-selection" style="padding-top: 5px; padding-bottom: 5px;">
+                <%= image_tag 'social_networking/profile_icon_'+ icon_name +'.png', :size => '42' %>
+              </div>
+              <% if 5 == index % 6 || index + 1 == @profile_icons.size %></div><% end %>
             <% end %>
           </div>
 
@@ -28,13 +27,13 @@
   </div>
 
   <div class="text-center" id="profile-box">
-
     <div class="profile-box-content profile-box-border">
-
       <% if current_participant.id == @profile.participant_id %>
         <a href="#" data-toggle="modal" data-target="#profile-icon-selection" id="profile-icon-selector">
       <% end %>
-          <img ng-src="{{ profile.profile.iconSrc }}" id="profile-icon">
+
+      <img ng-src="{{ profile.profile.iconSrc }}" id="profile-icon">
+
       <% if current_participant.id == @profile.participant_id %>
         </a>
       <% end %>
@@ -49,18 +48,19 @@
     </div>
 
     <% if current_participant.id != @profile.participant_id %>
-    <div class="profiles-nudge profile-box-border">
-      <a href="" id="nudge-link" ng-click="profile.nudge(<%= @profile.participant_id %>)">Nudge</a>
-    </div>
+      <div class="profiles-nudge profile-box-border">
+        <a href="" id="nudge-link" ng-click="profile.nudge(<%= @profile.participant_id %>)">Nudge</a>
+        <br><span>{{ profile.nudgeAlert }}</span>
+      </div>
     <% end %>
   </div>
 </div>
 
 <% if current_participant.id == @profile.participant_id && !@nudges.empty? %>
-    <div class="alert alert-info" id="nudge-alert">
-      <button type="button" class="close" data-dismiss="alert" onclick="$('#nudge-alert').hide();"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      <%= @nudges.to_sentence %> buzzed you!
-    </div>
+  <div class="alert alert-info" id="nudge-alert">
+    <button type="button" class="close" data-dismiss="alert" onclick="$('#nudge-alert').hide();"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <%= @nudges.to_sentence %> nudged you!
+  </div>
 <% end %>
 
 <h3>Profile Questions</h3>
@@ -126,8 +126,4 @@
           .value('actionItems', [])
           .value('memberProfiles', [])
           .value('feedItems', <%= @feed_items.to_json.html_safe %>);
-
-  $("#nudge-link").click(function() {
-    $("#profile-nudge").html('Nudge sent!');
-  });
 </script>

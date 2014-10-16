@@ -13,11 +13,6 @@ module SocialNetworking
       if params[:id].present?
         @profile = Profile.find(params[:id])
         store_nudge_initiators(@profile.participant_id)
-        participant = Participant.find(@profile.participant_id)
-        @profile.user_name = participant.email
-        @profile.latest_action_at = participant.latest_action_at
-        @profile.active_membership_end_date =
-           participant.active_membership_end_date
       end
 
       load_feed_items
@@ -26,17 +21,9 @@ module SocialNetworking
     private
 
     def set_current_profile
-      @profile = Profile.find_or_initialize_by(
-         participant_id: current_participant.id)
-      if @profile.id.nil?
-        @profile.active = true
-        @profile.save
-      end
+      id = params[:id] || current_participant.id
+      @profile = Profile.find_or_create_by(participant_id: id)
       store_nudge_initiators(@profile.participant_id)
-      @profile.user_name = current_participant.email
-      @profile.latest_action_at = current_participant.latest_action_at
-      @profile.active_membership_end_date =
-         current_participant.active_membership_end_date
     end
 
     def store_nudge_initiators(participant_id)

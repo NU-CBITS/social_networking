@@ -11,7 +11,8 @@
       var nudge = new NudgeResource({
         recipientId: recipient_id
       });
-      nudge.$save();
+
+      return nudge.$save();
     };
 
     Nudge.search = function() {
