@@ -64,11 +64,9 @@
         controller.error = message.error;
       });
       } else {
-        window.console.log('start update process...');
         answerModel.profile_id = profileId;
         answerModel.profile_question_id = questionId;
         controller._answerResource.update(answerModel).then(function() {
-          window.console.log('update success.');
           controller._answerStates[questionId].editable = false;
         }).catch(function(message) {
           controller.error = message.error;

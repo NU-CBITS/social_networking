@@ -15,11 +15,6 @@
         this.responses = [{ question: 'foo?', text: 'bar' }];
     }
 
-    // Initiate profile editor interface.
-    ProfileQuestionCtrl.prototype.edit = function() {
-        window.console.log("edit");
-    };
-
     // Create a module and register the controllers.
     angular.module('socialNetworking.controllers')
         .controller('ProfileQuestionCtrl', ['profileQuestionId', 'ProfileQuestion', ProfileQuestionCtrl]);
