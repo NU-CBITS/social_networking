@@ -3,24 +3,25 @@ require "spec_helper"
 describe "Profile", type: :feature, js: true do
   fixtures :all
 
-  describe "own" do
-    before { visit "/social_networking/profile_page" }
+  before do
+    # generate profile
+    visit "/social_networking/profile_page"
+  end
 
-    scenario "Participant selects a profile icon" do
-      click_on "profile-icon-selector"
-      src = select_random_icon
+  scenario "Participant selects a profile icon" do
+    click_on "profile-icon-selector"
+    src = select_random_icon
 
-      expect(page).to have_xpath("//img[@id='profile-icon'][@src='#{ src }']")
-    end
+    expect(page).to have_xpath("//img[@id='profile-icon'][@src='#{ src }']")
+  end
 
-    scenario "Participant answers a profile question" do
-      question = social_networking_profile_questions(:profile_question1)
-      find("#question-#{ question.id } button.edit").click
-      fill_in question.question_text, with: "golf, hand grenades"
-      click_on "Save"
+  scenario "Participant answers a profile question" do
+    question = social_networking_profile_questions(:profile_question1)
+    find("#question-#{ question.id } button.edit").click
+    fill_in question.question_text, with: "golf, hand grenades"
+    click_on "Save"
 
-      expect(page).to have_content("golf, hand grenades")
-    end
+    expect(page).to have_content("golf, hand grenades")
   end
 
   describe "other" do

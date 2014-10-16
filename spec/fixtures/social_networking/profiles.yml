@@ -1,7 +1,4 @@
-profile1:
-  participant: participant1
-  active: true
-
+# profile1 intentionallly missing to test profile generation
+#
 profile2:
   participant: participant2
-  active: true

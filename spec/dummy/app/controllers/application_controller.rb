@@ -6,6 +6,6 @@ class ApplicationController < ActionController::Base
   helper_method :current_participant
 
   def current_participant
-    Participant.first
+    Participant.find_by_email("p1@example.com")
   end
 end

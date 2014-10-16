@@ -9,7 +9,11 @@ describe "home tool", type: :feature, js: true do
   let(:participant1) { participants(:participant1) }
   let(:participant2) { participants(:participant2) }
 
-  before { visit "/social_networking/home" }
+  before do
+    # generate profile
+    visit "/social_networking/profile_page"
+    visit "/social_networking/home"
+  end
 
   scenario "Participant views feed" do
     expect(page).to have_content(statement.description)

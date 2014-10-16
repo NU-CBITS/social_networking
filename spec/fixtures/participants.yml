@@ -3,3 +3,6 @@ participant1:
 
 participant2:
   email: p2@example.com
+
+participant3:
+  email: p3@example.com
