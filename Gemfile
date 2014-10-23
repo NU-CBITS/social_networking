@@ -14,6 +14,7 @@ gemspec
 # gem "debugger"
 gem "jquery-rails", "~> 3.1"
 gem "bootstrap-sass", "~> 3.1"
+gem "twilio-ruby", "~> 3.12"
 
 group :development, :test do
   gem "jasmine-rails", "= 0.10.0"
