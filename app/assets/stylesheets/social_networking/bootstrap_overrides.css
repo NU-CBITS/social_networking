@@ -67,6 +67,38 @@
   text-decoration: none;
 }
 
+
+/* profile page (for mobile) */
+
 .modal-backdrop {
     display: none;
+}
+
+.modal-header .close {
+  position: relative;
+  right: -10px;
+  top: -50px;
+}
+
+#profile-icon {
+  margin: 10px;
+}
+
+.icon-selection {
+  padding: 5px;
+}
+
+.icon-selection img {
+  width: 70%;
+}
+
+.profile-participant {
+  margin: 5px;
+}
+
+.profile-participant img {
+  display: inline-block;
+  float: left;
+  margin: 0 5px 5px 10px;
+  width: 50px;
 }

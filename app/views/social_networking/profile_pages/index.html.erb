@@ -1,23 +1,17 @@
 <%= render "social_networking/shared/nav" %>
 
 <div ng-controller="ProfilesCtrl as profiles">
-  <div style="display: inline-block; margin-right: 12px;" ng-repeat="profile in profiles.members">
-    <a href="<%= social_networking_profile_path %>/{{ profile.id }}" data-no-turbolink="true">
-      <span class="hidden-xs">
-        <img ng-src="{{ profile.iconSrc }}"><br>
-        {{ profile.username }}<br>
-        Last seen: {{ profile.latestAction | timeFromNow }}
-      </span>
-
-      <span class="visible-xs-inline">
-        <img ng-src="{{ profile.iconSrc }}" width="48" style="display: inline-block;">
-        <span display="display: inline-block;">
-          {{ profile.username }}<br>
-          Last seen: {{ profile.latestAction | timeFromNow }}
-        </span>
-      </span>
-    </a>
-
+  <div ng-repeat="profile in profiles.members">
+    <div class="row profile-participant">
+      <p>
+        User: 
+        <a href="<%= social_networking_profile_path %>/{{ profile.id }}" data-no-turbolink="true">
+        <img ng-src="{{ profile.iconSrc }}">
+          {{ profile.username }}
+        </a>
+      </p>
+      <p>Last seen: {{ profile.latestAction | timeFromNow }}</p>
+    </div>
     <dl>
       <dt ng-repeat-start="r in profile.responses">{{ r.question }}</dt>
       <dd ng-repeat-end>{{ r.text }}</dd>
