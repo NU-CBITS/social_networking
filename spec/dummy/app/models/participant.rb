@@ -6,4 +6,12 @@ class Participant < ActiveRecord::Base
   def latest_action_at
     DateTime.new
   end
+
+  def contact_preference
+    "email"
+  end
+
+  def phone_number
+    '16309101110'
+  end
 end

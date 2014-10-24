@@ -6,7 +6,6 @@ class NudgeMailer < ActionMailer::Base
   def nudge_email_alert(receiving_participant, sender_participant)
     @receiving_participant = receiving_participant
     @sender_participant = sender_participant
-    @url = root_url
     mail(to: @receiving_participant.email, subject: "You were nudged!")
   end
 end
