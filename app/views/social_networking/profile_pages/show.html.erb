@@ -13,9 +13,9 @@
 
           <div class="modal-body">
             <% @profile_icons.each_with_index do |icon_name, index| %>
-              <% if 0 == index % 6 %><div class="row" style="margin-top: 20px;"><% end %>
-              <div ng-click="profile.update_profile_icon('<%= icon_name %>', profile)" class="col-lg-2 col-sm-2 col-xs-2 text-center icon-selection" style="padding-top: 5px; padding-bottom: 5px;">
-                <%= image_tag 'social_networking/profile_icon_'+ icon_name +'.png', :size => '42' %>
+              <% if 0 == index % 6 %><div class="row"><% end %>
+              <div ng-click="profile.update_profile_icon('<%= icon_name %>', profile)" class="col-lg-2 col-sm-4 col-xs-4 text-center icon-selection">
+                <%= image_tag 'social_networking/profile_icon_'+ icon_name +'.png' %>
               </div>
               <% if 5 == index % 6 || index + 1 == @profile_icons.size %></div><% end %>
             <% end %>
