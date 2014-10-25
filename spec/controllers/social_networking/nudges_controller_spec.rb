@@ -4,7 +4,12 @@ module SocialNetworking
   describe NudgesController, type: :controller do
     describe "POST create" do
       context "when the participant is authenticated" do
-        let(:participant) { double("participant", id: 987, contact_preference: "email", phone_number: "16309101110") }
+        let(:participant) do
+          double("participant",
+                 id: 987,
+                 contact_preference: "email",
+                 phone_number: "16309101110")
+        end
         let(:nudge) do
           double("nudge",
                  id: 8_675_309,
@@ -17,7 +22,6 @@ module SocialNetworking
         before do
           allow(controller).to receive(:authenticate_participant!)
           allow(controller).to receive(:current_participant) { participant }
-
 
           expect(Nudge).to receive(:new).with(
             initiator_id: participant.id,
