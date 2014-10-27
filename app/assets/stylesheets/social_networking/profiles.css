@@ -1,15 +1,14 @@
-profile-box-content {
-
-}
-
-profile-box-border {
+.profile-border {
   border: 2px;
+  border-color: black;
+  border-style: solid;
 }
 
-profiles-last-online {
-
+.profile-last-seen {
+    padding-top: 5px;
+    margin-bottom: 15px;
 }
 
-profiles-nudge {
-
+.profile-icon-top {
+    margin-top: 10px;
 }

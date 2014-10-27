@@ -1,6 +1,30 @@
 <%= render "social_networking/shared/nav" %>
 
 <div ng-controller="HomeCtrl as home">
+
+  <div class="row">
+    <div ng-controller="ProfilesCtrl as profiles">
+      <div ng-repeat="profile in profiles.members">
+
+        <div class="col-xs-12 col-md-4 text-center">
+          <div class="profile-border profile-icon-top">
+            <p>
+              <a href="<%= social_networking_profile_path %>/{{ profile.id }}" data-no-turbolink="true">
+                <div><img ng-src="{{ profile.iconSrc }}"></div>
+                <div>{{ profile.username }}</div>
+              </a>
+            </p>
+          </div>
+          <div class="profile-border profile-last-seen">
+            <p>Last seen: {{ profile.latestAction | timeFromNow }}</p>
+          </div>
+        </div>
+
+
+        </div>
+      </div>
+  </div>
+
   <ul class="list-group action-items" ng-if="home.inFeedBrowseMode()">
     <li class="list-group-item">
       <button class="btn btn-link" ng-click="home.newOnYourMindStatement()">What's on your mind?</button>
