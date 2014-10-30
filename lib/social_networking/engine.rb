@@ -2,7 +2,6 @@ require "rubygems"
 require "twilio-ruby"
 
 module SocialNetworking
-
   # Mountable engine with isolated namespace.
   class Engine < ::Rails::Engine
     isolate_namespace SocialNetworking
@@ -29,5 +28,4 @@ module SocialNetworking
     config.twilio_account_telephone_number =
       ENV["MOODCONNECT_TWILIO_AUTH_TOKEN"]
   end
-
 end

@@ -6,9 +6,7 @@ class LikeMailer < ActionMailer::Base
   # Send trigger an email that alerts an item's creator of a like.
   def like_email_alert(receiving_participant, message_body, *subject)
     @message_body = message_body
-    if subject.nil?
-      subject = message_body
-    end
+    subject = subject.nil? ? message_body : subject
     mail(to: receiving_participant.email, subject: subject)
   end
 end

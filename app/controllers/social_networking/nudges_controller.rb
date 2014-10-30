@@ -4,7 +4,7 @@ require "rubygems"
 require "twilio-ruby"
 
 module SocialNetworking
-
+  # Manage Nudges.
   class NudgesController < ApplicationController
     include ItemUtilities
     include SMSUtilities
@@ -41,11 +41,16 @@ module SocialNetworking
       recipient = Participant.find(sanitized_params[:recipient_id])
 
       message_body = [
-        "You've been nudged by #{recipient.email}! Log in (#{root_url}) to find out who nudged you.",
-        "#{recipient.email} just nudged you! Log in (#{root_url}) to view your nudge!",
-        "Hey! #{recipient.email} nudged you! Don't leave them hanging - log in (#{root_url}) to say hi!",
-        "Looks like #{recipient.email}'s thinking about you! Log in (#{root_url}) to see who nudged you.",
-        "Psst - you've been nudged by #{recipient.email}! Log in (#{root_url}) to support a fellow group member!"
+        "You've been nudged by #{recipient.email}! Log " \
+        " in (#{root_url}) to find out who nudged you.",
+        "#{recipient.email} just nudged you! Log in " \
+        "(#{root_url}) to view your nudge!",
+        "Hey! #{recipient.email} nudged you! Don't leave" \
+        " them hanging - log in (#{root_url}) to say hi!",
+        "Looks like #{recipient.email}'s thinking about you!" \
+        " Log in (#{root_url}) to see who nudged you.",
+        "Psst - you've been nudged by #{recipient.email}!" \
+        " Log in (#{root_url}) to support a fellow group member!"
       ].sample
 
       if "email" == recipient.contact_preference
@@ -64,10 +69,9 @@ module SocialNetworking
     # Trigger nudge notification email
     def send_notify_email(nudge, message_body)
       NudgeMailer.nudge_email_alert(
-        recipient: Participant.find( nudge.recipient_id),
+        recipient: Participant.find(nudge.recipient_id),
         message_body: message_body,
         subject: "You were nudged!")
     end
-
   end
 end
