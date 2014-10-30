@@ -8,7 +8,8 @@ module SocialNetworking
           double("participant",
                  id: 987,
                  contact_preference: "email",
-                 phone_number: "16309101110")
+                 phone_number: "16309101110",
+                 email: "test@tester.com")
         end
         let(:nudge) do
           double("nudge",
@@ -35,7 +36,20 @@ module SocialNetworking
         end
 
         context "and the record saves" do
-          before { allow(nudge).to receive(:save) { true } }
+          before do
+            allow(nudge).to receive(:save) { true }
+            allow(Participant).to receive(:find) {
+              double(
+                "receiver",
+                id: 123,
+                email: "test@tester.com",
+                contact_preference: "sms",
+                phone_number: "16309201110"
+              )
+            }
+            allow(controller).to receive(:root_url) { "some.url" }
+            allow(controller).to receive(:send_sms) { nil }
+          end
 
           it "should return the new record" do
             post :create, recipientId: 123, use_route: :social_networking

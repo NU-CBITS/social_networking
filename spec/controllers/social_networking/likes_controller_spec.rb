@@ -17,6 +17,7 @@ module SocialNetworking
         before do
           allow(controller).to receive(:authenticate_participant!)
           allow(controller).to receive(:current_participant) { participant }
+
           allow(Like).to receive(:new).with(
             participant_id: participant.id,
             item_id: "5",
@@ -25,7 +26,26 @@ module SocialNetworking
         end
 
         context "and the record saves" do
-          before { allow(like).to receive(:save) { true } }
+          before do
+            allow(like).to receive(:save) { true }
+            allow(controller).to receive(:class_from_item_type) { Goal }
+            allow(Goal).to receive(:find) {
+              double("goal",
+              id: 54345345,
+              participant_id: 654654654)
+            }
+            allow(controller).to receive(:root_url) { "some.url" }
+            allow(Participant).to receive(:find) {
+              double(
+                "receiver",
+                id: 41312,
+                email: "tester@test.com",
+                phone_number: "16309201110",
+                contact_preference: "sms"
+              )
+            }
+            allow(controller).to receive(:send_sms) { nil }
+          end
 
           it "should return the new record" do
             post :create,

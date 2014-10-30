@@ -1,15 +1,20 @@
+# Controller used to Manage Nudges.
+
 require "rubygems"
 require "twilio-ruby"
 
 module SocialNetworking
-  # Manage Nudges.
+
   class NudgesController < ApplicationController
+    include ItemUtilities
+    include SMSUtilities
+
     def index
       @nudges = Nudge.search(sanitized_params[:recipient_id])
-
       render json: Serializers::NudgeSerializer.from_collection(@nudges)
     end
 
+    # Create a new nudge and notify the recipient
     def create
       @nudge = Nudge.new(sanitized_params)
 
@@ -30,15 +35,25 @@ module SocialNetworking
       }
     end
 
+    # Select message from list, determine contact preference, then
+    # trigger the notification based on the preference.
     def notify
       recipient = Participant.find(sanitized_params[:recipient_id])
 
+      message_body = [
+        "You've been nudged by #{recipient.email}! Log in (#{root_url}) to find out who nudged you.",
+        "#{recipient.email} just nudged you! Log in (#{root_url}) to view your nudge!",
+        "Hey! #{recipient.email} nudged you! Don't leave them hanging - log in (#{root_url}) to say hi!",
+        "Looks like #{recipient.email}'s thinking about you! Log in (#{root_url}) to see who nudged you.",
+        "Psst - you've been nudged by #{recipient.email}! Log in (#{root_url}) to support a fellow group member!"
+      ].sample
+
       if "email" == recipient.contact_preference
-        send_notify_email(@nudge)
+        send_notify_email(@nudge, message_body)
       elsif "sms" == recipient.contact_preference &&
         recipient.phone_number &&
         !recipient.phone_number.blank?
-        send_notify_sms(recipient)
+        send_sms(recipient, message_body)
       end
     end
 
@@ -46,25 +61,13 @@ module SocialNetworking
       @nudge.errors.full_messages.join(", ")
     end
 
-    def send_notify_email(nudge)
+    # Trigger nudge notification email
+    def send_notify_email(nudge, message_body)
       NudgeMailer.nudge_email_alert(
-        Participant.find(nudge.recipient_id), current_participant)
+        recipient: Participant.find( nudge.recipient_id),
+        message_body: message_body,
+        subject: "You were nudged!")
     end
 
-    def send_notify_sms(recipient)
-      client = Twilio::REST::Client.new(
-        Rails.application.config.twilio_account_sid,
-        Rails.application.config.twilio_auth_token)
-      account = client.account
-      account.sms.messages.create(
-        from:
-          "+#{Rails.application.config.twilio_account_telephone_number}",
-        to:
-          "+#{recipient.phone_number}",
-        body:
-          "#{current_participant.email} has nudged you. \
-                  Come back to MoodTech (#{root_url})."
-      )
-    end
   end
 end

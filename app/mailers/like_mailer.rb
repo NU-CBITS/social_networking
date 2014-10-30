@@ -3,10 +3,12 @@ class LikeMailer < ActionMailer::Base
   # TODO: set from address in application properties
   default from: "social_networking@northwestern.edu"
 
-  def like_email_alert(receiving_participant, sender_participant, message_body)
-    @receiving_participant = receiving_participant
-    @sender_participant = sender_participant
+  # Send trigger an email that alerts an item's creator of a like.
+  def like_email_alert(receiving_participant, message_body, *subject)
     @message_body = message_body
-    mail(to: @receiving_participant.email, subject: message_body)
+    if subject.nil?
+      subject = message_body
+    end
+    mail(to: receiving_participant.email, subject: subject)
   end
 end
