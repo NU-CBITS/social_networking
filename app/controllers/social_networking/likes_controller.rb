@@ -10,7 +10,8 @@ module SocialNetworking
       @like = Like.new(sanitized_params)
 
       if @like.save
-        found_item = class_from_item_type(@like.item_type).find_by(item_id: @like.item_id)
+        found_item = class_from_item_type(@like.item_type)
+        .find_by(item_id: @like.item_id)
         recipient = Participant.find(found_item.participant_id)
         notify(recipient)
         render json: Serializers::LikeSerializer.new(@like).to_serialized

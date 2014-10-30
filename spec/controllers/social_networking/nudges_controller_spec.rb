@@ -7,7 +7,7 @@ module SocialNetworking
         let(:participant) do
           double("participant",
                  id: 987,
-                 contact_preference: "email",
+                 contact_preference: "sms",
                  phone_number: "16309101110",
                  email: "test@tester.com")
         end
@@ -23,37 +23,36 @@ module SocialNetworking
         before do
           allow(controller).to receive(:authenticate_participant!)
           allow(controller).to receive(:current_participant) { participant }
-
           expect(Nudge).to receive(:new).with(
             initiator_id: participant.id,
             recipient_id: "123"
           ) { nudge }
           allow(Profile).to receive(:find_by_participant_id)
             .and_return(double("profile", user_name: "F. Bar"))
-
+          allow(nudge).to receive(:save) { true }
+          allow(controller).to receive(:root_url) { "some.url" }
           allow(Participant).to receive(:find) { participant }
-          allow(NudgeMailer).to receive(:nudge_email_alert) {}
+          allow(controller).to receive(:send_sms) { nil }
         end
 
         context "and the record saves" do
           before do
             allow(nudge).to receive(:save) { true }
+            allow(controller).to receive(:root_url) { "some.url" }
             allow(Participant).to receive(:find) {
               double(
                 "receiver",
                 id: 123,
                 email: "test@tester.com",
-                contact_preference: "sms",
+                contact_preference: "email",
                 phone_number: "16309201110"
               )
             }
-            allow(controller).to receive(:root_url) { "some.url" }
             allow(controller).to receive(:send_sms) { nil }
           end
 
           it "should return the new record" do
             post :create, recipientId: 123, use_route: :social_networking
-
             assert_response 200
             expect(json["id"]).to eq(8_675_309)
             expect(json["recipientId"]).to eq(123)

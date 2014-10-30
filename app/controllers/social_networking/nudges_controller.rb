@@ -38,19 +38,20 @@ module SocialNetworking
     # Select message from list, determine contact preference, then
     # trigger the notification based on the preference.
     def notify
+      site_root_url = root_url
       recipient = Participant.find(sanitized_params[:recipient_id])
 
       message_body = [
         "You've been nudged by #{recipient.email}! Log " \
-        " in (#{root_url}) to find out who nudged you.",
+        " in (#{site_root_url}) to find out who nudged you.",
         "#{recipient.email} just nudged you! Log in " \
-        "(#{root_url}) to view your nudge!",
+        "(#{site_root_url}) to view your nudge!",
         "Hey! #{recipient.email} nudged you! Don't leave" \
-        " them hanging - log in (#{root_url}) to say hi!",
+        " them hanging - log in (#{site_root_url}) to say hi!",
         "Looks like #{recipient.email}'s thinking about you!" \
-        " Log in (#{root_url}) to see who nudged you.",
+        " Log in (#{site_root_url}) to see who nudged you.",
         "Psst - you've been nudged by #{recipient.email}!" \
-        " Log in (#{root_url}) to support a fellow group member!"
+        " Log in (#{site_root_url}) to support a fellow group member!"
       ].sample
 
       if "email" == recipient.contact_preference
@@ -69,9 +70,9 @@ module SocialNetworking
     # Trigger nudge notification email
     def send_notify_email(nudge, message_body)
       NudgeMailer.nudge_email_alert(
-        recipient: Participant.find(nudge.recipient_id),
-        message_body: message_body,
-        subject: "You were nudged!")
+        Participant.find(nudge.recipient_id),
+        message_body,
+        "You were nudged!")
     end
   end
 end

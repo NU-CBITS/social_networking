@@ -39,24 +39,6 @@ describe "home tool", type: :feature, js: true do
     expect(page).to have_content("brilliant!")
   end
 
-  scenario "Participant likes an existing \"What's on your mind?\"" do
-    expect(page).not_to have_likes_for(statement)
-
-    like statement
-
-    expect(page).to have_likes_for(statement)
-  end
-
-  scenario "Participant likes a Goal" do
-    goal = social_networking_shared_items(:participant1_goal_alpha)
-
-    expect(page).not_to have_likes_for(goal)
-
-    like goal
-
-    expect(page).to have_likes_for(goal)
-  end
-
   def comment_on(item)
     find(:xpath, "//*[@id='#{ item_el_id(item) }']")
       .find("button.comment").click
