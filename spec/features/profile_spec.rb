@@ -25,22 +25,6 @@ describe "Profile", type: :feature, js: true do
     expect(page).to have_content("golf, hand grenades")
   end
 
-  describe "other" do
-    let(:profile2) { social_networking_profiles(:profile2) }
-
-    before { visit "/social_networking/profile_page/#{ profile2.id }" }
-
-    scenario "Participant nudges Participant" do
-      click_on "Nudge"
-
-      expect(page).to have_content("Nudge sent!")
-
-      visit "/social_networking/home"
-
-      expect(page).to have_content("nudged #{ profile2.user_name }")
-    end
-  end
-
   def select_random_icon
     icons = page.all(".icon-selection")
     icon = icons.at(rand(icons.length))

@@ -1,8 +1,9 @@
 module SocialNetworking
+  include Item
+  include Sms
+
   # Manage Likes.
   class LikesController < ApplicationController
-    include ItemUtilities
-    include SMSUtilities
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
     # Create a new like and notify the creator of the liked item

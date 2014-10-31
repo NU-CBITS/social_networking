@@ -15,12 +15,6 @@ module SocialNetworking
     config.action_mailer.default_url_options =
       { host: "social_networking.northwestern.edu" }
 
-    config.autoload_paths <<
-      File.expand_path("../lib/utilities", "item_utilities.rb")
-
-    config.autoload_paths <<
-      File.expand_path("../lib/utilities", "sms_utilities.rb")
-
     config.twilio_account_sid =
       ENV["MOODCONNECT_TWILIO_ACCOUNT_SID"]
     config.twilio_auth_token =

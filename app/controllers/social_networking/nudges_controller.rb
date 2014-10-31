@@ -1,13 +1,11 @@
 # Controller used to Manage Nudges.
 
-require "rubygems"
-require "twilio-ruby"
-
 module SocialNetworking
+  include Item
+  include Sms
+
   # Manage Nudges.
   class NudgesController < ApplicationController
-    include ItemUtilities
-    include SMSUtilities
 
     def index
       @nudges = Nudge.search(sanitized_params[:recipient_id])
@@ -51,12 +49,11 @@ module SocialNetworking
         "Looks like #{recipient.email}'s thinking about you!" \
         " Log in (#{site_root_url}) to see who nudged you.",
         "Psst - you've been nudged by #{recipient.email}!" \
-        " Log in (#{site_root_url}) to support a fellow group member!"
-      ].sample
+        " Log in (#{site_root_url}) to support a fellow group member!"].sample
 
-      if "email" == recipient.contact_preference
+      if "email" == recipient.contact_status
         send_notify_email(@nudge, message_body)
-      elsif "sms" == recipient.contact_preference &&
+      elsif "sms" == recipient.contact_status &&
         recipient.phone_number &&
         !recipient.phone_number.blank?
         send_sms(recipient, message_body)
