@@ -1,3 +1,4 @@
+# Like controller.
 module SocialNetworking
   include Item
   include Sms

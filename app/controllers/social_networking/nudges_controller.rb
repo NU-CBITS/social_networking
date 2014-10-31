@@ -1,12 +1,10 @@
 # Controller used to Manage Nudges.
-
 module SocialNetworking
   include Item
   include Sms
 
   # Manage Nudges.
   class NudgesController < ApplicationController
-
     def index
       @nudges = Nudge.search(sanitized_params[:recipient_id])
       render json: Serializers::NudgeSerializer.from_collection(@nudges)
