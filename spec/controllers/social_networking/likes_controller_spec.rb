@@ -30,13 +30,13 @@ module SocialNetworking
             allow(controller).to receive(:class_from_item_type) { Comment }
             allow(Comment).to receive(:find_by) {
               double("comment",
-                     id: 54345345,
-                     participant_id: 654654654)
+                     id: 543_453_45,
+                     participant_id: 654_654_654)
             }
             allow(Participant).to receive(:find) {
               double(
                 "receiver",
-                id: 41312,
+                id: 413_12,
                 email: "tester@test.com",
                 phone_number: "16309201110",
                 contact_preference: "sms"
