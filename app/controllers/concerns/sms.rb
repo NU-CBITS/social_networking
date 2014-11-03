@@ -8,6 +8,7 @@ module Sms
 
   # Send an SMS message body to a specified reciving participant (leaving
   # off recipient defaults the value to the current participant)
+  # rubocop:disable Metrics/AbcSize
   def send_sms(recipient = current_user, message_body)
     if recipient.is_a?(Participant)
       client = Twilio::REST::Client.new(
@@ -26,4 +27,5 @@ module Sms
       logger.error "Error: Expected recipient to be a Participant."
     end
   end
+  # rubocop:enable Metrics/AbcSize
 end
