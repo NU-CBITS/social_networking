@@ -33,22 +33,23 @@ module SocialNetworking
 
     # Select message from list, determine contact preference, then
     # trigger the notification based on the preference.
+    # rubocop:disable Metrics/AbcSize
     def notify
       recipient = Participant.find(sanitized_params[:recipient_id])
 
       case recipient.contact_status
-        when "email"
-          send_notify_email(@nudge, message_body(recipient))
-        when "sms"
-          if recipient.phone_number && !recipient.phone_number.blank?
-            send_sms(recipient, message_body(recipient))
-          end
-        else
-          logger.error "ERROR: contact preference is not set for \
-          participant with ID: " + recipient.id
+      when "email"
+        send_notify_email(@nudge, message_body(recipient))
+      when "sms"
+        if recipient.phone_number && !recipient.phone_number.blank?
+          send_sms(recipient, message_body(recipient))
+        end
+      else
+        logger.error "ERROR: contact preference is not set for \
+        participant with ID: " + recipient.id
       end
-
     end
+    # rubocop:enable Metrics/AbcSize
 
     def model_errors
       @nudge.errors.full_messages.join(", ")

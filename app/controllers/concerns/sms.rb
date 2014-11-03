@@ -16,7 +16,7 @@ module Sms
       account = client.account
       account.sms.messages.create(
         from:
-          "+#{Rails.application.config.twilio_account_telephone_number}",
+          "#{Rails.application.config.twilio_account_telephone_number}",
         to:
           "+#{recipient.phone_number}",
         body:
