@@ -18,8 +18,8 @@ module SocialNetworking
     config.twilio_account_sid =
       ENV["MOODCONNECT_TWILIO_ACCOUNT_SID"]
     config.twilio_auth_token =
-      ENV["MOODCONNECT_TWILIO_PHONE_NUMBER"]
-    config.twilio_account_telephone_number =
       ENV["MOODCONNECT_TWILIO_AUTH_TOKEN"]
+    config.twilio_account_telephone_number =
+      ENV["MOODCONNECT_TWILIO_PHONE_NUMBER"]
   end
 end
