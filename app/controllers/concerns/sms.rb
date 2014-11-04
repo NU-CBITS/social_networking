@@ -6,10 +6,12 @@ require "twilio-ruby"
 module Sms
   extend ActiveSupport::Concern
 
-  # Send an SMS message body to a specified reciving participant (leaving
+  # Send an SMS message body to a specified receiving participant (leaving
   # off recipient defaults the value to the current participant)
   # rubocop:disable Metrics/AbcSize
   def send_sms(recipient = current_user, message_body)
+    logger.info("INFO BEFORE: SMS notification sent \
+                 to:" + recipient.phone_number)
     if recipient.is_a?(Participant)
       client = Twilio::REST::Client.new(
         Rails.application.config.twilio_account_sid,
@@ -26,6 +28,8 @@ module Sms
     else
       logger.error "Error: Expected recipient to be a Participant."
     end
+    logger.info("INFO AFTER: SMS notification sent \
+                 to:" + recipient.phone_number)
   end
   # rubocop:enable Metrics/AbcSize
 end
