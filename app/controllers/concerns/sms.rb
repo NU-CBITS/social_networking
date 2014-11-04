@@ -17,7 +17,7 @@ module Sms
         Rails.application.config.twilio_account_sid,
         Rails.application.config.twilio_auth_token)
       account = client.account
-      account.sms.messages.create(
+      account.messages.create(
         from:
           "#{Rails.application.config.twilio_account_telephone_number}",
         to:
