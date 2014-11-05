@@ -39,10 +39,10 @@ module SocialNetworking
 
       case recipient.contact_status
       when "email"
-        send_notify_email(@nudge, message_body(recipient))
+        send_notify_email(@nudge, message_body)
       when "sms"
         if recipient.phone_number && !recipient.phone_number.blank?
-          send_sms(recipient, message_body(recipient))
+          send_sms(recipient, message_body)
         end
       else
         logger.error "ERROR: contact preference is not set for \
@@ -63,17 +63,17 @@ module SocialNetworking
         "You were nudged!")
     end
 
-    def message_body(recipient)
+    def message_body
       site_root_url = root_url
-      ["You've been nudged by #{recipient.email}! Log \
+      ["You've been nudged by #{current_participant.email}! Log \
         in (#{site_root_url}) to find out who nudged you.",
-       "#{recipient.email} just nudged you! Log in \
+       "#{current_participant.email} just nudged you! Log in \
         (#{site_root_url}) to view your nudge!",
-       "Hey! #{recipient.email} nudged you! Don't leave \
+       "Hey! #{current_participant.email} nudged you! Don't leave \
         them hanging - log in (#{site_root_url}) to say hi!",
-       "Looks like #{recipient.email}'s thinking about you! \
+       "Looks like #{current_participant.email}'s thinking about you! \
         Log in (#{site_root_url}) to see who nudged you.",
-       "Psst - you've been nudged by #{recipient.email}! \
+       "Psst - you've been nudged by #{current_participant.email}! \
         Log in (#{site_root_url}) to support a fellow group member!"].sample
     end
   end

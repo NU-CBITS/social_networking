@@ -22,7 +22,7 @@ module SocialNetworking
 
     def set_current_profile
       id = params[:id] || current_participant.id
-      @profile = Profile.find_or_create_by(participant_id: id)
+      @profile = Profile.find_or_create_by(participant_id: id, active: true)
       store_nudge_initiators(@profile.participant_id)
     end
 
@@ -42,6 +42,7 @@ module SocialNetworking
       render json: { error: "profile not found" }, status: 404
     end
 
+    # rubocop:disable Metrics/AbcSize
     def load_feed_items
       pid = @profile.participant_id
       @feed_items = (
@@ -58,6 +59,7 @@ module SocialNetworking
         )
       )
     end
+    # rubocop:enable Metrics/AbcSize
 
     # rubocop:disable Metrics/MethodLength
     def set_profile_icon_names

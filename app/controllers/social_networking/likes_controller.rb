@@ -1,6 +1,5 @@
 # Like controller.
 module SocialNetworking
-  include Item
   include Sms
 
   # Manage Likes.
@@ -12,9 +11,7 @@ module SocialNetworking
       @like = Like.new(sanitized_params)
 
       if @like.save
-        found_item = class_from_item_type(@like.item_type)
-        .find_by(item_id: @like.item_id)
-        recipient = Participant.find(found_item.participant_id)
+        recipient = Participant.find(@like.item.participant_id)
         notify(recipient)
         render json: Serializers::LikeSerializer.new(@like).to_serialized
       else
@@ -47,18 +44,18 @@ module SocialNetworking
     # based on the contact preferences.
     def notify(recipient)
       message_body = [
-        "Someone liked your post! " \
-        "Log in (#{root_url}) to see who.",
-        "People like what you're doing!" \
-        " Log in (#{root_url}) " \
-        "to see what's happening!"
+        "Someone liked your post! \
+         Log in (#{root_url}) to see who.",
+        "People like what you're doing! \
+         Log in (#{root_url}) \
+         to see what's happening!"
       ].sample
 
       if "email" == recipient.contact_preference
         send_notify_email(recipient, message_body)
       elsif "sms" == recipient.contact_preference &&
-        recipient.phone_number &&
-        !recipient.phone_number.blank?
+            recipient.phone_number &&
+            !recipient.phone_number.blank?
         send_sms(recipient, message_body)
       end
     end
