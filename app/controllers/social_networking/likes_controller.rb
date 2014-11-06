@@ -45,13 +45,13 @@ module SocialNetworking
     def notify(recipient)
       message_body = [
         "Someone liked your post! \
-         Log in (#{root_url}) to see who.",
+Log in (#{root_url}) to see who.",
         "People like what you're doing! \
-         Log in (#{root_url}) \
-         to see what's happening!"
+Log in (#{root_url}) \
+to see what's happening!"
       ].sample
 
-      if "email" == recipient.contact_preference
+      if "email" == recipient.contact_status
         send_notify_email(recipient, message_body)
       elsif "sms" == recipient.contact_preference &&
             recipient.phone_number &&
@@ -63,7 +63,7 @@ module SocialNetworking
     # Trigger a notification email
     def send_notify_email(recipient, message_body)
       LikeMailer.like_email_alert(
-        recipient, current_participant, message_body)
+        recipient, message_body)
     end
   end
 end

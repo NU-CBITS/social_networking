@@ -86,9 +86,11 @@
 
   // A Participant may only like a feed item once.
   HomeCtrl.prototype.canAddLikeTo = function(item) {
-    return (this._findLikes(item.likes, {
-      participantId: this._currentParticipantId
-    }) || []).length === 0;
+    var able_to_like = item.description !== "nudge" &&
+      (this._findLikes(item.likes, {
+        participantId: this._currentParticipantId
+      }) || []).length === 0;
+    return able_to_like;
   };
 
   // "Like" a feed item.

@@ -2,3 +2,4 @@
 #
 profile2:
   participant: participant2
+  active: true
