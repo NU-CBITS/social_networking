@@ -1,4 +1,4 @@
-class UpdateActiveFieldOfProfiles < ActiveRecord::Migration
+class SeedActiveFieldOfProfiles < ActiveRecord::Migration
   def change
     Profile.each do |profile|
       profile.update(active: true)
