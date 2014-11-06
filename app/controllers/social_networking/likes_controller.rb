@@ -1,6 +1,5 @@
 # Like controller.
 module SocialNetworking
-
   # Manage Likes.
   class LikesController < ApplicationController
     include Sms
