@@ -1,9 +1,9 @@
 # Like controller.
 module SocialNetworking
-  include Sms
 
   # Manage Likes.
   class LikesController < ApplicationController
+    include Sms
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
     # Create a new like and notify the creator of the liked item
@@ -53,7 +53,7 @@ to see what's happening!"
 
       if "email" == recipient.contact_status
         send_notify_email(recipient, message_body)
-      elsif "sms" == recipient.contact_preference &&
+      elsif "sms" == recipient.contact_status &&
             recipient.phone_number &&
             !recipient.phone_number.blank?
         send_sms(recipient, message_body)
