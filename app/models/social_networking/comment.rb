@@ -7,3 +7,4 @@ module SocialNetworking
     validates :participant, :item, :text, presence: true
   end
 end
+
