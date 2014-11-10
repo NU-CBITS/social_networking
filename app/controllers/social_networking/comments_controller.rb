@@ -2,13 +2,25 @@ module SocialNetworking
   # Manage Comments.
   class CommentsController < ApplicationController
     include Sms
+    include Item
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
     def create
       @comment = Comment.new(sanitized_params)
 
       if @comment.save
-        notify Participant.find(@comment.item.participant_id)
+        if "SocialNetworking::SharedItem" == @comment.item_type
+          comment_item_type =
+            SharedItem.find(@comment.item.id).item_type
+          comment_item_participant_id =
+            class_from_item_type(comment_item_type).
+              find(@comment.item.item_id).participant_id
+          notify Participant.find(comment_item_participant_id)
+        else
+          notify Participant.find(
+                   class_from_item_type(@comment.item_type).
+                     find(@comment.item_id).participant_id)
+        end
         render json: Serializers::CommentSerializer.new(@comment).to_serialized
       else
         render json: { error: model_errors }, status: 400

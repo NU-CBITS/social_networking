@@ -27,7 +27,11 @@ module SocialNetworking
         end
 
         context "and the record saves" do
-          before { allow(comment).to receive(:save) { true } }
+          before do
+            allow(comment).to receive(:save) { true }
+            allow(controller).to receive(:class_from_item_type) { OnTheMindStatement.class }
+            allow(OnTheMindStatement.class).to receive(:find) { {participant_id: 1} }
+          end
 
           it "should return the new record" do
             post :create,
