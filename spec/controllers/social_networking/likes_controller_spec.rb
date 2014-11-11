@@ -39,7 +39,7 @@ module SocialNetworking
                 id: 413_12,
                 email: "tester@test.com",
                 phone_number: "16309201110",
-                contact_status: "sms"
+                contact_preference: "sms"
               )
             }
             allow(controller).to receive(:root_url) { "some.url" }

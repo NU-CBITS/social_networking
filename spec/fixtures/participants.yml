@@ -1,14 +1,14 @@
 participant1:
   email: p1@example.com
   phone_number: "16305150171"
-  contact_status: sms
+  contact_preference: sms
 
 participant2:
   email: p2@example.com
   phone_number: "16305150172"
-  contact_status: sms
+  contact_preference: sms
 
 participant3:
   email: p3@example.com
   phone_number: "16305150173"
-  contact_status: email
+  contact_preference: email

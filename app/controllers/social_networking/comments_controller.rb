@@ -31,7 +31,7 @@ module SocialNetworking
     # trigger the notification based on the preference.
     # rubocop:disable Metrics/AbcSize
     def notify(recipient)
-      case recipient.contact_status
+      case recipient.contact_preference
       when "email"
         send_notify_email(recipient, message_body)
       when "sms"

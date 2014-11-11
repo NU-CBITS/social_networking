@@ -61,9 +61,9 @@ Log in (#{root_url}) \
 to see what's happening!"
       ].sample
 
-      if "email" == recipient.contact_status
+      if "email" == recipient.contact_preference
         send_notify_email(recipient, message_body)
-      elsif "sms" == recipient.contact_status &&
+      elsif "sms" == recipient.contact_preference &&
             recipient.phone_number &&
             !recipient.phone_number.blank?
         send_sms(recipient, message_body)

@@ -37,7 +37,7 @@ module SocialNetworking
     def notify
       recipient = Participant.find(sanitized_params[:recipient_id])
 
-      case recipient.contact_status
+      case recipient.contact_preference
       when "email"
         send_notify_email(@nudge, message_body)
       when "sms"

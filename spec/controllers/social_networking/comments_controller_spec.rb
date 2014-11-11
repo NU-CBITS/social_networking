@@ -5,7 +5,7 @@ module SocialNetworking
     let(:participant) do
       double("participant",
              id: 987,
-             contact_status: "sms",
+             contact_preference: "sms",
              phone_number: "163009101110")
     end
     let(:comment) do
@@ -43,7 +43,7 @@ module SocialNetworking
             allow(Participant).to receive(:find) {
               double("some_participant",
                      id: 987,
-                     contact_status: "sms",
+                     contact_preference: "sms",
                      phone_number: "16309101110")
             }
             allow(controller).to receive(:notify) { nil }

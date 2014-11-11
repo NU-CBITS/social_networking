@@ -7,7 +7,7 @@ module SocialNetworking
         let(:participant) do
           double("participant",
                  id: 987,
-                 contact_status: "sms",
+                 contact_preference: "sms",
                  phone_number: "16309101110",
                  email: "test@tester.com")
         end
@@ -44,7 +44,7 @@ module SocialNetworking
                 "receiver",
                 id: 123,
                 email: "test@tester.com",
-                contact_status: "email",
+                contact_preference: "email",
                 phone_number: "16309201110"
               )
             }
