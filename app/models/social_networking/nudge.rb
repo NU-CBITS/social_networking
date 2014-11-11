@@ -12,9 +12,9 @@ module SocialNetworking
     def self.search(recipient_id)
       if recipient_id
         select(:initiator_id)
-            .where(recipient_id: recipient_id)
-            .where("created_at > ?", 1.day.ago)
-            .group(:initiator_id)
+          .where(recipient_id: recipient_id)
+          .where("created_at > ?", 1.day.ago)
+          .group(:initiator_id)
       else
         all
       end

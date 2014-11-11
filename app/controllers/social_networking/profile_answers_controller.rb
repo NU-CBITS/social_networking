@@ -35,7 +35,7 @@ module SocialNetworking
 
       if @profile_answer.save
         render json: Serializers::ProfileAnswerSerializer
-                     .new(@profile_answer).to_serialized
+          .new(@profile_answer).to_serialized
       else
         render json: { error: model_errors }, status: 400
       end
@@ -43,13 +43,13 @@ module SocialNetworking
 
     def update
       @profile_answer = ProfileAnswer.where(
-         id: profile_answer_params[:id]).first! ||
-         fail(ActiveRecord::RecordNotFound)
+        id: profile_answer_params[:id]).first! ||
+                        fail(ActiveRecord::RecordNotFound)
 
       if @profile_answer.update(
          answer_text: profile_answer_params[:answer_text])
         render json: Serializers::ProfileAnswerSerializer
-                     .new(@profile_answer).to_serialized
+          .new(@profile_answer).to_serialized
       else
         render json: { error: model_errors }, status: 400
       end

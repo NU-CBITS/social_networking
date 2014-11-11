@@ -20,3 +20,9 @@ PredicateName:
 
 StringLiterals:
   EnforcedStyle: double_quotes
+
+Metrics/AbcSize:
+  Max: 50
+
+StringLiteralsInInterpolation:
+  Enabled: false

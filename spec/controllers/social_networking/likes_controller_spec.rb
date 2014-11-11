@@ -28,7 +28,7 @@ module SocialNetworking
           before do
             allow(like).to receive(:save) { true }
             allow(controller).to receive(:class_from_item_type) { Comment }
-            allow(Comment).to receive(:find_by) {
+            allow(Comment).to receive(:find) {
               double("comment",
                      id: 543_453_45,
                      participant_id: 654_654_654)
@@ -39,7 +39,7 @@ module SocialNetworking
                 id: 413_12,
                 email: "tester@test.com",
                 phone_number: "16309201110",
-                contact_preference: "sms"
+                contact_status: "sms"
               )
             }
             allow(controller).to receive(:root_url) { "some.url" }

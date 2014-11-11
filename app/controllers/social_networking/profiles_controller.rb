@@ -12,7 +12,8 @@ module SocialNetworking
         profile = Profile.find(params[:id])
       else
         profile = Profile
-          .find_or_initialize_by(participant_id: current_participant.id)
+                  .find_or_initialize_by(
+                    participant_id: current_participant.id)
       end
 
       render json: Serializers::ProfileSerializer.new(profile).to_serialized

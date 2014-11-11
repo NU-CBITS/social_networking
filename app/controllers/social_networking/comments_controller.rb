@@ -13,19 +13,37 @@ module SocialNetworking
           comment_item_type =
             SharedItem.find(@comment.item.id).item_type
           comment_item_participant_id =
-            class_from_item_type(comment_item_type).
-              find(@comment.item.item_id).participant_id
+            class_from_item_type(comment_item_type)
+            .find(@comment.item.item_id).participant_id
           notify Participant.find(comment_item_participant_id)
         else
           notify Participant.find(
-                   class_from_item_type(@comment.item_type).
-                     find(@comment.item_id).participant_id)
+                 class_from_item_type(@comment.item_type)
+                 .find(@comment.item_id).participant_id)
         end
         render json: Serializers::CommentSerializer.new(@comment).to_serialized
       else
         render json: { error: model_errors }, status: 400
       end
     end
+
+    # Select message from list, determine contact preference, then
+    # trigger the notification based on the preference.
+    # rubocop:disable Metrics/AbcSize
+    def notify(recipient)
+      case recipient.contact_status
+      when "email"
+        send_notify_email(recipient, message_body)
+      when "sms"
+        if recipient.phone_number && !recipient.phone_number.blank?
+          send_sms(recipient, message_body)
+        end
+      else
+        logger.error "ERROR: contact preference is not set for \
+participant with ID: " + recipient.id.to_s
+      end
+    end
+    # rubocop:enable Metrics/AbcSize
 
     private
 
@@ -48,24 +66,6 @@ module SocialNetworking
       @comment.errors.full_messages.join(", ")
     end
 
-    # Select message from list, determine contact preference, then
-    # trigger the notification based on the preference.
-    # rubocop:disable Metrics/AbcSize
-    def notify(recipient)
-      case recipient.contact_status
-        when "email"
-          send_notify_email(recipient, message_body)
-        when "sms"
-          if recipient.phone_number && !recipient.phone_number.blank?
-            send_sms(recipient, message_body)
-          end
-        else
-          logger.error "ERROR: contact preference is not set for \
-participant with ID: " + recipient.id.to_s
-      end
-    end
-    # rubocop:enable Metrics/AbcSize
-
     # Trigger nudge notification email
     def send_notify_email(recipient, message_body)
       CommentMailer.comment_email_alert(
@@ -82,4 +82,3 @@ who commented on your post.",
     end
   end
 end
-

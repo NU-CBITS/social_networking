@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20141106104713) do
   create_table "participants", force: true do |t|
     t.string "email"
     t.string "phone_number"
-    t.string "contact_preference"
+    t.string "contact_status"
   end
 
   create_table "social_networking_comments", force: true do |t|

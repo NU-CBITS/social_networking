@@ -2,7 +2,12 @@ require "spec_helper"
 
 module SocialNetworking
   describe CommentsController, type: :controller do
-    let(:participant) { double("participant", id: 987) }
+    let(:participant) do
+      double("participant",
+             id: 987,
+             contact_status: "sms",
+             phone_number: "163009101110")
+    end
     let(:comment) do
       double("comment",
              id: 8_675_309,
@@ -29,8 +34,19 @@ module SocialNetworking
         context "and the record saves" do
           before do
             allow(comment).to receive(:save) { true }
-            allow(controller).to receive(:class_from_item_type) { OnTheMindStatement.class }
-            allow(OnTheMindStatement.class).to receive(:find) { {participant_id: 1} }
+            allow(controller).to receive(
+              :class_from_item_type) { OnTheMindStatement.class }
+            allow(OnTheMindStatement.class).to receive(:find) {
+              double("item",
+                     participant_id: 1)
+            }
+            allow(Participant).to receive(:find) {
+              double("some_participant",
+                     id: 987,
+                     contact_status: "sms",
+                     phone_number: "16309101110")
+            }
+            allow(controller).to receive(:notify) { nil }
           end
 
           it "should return the new record" do
