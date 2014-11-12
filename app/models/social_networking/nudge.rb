@@ -7,6 +7,8 @@ module SocialNetworking
 
     accepts_nested_attributes_for :recipient
 
+    alias_attribute :participant_id, :initiator_id
+
     validates :initiator, :recipient, presence: true
 
     def self.search(recipient_id)

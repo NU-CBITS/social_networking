@@ -24,7 +24,13 @@ module SocialNetworking
       id = params[:id] || current_participant.id
       @profile = Profile.find_or_create_by(
         participant_id: id, active: true) do |profile|
-        SharedItem.create(item: profile, action_type: Profile::Actions.created)
+        begin
+          SharedItem.create(
+            item: profile,
+            action_type: Profile::Actions.created)
+        rescue ActiveRecord::StatementInvalid
+          logger.info("Shared item already created for existing profile.")
+        end
       end
       store_nudge_initiators(@profile.participant_id)
     end
