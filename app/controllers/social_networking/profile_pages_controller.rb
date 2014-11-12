@@ -22,7 +22,10 @@ module SocialNetworking
 
     def set_current_profile
       id = params[:id] || current_participant.id
-      @profile = Profile.find_or_create_by(participant_id: id, active: true)
+      @profile = Profile.find_or_create_by(
+        participant_id: id, active: true) do |profile|
+        SharedItem.create(item: profile, action_type: Profile::Actions.created)
+      end
       store_nudge_initiators(@profile.participant_id)
     end
 

@@ -13,7 +13,11 @@ module SocialNetworking
       else
         profile = Profile
                   .find_or_initialize_by(
-                    participant_id: current_participant.id)
+                    participant_id: current_participant.id) do |profile_new|
+          SharedItem.create(
+            item: profile_new,
+            action_type: Profile::Actions.created)
+        end
       end
 
       render json: Serializers::ProfileSerializer.new(profile).to_serialized
