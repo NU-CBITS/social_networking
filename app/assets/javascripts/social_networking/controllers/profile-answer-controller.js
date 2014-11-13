@@ -18,8 +18,6 @@
           controller._answerStates[questionId].editable = false;
         })
         .catch(function(error) {
-          window.console.log(error);
-
           controller.answerModels[questionId] = {};
           var answerModel = {};
           answerModel.profile_id = profileId;
