@@ -30,6 +30,15 @@ describe "home tool", type: :feature, js: true do
     expect(page).to have_content("It's raining")
   end
 
+  scenario "Participant comments on a 'Whats on your mind'" do
+    comment_on statement
+    fill_in "What do you think?", with: "brilliant!"
+    click_button "Save"
+    expand_comments_on statement
+
+    expect(page).to have_content("brilliant!")
+  end
+
   def comment_on(item)
     find(:xpath, "//*[@id='#{ item_el_id(item) }']")
       .find("button.comment").click
