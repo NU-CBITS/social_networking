@@ -2,7 +2,6 @@
 module SocialNetworking
   # Manage Nudges.
   class NudgesController < ApplicationController
-    include Item
     include Sms
 
     def index

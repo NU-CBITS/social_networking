@@ -3,7 +3,6 @@ module SocialNetworking
   # Manage Likes.
   class LikesController < ApplicationController
     include Sms
-    include Item
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
     # Create a new like and notify the creator of the liked item
@@ -15,12 +14,12 @@ module SocialNetworking
           like_item_type =
             SharedItem.find(@like.item.id).item_type
           like_item_participant_id =
-            class_from_item_type(like_item_type)
+            like_item_type.constantize
             .find(@like.item.item_id).participant_id
           notify Participant.find(like_item_participant_id)
         else
           notify Participant.find(
-                   class_from_item_type(@like.item_type)
+                   @like.item_type.constantize
                    .find(@like.item_id).participant_id)
         end
         render json: Serializers::LikeSerializer.new(@like).to_serialized
