@@ -56,49 +56,63 @@
   </div>
 </div>
 
-<% if current_participant.id == @profile.participant_id && !@nudges.empty? %>
-  <div class="alert alert-info" id="nudge-alert">
-    <button type="button" class="close" data-dismiss="alert" onclick="$('#nudge-alert').hide();"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-    <%= @nudges.to_sentence %> nudged you!
-  </div>
-<% end %>
+<% if current_participant.id == @profile.participant_id %>
+  <% unless @nudges.empty? %>
+    <div class="alert alert-info" id="nudge-alert">
+      <button type="button" class="close" data-dismiss="alert" onclick="$('#nudge-alert').hide();"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <%= @nudges.to_sentence %> nudged you!
+    </div>
+  <% end %>
 
-<h3>Fill out your profile so other group members can get to know you!</h3>
+  <h3>Fill out your profile so other group members can get to know you!</h3>
 
-<ul class="list-group" ng-controller="ProfileQuestionsCtrl as profileQuestions">
-  <div ng-controller="ProfileAnswerCtrl as answer">
-    <li ng-repeat="question in profileQuestions.questions | orderBy:'order'" class="list-group-item" id="question-{{ question.id }}" ng-init="answer.storeAnswer(<%= @profile.id %>, question.id, answer)">
-      <label for="new-answer-description-{{ question.id }}">{{ question.question_text }}</label>
+  <ul class="list-group" ng-controller="ProfileQuestionsCtrl as profileQuestions">
+    <div ng-controller="ProfileAnswerCtrl as answer">
+      <li ng-repeat="question in profileQuestions.questions | orderBy:'order'" class="list-group-item" id="question-{{ question.id }}" ng-init="answer.storeAnswer(<%= @profile.id %>, question.id, answer)">
+        <label for="new-answer-description-{{ question.id }}">{{ question.question_text }}</label>
 
-      <form novalidate role="form" name="answerForm" class="row" ng-show="answer._answerStates[question.id].editable">
-        <input type="hidden" name="profile_question_id" value="{{ question.id }}" ng-if="answer.answerModels[question.id].id === null">
-        <input type="hidden" name="profile_id" value="<%= @profile.id %>" ng-if="answer.answerModels[question.id].id === null">
-        <input type="hidden" name="id" ng-if="answer.answerModels[question.id].id !== null">
+        <form novalidate role="form" name="answerForm" class="row" ng-show="answer._answerStates[question.id].editable">
+          <input type="hidden" name="profile_question_id" value="{{ question.id }}" ng-if="answer.answerModels[question.id].id === null">
+          <input type="hidden" name="profile_id" value="<%= @profile.id %>" ng-if="answer.answerModels[question.id].id === null">
+          <input type="hidden" name="id" ng-if="answer.answerModels[question.id].id !== null">
 
-        <div class="form-group col-lg-8 col-md-8">
-          <input type="text" class="form-control" id="new-answer-description-{{question.id}}" ng-model="answer.answerModels[question.id].answer_text" ng-maxlength="255">
+          <div class="form-group col-lg-8 col-md-8">
+            <input type="text" class="form-control" id="new-answer-description-{{question.id}}" ng-model="answer.answerModels[question.id].answer_text" ng-maxlength="255">
+          </div>
+
+          <div class="form-group col-lg-8 col-md-8">
+            <button class="btn btn-primary" ng-click="answer.save(<%= @profile.id %>, question.id, answer)">Save</button>
+            <button class="btn btn-default" ng-click="answer.cancelEdit(question.id)">Cancel</button>
+          </div>
+        </form>
+
+        <div class="list-group" ng-show="!answer._answerStates[question.id].editable">
+          <p>
+            {{ answer.answerModels[question.id].answer_text }}
+          </p>
+
+          <% if current_participant.id == @profile.participant_id %>
+          <div class="form-group">
+            <button class="btn btn-link pull-right edit" ng-click="answer.edit(question.id)"><i class="fa fa-pencil"></i></button>
+          </div>
+          <% end %>
         </div>
+      </li>
+    </div>
+  </ul>
+<% else %>
+  <ul class="list-group" ng-controller="ProfileQuestionsCtrl as profileQuestions">
+    <div ng-controller="ProfileAnswerCtrl as answer">
+      <li ng-repeat="question in profileQuestions.questions | orderBy:'order'" class="list-group-item" ng-init="answer.storeAnswer(<%= @profile.id %>, question.id, answer)">
+        <strong>{{ question.question_text }}</strong>
 
-        <div class="form-group col-lg-8 col-md-8">
-          <button class="btn btn-primary" ng-click="answer.save(<%= @profile.id %>, question.id, answer)">Save</button>
-          <button class="btn btn-default" ng-click="answer.cancelEdit(question.id)">Cancel</button>
-        </div>
-      </form>
-
-      <div class="list-group" ng-show="!answer._answerStates[question.id].editable">
-        <p>
+        <div>
           {{ answer.answerModels[question.id].answer_text }}
-        </p>
-
-        <% if current_participant.id == @profile.participant_id %>
-        <div class="form-group">
-          <button class="btn btn-link pull-right edit" ng-click="answer.edit(question.id)"><i class="fa fa-pencil"></i></button>
         </div>
-        <% end %>
-      </div>
-    </li>
-  </div>
-</ul>
+      </li>
+    </div>
+  </ul>
+<% end %>
 
 <div ng-controller="HomeCtrl as home">
   <form novalidate role="form" name="commentOnForm" class="row" ng-show="home.inCommentOnMode()">

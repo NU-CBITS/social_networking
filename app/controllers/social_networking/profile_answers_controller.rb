@@ -26,8 +26,9 @@ module SocialNetworking
     end
 
     def create
+      profile_id = Profile.find_by_participant_id(current_participant.id).id
       @profile_answer = ProfileAnswer.new(
-         social_networking_profile_id: profile_answer_params[:profile_id],
+         social_networking_profile_id: profile_id,
          social_networking_profile_question_id:
            profile_answer_params[:profile_question_id],
          answer_text: profile_answer_params[:answer_text]
