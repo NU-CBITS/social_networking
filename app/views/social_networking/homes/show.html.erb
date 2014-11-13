@@ -44,7 +44,7 @@
     </div>
   </form>
 
-  <form novalidate role="form" name="commentOnForm" class="row" ng-show="home.inCommentOnMode()">
+  <form novalidate role="form" name="commentOnForm" ng-show="home.inCommentOnMode()">
     <ul class="list-group">
       <li class="list-group-item">
         <p>{{ home.getSelectedItem().summary }}</p>
@@ -61,11 +61,13 @@
       <button class="btn btn-default" ng-click="home.cancelCommentOnMode()">Cancel</button>
     </div>
 
-    <ul class="list-group" ng-show="home.getSelectedItem().comments.length > 0">
-      <li class="list-group-item">
-        <p class="comment text-muted" ng-repeat="comment in home.getSelectedItem().comments"><img width="40px;" ng-src="{{ home.profileIconSrcFor(comment) }}">: <span class="text-info">{{ comment.text }}</span></p>
-      </li>
-    </ul>
+    <div class="form-group col-lg-8 col-md-8">
+      <ul class="list-group" ng-show="home.getSelectedItem().comments.length > 0">
+        <li class="list-group-item">
+          <p class="comment text-muted" ng-repeat="comment in home.getSelectedItem().comments"><img width="40px;" ng-src="{{ home.profileIconSrcFor(comment) }}">: <span class="text-info">{{ comment.text }}</span></p>
+        </li>
+      </ul>
+    </div>
   </form>
 
   <ul class="list-group">
