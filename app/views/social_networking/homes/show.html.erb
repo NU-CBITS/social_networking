@@ -75,7 +75,15 @@
         ng-show="home.inFeedBrowseMode()"
         class="list-group-item"
         id="{{ item.className }}-{{ item.id }}">
-      <p><img width="40px;" ng-src="{{ home.profileIconSrcFor(item) }}"> {{ item.summary }}</p>
+      <p>
+        <div ng-if="!item.data.summary.length">
+          <img width="40px;" ng-src="{{ home.profileIconSrcFor(item) }}">{{ item.summary }}
+        </div>
+        <div ng-if="item.data.summary.length">
+          <img width="40px;" ng-src="{{ home.profileIconSrcFor(item) }}">{{ item.data.summary }}
+        </div>
+
+      </p>
 
       <div class="actions">
         <button ng-if="home.canAddLikeTo(item)" class="btn btn-link like" ng-click="home.addLikeTo(item)">
