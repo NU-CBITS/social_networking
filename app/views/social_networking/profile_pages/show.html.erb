@@ -7,7 +7,10 @@
         <div class="modal-content">
 
           <div class="modal-header">
-            <h3 id="icon-modal">Choose a profile icon:</h3>
+            <h3 id="icon-modal">
+              <div ng-if="<%=@profile.icon_name.nil?%>">Start creating your profile by choosing an icon:</div>
+              <div ng-if="<%=!@profile.icon_name.nil?%>">Choose a new profile icon:</div>
+            </h3>
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="icon-selection-button">×</button>
           </div>
 
@@ -198,4 +201,9 @@
           .value('actionItems', [])
           .value('memberProfiles', [])
           .value('feedItems', <%= @feed_items.to_json.html_safe %>);
+  $(window).load(function() {
+    if (<%= @profile.participant_id == current_participant.id %> && <%= @profile.icon_name.nil? %>) {
+      $('#profile-icon-selection').modal('show');
+    }
+  });
 </script>

@@ -3,6 +3,16 @@ module SocialNetworking
   class HomesController < ApplicationController
     def show
       @action_items = ActionItem.for(current_participant)
+      currentParticipant = current_participant
+      currentProfile = Profile.find_by_participant_id(current_participant.id)
+      if !currentProfile || !currentProfile.icon_name
+        @action_items.unshift(
+          {
+            link: social_networking_profile_path,
+            label: "Create a Profile"
+          }
+        )
+      end
       @feed_items = (
         Serializers::OnTheMindStatementSerializer
           .from_collection(OnTheMindStatement.includes(:comments, :likes)) +
