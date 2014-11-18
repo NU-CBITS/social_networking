@@ -4,6 +4,9 @@ module SocialNetworking
     class SharedItemSerializer < Serializer
       def to_serialized
         item = model.item
+
+        return nil if item.nil?
+
         path = item.class.to_s.pluralize.underscore
         label = model.item_label ||
                 ActiveSupport::Inflector.demodulize(item.class).humanize

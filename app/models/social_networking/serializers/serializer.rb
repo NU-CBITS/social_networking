@@ -5,7 +5,7 @@ module SocialNetworking
       attr_reader :model
 
       def self.from_collection(collection)
-        collection.map { |i| new(i).to_serialized }
+        collection.map { |i| new(i).to_serialized }.compact
       end
 
       def initialize(model)
