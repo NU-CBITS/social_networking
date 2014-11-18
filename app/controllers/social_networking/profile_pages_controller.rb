@@ -16,13 +16,13 @@ module SocialNetworking
       else
         @profile = Profile.find_or_create_by(
         participant_id: current_participant.id, active: true) do |profile|
-        begin
-          SharedItem.create(
-            item: profile,
-            action_type: Profile::Actions.created)
-        rescue ActiveRecord::StatementInvalid
-          logger.info("Shared item already created for existing profile.")
-        end
+          begin
+            SharedItem.create(
+              item: profile,
+              action_type: Profile::Actions.created)
+          rescue ActiveRecord::StatementInvalid
+            logger.info("Shared item already created for existing profile.")
+          end
         end
       end
 
