@@ -27,7 +27,6 @@
     <li class="list-group-item">
       <button class="btn btn-link" ng-click="home.newOnYourMindStatement()">What's on your mind?</button>
     </li>
-    <li ng-if="<%=!@current_profile.nil?%>">TESTING</li>
     <li class="list-group-item" ng-repeat="item in home.actionItems">
       <a class="btn btn-link" href="{{ item.link }}">{{ item.label }}</a>
     </li>

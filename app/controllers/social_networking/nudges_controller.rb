@@ -64,15 +64,15 @@ module SocialNetworking
 
     def message_body
       site_root_url = root_url
-      ["You've been nudged by #{current_participant.email}! Log \
+      ["You've been nudged by #{current_participant.display_name}! Log \
 in (#{site_root_url}) to find out who nudged you.",
-       "#{current_participant.email} just nudged you! Log in \
+       "#{current_participant.display_name} just nudged you! Log in \
 (#{site_root_url}) to view your nudge!",
-       "Hey! #{current_participant.email} nudged you! Don't leave \
+       "Hey! #{current_participant.display_name} nudged you! Don't leave \
 them hanging - log in (#{site_root_url}) to say hi!",
-       "Looks like #{current_participant.email}'s thinking about you! \
+       "Looks like #{current_participant.display_name}'s thinking about you! \
 Log in (#{site_root_url}) to see who nudged you.",
-       "Psst - you've been nudged by #{current_participant.email}! \
+       "Psst - you've been nudged by #{current_participant.display_name}! \
 Log in (#{site_root_url}) to support a fellow group member!"].sample
     end
   end

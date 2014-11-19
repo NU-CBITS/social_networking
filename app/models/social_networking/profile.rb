@@ -25,11 +25,11 @@ module SocialNetworking
     end
 
     def description
-      "Welcome, #{participant.email}!"
+      "Welcome, #{user_name}!"
     end
 
     def user_name
-      participant.email
+      participant.display_name
     end
   end
 end
