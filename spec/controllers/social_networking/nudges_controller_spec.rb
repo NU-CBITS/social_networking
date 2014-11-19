@@ -9,7 +9,8 @@ module SocialNetworking
                  id: 987,
                  contact_preference: "sms",
                  phone_number: "16309101110",
-                 email: "test@tester.com")
+                 email: "test@tester.com",
+                 display_name: "hamburger")
         end
         let(:nudge) do
           double("nudge",
