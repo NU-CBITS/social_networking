@@ -1,0 +1,33 @@
+<div class="btn-toolbar">
+  <%= link_to (fa_icon("reply") + " Return").html_safe, compose_path, class: "btn btn-default" %>
+</div>
+<% if message %>
+  <%= render("think_feel_do_engine/messages/message_info", message: message) %>
+  <hr style="margin-top: 5px; margin-bottom: 5px; border-color: #D0D0D0;">
+<% end %>
+
+<%= form_for new_message, url: create_path, method: "post", html: { role: "form" } do |f| %>
+  <div>
+    <p>If you'd like to reach out to the moderator of ThinkFeelDo, please complete the form
+      below. The moderator will receive your message and respond to you directly (and if
+      needed take some kind of action).</p>
+  </div>
+
+  <label class="control-label">To <%= recipient.nil? ? "Your Moderator:" : recipient %>
+    <%= f.hidden_field :recipient_id, value: recipient_id || new_message.recipient_id %>
+    <%= f.hidden_field :recipient_type, value: recipient_type || new_message.recipient_type %>
+  </label>
+
+  <div class="form-group">
+    <label for="message_subject" class="control-label">Subject</label>
+    <%= f.text_field :subject, required: true, value: subject, class: "form-control .col-xs-12 .col-sm-6 .col-md-6 .col-lg-4" %>
+  </div>
+
+  <div class="form-group">
+    <label for="message_body" class="control-label">Message</label>
+    <%= f.text_area :body, class: "form-control .col-xs-12 .col-sm-6 .col-md-6 .col-lg-4" %>
+  </div>
+
+  <button type="submit" class="btn btn-success"><%= fa_icon("send").html_safe %> Send</button>
+  <a class="btn btn-default" href="/navigator/contexts/MESSAGES">Cancel</a>
+<% end %>
