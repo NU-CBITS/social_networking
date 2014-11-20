@@ -16,6 +16,7 @@ describe "Profile", type: :feature, js: true do
   end
 
   scenario "Participant answers a profile question" do
+    select_random_icon
     question = social_networking_profile_questions(:profile_question1)
     fill_in question.question_text, with: "golf, hand grenades"
     within "#question-#{ question.id }" do
