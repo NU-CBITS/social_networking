@@ -63,7 +63,7 @@ module SocialNetworking
     end
 
     def message_body
-      site_root_url = root_url
+      site_root_url = main_app.root_url
       ["You've been nudged by #{current_participant.display_name}! Log \
 in (#{site_root_url}) to find out who nudged you.",
        "#{current_participant.display_name} just nudged you! Log in \

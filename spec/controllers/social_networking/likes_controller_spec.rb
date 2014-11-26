@@ -1,6 +1,7 @@
 require "spec_helper"
 
 module SocialNetworking
+  include ActionDispatch
   describe LikesController, type: :controller do
     let(:participant) { double("participant", id: 987) }
     let(:like) do
@@ -41,7 +42,6 @@ module SocialNetworking
                 contact_preference: "sms"
               )
             }
-            allow(controller).to receive(:root_url) { "some.url" }
             allow(controller).to receive(:send_sms) { nil }
           end
 

@@ -54,9 +54,9 @@ module SocialNetworking
     def notify(recipient)
       message_body = [
         "Someone liked your post! \
-Log in (#{root_url}) to see who.",
+Log in (#{main_app.root_url}) to see who.",
         "People like what you're doing! \
-Log in (#{root_url}) \
+Log in (#{main_app.root_url}) \
 to see what's happening!"
       ].sample
 

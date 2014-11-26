@@ -31,7 +31,6 @@ module SocialNetworking
           allow(Profile).to receive(:find_by_participant_id)
             .and_return(double("profile", user_name: "F. Bar"))
           allow(nudge).to receive(:save) { true }
-          allow(controller).to receive(:root_url) { "some.url" }
           allow(Participant).to receive(:find) { participant }
           allow(controller).to receive(:send_sms) { nil }
         end
@@ -39,7 +38,6 @@ module SocialNetworking
         context "and the record saves" do
           before do
             allow(nudge).to receive(:save) { true }
-            allow(controller).to receive(:root_url) { "some.url" }
             allow(Participant).to receive(:find) {
               double(
                 "receiver",
