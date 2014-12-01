@@ -18,10 +18,7 @@ module SocialNetworking
              to: :participant
 
     def to_serialized
-      {
-        participantId: participant_id,
-        description: "New profile"
-      }
+      {}
     end
 
     def description

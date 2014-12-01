@@ -199,11 +199,15 @@
           .value('profileId', <%= @profile.id %>)
           .value('ProfileQuestions', <%= @profile_questions.to_json.html_safe %>)
           .value('actionItems', [])
-          .value('memberProfiles', [])
+          .value('memberProfiles', <%= @member_profiles.to_json.html_safe %>)
           .value('feedItems', <%= @feed_items.to_json.html_safe %>);
-  $(window).load(function() {
-    if (<%= @profile.participant_id == current_participant.id %> && <%= @profile.icon_name.nil? %>) {
-      $('#profile-icon-selection').modal('show');
-    }
-  });
+
+  function onReady() {
+      if (<%= @profile.participant_id == current_participant.id %> && <%= @profile.icon_name.nil? %>) {
+          $('#profile-icon-selection').modal('show');
+      }
+  }
+
+  $(document).ready(onReady);
+  $(document).on('page:load', onReady);
 </script>

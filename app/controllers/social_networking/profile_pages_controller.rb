@@ -25,7 +25,8 @@ module SocialNetworking
           end
         end
       end
-
+      @member_profiles = Serializers::ProfileSerializer
+                           .from_collection(Profile.includes(:participant))
       load_feed_items
     end
 

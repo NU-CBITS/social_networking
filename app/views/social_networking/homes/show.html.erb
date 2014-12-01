@@ -77,10 +77,10 @@
         id="{{ item.className }}-{{ item.id }}">
       <p>
         <div ng-if="!item.data.summary.length">
-          <img width="40px;" ng-src="{{ home.profileIconSrcFor(item) }}">{{ item.summary }}
+          <img width="40px;" ng-src="{{ home.profileIconSrcFor(item) }}"> {{ item.summary }}
         </div>
         <div ng-if="item.data.summary.length">
-          <img width="40px;" ng-src="{{ home.profileIconSrcFor(item) }}">{{ item.data.summary }}
+          <img width="40px;" ng-src="{{ home.profileIconSrcFor(item) }}"> {{ item.data.summary }}
         </div>
 
       </p>
