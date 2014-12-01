@@ -11,7 +11,7 @@
               <div ng-if="<%=@profile.icon_name.nil?%>">Start creating your profile by choosing an icon:</div>
               <div ng-if="<%=!@profile.icon_name.nil?%>">Choose a new profile icon:</div>
             </h3>
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" id="icon-selection-button">×</button>
+            <button type="button" class="close hidden" data-dismiss="modal" aria-hidden="true" id="icon-selection-button">×</button>
           </div>
 
           <div class="modal-body">
@@ -209,5 +209,8 @@
   }
 
   $(document).ready(onReady);
-  $(document).on('page:load', onReady);
+  $(document).on('page:load', function() {
+      angular.bootstrap(document, socialNetworking);
+      onReady;
+  });
 </script>
