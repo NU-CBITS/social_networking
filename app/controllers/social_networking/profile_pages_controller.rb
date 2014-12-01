@@ -1,5 +1,6 @@
 module SocialNetworking
   # Manage Participants.
+  # rubocop:disable Metrics/ClassLength
   class ProfilePagesController < ApplicationController
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     before_action :set_current_profile,
@@ -25,8 +26,9 @@ module SocialNetworking
           end
         end
       end
-      @member_profiles = Serializers::ProfileSerializer
-                           .from_collection(Profile.includes(:participant))
+      @member_profiles =
+        Serializers::ProfileSerializer
+        .from_collection(Profile.includes(:participant))
       load_feed_items
     end
 
@@ -117,4 +119,5 @@ module SocialNetworking
     end
     # rubocop:enable Metrics/MethodLength
   end
+  # rubocop:enable Metrics/ClassLength
 end
