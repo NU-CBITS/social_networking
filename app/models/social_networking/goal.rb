@@ -17,7 +17,7 @@ module SocialNetworking
       {
         description: description,
         dueOn: due_on,
-        dueOnDisplay: due_on.strftime("%b. %e, %Y at %l:%M%p")
+        dueOnDisplay: due_on ? due_on.strftime("%b. %e, %Y at %l:%M%p") : ""
       }
     end
 
