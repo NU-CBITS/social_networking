@@ -62,7 +62,8 @@ to see what's happening!"
 
       if "email" == recipient.contact_preference
         send_notify_email(recipient, message_body)
-      elsif "sms" == recipient.contact_preference &&
+      elsif ("sms" == recipient.contact_preference ||
+            "phone" == recipient.contact_preference) &&
             recipient.phone_number &&
             !recipient.phone_number.blank?
         send_sms(recipient, message_body)

@@ -43,6 +43,10 @@ module SocialNetworking
         if recipient.phone_number && !recipient.phone_number.blank?
           send_sms(recipient, message_body)
         end
+      when "phone"
+        if recipient.phone_number && !recipient.phone_number.blank?
+          send_sms(recipient, message_body)
+        end
       else
         logger.error "ERROR: contact preference is not set for \
         participant with ID: " + recipient.id
