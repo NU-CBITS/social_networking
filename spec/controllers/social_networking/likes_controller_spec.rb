@@ -21,7 +21,8 @@ module SocialNetworking
           allow(Like).to receive(:new).with(
                            participant_id: participant.id,
                            item_id: "5",
-                           item_type: "SocialNetworking::Comment"
+                           item_type: "SocialNetworking::Comment",
+                           participant: double("participant", display_name: "test")
                          ) { like }
         end
 
