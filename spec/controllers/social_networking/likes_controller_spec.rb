@@ -9,7 +9,8 @@ module SocialNetworking
              id: 8_675_309,
              participant_id: participant.id,
              item_id: 5,
-             item_type: "SocialNetworking::Comment")
+             item_type: "SocialNetworking::Comment",
+             participant: double("participant", display_name: "test"))
     end
     let(:errors) { double("errors", full_messages: ["baz"]) }
 
@@ -21,9 +22,7 @@ module SocialNetworking
           allow(Like).to receive(:new).with(
                            participant_id: participant.id,
                            item_id: "5",
-                           item_type: "SocialNetworking::Comment",
-                           participant: double("participant", display_name: "test")
-                         ) { like }
+                           item_type: "SocialNetworking::Comment") { like }
         end
 
         context "and the record saves" do

@@ -16,7 +16,8 @@ module SocialNetworking
     def to_serialized
       {
         description: description,
-        dueOn: due_on.strftime("%b. %e, %Y at %l:%M%p")
+        dueOn: due_on,
+        dueOnDisplay: due_on.strftime("%b. %e, %Y at %l:%M%p")
       }
     end
 

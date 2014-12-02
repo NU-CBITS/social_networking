@@ -1,40 +1,49 @@
 participant1_goal_alpha:
   participant: participant1
   description: p1 alpha
+  due_on: <%= Date.today %>
 
 participant1_goal_beta:
   participant: participant1
   description: p1 beta
   is_completed: true
+  due_on: <%= Date.today %>
 
 participant1_goal_gamma:
   participant: participant1
   description: p1 gamma
+  due_on: <%= Date.today %>
 
 participant1_goal_delta:
   participant: participant1
   description: p1 delta
   is_deleted: true
+  due_on: <%= Date.today %>
 
 participant1_goal_epsilon:
   participant: participant1
   description: p1 epsilon
   is_completed: true
+  due_on: <%= Date.today %>
 
 participant2_goal_alpha:
   participant: participant2
   description: p2 alpha
+  due_on: <%= Date.today %>
 
 participant2_goal_beta:
   participant: participant2
   description: p2 beta
   is_completed: true
+  due_on: <%= Date.today %>
 
 participant2_goal_gamma:
   participant: participant2
   description: p2 gamma
+  due_on: <%= Date.today %>
 
 participant2_goal_delta:
   participant: participant2
   description: p2 delta
   is_deleted: true
+  due_on: <%= Date.today %>
