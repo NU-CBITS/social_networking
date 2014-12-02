@@ -8,7 +8,7 @@
 
           <div class="modal-header">
             <h3 id="icon-modal">
-              <div ng-if="<%=@profile.icon_name.nil?%>">Start creating your profile by choosing an icon:</div>
+              <div ng-if="<%=@profile.icon_name.nil?%>">Start creating your profile by choosing a profile icon:</div>
               <div ng-if="<%=!@profile.icon_name.nil?%>">Choose a new profile icon:</div>
             </h3>
             <button type="button" class="close hidden" data-dismiss="modal" aria-hidden="true" id="icon-selection-button">×</button>
@@ -180,7 +180,7 @@
       <p ng-show="!!item.showComments" class="comment text-muted" ng-repeat="comment in item.comments"><img width="40px;" ng-src="{{ home.profileIconSrcFor(comment) }}">: <span class="text-info">{{ comment.text }}</span></p>
 
       <p ng-show="!!item.showLikes">
-        Liked by: <span ng-repeat="like in item.likes">{{ like.participantId }} </span>
+        Liked by: <span ng-repeat="like in item.likes">{{ like.participantDisplayName }} </span>
       </p>
     </li>
   </ul>

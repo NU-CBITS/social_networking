@@ -6,6 +6,7 @@ module SocialNetworking
         {
           id: model.id,
           participantId: model.participant_id,
+          participantDisplayName: model.participant.display_name,
           itemType: model.item_type,
           itemId: model.item_id
         }

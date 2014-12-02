@@ -116,7 +116,7 @@
       <p ng-show="!!item.showComments" class="comment text-muted" ng-repeat="comment in item.comments"><img width="40px;" ng-src="{{ home.profileIconSrcFor(comment) }}">: <span class="text-info">{{ comment.text }}</span></p>
 
       <p ng-show="!!item.showLikes">
-        Liked by: <span ng-repeat="like in item.likes">{{ like.participantId }} </span>
+        Liked by: <span ng-repeat="like in item.likes">{{ like.participantDisplayName }} </span>
       </p>
     </li>
   </ul>
