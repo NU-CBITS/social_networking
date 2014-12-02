@@ -34,7 +34,6 @@
   };
 
   HomeCtrl.prototype.hasSummary = function(item) {
-      console.log (item.data);
     return !!item.isPublic && !angular.equals(item.data, {});
   };
 
