@@ -86,28 +86,31 @@
       </p>
 
       <div class="actions">
-        <button ng-if="home.canAddLikeTo(item)" class="btn btn-link like" ng-click="home.addLikeTo(item)">
+        <button ng-if="home.canAddLikeTo(item)" class="btn btn-link like" title="like this feed item" ng-click="home.addLikeTo(item)">
           <span class="fa-stack">
             <i class="fa fa-thumbs-o-up fa-stack-2x"></i>
             <i class="fa fa-plus fa-stack-1x" style="top: 2px;left: 1px;"></i>
           </span>
         </button>
-        <button class="btn btn-link likes" ng-show="!!item.likes.length" ng-click="item.showLikes = !item.showLikes">
+        <button class="btn btn-link likes" ng-show="!!item.likes.length" title="show who likes this feed item" ng-click="item.showLikes = !item.showLikes">
           <i class="fa fa-thumbs-up fa-2x"></i>
           <i class="fa fa-2x">{{ item.likes.length }}</i>
         </button>
-        <button class="btn btn-link comment" ng-click="home.commentOn(item)">
+        <button class="btn btn-link comment" title="add a comment" ng-click="home.commentOn(item)">
           <span class="fa-stack">
             <i class="fa fa-comment text-primary fa-stack-2x"></i>
             <i class="fa fa-plus fa-stack-1x fa-inverse"></i>
           </span>
         </button>
-        <button class="btn btn-link comments" ng-show="!!item.comments.length" ng-click="item.showComments = !item.showComments">
+        <button class="btn btn-link comments" ng-show="!!item.comments.length" title="view comments" ng-click="item.showComments = !item.showComments">
           <i class="fa fa-comments fa-2x"></i>
           <i class="fa fa-2x">{{ item.comments.length }}</i>
         </button>
-        <button class="btn btn-link" ng-if="home.hasSummary(item)" ng-click="item.showSummary = !item.showSummary">
+        <button class="btn btn-link" ng-if="home.hasSummary(item)" title="view details" ng-click="item.showSummary = !item.showSummary">
           <i class="fa fa-folder-open fa-2x" ng-if="!item.showSummary"></i><i class="fa fa-folder fa-2x" ng-if="!!item.showSummary"></i>
+        </button>
+        <button class="btn btn-link" ng-if="home.canHide(item)" title="hide this feed item from others">
+          <i class="fa fa-remove fa-2x" ng-click="home.hideSharedItem(item)"></i>
         </button>
       </div>
 

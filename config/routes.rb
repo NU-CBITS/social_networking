@@ -20,6 +20,7 @@ SocialNetworking::Engine.routes.draw do
   resources :likes, only: :create
   get "/templates/:path.html" => "templates#page", constraints: { path: /.+/  }
   post "profile_icons", to: "profile_icon#save"
+  get "/shared_items/:id/hide", to: "shared_item#hide"
 
   root to: "profile#index"
 end

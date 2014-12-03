@@ -4,7 +4,7 @@
   // Provides access to the feed and its items.
   function HomeCtrl(OnYourMindResource, CommentResource, LikeResource,
                     homeTool, currentParticipantId, actionItems, feedItems,
-                    memberProfiles, $filter) {
+                    memberProfiles, $filter, $http) {
     this.actionItems = actionItems;
     this.feedItems = feedItems;
     this._memberProfiles = memberProfiles;
@@ -15,6 +15,7 @@
     this._onYourMindResource = OnYourMindResource;
     this._commentResource = CommentResource;
     this._likeResource = LikeResource;
+    this._sharedItemResource = $http;
 
     this._findFeedItem = function(filter) {
       return $filter('filter')(this.feedItems, filter)[0];
@@ -93,6 +94,23 @@
     return able_to_like;
   };
 
+  // Only certain types of sharable items can be hidden.
+  HomeCtrl.prototype.canHide = function(item) {
+    return item.isPublic &&
+        (item.summary.indexOf("Activity") > -1 ||
+        item.summary.indexOf("Thought") > -1) &&
+        this._currentParticipantId === item.participantId;
+  };
+
+  // Hides a feed item.
+  HomeCtrl.prototype.hideSharedItem = function(item) {
+      var responsePromise = this._sharedItemResource.get("/social_networking/shared_items/" + item.id + "/hide");
+      responsePromise.success(function(data, status, headers, config) {
+          item.isPublic = false;
+          item.summary = item.summary.substring(0, item.summary.indexOf(":"));
+      });
+  };
+
   // "Like" a feed item.
   HomeCtrl.prototype.addLikeTo = function(item) {
     var self = this;
@@ -160,5 +178,5 @@
   angular.module('socialNetworking.controllers')
     .controller('HomeCtrl', ['OnYourMindResource', 'CommentResource',
         'LikeResource', 'homeTool', 'participantId', 'actionItems',
-        'feedItems', 'memberProfiles', '$filter', HomeCtrl]);
+        'feedItems', 'memberProfiles', '$filter', '$http', HomeCtrl]);
 })();
