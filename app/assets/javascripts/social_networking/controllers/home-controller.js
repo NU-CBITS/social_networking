@@ -15,7 +15,7 @@
     this._onYourMindResource = OnYourMindResource;
     this._commentResource = CommentResource;
     this._likeResource = LikeResource;
-    this._sharedItemResource = $http;
+    this._sharedResource = $http;
 
     this._findFeedItem = function(filter) {
       return $filter('filter')(this.feedItems, filter)[0];
@@ -104,7 +104,7 @@
 
   // Hides a feed item.
   HomeCtrl.prototype.hideSharedItem = function(item) {
-      var responsePromise = this._sharedItemResource.get("/social_networking/shared_items/" + item.id + "/hide");
+      var responsePromise = this._sharedResource.get("/social_networking/shared_items/" + item.id + "/hide");
       responsePromise.success(function(data, status, headers, config) {
           item.isPublic = false;
           item.summary = item.summary.substring(0, item.summary.indexOf(":"));
@@ -172,6 +172,15 @@
         return this._memberProfiles[i].iconSrc;
       }
     }
+  };
+
+  HomeCtrl.prototype.taskVisited = function(item) {
+      $.ajax({
+          async: false,
+          dataType: "script",
+          type: "PUT",
+          url: "/participants/task_status/" + item.task_id
+      });
   };
 
   // Create a module and register the controller.
