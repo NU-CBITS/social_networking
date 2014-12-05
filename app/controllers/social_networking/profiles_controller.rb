@@ -4,8 +4,9 @@ module SocialNetworking
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
     def index
-      in_group_participants = current_participant.active_group.active_participants
-      render json: Serializers::ProfileSerializer.from_collection(Profile.where(participant_id: in_group_participants.pluck(:id)))
+      group_participants = current_participant.active_group.active_participants
+      render json: Serializers::ProfileSerializer.from_collection(Profile
+        .where(participant_id: group_participants.pluck(:id)))
     end
 
     def show
