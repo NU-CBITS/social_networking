@@ -1,4 +1,4 @@
 # nodoc
 module SocialNetworking
-  VERSION = "0.0.1"
+  VERSION = "0.0.12"
 end
