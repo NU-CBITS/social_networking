@@ -18,8 +18,9 @@ module SocialNetworking
         Serializers::SharedItemSerializer
           .from_collection(SharedItem.includes(:item, :comments, :likes))
       )
+      in_group_participants = current_participant.active_group.active_participants
       @member_profiles = Serializers::ProfileSerializer
-                         .from_collection(Profile.includes(:participant))
+                         .from_collection(Profile.where(participant_id: in_group_participants.pluck(:id)))
     end
   end
 end
