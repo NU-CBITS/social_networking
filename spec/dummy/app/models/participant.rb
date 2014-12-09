@@ -3,6 +3,14 @@ class Participant < ActiveRecord::Base
     Date.today.advance(weeks: 8)
   end
 
+  def active_group
+    self
+  end
+
+  def active_participants
+    Participant.all
+  end
+
   def display_name
     "display name"
   end
