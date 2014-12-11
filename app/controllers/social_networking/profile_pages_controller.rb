@@ -83,7 +83,12 @@ module SocialNetworking
         ) +
         Serializers::SharedItemSerializer.from_collection(
           SharedItem.includes(:item, :comments).to_a.select do |s|
-            s.item.participant_id == pid
+            if s.item
+              s.item.participant_id == pid
+            else
+              logger.info "DATA INTEGRITY ISSUE: \
+SharedItem (id:#{}) related item doesn't include a participant ID."
+            end
           end
         )
       )
