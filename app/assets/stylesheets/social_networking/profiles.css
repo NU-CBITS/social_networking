@@ -12,3 +12,8 @@
 .profile-icon-top {
     margin-top: 10px;
 }
+
+div.edit-link {
+  position: relative;
+  bottom: 35px;
+}

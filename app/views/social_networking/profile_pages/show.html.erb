@@ -95,7 +95,7 @@
           </p>
 
           <% if current_participant.id == @profile.participant_id %>
-          <div class="form-group">
+          <div class="form-group edit-link">
             <button class="btn btn-link pull-right edit" ng-click="answer.edit(question.id)"><i class="fa fa-pencil"></i></button>
           </div>
           <% end %>
@@ -118,7 +118,29 @@
 <% end %>
 
 <div ng-controller="HomeCtrl as home">
-  <%= render "social_networking/shared/comment_form" %>
+  <form novalidate role="form" name="commentOnForm" class="row" ng-show="home.inCommentOnMode()">
+    <ul class="list-group">
+      <li class="list-group-item">
+        <p>{{ home.getSelectedItem().summary }}</p>
+      </li>
+    </ul>
+
+    <div class="form-group col-lg-8 col-md-8">
+      <label for="comment-text">What do you think?</label>
+      <input type="text" class="form-control" id="comment-text" ng-model="home.commentModel.text" ng-maxlength="255" required focus-on="new-comment">
+    </div>
+
+    <div class="form-group col-lg-8 col-md-8">
+      <button class="btn btn-primary" ng-click="home.saveComment()" ng-disabled="commentOnForm.$invalid">Save</button>
+      <button class="btn btn-default" ng-click="home.cancelCommentOnMode()">Cancel</button>
+    </div>
+
+    <ul class="list-group">
+      <li class="list-group-item">
+        <p class="comment text-muted" ng-repeat="comment in home.getSelectedItem().comments"><img width="40px;" ng-src="{{ home.profileIconSrcFor(comment) }}">: <span class="text-info">{{ comment.text }}</span></p>
+      </li>
+    </ul>
+  </form>
 
   <ul class="list-group">
     <li ng-repeat="item in home.feedItems | orderBy:'createdAt':true"
@@ -151,11 +173,9 @@
         <button class="btn btn-link" ng-if="home.hasSummary(item)" title="view details" ng-click="item.showSummary = !item.showSummary">
           <i class="fa fa-folder-open fa-2x" ng-if="!item.showSummary"></i><i class="fa fa-folder fa-2x" ng-if="!!item.showSummary"></i>
         </button>
-        <!--
-        <button class="btn btn-link" ng-if="home.canHide(item)" title="hide this feed item from others"  ng-click="home.hideSharedItem(item)">
-          <i class="fa fa-remove fa-2x"></i>
+        <button class="btn btn-link" ng-if="home.canHide(item)" title="hide this feed item from others">
+          <i class="fa fa-remove fa-2x" ng-click="home.hideSharedItem(item)"></i>
         </button>
-        -->
       </div>
 
       <div ng-if="home.hasSummary(item)" ng-show="!!item.showSummary" ng-include src="item.templatePath + '/_summary.html'"></div>
