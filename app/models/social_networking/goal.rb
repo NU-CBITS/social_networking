@@ -15,11 +15,11 @@ module SocialNetworking
 
     def to_serialized
       if due_on
-      {
-        description: description,
-        dueOn: due_on,
-        dueOnDisplay: due_on ? due_on.strftime("%b. %e, %Y at %l:%M%p") : ""
-      }
+        {
+          description: description,
+          dueOn: due_on,
+          dueOnDisplay: due_on ? due_on.strftime("%b. %e, %Y at %l:%M%p") : ""
+        }
       else
         {}
       end
