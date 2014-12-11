@@ -33,7 +33,7 @@ module SocialNetworking
     # Select message from list, determine contact preference, then
     # trigger the notification based on the preference.
     # rubocop:disable Metrics/AbcSize
-    # rubocop:disable Style/CyclomaticComplexity
+    # rubocop:disable Metrics/CyclomaticComplexity
     def notify
       recipient = Participant.find(sanitized_params[:recipient_id])
 
@@ -54,7 +54,7 @@ module SocialNetworking
       end
     end
     # rubocop:enable Metrics/AbcSize
-    # rubocop:enable Style/CyclomaticComplexity
+    # rubocop:enable Metrics/CyclomaticComplexity
 
     def model_errors
       @nudge.errors.full_messages.join(", ")
