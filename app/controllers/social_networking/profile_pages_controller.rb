@@ -88,6 +88,7 @@ module SocialNetworking
             else
               logger.info "DATA INTEGRITY ISSUE: \
 SharedItem (id:#{s.id}) related item doesn't include a participant ID."
+              false
             end
           end
         )
