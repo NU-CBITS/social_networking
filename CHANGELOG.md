@@ -1,3 +1,8 @@
+## 0.0.21
+
+### enhancments
+  * removed cancel button from profile questions
+
 ## 0.0.20
 
 ### enhancments
