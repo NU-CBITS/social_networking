@@ -87,7 +87,7 @@ module SocialNetworking
               s.item.participant_id == pid
             else
               logger.info "DATA INTEGRITY ISSUE: \
-SharedItem (id:#{}) related item doesn't include a participant ID."
+SharedItem (id:#{s.id}) related item doesn't include a participant ID."
             end
           end
         )
