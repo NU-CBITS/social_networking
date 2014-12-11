@@ -26,13 +26,18 @@ module SocialNetworking
           end
         end
       end
-      group_participants = current_participant.active_group.active_participants
-      @member_profiles = Serializers::ProfileSerializer.from_collection(Profile
-        .where(participant_id: group_participants.pluck(:id)))
-      load_feed_items
+      set_member_profiles
     end
 
     private
+
+    def set_member_profiles
+      return if current_participant.active_group.nil?
+      group_participants =
+        current_participant.active_group.active_participants
+      @member_profiles = Serializers::ProfileSerializer.from_collection(
+        Profile.where(participant_id: group_participants.pluck(:id)))
+    end
 
     def set_current_profile
       id = params[:id] || current_participant.id

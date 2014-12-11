@@ -173,9 +173,11 @@
         <button class="btn btn-link" ng-if="home.hasSummary(item)" title="view details" ng-click="item.showSummary = !item.showSummary">
           <i class="fa fa-folder-open fa-2x" ng-if="!item.showSummary"></i><i class="fa fa-folder fa-2x" ng-if="!!item.showSummary"></i>
         </button>
-        <button class="btn btn-link" ng-if="home.canHide(item)" title="hide this feed item from others">
-          <i class="fa fa-remove fa-2x" ng-click="home.hideSharedItem(item)"></i>
+        <!--
+        <button class="btn btn-link" ng-if="home.canHide(item)" title="hide this feed item from others"  ng-click="home.hideSharedItem(item)">
+          <i class="fa fa-remove fa-2x"></i>
         </button>
+        -->
       </div>
 
       <div ng-if="home.hasSummary(item)" ng-show="!!item.showSummary" ng-include src="item.templatePath + '/_summary.html'"></div>
