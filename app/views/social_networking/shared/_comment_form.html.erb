@@ -1,0 +1,25 @@
+<form novalidate role="form" name="commentOnForm" ng-show="home.inCommentOnMode()">
+  <ul class="list-group">
+    <li class="list-group-item">
+      <p>{{ home.getSelectedItem().summary }}</p>
+    </li>
+  </ul>
+
+  <div class="form-group col-lg-8 col-md-8">
+    <label for="comment-text">What do you think?</label>
+    <input type="text" class="form-control" id="comment-text" ng-model="home.commentModel.text" ng-maxlength="255" required focus-on="new-comment">
+  </div>
+
+  <div class="form-group col-lg-8 col-md-8">
+    <button class="btn btn-primary" ng-click="home.saveComment()" ng-disabled="commentOnForm.$invalid">Save</button>
+    <button class="btn btn-default" ng-click="home.cancelCommentOnMode()">Cancel</button>
+  </div>
+
+  <div class="form-group col-lg-8 col-md-8">
+    <ul class="list-group" ng-show="home.getSelectedItem().comments.length > 0">
+      <li class="list-group-item">
+        <p class="comment text-muted" ng-repeat="comment in home.getSelectedItem().comments"><img width="40px;" ng-src="{{ home.profileIconSrcFor(comment) }}">: <span class="text-info">{{ comment.text }}</span></p>
+      </li>
+    </ul>
+  </div>
+</form>
