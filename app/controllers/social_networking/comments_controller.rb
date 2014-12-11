@@ -29,7 +29,7 @@ module SocialNetworking
     # Select message from list, determine contact preference, then
     # trigger the notification based on the preference.
     # rubocop:disable Metrics/AbcSize
-    # rubocop:disable Style/CyclomaticComplexity
+    # rubocop:disable Metrics/CyclomaticComplexity
     def notify(recipient)
       case recipient.contact_preference
       when "email"
@@ -48,7 +48,7 @@ participant with ID: " + recipient.id.to_s
       end
     end
     # rubocop:enable Metrics/AbcSize
-    # rubocop:enable Style/CyclomaticComplexity
+    # rubocop:enable Metrics/CyclomaticComplexity
 
     private
 
