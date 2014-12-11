@@ -27,6 +27,7 @@ module SocialNetworking
         end
       end
       set_member_profiles
+      load_feed_items
     end
 
     private
