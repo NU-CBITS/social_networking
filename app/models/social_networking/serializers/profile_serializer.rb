@@ -5,16 +5,21 @@ module SocialNetworking
       DEFAULT_ICON = "questionmark"
 
       def to_serialized
+        if model.participant.is_admin
+          icon_path = "social_networking/_profile_icon_admin.png"
+        else
+          icon_path = "social_networking/profile_icon_" +
+          (model.icon_name || DEFAULT_ICON) + ".png"
+        end
         {
           id: model.id,
           participantId: model.participant_id,
           username: model.user_name,
           latestAction: model.latest_action_at,
           endOfTrial: model.active_membership_end_date,
-          iconSrc: ApplicationController.helpers.asset_path(
-                     "social_networking/profile_icon_" +
-                     (model.icon_name || DEFAULT_ICON) + ".png"
-                   )
+          isAdmin: model.participant.is_admin,
+          isWoz: (model.participant.current_group.arm.woz? && model.participant.is_admin),
+          iconSrc: ApplicationController.helpers.asset_path(icon_path)
         }
       end
     end

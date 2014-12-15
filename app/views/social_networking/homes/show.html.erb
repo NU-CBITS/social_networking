@@ -4,12 +4,11 @@
   <div class="row hidden-xs hidden-sm">
     <div ng-controller="ProfilesCtrl as profiles">
       <div ng-repeat="profile in profiles.members">
-        <div class="col-xs-12 col-md-4 text-center">
+        <div ng-if="!profile.isWoz" class="col-xs-12 col-md-4 text-center">
           <div class="profile-border profile-icon-top">
             <p>
               <a href="<%= social_networking_profile_path %>/{{ profile.id }}" data-no-turbolink="true">
                 <div><img ng-src="{{ profile.iconSrc }}"></div>
-
                 <div>{{ profile.username }}</div>
               </a>
             </p>
