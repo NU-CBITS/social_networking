@@ -18,4 +18,16 @@ class Participant < ActiveRecord::Base
   def latest_action_at
     DateTime.new
   end
+
+  def is_admin
+    true
+  end
+
+  def current_group
+    self
+  end
+
+  def arm
+    Arm.new
+  end
 end

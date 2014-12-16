@@ -9,7 +9,7 @@ module SocialNetworking
           icon_path = "social_networking/_profile_icon_admin.png"
         else
           icon_path = "social_networking/profile_icon_" +
-          (model.icon_name || DEFAULT_ICON) + ".png"
+                      (model.icon_name || DEFAULT_ICON) + ".png"
         end
         {
           id: model.id,
@@ -18,7 +18,8 @@ module SocialNetworking
           latestAction: model.latest_action_at,
           endOfTrial: model.active_membership_end_date,
           isAdmin: model.participant.is_admin,
-          isWoz: (model.participant.current_group.arm.woz? && model.participant.is_admin),
+          isWoz: (model.participant.current_group.arm.woz? &&
+            model.participant.is_admin),
           iconSrc: ApplicationController.helpers.asset_path(icon_path)
         }
       end
