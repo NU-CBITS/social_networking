@@ -4,7 +4,7 @@
   // Provides access to the feed and its items.
   function HomeCtrl(OnYourMindResource, CommentResource, LikeResource,
                     homeTool, currentParticipantId, actionItems, feedItems,
-                    memberProfiles, $filter, $http) {
+                    memberProfiles, $filter, $http, $location, $scope) {
     this.actionItems = actionItems;
     this.feedItems = feedItems;
     this._memberProfiles = memberProfiles;
@@ -16,6 +16,7 @@
     this._commentResource = CommentResource;
     this._likeResource = LikeResource;
     this._sharedResource = $http;
+    this._$location = $location;
 
     this._findFeedItem = function(filter) {
       return $filter('filter')(this.feedItems, filter)[0];
@@ -24,6 +25,13 @@
     this._findLikes = function(likes, filter) {
       return $filter('filter')(likes, filter);
     };
+
+    $scope.$on('$locationChangeStart', function(e, newUrl, oldUrl) {
+      if (oldUrl.split("#")[1] === "/commentForm") {
+        // force a refresh
+        location.href = newUrl.split("#")[0];
+      }
+    });
   }
 
   HomeCtrl.prototype.setSelectedItem = function(item) {
@@ -73,6 +81,7 @@
           item.comments.push(comment);
         }
         self.cancelOnYourMindEntryMode();
+        self._$location.url("/");
       })
       .catch(function(message) {
         self.error = message.error;
@@ -83,6 +92,7 @@
   HomeCtrl.prototype.commentOn = function(item) {
     this.setSelectedItem(item);
     this._homeTool.newCommentOn(item);
+    this._$location.url("/commentForm");
   };
 
   // A Participant may only like a feed item once.
@@ -152,7 +162,7 @@
 
   // Leave Comment On Mode.
   HomeCtrl.prototype.cancelCommentOnMode = function() {
-    this._homeTool.setMode(this._homeTool.MODES.FEED);
+    this._$location.url("/");
   };
 
   // Switch tool modes.
@@ -187,5 +197,6 @@
   angular.module('socialNetworking.controllers')
     .controller('HomeCtrl', ['OnYourMindResource', 'CommentResource',
         'LikeResource', 'homeTool', 'participantId', 'actionItems',
-        'feedItems', 'memberProfiles', '$filter', '$http', HomeCtrl]);
+        'feedItems', 'memberProfiles', '$filter', '$http', '$location',
+        '$scope', HomeCtrl]);
 })();

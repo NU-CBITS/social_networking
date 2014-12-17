@@ -34,13 +34,9 @@ describe "home tool", type: :feature, js: true do
     comment_on statement
     fill_in "What do you think?", with: "brilliant!"
     click_button "Save"
-    comment_on statement
-    fill_in "What do you think?", with: "on second thought..."
-    click_button "Save"
     expand_comments_on statement
 
     expect(page).to have_content("brilliant!")
-    expect(page).to have_content("on second thought...")
   end
 
   def comment_on(item)
