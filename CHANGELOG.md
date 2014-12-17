@@ -1,3 +1,8 @@
+## 0.0.23
+
+### bug fix
+  * fix navigation away from comment form by reloading page
+
 ## 0.0.21
 
 ### enhancments
