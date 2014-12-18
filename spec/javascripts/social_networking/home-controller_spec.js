@@ -46,7 +46,10 @@ describe('HomeCtrl', function() {
       actionItems: [],
       feedItems: [],
       memberProfiles: [],
-      $filter: $filter
+      $filter: $filter,
+      $http: {},
+      $location: {},
+      $scope: scope
     });
   }));
 
