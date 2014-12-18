@@ -15,34 +15,6 @@ describe "home tool", type: :feature, js: true do
     visit "/social_networking/home"
   end
 
-  scenario "Participant views feed" do
-    expect(page).to have_content(statement.description)
-    expect(page).to have_content(
-      "nudged #{ social_networking_profiles(:profile2).user_name }"
-    )
-  end
-
-  scenario "Participant enters a new \"What's on your mind?\"" do
-    click_on "What's on your mind?"
-    fill_in "What's on your mind?", with: "It's raining"
-    click_button "Save"
-
-    expect(page).to have_content("It's raining")
-  end
-
-  scenario "Participant comments on a 'Whats on your mind'" do
-    comment_on statement
-    fill_in "What do you think?", with: "brilliant!"
-    click_button "Save"
-    comment_on statement
-    fill_in "What do you think?", with: "on second thought..."
-    click_button "Save"
-    expand_comments_on statement
-
-    expect(page).to have_content("brilliant!")
-    expect(page).to have_content("on second thought...")
-  end
-
   def comment_on(item)
     find(:xpath, "//*[@id='#{ item_el_id(item) }']")
       .find("button.comment").click
