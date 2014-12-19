@@ -1,3 +1,6 @@
+## 0.0.25
+   * feed item nil check added to solve staging bugs due to malformed data
+
 ## 0.0.24
    * fixes issue with feed item bleed from external groups
 
