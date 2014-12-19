@@ -1,3 +1,6 @@
+## 0.0.24
+   * fixes issue with feed item bleed from external groups
+
 ## 0.0.23
 
 ### bug fix
