@@ -33,7 +33,8 @@ module SocialNetworking
       all_shared_items = SharedItem.includes(:item, :comments, :likes)
       participant_group_shared_items = []
       all_shared_items.each do |shared_item|
-        if shared_item.item.participant.active_group.id ==
+        if shared_item.item &&
+           shared_item.item.participant.active_group.id ==
            current_participant.active_group.id
           participant_group_shared_items.push(shared_item)
         end
