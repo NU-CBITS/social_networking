@@ -19,6 +19,7 @@ gem "twilio-ruby", "~> 3.12"
 group :development, :test do
   gem "jasmine-rails", "= 0.10.0"
   gem "rubocop", "~> 0.25"
+  gem "launchy"
 end
 
 group :development do
