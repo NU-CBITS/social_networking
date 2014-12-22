@@ -52,21 +52,23 @@ module SocialNetworking
     # Determine the body of the notification and then send the notification
     # based on the contact preferences.
     def notify(recipient)
-      message_body = [
-        "Someone liked your post! \
-Log in (#{main_app.root_url}) to see who.",
-        "People like what you're doing! \
-Log in (#{main_app.root_url}) \
-to see what's happening!"
-      ].sample
+      unless current_participant == recipient
+        message_body = [
+          "Someone liked your post! \
+  Log in (#{main_app.root_url}) to see who.",
+          "People like what you're doing! \
+  Log in (#{main_app.root_url}) \
+  to see what's happening!"
+        ].sample
 
-      if "email" == recipient.contact_preference
-        send_notify_email(recipient, message_body)
-      elsif ("sms" == recipient.contact_preference ||
-            "phone" == recipient.contact_preference) &&
-            recipient.phone_number &&
-            !recipient.phone_number.blank?
-        send_sms(recipient, message_body)
+        if "email" == recipient.contact_preference
+          send_notify_email(recipient, message_body)
+        elsif ("sms" == recipient.contact_preference ||
+              "phone" == recipient.contact_preference) &&
+              recipient.phone_number &&
+              !recipient.phone_number.blank?
+          send_sms(recipient, message_body)
+        end
       end
     end
 

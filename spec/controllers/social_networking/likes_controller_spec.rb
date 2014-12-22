@@ -50,9 +50,34 @@ module SocialNetworking
                  itemId: 5,
                  itemType: "SocialNetworking::Comment",
                  use_route: :social_networking
+            allow(LikeMailer).to receive(:like_email_alert) { nil }
             assert_response 200
             expect(json["id"]).to eq(8_675_309)
             expect(json["participantId"]).to eq(987)
+          end
+        end
+
+        context "and the record saves" do
+          before do
+            allow(like).to receive(:save) { true }
+            allow(Comment).to receive(:find) {
+                                double("comment",
+                                       id: 543_453_45,
+                                       participant_id: participant.id)
+                              }
+            allow(Participant).to receive(:find) { participant }
+            allow(controller).to receive(:send_sms) { nil }
+          end
+
+          it "should not notify of self-likes" do
+            post :create,
+                 itemId: 5,
+                 itemType: "SocialNetworking::Comment",
+                 use_route: :social_networking
+            LikeMailer.should_not_receive(:like_email_alert)
+            assert_response 200
+            expect(json["id"]).to eq(8_675_309)
+            expect(json["participantId"]).to eq(participant.id)
           end
         end
 

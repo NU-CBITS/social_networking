@@ -31,20 +31,22 @@ module SocialNetworking
     # rubocop:disable Metrics/AbcSize
     # rubocop:disable Metrics/CyclomaticComplexity
     def notify(recipient)
-      case recipient.contact_preference
-      when "email"
-        send_notify_email(recipient, message_body)
-      when "sms"
-        if recipient.phone_number && !recipient.phone_number.blank?
-          send_sms(recipient, message_body)
+      unless current_participant == recipient
+        case recipient.contact_preference
+        when "email"
+          send_notify_email(recipient, message_body)
+        when "sms"
+          if recipient.phone_number && !recipient.phone_number.blank?
+            send_sms(recipient, message_body)
+          end
+        when "phone"
+          if recipient.phone_number && !recipient.phone_number.blank?
+            send_sms(recipient, message_body)
+          end
+        else
+          logger.error "ERROR: contact preference is not set for \
+  participant with ID: " + recipient.id.to_s
         end
-      when "phone"
-        if recipient.phone_number && !recipient.phone_number.blank?
-          send_sms(recipient, message_body)
-        end
-      else
-        logger.error "ERROR: contact preference is not set for \
-participant with ID: " + recipient.id.to_s
       end
     end
     # rubocop:enable Metrics/AbcSize
