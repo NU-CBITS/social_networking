@@ -1,3 +1,7 @@
+## 0.0.27
+  * updated RuboCop gem
+  * fixed RuboCop offense
+
 ## 0.0.26
   * fix To Do link to Profile page (turn off Turbolinks)
 
