@@ -64,7 +64,9 @@ module SocialNetworking
     end
 
     def set_profile_questions
-      @profile_questions = ProfileQuestion.all
+      @profile_questions = current_participant
+                           .active_group
+                           .social_networking_profile_questions
     end
 
     def record_not_found
