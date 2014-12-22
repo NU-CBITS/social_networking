@@ -1,8 +1,15 @@
+## 0.0.27
+  * updated RuboCop gem
+  * fixed RuboCop offense
+
+## 0.0.26
+  * fix To Do link to Profile page (turn off Turbolinks)
+
 ## 0.0.25
-   * feed item nil check added to solve staging bugs due to malformed data
+  * feed item nil check added to solve staging bugs due to malformed data
 
 ## 0.0.24
-   * fixes issue with feed item bleed from external groups
+  * fixes issue with feed item bleed from external groups
 
 ## 0.0.23
 
