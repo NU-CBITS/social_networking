@@ -1,3 +1,6 @@
+## 0.0.29
+  * refactored notifications when commenting or liking your own feed item
+
 ## 0.0.28
   * removed notifications when commenting or liking your own feed item
 
