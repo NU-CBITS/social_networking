@@ -76,7 +76,7 @@ module SocialNetworking
             allow(controller).to receive(:notify) { nil }
           end
 
-          it "should return the new record" do
+          it "should not send out a notification email" do
             post :create,
                  text: "I like cheeses",
                  itemId: 5,
