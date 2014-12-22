@@ -10,6 +10,8 @@ module Sms
   # off recipient defaults the value to the current participant)
   # rubocop:disable Metrics/AbcSize
   def send_sms(recipient = current_user, message_body)
+    return if recipient.phone_number.blank?
+
     logger.info("INFO BEFORE: SMS notification sent \
                  to:" + recipient.phone_number)
     if recipient.is_a?(Participant)

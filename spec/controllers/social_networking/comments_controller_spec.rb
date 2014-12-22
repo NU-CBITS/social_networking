@@ -28,7 +28,8 @@ module SocialNetworking
       context "when the participant is authenticated" do
         before do
           allow(controller).to receive(:authenticate_participant!)
-          allow(controller).to receive(:current_participant) { participant_email }
+          allow(controller).to receive(:current_participant)
+            .and_return(participant_email)
           allow(Comment).to receive(:new).with(
             participant_id: participant.id,
             text: "I like cheeses",
