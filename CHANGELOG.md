@@ -1,3 +1,6 @@
+## 0.0.28
+  * removed notifications when commenting or liking your own feed item
+
 ## 0.0.27
   * updated RuboCop gem
   * fixed RuboCop offense
