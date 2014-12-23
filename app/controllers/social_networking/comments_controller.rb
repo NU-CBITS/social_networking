@@ -32,7 +32,6 @@ module SocialNetworking
     # rubocop:disable Metrics/CyclomaticComplexity
     def notify(recipient)
       return if current_participant == recipient
-
       case recipient.contact_preference
       when "email"
         send_notify_email(recipient, message_body)
@@ -78,7 +77,7 @@ participant with ID: " + recipient.id.to_s
       CommentMailer.comment_email_alert(
         recipient,
         message_body,
-        "Someone commented on your activity!")
+        "You received a COMMENT on ThinkFeelDo")
     end
 
     def message_body

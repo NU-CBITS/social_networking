@@ -1,3 +1,6 @@
+## 0.0.30
+  * added email subjects for likes, comments and nudge notifications
+
 ## 0.0.29
   * refactored notifications when commenting or liking your own feed item
 

@@ -65,7 +65,7 @@ module SocialNetworking
       NudgeMailer.nudge_email_alert(
         Participant.find(nudge.recipient_id),
         message_body,
-        "You were nudged!")
+        "You've been NUDGED on ThinkFeelDo")
     end
 
     def message_body

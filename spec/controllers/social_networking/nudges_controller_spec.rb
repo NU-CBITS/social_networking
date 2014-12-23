@@ -20,6 +20,15 @@ module SocialNetworking
                  recipient_id: 123,
                  comments: [])
         end
+        let(:receiver) do
+          double(
+            "receiver",
+            id: 123,
+            email: "test@tester.com",
+            contact_preference: "email",
+            phone_number: "16309201110"
+          )
+        end
 
         before do
           allow(controller).to receive(:authenticate_participant!)
@@ -38,19 +47,13 @@ module SocialNetworking
         context "and the record saves" do
           before do
             allow(nudge).to receive(:save) { true }
-            allow(Participant).to receive(:find) {
-              double(
-                "receiver",
-                id: 123,
-                email: "test@tester.com",
-                contact_preference: "email",
-                phone_number: "16309201110"
-              )
-            }
+            allow(Participant).to receive(:find) { receiver }
             allow(controller).to receive(:send_sms) { nil }
           end
 
           it "should return the new record" do
+            expect(NudgeMailer).to receive(:nudge_email_alert)
+              .with(receiver, /.*/, /.*/)
             post :create, recipientId: 123, use_route: :social_networking
             assert_response 200
             expect(json["id"]).to eq(8_675_309)

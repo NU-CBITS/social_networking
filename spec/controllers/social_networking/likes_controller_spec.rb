@@ -4,6 +4,9 @@ module SocialNetworking
   include ActionDispatch
   describe LikesController, type: :controller do
     let(:participant) { double("participant", id: 987) }
+    let(:participant_email) do
+      double("participant", id: 987, contact_preference: "email")
+    end
     let(:like) do
       double("like",
              id: 8_675_309,
@@ -75,6 +78,30 @@ module SocialNetworking
                  itemType: "SocialNetworking::Comment",
                  use_route: :social_networking
             LikeMailer.should_not_receive(:like_email_alert)
+            assert_response 200
+            expect(json["id"]).to eq(8_675_309)
+            expect(json["participantId"]).to eq(participant.id)
+          end
+        end
+
+        context "and the record saves" do
+          before do
+            allow(like).to receive(:save) { true }
+            allow(Comment).to receive(:find) {
+                                double("comment",
+                                       id: 543_453_45,
+                                       participant_id: participant.id)
+                              }
+            allow(Participant).to receive(:find) { participant_email }
+          end
+
+          it "send an email notification with a subject" do
+            expect(LikeMailer).to receive(:like_email_alert)
+              .with(participant_email, /.*/, /.*/)
+            post :create,
+                 itemId: 5,
+                 itemType: "SocialNetworking::Comment",
+                 use_route: :social_networking
             assert_response 200
             expect(json["id"]).to eq(8_675_309)
             expect(json["participantId"]).to eq(participant.id)

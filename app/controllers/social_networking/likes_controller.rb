@@ -72,7 +72,9 @@ module SocialNetworking
     # Trigger a notification email
     def send_notify_email(recipient, message_body)
       LikeMailer.like_email_alert(
-        recipient, message_body)
+        recipient,
+        message_body,
+        "Someone LIKED what you did on ThinkFeelDo")
     end
   end
 end
