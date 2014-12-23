@@ -105,7 +105,7 @@ module SocialNetworking
 
           it "should call the comment mailer with a subject" do
             expect(CommentMailer).to receive(:comment_email_alert)
-              .with(participant_email_2, /.*/, /.*/)
+              .with(participant_email_2, /.*[social_networking\/home]/, /.*/)
             post :create,
                  text: "I like cheeses",
                  itemId: 5,

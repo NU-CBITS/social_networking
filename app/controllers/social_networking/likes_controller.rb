@@ -56,9 +56,9 @@ module SocialNetworking
 
       message_body = [
         "Someone liked your post! " \
-        "Log in (#{main_app.root_url}) to see who.",
+        "Log in (#{home_url}) to see who.",
         "People like what you're doing! " \
-        "Log in (#{main_app.root_url}) " \
+        "Log in (#{home_url}) " \
         "to see what's happening!"
       ].sample
 

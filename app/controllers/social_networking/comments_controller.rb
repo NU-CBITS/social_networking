@@ -81,9 +81,9 @@ participant with ID: " + recipient.id.to_s
     end
 
     def message_body
-      ["You've sparked some activity! Log in [#{root_url}] to see \
+      ["You've sparked some activity! Log in [#{home_url}] to see \
 who commented on your post.",
-       "Someone commented on your post! Log in [#{root_url}] to\
+       "Someone commented on your post! Log in [#{home_url}] to\
  learn more."].sample
     end
   end

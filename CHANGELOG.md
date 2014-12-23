@@ -1,3 +1,6 @@
+## 0.0.31
+  * modified urls sent in the message bodies for likes, comments and nudge notifications to point to the home of social networking
+
 ## 0.0.30
   * added email subjects for likes, comments and nudge notifications
 

@@ -97,7 +97,7 @@ module SocialNetworking
 
           it "send an email notification with a subject" do
             expect(LikeMailer).to receive(:like_email_alert)
-              .with(participant_email, /.*/, /.*/)
+              .with(participant_email, /.*[social_networking\/home]/, /.*/)
             post :create,
                  itemId: 5,
                  itemType: "SocialNetworking::Comment",
