@@ -13,7 +13,9 @@ module SocialNetworking
     end
 
     config.action_mailer.default_url_options =
-      { host: "social_networking.northwestern.edu" }
+      { host: "moodtech-no-reply@northwestern.edu" }
+    config.action_mailer.default_options =
+      { from: "moodtech-no-reply@northwestern.edu" }
 
     config.twilio_account_sid =
       ENV["MOODCONNECT_TWILIO_ACCOUNT_SID"]
