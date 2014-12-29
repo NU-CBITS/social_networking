@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141106104713) do
+ActiveRecord::Schema.define(version: 20141223203721) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,13 +91,16 @@ ActiveRecord::Schema.define(version: 20141106104713) do
   end
 
   create_table "social_networking_shared_items", force: true do |t|
-    t.integer  "item_id",                    null: false
-    t.string   "item_type",                  null: false
+    t.integer  "item_id",                       null: false
+    t.string   "item_type",                     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_public",   default: true, null: false
-    t.string   "action_type", default: "",   null: false
+    t.boolean  "is_public",      default: true, null: false
+    t.string   "action_type",    default: "",   null: false
     t.string   "item_label"
+    t.integer  "participant_id"
   end
+
+  add_index "social_networking_shared_items", ["participant_id"], name: "index_social_networking_shared_items_on_participant_id", using: :btree
 
 end
