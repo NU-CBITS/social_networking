@@ -30,17 +30,13 @@ module SocialNetworking
     private
 
     def group_shared_items(current_participant)
-      all_shared_items = SharedItem.includes(:item, :comments, :likes)
-      participant_group_shared_items = []
-      all_shared_items.each do |shared_item|
-        next unless shared_item.item &&
-                    shared_item.item.participant.active_group.id ==
-                    current_participant.active_group.id
-
-        participant_group_shared_items.push(shared_item)
-      end
-
-      participant_group_shared_items
+      SharedItem
+        .includes(:item, :comments, :likes)
+        .all
+        .select do |shared_item|
+          shared_item.item.try(:participant).try(:active_group).try(:id) ==
+            current_participant.active_group.id
+        end
     end
 
     def set_member_profiles

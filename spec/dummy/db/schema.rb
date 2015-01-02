@@ -16,6 +16,12 @@ ActiveRecord::Schema.define(version: 20141223203721) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "arms", force: true do |t|
+    t.string  "title",     default: "",    null: false
+    t.boolean "is_social", default: false, null: false
+    t.boolean "has_woz",   default: false
+  end
+
   create_table "participants", force: true do |t|
     t.string "email"
     t.string "phone_number"
