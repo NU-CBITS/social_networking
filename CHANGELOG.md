@@ -1,3 +1,6 @@
+## 0.0.32
+  * refactored and improved robustness of Shared Item query
+
 ## 0.0.31
   * modified urls sent in the message bodies for likes, comments and nudge notifications to point to the home of social networking
 
