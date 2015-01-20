@@ -16,7 +16,8 @@ module SocialNetworking
     validate :due_before_membership_ends, on: :create
 
     scope :did_not_complete, (lambda do
-      where(is_completed: false).where(arel_table[:due_on].lt(Date.today))
+      where(is_deleted: false, is_completed: false)
+      .where(arel_table[:due_on].lt(Date.today))
     end)
 
     def to_serialized
