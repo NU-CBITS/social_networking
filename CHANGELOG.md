@@ -1,3 +1,6 @@
+## 0.0.33 - 2015-01-20
+ * augmented Goal to simplify finding and sharing past due Goals
+
 ## 0.0.32
   * refactored and improved robustness of Shared Item query
 
