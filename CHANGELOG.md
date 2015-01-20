@@ -1,3 +1,6 @@
+## 0.0.34 - 2015-01-20
+ * modified Goal scope
+
 ## 0.0.33 - 2015-01-20
  * augmented Goal to simplify finding and sharing past due Goals
 
