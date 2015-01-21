@@ -1,3 +1,6 @@
+## 0.0.35 - 2015-01-21
+ * removed message view
+
 ## 0.0.34 - 2015-01-20
  * modified Goal scope
 
