@@ -1,3 +1,6 @@
+## 0.0.36 - 2015-01-23
+ * Added due date for goals
+
 ## 0.0.35 - 2015-01-21
  * removed message view
 
