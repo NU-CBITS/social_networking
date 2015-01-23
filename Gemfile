@@ -24,9 +24,4 @@ end
 
 group :development do
   gem "brakeman", require: false
-
-  # Add versions and tags to engines and apps
-  gem "git_tagger",
-    tag: "1.0.9",
-    git: "https://github.com/eschlange/git_tagger.git"
 end
