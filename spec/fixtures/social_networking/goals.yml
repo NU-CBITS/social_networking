@@ -14,6 +14,10 @@ participant1_goal_gamma:
   description: p1 gamma
   due_on: <%= Date.today %>
 
+participant1_goal_run:
+  participant: participant1
+  description: run
+
 participant1_goal_delta:
   participant: participant1
   description: p1 delta

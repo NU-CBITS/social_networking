@@ -70,7 +70,7 @@
       <p>
         {{ participantGoal.description }}
         <span class="text-muted pull-right">
-          Due: {{ participantGoal.dueOn }}
+          Due: {{ participantGoal.dueOn ? participantGoal.dueOn : 'no date given' }}
         </span>
       </p>
 
