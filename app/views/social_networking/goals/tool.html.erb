@@ -67,7 +67,12 @@
         class="list-group-item"
         id="goal-{{ participantGoal.id }}"
         ng-class="participantGoal.isCompleted ? 'list-group-item-success' : ''">
-      <p>{{ participantGoal.description }}</p>
+      <p>
+        {{ participantGoal.description }}
+        <span class="text-muted pull-right">
+          Due: {{ participantGoal.dueOn }}
+        </span>
+      </p>
 
       <div>
         <button class="btn btn-link complete" ng-click="goal.toggleComplete(participantGoal)" ng-if="!participantGoal.isDeleted">
