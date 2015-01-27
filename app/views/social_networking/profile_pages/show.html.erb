@@ -130,7 +130,7 @@
         <button ng-if="home.canAddLikeTo(item)" class="btn btn-link like" title="like this item" ng-click="home.addLikeTo(item)">
           <span class="fa-stack">
             <i class="fa fa-thumbs-o-up fa-stack-2x"></i>
-            <i class="fa fa-plus fa-stack-1x" style="top: 2px;left: 1px;"></i>
+            <i class="fa fa-plus fa-stack-1x"></i>
           </span>
         </button>
         <button class="btn btn-link likes" ng-show="!!item.likes.length" title="show who likes this feed item" ng-click="item.showLikes = !item.showLikes">

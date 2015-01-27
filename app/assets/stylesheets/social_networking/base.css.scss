@@ -1,3 +1,5 @@
+/* bootstrap overrides */
+
 /* bottom navbar (for mobile) */
 .navbar-fixed-bottom .container {
   min-height: 50px;
@@ -101,4 +103,33 @@
   float: left;
   margin: 0 5px 5px 10px;
   width: 50px;
+}
+
+/* profiles */
+
+.profile-border {
+  border: 2px;
+  border-color: black;
+  border-style: solid;
+}
+
+.profile-last-seen {
+    padding-top: 5px;
+    margin-bottom: 15px;
+}
+
+.profile-icon-top {
+    margin-top: 10px;
+}
+
+div.edit-link {
+  position: relative;
+  bottom: 35px;
+}
+
+/* icons */
+
+.like > .fa-stack > .fa-stack-1x {
+  top: 2px;
+  left: 1px;
 }
