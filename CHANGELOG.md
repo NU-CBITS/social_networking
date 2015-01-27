@@ -1,3 +1,6 @@
+## 0.0.37 - 2015-01-27
+ * refactored inline styles and stylesheets
+
 ## 0.0.36 - 2015-01-23
  * Added due date for goals
 
