@@ -7,7 +7,7 @@
         <div ng-if="!profile.isWoz" class="col-xs-12 col-md-4 text-center">
           <div class="profile-border profile-icon-top">
             <p>
-              <a href="<%= social_networking_profile_path %>/{{ profile.id }}" data-no-turbolink="true">
+              <a href="<%= profile_path %>/{{ profile.id }}" data-no-turbolink="true">
                 <div><img ng-src="{{ profile.iconSrc }}"></div>
                 <div>{{ profile.username }}</div>
               </a>
@@ -110,7 +110,7 @@
 <script>
   angular.module('socialNetworking.values')
     .value('participantId', <%= current_participant.id %>)
-    .value('actionItems', <%= @action_items.to_json.html_safe %>)
-    .value('feedItems', <%= @feed_items.to_json.html_safe %>)
-    .value('memberProfiles', <%= @member_profiles.to_json.html_safe %>);
+    .value('actionItems', <%= action_items.to_json.html_safe %>)
+    .value('feedItems', <%= feed_items.to_json.html_safe %>)
+    .value('memberProfiles', <%= member_profiles.to_json.html_safe %>);
 </script>
