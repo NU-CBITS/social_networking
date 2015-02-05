@@ -1,3 +1,7 @@
+## 0.1.0 - 2015-02-05
+ * refactored Goals Tool to accommodate installation as normal BitCore::Tool
+ * use Ruby 2.2.0 in Travis and RVM
+
 ## 0.0.37 - 2015-01-27
  * refactored inline styles and stylesheets
 
