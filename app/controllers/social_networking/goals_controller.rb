@@ -5,7 +5,10 @@ module SocialNetworking
 
     def tool
       goals = Goal.where(participant_id: current_participant.id)
-      @goals = Serializers::GoalSerializer.from_collection(goals)
+      render template: "social_networking/goals/tool",
+             locals: {
+               goals: Serializers::GoalSerializer.from_collection(goals)
+             }
     end
 
     def index

@@ -15,7 +15,7 @@ describe "goal tool", type: :feature, js: true do
   end
 
   scenario "Displays due date" do
-    expect(page).to have_content "Due: #{Date.today.strftime('%Y-%m-%e')}"
+    expect(page).to have_content "Due: #{Date.today.strftime('%Y-%m-%d')}"
   end
 
   scenario "Displays no date message if due date is mepty" do
