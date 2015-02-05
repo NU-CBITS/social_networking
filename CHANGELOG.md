@@ -1,3 +1,6 @@
+## 0.1.2 - 2015-02-05
+ * further configure Feed Tool
+
 ## 0.1.1 - 2015-02-05
  * refactored Feed Tool to accommodate installation as a normal Bit Core Tool
  * minor cleanup, fixed deprecation warnings, updated Brakeman
