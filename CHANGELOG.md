@@ -1,3 +1,7 @@
+## 0.1.1 - 2015-02-05
+ * refactored Feed Tool to accommodate installation as a normal Bit Core Tool
+ * minor cleanup, fixed deprecation warnings, updated Brakeman
+
 ## 0.1.0 - 2015-02-05
  * refactored Goals Tool to accommodate installation as normal BitCore::Tool
  * use Ruby 2.2.0 in Travis and RVM
