@@ -77,7 +77,7 @@ module SocialNetworking
                  itemId: 5,
                  itemType: "SocialNetworking::Comment",
                  use_route: :social_networking
-            LikeMailer.should_not_receive(:like_email_alert)
+            expect(LikeMailer).not_to receive(:like_email_alert)
             assert_response 200
             expect(json["id"]).to eq(8_675_309)
             expect(json["participantId"]).to eq(participant.id)

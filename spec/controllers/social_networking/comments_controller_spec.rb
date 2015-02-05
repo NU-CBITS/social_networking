@@ -87,7 +87,7 @@ module SocialNetworking
                  itemId: 5,
                  itemType: "SocialNetworking::OnTheMindStatement",
                  use_route: :social_networking
-            CommentMailer.should_not_receive(:comment_email_alert)
+            expect(CommentMailer).not_to receive(:comment_email_alert)
             assert_response 200
             expect(json["id"]).to eq(8_675_309)
             expect(json["text"]).to eq("I like cheeses")
