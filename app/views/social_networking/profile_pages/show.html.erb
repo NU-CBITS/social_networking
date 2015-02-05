@@ -186,8 +186,7 @@
   }
 
   $(document).ready(onReady);
-  $(document).on('page:load', function() {
+  $(document).on("page:load, page:change", function() {
       angular.bootstrap(document, socialNetworking);
-      onReady;
   });
 </script>
