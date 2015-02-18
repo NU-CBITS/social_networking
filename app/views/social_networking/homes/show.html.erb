@@ -1,6 +1,6 @@
 <%= render "social_networking/shared/nav" %>
 
-<div ng-controller="HomeCtrl as home">
+<div ng-controller="HomeCtrl as home" ng-cloak>
   <div class="row hidden-xs hidden-sm">
     <div ng-controller="ProfilesCtrl as profiles">
       <div ng-repeat="profile in profiles.members">
