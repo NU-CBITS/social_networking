@@ -1,3 +1,8 @@
+## 0.1.3 - 2015-02-19
+ * Add ng-cloak directive to Angular template
+ * configure Travis Slack integration
+ * Remove trailing period from email templates
+
 ## 0.1.2 - 2015-02-05
  * further configure Feed Tool
 
