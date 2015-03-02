@@ -18,9 +18,8 @@ module SocialNetworking
             .find(@like.item.item_id).participant_id
           notify Participant.find(like_item_participant_id)
         else
-          notify Participant.find(
-                   @like.item_type.constantize
-                   .find(@like.item_id).participant_id)
+          notify Participant.find(@like.item_type.constantize
+                            .find(@like.item_id).participant_id)
         end
         render json: Serializers::LikeSerializer.new(@like).to_serialized
       else

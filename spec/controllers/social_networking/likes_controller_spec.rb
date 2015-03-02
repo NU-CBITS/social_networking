@@ -17,15 +17,17 @@ module SocialNetworking
     end
     let(:errors) { double("errors", full_messages: ["baz"]) }
 
+    before(:each) { @routes = Engine.routes }
+
     describe "POST create" do
       context "when the participant is authenticated" do
         before do
           allow(controller).to receive(:authenticate_participant!)
           allow(controller).to receive(:current_participant) { participant }
-          allow(Like).to receive(:new).with(
-                           participant_id: participant.id,
-                           item_id: "5",
-                           item_type: "SocialNetworking::Comment") { like }
+          allow(Like).to receive(:new)
+            .with(participant_id: participant.id,
+                  item_id: "5",
+                  item_type: "SocialNetworking::Comment") { like }
         end
 
         context "and the record saves" do
@@ -51,8 +53,7 @@ module SocialNetworking
           it "should return the new record" do
             post :create,
                  itemId: 5,
-                 itemType: "SocialNetworking::Comment",
-                 use_route: :social_networking
+                 itemType: "SocialNetworking::Comment"
             allow(LikeMailer).to receive(:like_email_alert) { nil }
             assert_response 200
             expect(json["id"]).to eq(8_675_309)
@@ -75,8 +76,7 @@ module SocialNetworking
           it "should not notify of self-likes" do
             post :create,
                  itemId: 5,
-                 itemType: "SocialNetworking::Comment",
-                 use_route: :social_networking
+                 itemType: "SocialNetworking::Comment"
             expect(LikeMailer).not_to receive(:like_email_alert)
             assert_response 200
             expect(json["id"]).to eq(8_675_309)
@@ -100,8 +100,7 @@ module SocialNetworking
               .with(participant_email, /.*[social_networking\/home]/, /.*/)
             post :create,
                  itemId: 5,
-                 itemType: "SocialNetworking::Comment",
-                 use_route: :social_networking
+                 itemType: "SocialNetworking::Comment"
             assert_response 200
             expect(json["id"]).to eq(8_675_309)
             expect(json["participantId"]).to eq(participant.id)
@@ -116,8 +115,7 @@ module SocialNetworking
           it "should return the error message" do
             post :create,
                  itemId: 5,
-                 itemType: "SocialNetworking::Comment",
-                 use_route: :social_networking
+                 itemType: "SocialNetworking::Comment"
 
             assert_response 400
             expect(json["error"]).to eq("baz")

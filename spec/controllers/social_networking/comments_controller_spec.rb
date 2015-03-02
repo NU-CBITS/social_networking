@@ -29,6 +29,8 @@ module SocialNetworking
     end
     let(:errors) { double("errors", full_messages: ["baz"]) }
 
+    before(:each) { @routes = Engine.routes }
+
     describe "POST create" do
       context "when the participant is authenticated" do
         before do
@@ -62,8 +64,7 @@ module SocialNetworking
             post :create,
                  text: "I like cheeses",
                  itemId: 5,
-                 itemType: "SocialNetworking::OnTheMindStatement",
-                 use_route: :social_networking
+                 itemType: "SocialNetworking::OnTheMindStatement"
             assert_response 200
             expect(json["id"]).to eq(8_675_309)
             expect(json["text"]).to eq("I like cheeses")
@@ -85,8 +86,7 @@ module SocialNetworking
             post :create,
                  text: "I like cheeses",
                  itemId: 5,
-                 itemType: "SocialNetworking::OnTheMindStatement",
-                 use_route: :social_networking
+                 itemType: "SocialNetworking::OnTheMindStatement"
             expect(CommentMailer).not_to receive(:comment_email_alert)
             assert_response 200
             expect(json["id"]).to eq(8_675_309)
@@ -109,8 +109,7 @@ module SocialNetworking
             post :create,
                  text: "I like cheeses",
                  itemId: 5,
-                 itemType: "SocialNetworking::OnTheMindStatement",
-                 use_route: :social_networking
+                 itemType: "SocialNetworking::OnTheMindStatement"
             assert_response 200
             expect(json["id"]).to eq(8_675_309)
             expect(json["text"]).to eq("I like cheeses")
@@ -127,8 +126,7 @@ module SocialNetworking
             post :create,
                  text: "I like cheeses",
                  itemId: 5,
-                 itemType: "SocialNetworking::OnTheMindStatement",
-                 use_route: :social_networking
+                 itemType: "SocialNetworking::OnTheMindStatement"
 
             assert_response 400
             expect(json["error"]).to eq("baz")

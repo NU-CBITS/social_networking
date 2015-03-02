@@ -31,12 +31,15 @@ module SocialNetworking
         end
 
         before do
+          @routes = Engine.routes
           allow(controller).to receive(:authenticate_participant!)
           allow(controller).to receive(:current_participant) { participant }
+
           expect(Nudge).to receive(:new).with(
             initiator_id: participant.id,
             recipient_id: "123"
           ) { nudge }
+
           allow(Profile).to receive(:find_by_participant_id)
             .and_return(double("profile", user_name: "F. Bar"))
           allow(nudge).to receive(:save) { true }
@@ -54,7 +57,8 @@ module SocialNetworking
           it "should return the new record" do
             expect(NudgeMailer).to receive(:nudge_email_alert)
               .with(receiver, /.*[social_networking\/home]/, /.*/)
-            post :create, recipientId: 123, use_route: :social_networking
+            post :create, recipientId: 123
+
             assert_response 200
             expect(json["id"]).to eq(8_675_309)
             expect(json["recipientId"]).to eq(123)
@@ -70,7 +74,7 @@ module SocialNetworking
           end
 
           it "should return the error message" do
-            post :create, recipientId: 123, use_route: :social_networking
+            post :create, recipientId: 123
 
             assert_response 400
             expect(json["error"]).to eq("baz")

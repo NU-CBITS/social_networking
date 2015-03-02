@@ -10,6 +10,8 @@ module SocialNetworking
              active_membership_end_date: nil)
     end
 
+    before(:each) { @routes = Engine.routes }
+
     describe "GET index" do
       context "when the current participant is authenticated" do
         before do
@@ -18,7 +20,7 @@ module SocialNetworking
         end
 
         it "should return the participants" do
-          get :index, use_route: :social_networking
+          get :index
 
           assert_response 200
           expect(json.count).to eq(1)
@@ -39,7 +41,7 @@ module SocialNetworking
           end
 
           it "should return the participant" do
-            get :show, id: 987, use_route: :social_networking
+            get :show, id: 987
 
             assert_response 200
             expect(json["id"]).to eq(987)
@@ -53,7 +55,7 @@ module SocialNetworking
           end
 
           it "should return the participant" do
-            get :show, id: 987, use_route: :social_networking
+            get :show, id: 987
 
             assert_response 404
             expect(json["error"]).to eq("participant not found")
