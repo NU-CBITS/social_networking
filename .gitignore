@@ -7,3 +7,4 @@ spec/dummy/tmp
 .idea*
 .idea/*
 Gemfile.lock
+coverage

@@ -74,6 +74,7 @@ GEM
       xpath (~> 2.0)
     cliver (0.3.2)
     diff-lcs (1.2.5)
+    docile (1.1.5)
     erubis (2.7.0)
     execjs (2.3.0)
     fastercsv (1.5.5)
@@ -183,6 +184,11 @@ GEM
       sexp_processor (~> 4.1)
     sass (3.4.13)
     sexp_processor (4.4.5)
+    simplecov (0.9.2)
+      docile (~> 1.1.0)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.9.0)
+    simplecov-html (0.9.0)
     sprockets (2.12.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
@@ -226,6 +232,7 @@ DEPENDENCIES
   poltergeist
   rspec-rails (~> 3)
   rubocop (~> 0.25)
+  simplecov (~> 0.9.1)
   social_networking!
   therubyracer
   twilio-ruby (~> 3.12)

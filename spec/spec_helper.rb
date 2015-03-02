@@ -5,6 +5,10 @@ require "rspec/rails"
 require "capybara/rspec"
 require "capybara/poltergeist"
 
+require "simplecov"
+SimpleCov.minimum_coverage 83
+SimpleCov.start "rails"
+
 Capybara.javascript_driver = :poltergeist
 
 Rails.backtrace_cleaner.remove_silencers!
