@@ -55,8 +55,8 @@ module SocialNetworking
           end
 
           it "should return the new record" do
-            expect(NudgeMailer).to receive(:nudge_email_alert)
-              .with(receiver, /.*[social_networking\/home]/, /.*/)
+            expect(NudgeMailer)
+              .to receive_message_chain(:nudge_email_alert, :deliver_now)
             post :create, recipientId: 123
 
             assert_response 200
