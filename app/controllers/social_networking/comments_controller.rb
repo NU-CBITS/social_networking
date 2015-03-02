@@ -16,9 +16,8 @@ module SocialNetworking
             .find(@comment.item.item_id).participant_id
           notify Participant.find(comment_item_participant_id)
         else
-          notify Participant.find(
-                 @comment.item_type.constantize
-                 .find(@comment.item_id).participant_id)
+          notify Participant.find(@comment.item_type.constantize
+                            .find(@comment.item_id).participant_id)
         end
         render json: Serializers::CommentSerializer.new(@comment).to_serialized
       else

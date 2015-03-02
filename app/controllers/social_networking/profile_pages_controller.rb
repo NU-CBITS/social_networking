@@ -15,8 +15,9 @@ module SocialNetworking
         @profile = Profile.find(params[:id])
         store_nudge_initiators(@profile.participant_id)
       else
-        @profile = Profile.find_or_create_by(
-        participant_id: current_participant.id, active: true) do |profile|
+        @profile = Profile
+                   .find_or_create_by(participant_id: current_participant.id,
+                                      active: true) do |profile|
           begin
             SharedItem.create(
               item: profile,
@@ -58,7 +59,7 @@ module SocialNetworking
     def store_nudge_initiators(participant_id)
       @notifications = Nudge.search(participant_id)
       @nudges = []
-      @notifications.each do | notification |
+      @notifications.each do |notification|
         @nudges.push(notification.initiator.email)
       end
     end

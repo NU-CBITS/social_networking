@@ -16,6 +16,8 @@ module SocialNetworking
     end
     let(:errors) { double("errors", full_messages: ["baz"]) }
 
+    before(:each) { @routes = Engine.routes }
+
     describe "GET index" do
       context "when the current participant is authenticated" do
         before do
@@ -27,7 +29,7 @@ module SocialNetworking
         end
 
         it "should return the goals" do
-          get :index, use_route: :social_networking
+          get :index
 
           assert_response 200
           expect(json.count).to eq(1)
@@ -57,8 +59,7 @@ module SocialNetworking
           it "should return the new record" do
             post :create,
                  description: "run a marathon",
-                 isCompleted: true,
-                 use_route: :social_networking
+                 isCompleted: true
 
             assert_response 200
             expect(json["id"]).to eq(8_675_309)
@@ -75,8 +76,7 @@ module SocialNetworking
           it "should return the error message" do
             post :create,
                  description: "run a marathon",
-                 isCompleted: true,
-                 use_route: :social_networking
+                 isCompleted: true
 
             assert_response 400
             expect(json["error"]).to eq("baz")
@@ -116,8 +116,7 @@ module SocialNetworking
               post :update,
                    id: 1234,
                    description: goal.description,
-                   isCompleted: true,
-                   use_route: :social_networking
+                   isCompleted: true
 
               assert_response 200
               expect(json["participantId"]).to eq(participant.id)
@@ -132,8 +131,7 @@ module SocialNetworking
 
             it "should return an error" do
               post :update,
-                   id: 1234,
-                   use_route: :social_networking
+                   id: 1234
 
               assert_response 400
             end
@@ -147,8 +145,7 @@ module SocialNetworking
 
           it "should return an error" do
             post :update,
-                 id: 1234,
-                 use_route: :social_networking
+                 id: 1234
 
             assert_response 404
           end

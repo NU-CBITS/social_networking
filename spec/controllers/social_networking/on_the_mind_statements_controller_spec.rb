@@ -16,6 +16,7 @@ module SocialNetworking
         end
 
         before do
+          @routes = Engine.routes
           allow(controller).to receive(:authenticate_participant!)
           allow(controller).to receive(:current_participant) { participant }
 
@@ -29,7 +30,7 @@ module SocialNetworking
           before { allow(on_the_mind_statement).to receive(:save) { true } }
 
           it "should return the new record" do
-            post :create, description: "foo", use_route: :social_networking
+            post :create, description: "foo"
 
             assert_response 200
             expect(json["id"]).to eq(8_675_309)
@@ -47,7 +48,7 @@ module SocialNetworking
           end
 
           it "should return the error message" do
-            post :create, description: "foo", use_route: :social_networking
+            post :create, description: "foo"
 
             assert_response 400
             expect(json["error"]).to eq("baz")
