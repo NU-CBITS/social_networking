@@ -1,3 +1,6 @@
+## 0.1.5 - 2015-03-02
+ * minor fix to ensure mail delivery in Rails 4.2.0
+
 ## 0.1.4 - 2015-03-02
  * configure with SimpleCov
  * update to Rails 4.2.0
