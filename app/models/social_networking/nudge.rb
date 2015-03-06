@@ -26,9 +26,9 @@ module SocialNetworking
 
     scope :for_today, lambda {
       where(
-          "created_at <= ? AND created_at >= ?",
-          Date.today.end_of_day,
-          Date.today.beginning_of_day
+        "created_at <= ? AND created_at >= ?",
+        Date.today.end_of_day,
+        Date.today.beginning_of_day
       )
     }
 

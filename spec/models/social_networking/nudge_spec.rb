@@ -11,9 +11,9 @@ module SocialNetworking
       count = Nudge.for_today.count
 
       Nudge.create(
-          initiator_id: participant1.id,
-          recipient_id: participant2.id,
-          created_at: Date.today
+        initiator_id: participant1.id,
+        recipient_id: participant2.id,
+        created_at: Date.today
       )
 
       expect(Nudge.for_today.count).to eq(count + 1)
@@ -23,15 +23,15 @@ module SocialNetworking
       count = Nudge.for_week.count
 
       Nudge.create(
-          initiator_id: participant1.id,
-          recipient_id: participant2.id,
-          created_at: Date.today - 1.day
+        initiator_id: participant1.id,
+        recipient_id: participant2.id,
+        created_at: Date.today - 1.day
       )
 
       Nudge.create(
-          initiator_id: participant1.id,
-          recipient_id: participant2.id,
-          created_at: Date.today - 8.days
+        initiator_id: participant1.id,
+        recipient_id: participant2.id,
+        created_at: Date.today - 8.days
       )
 
       expect(Nudge.for_week.count).to eq(count + 1)

@@ -23,9 +23,9 @@ module SocialNetworking
       count = Goal.for_today.count
 
       Goal.create(
-          participant_id: participant.id,
-          description: "Write a test that passes.",
-          created_at: Date.today
+        participant_id: participant.id,
+        description: "Write a test that passes.",
+        created_at: Date.today
       )
 
       expect(Goal.for_today.count).to eq(count + 1)
@@ -35,15 +35,15 @@ module SocialNetworking
       count = Goal.for_week.count
 
       Goal.create(
-          participant_id: participant.id,
-          description: "Write a test that passes.",
-          created_at: Date.today - 1.day
+        participant_id: participant.id,
+        description: "Write a test that passes.",
+        created_at: Date.today - 1.day
       )
 
       Goal.create(
-          participant_id: participant.id,
-          description: "Write a test that passes.",
-          created_at: Date.today - 8.days
+        participant_id: participant.id,
+        description: "Write a test that passes.",
+        created_at: Date.today - 8.days
       )
 
       expect(Goal.for_week.count).to eq(count + 1)

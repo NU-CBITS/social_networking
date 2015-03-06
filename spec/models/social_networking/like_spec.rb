@@ -23,17 +23,17 @@ module SocialNetworking
       count = Like.for_week.count
 
       Like.create(
-          participant_id: participant1.id,
-          item_id: goal.id,
-          item_type: "SocialNetworking::Goal",
-          created_at: Date.today - 1.day
+        participant_id: participant1.id,
+        item_id: goal.id,
+        item_type: "SocialNetworking::Goal",
+        created_at: Date.today - 1.day
       )
 
       Like.create(
-          participant_id: participant1.id,
-          item_id: goal.id,
-          item_type: "SocialNetworking::Goal",
-          created_at: Date.today - 8.days
+        participant_id: participant1.id,
+        item_id: goal.id,
+        item_type: "SocialNetworking::Goal",
+        created_at: Date.today - 8.days
       )
 
       expect(Like.for_week.count).to eq(count + 1)

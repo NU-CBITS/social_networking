@@ -10,9 +10,9 @@ module SocialNetworking
       count = OnTheMindStatement.for_today.count
 
       OnTheMindStatement.create(
-          participant_id: participant1.id,
-          description: "I'm writing tests.",
-          created_at: Date.today
+        participant_id: participant1.id,
+        description: "I'm writing tests.",
+        created_at: Date.today
       )
 
       expect(OnTheMindStatement.for_today.count).to eq(count + 1)
@@ -22,15 +22,15 @@ module SocialNetworking
       count = OnTheMindStatement.for_week.count
 
       OnTheMindStatement.create(
-          participant_id: participant1.id,
-          description: "I'm writing tests.",
-          created_at: Date.today - 1.day
+        participant_id: participant1.id,
+        description: "I'm writing tests.",
+        created_at: Date.today - 1.day
       )
 
       OnTheMindStatement.create(
-          participant_id: participant1.id,
-          description: "I'm writing tests.",
-          created_at: Date.today - 8.days
+        participant_id: participant1.id,
+        description: "I'm writing tests.",
+        created_at: Date.today - 8.days
       )
 
       expect(OnTheMindStatement.for_week.count).to eq(count + 1)
