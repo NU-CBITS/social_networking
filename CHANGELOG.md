@@ -1,3 +1,6 @@
+## 0.1.7 - 2015-03-09
+ * Bug fix for mailer, add git tagger gem
+
 ## 0.1.5 - 2015-03-02
  * minor fix to ensure mail delivery in Rails 4.2.0
 
