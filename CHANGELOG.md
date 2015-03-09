@@ -1,3 +1,6 @@
+## 0.1.6 - 2015-03-09
+ * Add scopes to social networking items to collect by day and week increments
+
 ## 0.1.5 - 2015-03-02
  * minor fix to ensure mail delivery in Rails 4.2.0
 
