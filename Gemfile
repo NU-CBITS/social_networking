@@ -16,6 +16,10 @@ gem "jquery-rails", "~> 3.1"
 gem "bootstrap-sass", "~> 3.1"
 gem "twilio-ruby", "~> 3.12"
 
+gem "git_tagger",
+    tag: "1.1.6",
+    git: "https://github.com/eschlange/git_tagger.git"
+
 group :development, :test do
   gem "jasmine-rails", "= 0.10.0"
   gem "rubocop", "~> 0.25"

@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/eschlange/git_tagger.git
+  revision: 7025c869dbc7f2b6cb26889ff64b562ff459fe3a
+  tag: 1.1.6
+  specs:
+    git_tagger (1.1.6)
+
 PATH
   remote: .
   specs:
@@ -224,6 +231,7 @@ DEPENDENCIES
   bootstrap-sass (~> 3.1)
   brakeman
   capybara (~> 2)
+  git_tagger!
   jasmine-rails (= 0.10.0)
   jquery-rails (~> 3.1)
   jshintrb (~> 0.2)

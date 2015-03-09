@@ -61,3 +61,6 @@ task :spec_lint do
 end
 
 task default: :spec_lint
+
+git_tagger = Gem::Specification.find_by_name "git_tagger"
+load "#{git_tagger.gem_dir}/lib/tasks/deploy.rake"
