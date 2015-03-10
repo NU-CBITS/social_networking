@@ -9,17 +9,17 @@ module SocialNetworking
       def self.all
         Participant.select(:id, :study_id).map do |participant|
           ::SocialNetworking::Comment
-          .where(participant_id: participant.id).map do |comment|
-            item = (comment.item.try(:item) || comment.item)
-            next if item.nil?
+            .where(participant_id: participant.id).map do |comment|
+              item = (comment.item.try(:item) || comment.item)
+              next if item.nil?
 
-            {
-              participant_id: participant.study_id,
-              occurred_at: comment.created_at,
-              item_type: item.class.to_s,
-              text: comment.text
-            }
-          end
+              {
+                participant_id: participant.study_id,
+                occurred_at: comment.created_at,
+                item_type: item.class.to_s,
+                text: comment.text
+              }
+            end
         end.flatten.compact
       end
 

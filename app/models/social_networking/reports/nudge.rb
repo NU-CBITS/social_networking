@@ -9,13 +9,13 @@ module SocialNetworking
       def self.all
         Participant.select(:id, :study_id).map do |participant|
           ::SocialNetworking::Nudge
-          .where(initiator_id: participant.id).map do |nudge|
-            {
-              participant_id: participant.study_id,
-              occurred_at: nudge.created_at,
-              recipient_id: nudge.recipient.study_id
-            }
-          end
+            .where(initiator_id: participant.id).map do |nudge|
+              {
+                participant_id: participant.study_id,
+                occurred_at: nudge.created_at,
+                recipient_id: nudge.recipient.study_id
+              }
+            end
         end.flatten
       end
 

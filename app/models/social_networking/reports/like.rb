@@ -9,16 +9,16 @@ module SocialNetworking
       def self.all
         Participant.select(:id, :study_id).map do |participant|
           ::SocialNetworking::Like
-          .where(participant_id: participant.id).map do |like|
-            item = (like.item.try(:item) || like.item)
-            next if item.nil?
+            .where(participant_id: participant.id).map do |like|
+              item = (like.item.try(:item) || like.item)
+              next if item.nil?
 
-            {
-              participant_id: participant.study_id,
-              occurred_at: like.created_at,
-              item_type: item.class.to_s
-            }
-          end
+              {
+                participant_id: participant.study_id,
+                occurred_at: like.created_at,
+                item_type: item.class.to_s
+              }
+            end
         end.flatten.compact
       end
 

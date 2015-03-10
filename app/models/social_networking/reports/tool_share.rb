@@ -5,17 +5,17 @@ module SocialNetworking
       def self.columns
         %w( participant_id item_type shared_at )
       end
-      
+
       def self.all
         Participant.select(:id, :study_id).map do |participant|
           ::SocialNetworking::SharedItem
-          .where(participant_id: participant.id, is_public: true).map do |item|
-            {
-              participant_id: participant.study_id,
-              item_type: item.item_type,
-              shared_at: item.created_at
-            }
-          end
+            .where(participant_id: participant.id, is_public: true).map do |i|
+              {
+                participant_id: participant.study_id,
+                item_type: i.item_type,
+                shared_at: i.created_at
+              }
+            end
         end.flatten
       end
 

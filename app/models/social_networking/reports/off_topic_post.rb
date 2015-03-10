@@ -9,13 +9,13 @@ module SocialNetworking
       def self.all
         Participant.select(:id, :study_id).map do |participant|
           ::SocialNetworking::OnTheMindStatement
-          .where(participant_id: participant.id).map do |post|
-            {
-              participant_id: participant.study_id,
-              occurred_at: post.created_at,
-              description: post.description
-            }
-          end
+            .where(participant_id: participant.id).map do |post|
+              {
+                participant_id: participant.study_id,
+                occurred_at: post.created_at,
+                description: post.description
+              }
+            end
         end.flatten
       end
 
