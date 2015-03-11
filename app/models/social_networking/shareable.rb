@@ -10,7 +10,8 @@ module SocialNetworking
     end
 
     def description
-      @item.try(:shared_description) || "Description not available for this item."
+      @item.try(:shared_description) ||
+        "Description not available for this item."
     end
   end
 end
