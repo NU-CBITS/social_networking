@@ -50,7 +50,7 @@ module SocialNetworking
         expect(goal_like).to receive(:item).exactly(3).times { shared_item }
         expect(SocialNetworking::Goal).to receive(:find) { goal }
         expect(goal_like.item_description)
-          .to eq("participant_study_id: p2 alpha")
+          .to eq("Goal: p2 alpha")
       end
 
       it "should return a description for onTheMindStatement likes" do
@@ -76,9 +76,8 @@ module SocialNetworking
         expect(activity_like).to receive(:item).exactly(3)
           .times { shared_item }
         expect(Activity).to receive(:find) { activity }
-        expect(activity).to receive(:participant) { participant1 }
         expect(activity_like.item_description)
-          .to eq("participant_study_id: activity title")
+          .to eq("Activity: activity title")
       end
 
       it "should return a description for ProfileCreation likes" do
@@ -93,7 +92,7 @@ module SocialNetworking
                                            "SocialNetworking::SharedItem")
         expect(profile_like).to receive(:item).exactly(3).times { shared_item }
         expect(profile_like.item_description)
-          .to eq("ProfileCreation: participant_study_id")
+          .to eq("ProfileCreation: display name")
       end
 
       it "should return a description for Thought likes" do
@@ -110,7 +109,7 @@ module SocialNetworking
         expect(thought_like).to receive(:item).exactly(3).times { shared_item }
         expect(Thought).to receive(:find) { thought }
         expect(thought_like.item_description)
-          .to eq("participant_study_id: thought description goes here")
+          .to eq("Thought: thought description goes here")
       end
 
       it "should return a description for Unknown Item Typed likes" do
