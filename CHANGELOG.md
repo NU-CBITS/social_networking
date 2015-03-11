@@ -1,3 +1,12 @@
+## 0.2.0 - 2015-03-11
+ * Merge pull request #8 from cbitstech/JAH_90052522_update_tagger
+ * Update git tagger gem
+ * Merge pull request #5 from cbitstech/msw_action_type
+ * Set Action Type on Save for Shared Items
+ * Merge pull request #6 from cbitstech/JAH-batch_reports
+ * refactored report code for rubocop
+ * Move social reports to social networking
+
 ## 0.1.7 - 2015-03-09
  * Bug fix for mailer, add git tagger gem
 
