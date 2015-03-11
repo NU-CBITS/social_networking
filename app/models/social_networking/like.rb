@@ -40,16 +40,16 @@ module SocialNetworking
         case item.item_type
         when "Activity"
           activity = Activity.find(item.item_id)
-          "#{activity.participant.study_id}:"\
+          "Activity:"\
       " #{activity.activity_type.title}"
         when "SocialNetworking::Profile"
-          "ProfileCreation: #{item.participant.study_id}"
+          "ProfileCreation: #{item.participant.display_name}"
         when "SocialNetworking::Goal"
           goal = SocialNetworking::Goal.find(item.item_id)
-          "#{goal.participant.study_id}: #{goal.description}"
+          "Goal: #{goal.description}"
         when "Thought"
           thought = Thought.find(item.item_id)
-          "#{thought.participant.study_id}: #{thought.description}"
+          "Thought: #{thought.description}"
         else
           "Unknown SharedItem Type (reporting), Item ID:#{item_id}"
         end
