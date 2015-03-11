@@ -24,6 +24,8 @@ module SocialNetworking
           expect(shareable.action).to eq action_text
         end
       end
+
+      describe "#description"
     end
   end
 end

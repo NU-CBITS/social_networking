@@ -25,6 +25,10 @@ module SocialNetworking
       "Welcome, #{user_name}!"
     end
 
+    def shared_description
+      "Profile Created: #{participant.display_name}"
+    end
+
     def user_name
       if participant.is_admin
         "ThinkFeelDo"

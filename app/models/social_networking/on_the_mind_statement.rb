@@ -18,5 +18,9 @@ module SocialNetworking
     scope :for_week, lambda {
       where("created_at >= ?", Time.current.advance(days: -7).beginning_of_day)
     }
+
+    def shared_description
+      description
+    end
   end
 end

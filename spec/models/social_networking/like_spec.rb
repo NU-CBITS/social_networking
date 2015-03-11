@@ -40,95 +40,29 @@ module SocialNetworking
     end
 
     context "#item_description is called" do
-      it "should return an description for Goal likes" do
+      it "should return an description for SharedItem type" do
+        shareable = double("shareable", description: "goal description")
+        goal = double("goal", description: "goal description", id: 1)
         shared_item = double("shared_item",
                              item_type: "SocialNetworking::Goal",
-                             item_id: 1)
+                             item: goal)
         goal_like = create_generic_like(participant1.id,
                                         goal.id,
                                         "SocialNetworking::SharedItem")
-        expect(goal_like).to receive(:item).exactly(3).times { shared_item }
-        expect(SocialNetworking::Goal).to receive(:find) { goal }
+        expect(goal_like).to receive(:item).exactly(2).times { shared_item }
+        expect(Shareable).to receive(:new) { shareable }
         expect(goal_like.item_description)
-          .to eq("Goal: p2 alpha")
+          .to eq("goal description")
       end
 
       it "should return a description for onTheMindStatement likes" do
+        shareable = double("shareable", description: "otms description")
         otms = double("otms", description: "otms description goes here")
         otms_like = create_generic_like(participant1.id,
                                         goal.id,
                                         "SocialNetworking::OnTheMindStatement")
-        expect(SocialNetworking::OnTheMindStatement).to receive(:find) { otms }
-        expect(otms_like.item_description).to eq("otms description goes here")
-      end
-
-      it "should return a description for Activity likes" do
-        activity = double("activity",
-                          activity_type: double("activity_type",
-                                                title: "activity title"))
-        shared_item = double("shared_item",
-                             item_type: "Activity",
-                             item_id: 1,
-                             item: activity)
-        activity_like = create_generic_like(participant1.id,
-                                            goal.id,
-                                            "SocialNetworking::SharedItem")
-        expect(activity_like).to receive(:item).exactly(3)
-          .times { shared_item }
-        expect(Activity).to receive(:find) { activity }
-        expect(activity_like.item_description)
-          .to eq("Activity: activity title")
-      end
-
-      it "should return a description for ProfileCreation likes" do
-        profile = double("profile", participant: participant1)
-        shared_item = double("shared_item",
-                             item_type: "SocialNetworking::Profile",
-                             item: profile,
-                             participant: participant1)
-
-        profile_like = create_generic_like(participant1.id,
-                                           goal.id,
-                                           "SocialNetworking::SharedItem")
-        expect(profile_like).to receive(:item).exactly(3).times { shared_item }
-        expect(profile_like.item_description)
-          .to eq("ProfileCreation: display name")
-      end
-
-      it "should return a description for Thought likes" do
-        thought = double("thought",
-                         description: "thought description goes here",
-                         participant: participant1)
-        shared_item = double("shared_item",
-                             item_type: "Thought",
-                             item_id: 1,
-                             item: thought)
-        thought_like = create_generic_like(participant1.id,
-                                           goal.id,
-                                           "SocialNetworking::SharedItem")
-        expect(thought_like).to receive(:item).exactly(3).times { shared_item }
-        expect(Thought).to receive(:find) { thought }
-        expect(thought_like.item_description)
-          .to eq("Thought: thought description goes here")
-      end
-
-      it "should return a description for Unknown Item Typed likes" do
-        unknown_like = create_generic_like(participant1.id,
-                                           goal.id,
-                                           "SocialNetworking::SharedItem")
-        expect(unknown_like.item_description)
-          .to eq("Like was for an unknown item (for reporting tool).")
-      end
-
-      it "should return a description for Unknown Shared Item Typed likes" do
-        unknown_like_item = double("like_item", item_type: "unknown")
-        unknown_like = create_generic_like(participant1.id,
-                                           goal.id,
-                                           "SocialNetworking::SharedItem")
-        expect(unknown_like).to receive(:item).exactly(2)
-          .times { unknown_like_item }
-        expect(unknown_like.item_description)
-          .to start_with("Unknown SharedItem Type (reporting), Item ID:")
+        expect(Shareable).to receive(:new) { shareable }
+        expect(otms_like.item_description).to eq("otms description")
       end
 
       def create_generic_like(participant_id, item_id, item_type)

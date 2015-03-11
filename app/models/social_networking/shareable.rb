@@ -8,5 +8,9 @@ module SocialNetworking
     def action
       @item.try(:action) || "Shared"
     end
+
+    def description
+      @item.try(:shared_description) || "Description not available for this item."
+    end
   end
 end

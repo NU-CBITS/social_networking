@@ -35,5 +35,15 @@ module SocialNetworking
 
       expect(OnTheMindStatement.for_week.count).to eq(count + 1)
     end
+
+    it "should return a shared item description" do
+      otms = OnTheMindStatement.create(
+        participant_id: participant1.id,
+        description: "I'm writing tests.",
+        created_at: Date.today - 1.day
+      )
+
+      expect(otms.shared_description).to eq("I'm writing tests.")
+    end
   end
 end

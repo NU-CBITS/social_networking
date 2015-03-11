@@ -11,15 +11,16 @@ module SocialNetworking
     end
 
     describe "when saving" do
-      let(:activity) do
-        Activity.create!(participant_id: participants(:participant1).id)
+      let(:on_the_mind_statement) do
+        OnTheMindStatement
+          .create!(participant_id: participants(:participant1).id,
+                   description: "otms description")
       end
 
       it "the action type is set on a shared item" do
-        allow(activity).to receive(:action).and_return("Monitored")
-        shared_item = SharedItem.create!(item: activity)
-
-        expect(shared_item.action_type).to eq("Monitored")
+        otms = on_the_mind_statement
+        shared_item = SharedItem.create!(item: otms)
+        expect(shared_item.action_type).to eq("Shared")
       end
     end
   end

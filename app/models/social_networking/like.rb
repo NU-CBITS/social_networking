@@ -24,37 +24,10 @@ module SocialNetworking
     def item_description
       case item_type
       when "SocialNetworking::OnTheMindStatement"
-        "#{SocialNetworking::
-            OnTheMindStatement.find(item_id).description}"
+        Shareable.new(item).description
       when "SocialNetworking::SharedItem"
-        shared_item_description
-      else
-        "Unknown Item Type(to reporting tool), Item ID:#{item_id}"
-      end
-    end
-
-    private
-
-    def shared_item_description
-      if item
-        case item.item_type
-        when "Activity"
-          activity = Activity.find(item.item_id)
-          "Activity:"\
-      " #{activity.activity_type.title}"
-        when "SocialNetworking::Profile"
-          "ProfileCreation: #{item.participant.display_name}"
-        when "SocialNetworking::Goal"
-          goal = SocialNetworking::Goal.find(item.item_id)
-          "Goal: #{goal.description}"
-        when "Thought"
-          thought = Thought.find(item.item_id)
-          "Thought: #{thought.description}"
-        else
-          "Unknown SharedItem Type (reporting), Item ID:#{item_id}"
-        end
-      else
-        "Like was for an unknown item (for reporting tool)."
+        puts "TEST!!!!" + item.item.inspect
+        Shareable.new(item.item).description
       end
     end
   end

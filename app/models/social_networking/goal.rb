@@ -32,6 +32,10 @@ module SocialNetworking
       end
     end
 
+    def shared_description
+      "Goal: #{description}"
+    end
+
     private
 
     def not_due_in_the_past
