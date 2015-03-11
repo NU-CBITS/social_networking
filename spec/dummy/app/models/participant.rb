@@ -30,4 +30,8 @@ class Participant < ActiveRecord::Base
   def arm
     Arm.new
   end
+
+  def study_id
+    "participant_study_id"
+  end
 end
