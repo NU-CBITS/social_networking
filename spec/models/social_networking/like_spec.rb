@@ -49,7 +49,7 @@ module SocialNetworking
         goal_like = create_generic_like(participant1.id,
                                         goal.id,
                                         "SocialNetworking::SharedItem")
-        expect(goal_like).to receive(:item).exactly(2).times { shared_item }
+        expect(goal_like).to receive(:item) { shared_item }
         expect(Shareable).to receive(:new) { shareable }
         expect(goal_like.item_description)
           .to eq("goal description")
@@ -57,7 +57,6 @@ module SocialNetworking
 
       it "should return a description for onTheMindStatement likes" do
         shareable = double("shareable", description: "otms description")
-        otms = double("otms", description: "otms description goes here")
         otms_like = create_generic_like(participant1.id,
                                         goal.id,
                                         "SocialNetworking::OnTheMindStatement")

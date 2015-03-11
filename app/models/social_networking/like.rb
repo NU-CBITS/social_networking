@@ -26,7 +26,6 @@ module SocialNetworking
       when "SocialNetworking::OnTheMindStatement"
         Shareable.new(item).description
       when "SocialNetworking::SharedItem"
-        puts "TEST!!!!" + item.item.inspect
         Shareable.new(item.item).description
       end
     end

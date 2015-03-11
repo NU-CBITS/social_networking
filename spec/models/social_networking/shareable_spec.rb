@@ -15,6 +15,7 @@ module SocialNetworking
     context "when intialized with an instance" do
       let(:action_text) { "I have an action" }
       let(:activity) { "ActivityKlass" }
+      let(:goal) { double("goal", shared_description: "goal description") }
       subject(:shareable) { Shareable.new(activity) }
 
       describe "#action" do
@@ -25,7 +26,15 @@ module SocialNetworking
         end
       end
 
-      describe "#description"
+      describe "#description" do
+        it "should output an item's shared description" do
+          expect(Shareable.new(goal).description).to eq("goal description")
+        end
+        it "should output the default message for a nil item" do
+          expect(Shareable.new(nil).description)
+            .to eq("Description not available for this item.")
+        end
+      end
     end
   end
 end
