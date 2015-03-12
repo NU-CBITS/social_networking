@@ -1,3 +1,15 @@
+## 0.2.1 - 2015-03-12
+ * Merge pull request #10 from cbitstech/ems-89648754-add-icon-for-comment-item-summary
+ * Add image to comment item summary.
+ * Merge pull request #9 from cbitstech/ems-90054316-add-like-table-to-group-dash
+ * Fix rubocop.
+ * Add spec to sharable.
+ * Refactor like description.
+ * Update item_description output for likes.
+ * Fix Rubocop issues.
+ * Fix like #item_description specs.
+ * Update like.
+
 ## 0.2.0 - 2015-03-11
  * Merge pull request #8 from cbitstech/JAH_90052522_update_tagger
  * Update git tagger gem
