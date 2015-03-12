@@ -1,7 +1,7 @@
 <form novalidate role="form" name="commentOnForm" ng-show="home.inCommentOnMode()">
   <ul class="list-group">
     <li class="list-group-item">
-      <p>{{ home.getSelectedItem().summary }}</p>
+      <p><img width="40px;" ng-src="{{ home.profileIconSrcFor(home.getSelectedItem()) }}"> {{ home.getSelectedItem().summary }}</p>
     </li>
   </ul>
 
