@@ -1,3 +1,11 @@
+## 0.2.2 - 2015-03-13
+ * Merge pull request #12 from cbitstech/ems-90296008-fix-group-dash
+ * Merge pull request #11 from cbitstech/gs-add-social-report-spec
+ * Fix rubocop issues.
+ * add iso8601 timestamps to date outputs
+ * Update like item description.
+ * adding social report specs
+
 ## 0.2.1 - 2015-03-12
  * Merge pull request #10 from cbitstech/ems-89648754-add-icon-for-comment-item-summary
  * Add image to comment item summary.
