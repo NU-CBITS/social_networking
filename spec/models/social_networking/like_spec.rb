@@ -66,8 +66,8 @@ module SocialNetworking
 
       it "should return a generic description for a nil item" do
         unknown_like = create_generic_like(participant1.id,
-                                        goal.id,
-                                        "SocialNetworking::SharedItem")
+                                           goal.id,
+                                           "SocialNetworking::SharedItem")
         shareable =
           double("shareable",
                  description: "Description not available for this item.")
