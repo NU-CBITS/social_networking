@@ -26,7 +26,11 @@ module SocialNetworking
       when "SocialNetworking::OnTheMindStatement"
         Shareable.new(item).description
       when "SocialNetworking::SharedItem"
-        Shareable.new(item.item).description
+        if item
+          Shareable.new(item.item).description
+        else
+          Shareable.new(nil).description
+        end
       end
     end
   end
