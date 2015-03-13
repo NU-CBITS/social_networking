@@ -1,0 +1,3 @@
+participant1_like_1:
+  participant: participant1
+  item: participant1_goal_alpha (SocialNetworking::SharedItem)

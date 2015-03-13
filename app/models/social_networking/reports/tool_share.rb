@@ -13,7 +13,7 @@ module SocialNetworking
               {
                 participant_id: participant.study_id,
                 item_type: i.item_type,
-                shared_at: i.created_at
+                shared_at: i.created_at.iso8601
               }
             end
         end.flatten

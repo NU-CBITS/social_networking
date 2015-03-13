@@ -1,0 +1,4 @@
+participant1_comment_1:
+  participant: participant1
+  text: "i feel strongly about this"
+  item: participant1_goal_alpha (SocialNetworking::SharedItem)

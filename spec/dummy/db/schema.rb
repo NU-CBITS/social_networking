@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20150309210518) do
     t.string "email"
     t.string "phone_number"
     t.string "contact_preference"
+    t.string "study_id"
   end
 
   create_table "social_networking_comments", force: :cascade do |t|

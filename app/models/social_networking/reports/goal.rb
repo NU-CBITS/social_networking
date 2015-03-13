@@ -12,7 +12,7 @@ module SocialNetworking
             .where(participant_id: participant.id).map do |goal|
               {
                 participant_id: participant.study_id,
-                created_at: goal.created_at,
+                created_at: goal.created_at.iso8601,
                 is_completed: goal.is_completed,
                 description: goal.description
               }
