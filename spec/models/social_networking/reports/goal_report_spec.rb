@@ -26,7 +26,9 @@ module SocialNetworking
             expect(data).to include(
               participant_id: participant.study_id,
               created_at: goal.created_at.iso8601,
+              due_on: goal.due_on.iso8601,
               is_completed: goal.is_completed,
+              is_deleted: goal.is_deleted,
               description: goal.description
             )
           end

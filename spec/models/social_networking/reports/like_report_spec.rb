@@ -25,8 +25,9 @@ module SocialNetworking
             expect(data.count).to eq 1
             expect(data).to include(
               participant_id: participant.study_id,
-              occurred_at: like.created_at.iso8601,
-              item_type: item.class.to_s
+              created_at: like.created_at.iso8601,
+              item_type: item.class.to_s,
+              item_content: like.item_description
             )
           end
         end

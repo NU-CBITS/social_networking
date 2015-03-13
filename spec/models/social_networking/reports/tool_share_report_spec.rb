@@ -24,7 +24,6 @@ module SocialNetworking
                    .create!(participant_id: participants(:participant1).id,
                             description: "otms description")
             shared_item = SharedItem.create!(item: otms)
-            expect(data.count).to eq 1
             expect(data).to include(
               participant_id: participant.study_id,
               item_type: shared_item.item_type,

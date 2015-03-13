@@ -3,7 +3,7 @@ module SocialNetworking
     # Scenario: a Participant has a Goal.
     class Goal
       def self.columns
-        %w( participant_id created_at is_completed description )
+        %w( participant_id created_at due_on is_completed is_deleted description )
       end
 
       def self.all
@@ -13,7 +13,9 @@ module SocialNetworking
               {
                 participant_id: participant.study_id,
                 created_at: goal.created_at.iso8601,
+                due_on: goal.due_on ? goal.due_on.iso8601 : "",
                 is_completed: goal.is_completed,
+                is_deleted: goal.is_deleted,
                 description: goal.description
               }
             end
