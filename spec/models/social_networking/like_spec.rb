@@ -49,7 +49,7 @@ module SocialNetworking
         goal_like = create_generic_like(participant1.id,
                                         goal.id,
                                         "SocialNetworking::SharedItem")
-        expect(goal_like).to receive(:item) { shared_item }
+        expect(goal_like).to receive(:item).exactly(2).times { shared_item }
         expect(Shareable).to receive(:new) { shareable }
         expect(goal_like.item_description)
           .to eq("goal description")
@@ -62,6 +62,19 @@ module SocialNetworking
                                         "SocialNetworking::OnTheMindStatement")
         expect(Shareable).to receive(:new) { shareable }
         expect(otms_like.item_description).to eq("otms description")
+      end
+
+      it "should return a generic description for a nil item" do
+        unknown_like = create_generic_like(participant1.id,
+                                           goal.id,
+                                           "SocialNetworking::SharedItem")
+        shareable =
+          double("shareable",
+                 description: "Description not available for this item.")
+        expect(unknown_like).to receive(:item) { nil }
+        expect(Shareable).to receive(:new) { shareable }
+        expect(unknown_like.item_description)
+          .to eq("Description not available for this item.")
       end
 
       def create_generic_like(participant_id, item_id, item_type)
