@@ -12,7 +12,7 @@ module SocialNetworking
             .where(initiator_id: participant.id).map do |nudge|
               {
                 participant_id: participant.study_id,
-                occurred_at: nudge.created_at,
+                occurred_at: nudge.created_at.iso8601,
                 recipient_id: nudge.recipient.study_id
               }
             end

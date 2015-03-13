@@ -25,7 +25,7 @@ module SocialNetworking
             item = (comment.item.try(:item) || comment.item)
             expect(data).to include(
               participant_id: participant.study_id,
-              occurred_at: comment.created_at,
+              occurred_at: comment.created_at.iso8601,
               item_type: item.class.to_s,
               text: comment.text
             )

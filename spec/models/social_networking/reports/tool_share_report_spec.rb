@@ -28,7 +28,7 @@ module SocialNetworking
             expect(data).to include(
               participant_id: participant.study_id,
               item_type: shared_item.item_type,
-              shared_at: shared_item.created_at
+              shared_at: shared_item.created_at.iso8601
             )
           end
         end

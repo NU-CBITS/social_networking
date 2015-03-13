@@ -24,7 +24,7 @@ module SocialNetworking
             expect(data.count).to eq 2
             expect(data).to include(
               participant_id: participant.study_id,
-              occurred_at: statement.created_at,
+              occurred_at: statement.created_at.iso8601,
               description: statement.description
             )
           end

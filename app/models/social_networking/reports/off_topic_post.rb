@@ -12,7 +12,7 @@ module SocialNetworking
             .where(participant_id: participant.id).map do |post|
               {
                 participant_id: participant.study_id,
-                occurred_at: post.created_at,
+                occurred_at: post.created_at.iso8601,
                 description: post.description
               }
             end

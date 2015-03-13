@@ -15,7 +15,7 @@ module SocialNetworking
 
               {
                 participant_id: participant.study_id,
-                occurred_at: like.created_at,
+                occurred_at: like.created_at.iso8601,
                 item_type: item.class.to_s
               }
             end

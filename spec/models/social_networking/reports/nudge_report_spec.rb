@@ -24,7 +24,7 @@ module SocialNetworking
             expect(data.count).to eq 4
             expect(data).to include(
               participant_id: participant.study_id,
-              occurred_at: nudge.created_at,
+              occurred_at: nudge.created_at.iso8601,
               recipient_id: nudge.recipient.study_id
             )
           end
