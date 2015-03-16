@@ -178,7 +178,7 @@
 
   HomeCtrl.prototype.profileIconSrcFor = function(item) {
     for (var i = 0; i < this._memberProfiles.length; i += 1) {
-      if (this._memberProfiles[i].participantId === item.participantId) {
+      if (item && (this._memberProfiles[i].participantId === item.participantId)) {
         return this._memberProfiles[i].iconSrc;
       }
     }
