@@ -1,3 +1,8 @@
+## 0.2.3 - 2015-03-16
+ * Update CSV headers for like report.
+ * Fix Rubocop issue.
+ * Re-established changes to goal and like reports.
+
 ## 0.2.2 - 2015-03-13
  * Merge pull request #12 from cbitstech/ems-90296008-fix-group-dash
  * Merge pull request #11 from cbitstech/gs-add-social-report-spec
