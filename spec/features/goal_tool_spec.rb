@@ -43,12 +43,12 @@ describe "goal tool", type: :feature, js: true do
   end
 
   scenario "Participant edits a goal" do
-    edit "p1 beta"
-    fill_in "What is your goal?", with: "p1 beta foo"
+    edit "run"
+    fill_in "What is your goal?", with: "run foo"
     choose "end of 4 weeks"
     click_button "Save"
 
-    expect(page).to have_content("p1 beta foo")
+    expect(page).to have_content("run foo")
   end
 
   def have_goal(label)
