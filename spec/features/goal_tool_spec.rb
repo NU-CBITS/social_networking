@@ -32,18 +32,6 @@ describe "goal tool", type: :feature, js: true do
     expect(page).to have_completed_goal("p1 alpha")
   end
 
-  scenario "Participant removes a goal's completed status" do
-    expect(page).to have_completed_goal("p1 epsilon")
-
-    uncomplete "p1 epsilon"
-
-    expect(page).not_to have_completed_goal("p1 epsilon")
-
-    click_link "Completed"
-
-    expect(page).not_to have_content("p1 epsilon")
-  end
-
   scenario "Participant deletes a goal" do
     delete "p1 gamma"
 
@@ -52,19 +40,6 @@ describe "goal tool", type: :feature, js: true do
     click_link "Deleted"
 
     expect(page).to have_goal("p1 gamma")
-  end
-
-  scenario "Participant restores a goal" do
-    expect(page).not_to have_goal("p1 delta")
-
-    click_link "Deleted"
-    restore "p1 delta"
-
-    expect(page).not_to have_goal("p1 delta")
-
-    click_link "All"
-
-    expect(page).to have_goal("p1 delta")
   end
 
   scenario "Participant edits a goal" do

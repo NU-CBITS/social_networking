@@ -75,15 +75,14 @@
       </p>
 
       <div>
-        <button class="btn btn-link complete" ng-click="goal.toggleComplete(participantGoal)" ng-if="!participantGoal.isDeleted">
+        <button class="btn btn-link complete" ng-click="goal.toggleComplete(participantGoal)" ng-if="!participantGoal.isDeleted && !participantGoal.isCompleted">
           <span class="fa-stack">
             <i class="fa fa-square-o fa-stack-2x"></i>
             <i class="fa fa-check fa-stack-2x" ng-if="participantGoal.isCompleted"></i>
           </span>
         </button>
-        <button ng-if="!participantGoal.isDeleted" class="btn btn-link edit" ng-click="goal.edit(participantGoal)"><i class="fa fa-pencil fa-2x"></i></button>
-        <button ng-if="!participantGoal.isDeleted" class="btn btn-link delete" ng-click="goal.toggleDeleted(participantGoal)"><i class="fa fa-trash text-danger fa-2x"></i></button>
-        <button ng-if="participantGoal.isDeleted" class="btn btn-link restore" ng-click="goal.toggleDeleted(participantGoal)"><i class="fa fa-undo fa-2x"></i></button>
+        <button ng-if="!participantGoal.isDeleted && !participantGoal.isCompleted" class="btn btn-link edit" ng-click="goal.edit(participantGoal)"><i class="fa fa-pencil fa-2x"></i></button>
+        <button ng-if="!participantGoal.isDeleted && !participantGoal.isCompleted" class="btn btn-link delete" ng-click="goal.toggleDeleted(participantGoal)"><i class="fa fa-trash text-danger fa-2x"></i></button>
       </div>
     </li>
   </ul>
