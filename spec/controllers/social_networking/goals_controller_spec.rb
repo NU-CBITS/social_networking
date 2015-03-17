@@ -9,9 +9,9 @@ module SocialNetworking
              created_at: DateTime.new,
              participant_id: participant.id,
              description: "run a marathon",
-             is_completed: false,
              is_deleted: false,
              due_on: Date.today,
+             is_completed: false,
              comments: [])
     end
     let(:errors) { double("errors", full_messages: ["baz"]) }
@@ -46,7 +46,7 @@ module SocialNetworking
           allow(Goal).to receive(:new).with(
             participant_id: participant.id,
             description: "run a marathon",
-            is_completed: true
+            completed_at: DateTime.now
           ) { goal }
         end
 
@@ -105,7 +105,7 @@ module SocialNetworking
               allow(goal).to receive(:update).with(
                 participant_id: participant.id,
                 description: "run a marathon",
-                is_completed: true
+                completed_at: DateTime.now
               ) { true }
               allow(goal).to receive(:previous_changes)
                 .and_return("is_completed" => [false, true])

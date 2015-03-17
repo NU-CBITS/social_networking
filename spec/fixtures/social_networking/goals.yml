@@ -6,7 +6,7 @@ participant1_goal_alpha:
 participant1_goal_beta:
   participant: participant1
   description: p1 beta
-  is_completed: true
+  completed_at: <%= DateTime.now %>
   due_on: <%= Date.today %>
 
 participant1_goal_gamma:
@@ -27,7 +27,7 @@ participant1_goal_delta:
 participant1_goal_epsilon:
   participant: participant1
   description: p1 epsilon
-  is_completed: true
+  completed_at: <%= DateTime.now %>
   due_on: <%= Date.today %>
 
 participant2_goal_alpha:
@@ -38,7 +38,7 @@ participant2_goal_alpha:
 participant2_goal_beta:
   participant: participant2
   description: p2 beta
-  is_completed: true
+  completed_at: <%= DateTime.now %>
   due_on: <%= Date.today %>
 
 participant2_goal_gamma:
