@@ -1,3 +1,9 @@
+## 0.2.4 - 2015-03-17
+ * Merge pull request #15 from cbitstech/msw_90191388_participant_concern
+ * Create Concern with Participant Associations
+ * Merge pull request #14 from cbitstech/msw_90308406_item_participantId_error
+ * Remove Error from Home Controller
+
 ## 0.2.2 - 2015-03-13
  * Merge pull request #12 from cbitstech/ems-90296008-fix-group-dash
  * Merge pull request #11 from cbitstech/gs-add-social-report-spec
