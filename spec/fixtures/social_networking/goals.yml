@@ -21,7 +21,7 @@ participant1_goal_run:
 participant1_goal_delta:
   participant: participant1
   description: p1 delta
-  is_deleted: true
+  deleted_at: <%= DateTime.now %>
   due_on: <%= Date.today %>
 
 participant1_goal_epsilon:
@@ -49,5 +49,5 @@ participant2_goal_gamma:
 participant2_goal_delta:
   participant: participant2
   description: p2 delta
-  is_deleted: true
+  deleted_at: <%= DateTime.now %>
   due_on: <%= Date.today %>
