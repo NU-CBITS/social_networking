@@ -1,3 +1,11 @@
+## 0.2.5 - 2015-03-18
+ * Merge pull request #16 from cbitstech/ems-90425788-change-is-completed-to-completed-at
+ * Merge pull request #17 from cbitstech/msw_90543322_membership_concern
+ * Move Membership Scopes into SN
+ * Remove spec.
+ * Update spec issue.
+ * Replace goal is_completed with completed_at.
+
 ## 0.2.4 - 2015-03-17
  * Merge pull request #15 from cbitstech/msw_90191388_participant_concern
  * Create Concern with Participant Associations
