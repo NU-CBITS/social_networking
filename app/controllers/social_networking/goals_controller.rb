@@ -58,16 +58,18 @@ module SocialNetworking
         end
       end
 
-      transform_is_completed(s_params)
+      transform_goal_params(s_params)
     end
 
     def model_errors
       @goal.errors.full_messages.join(", ")
     end
 
-    def transform_is_completed(params)
+    def transform_goal_params(params)
       params[:completed_at] = DateTime.now if params[:is_completed] == true
       params.delete(:is_completed)
+      params[:deleted_at] = DateTime.now if params[:is_deleted] == true
+      params.delete(:is_deleted)
       params
     end
   end

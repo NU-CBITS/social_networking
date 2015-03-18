@@ -11,12 +11,11 @@ module SocialNetworking
     has_many :likes, as: "item"
 
     validates :participant, :description, presence: true
-    validates :is_deleted, inclusion: { in: [true, false] }
     validate :not_due_in_the_past, on: :create
     validate :due_before_membership_ends, on: :create
 
     scope :did_not_complete, (lambda do
-      where(is_deleted: false, completed_at: nil)
+      where(deleted_at: nil, completed_at: nil)
       .where(arel_table[:due_on].lt(Date.today))
     end)
 
@@ -40,6 +39,13 @@ module SocialNetworking
     # rubocop:disable Style/PredicateName
     def is_completed
       completed_at?
+    end
+    # rubocop:enable Style/PredicateName
+
+    # Necessary for legacy front-end code.
+    # rubocop:disable Style/PredicateName
+    def is_deleted
+      deleted_at?
     end
     # rubocop:enable Style/PredicateName
 
