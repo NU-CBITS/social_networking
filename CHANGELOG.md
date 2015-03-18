@@ -1,3 +1,7 @@
+## 0.2.6 - 2015-03-18
+ * Merge pull request #18 from cbitstech/ems-90425842-modify-deleted-in-goals
+ * Update Goal delete flag.
+
 ## 0.2.5 - 2015-03-18
  * Merge pull request #16 from cbitstech/ems-90425788-change-is-completed-to-completed-at
  * Merge pull request #17 from cbitstech/msw_90543322_membership_concern
