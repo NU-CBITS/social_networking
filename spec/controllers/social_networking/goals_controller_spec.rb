@@ -94,6 +94,27 @@ module SocialNetworking
 
         context "and the record is found" do
           before do
+            allow(Goal)
+              .to receive(:where).with(participant_id: participant.id,
+                                       id: "1234") { [goal] }
+          end
+          it "should soft delete the record" do
+            allow(goal)
+              .to receive(:update).with(participant_id: participant.id,
+                                        description: "run a marathon",
+                                        deleted_at: DateTime.now) { true }
+            post :update,
+                 id: 1234,
+                 description: goal.description,
+                 isDeleted: true
+
+            assert_response 200
+            expect(json["participantId"]).to eq(participant.id)
+          end
+        end
+
+        context "and the record is found" do
+          before do
             allow(Goal).to receive(:where).with(
               participant_id: participant.id,
               id: "1234"

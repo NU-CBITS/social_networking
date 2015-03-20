@@ -35,7 +35,7 @@ module SocialNetworking
       ).first || fail(ActiveRecord::RecordNotFound)
 
       if @goal.update(sanitized_params)
-        if @goal.previous_changes["is_completed"] == [false, true]
+        if @is_completed_set
           SharedItem.create(item: @goal, action_type: Goal::Actions.completed)
         end
         render json: Serializers::GoalSerializer.new(@goal).to_serialized
@@ -57,7 +57,6 @@ module SocialNetworking
           s_params[param.to_s.underscore.to_sym] = params[param]
         end
       end
-
       transform_goal_params(s_params)
     end
 
@@ -66,9 +65,15 @@ module SocialNetworking
     end
 
     def transform_goal_params(params)
-      params[:completed_at] = DateTime.now if params[:is_completed] == true
+      if true == params[:is_completed]
+        params[:completed_at] = DateTime.now
+        @is_completed_set = true
+      end
+      if true == params[:is_deleted]
+        params[:deleted_at] = DateTime.now
+        @is_deleted_set = true
+      end
       params.delete(:is_completed)
-      params[:deleted_at] = DateTime.now if params[:is_deleted] == true
       params.delete(:is_deleted)
       params
     end
