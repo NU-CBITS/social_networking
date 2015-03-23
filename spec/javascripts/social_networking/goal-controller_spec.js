@@ -50,6 +50,10 @@ describe('GoalCtrl', function() {
   describe('#toggleComplete', function() {
     describe('when unsuccessful', function() {
       it('should reset the isCompleted attribute', function() {
+        window.confirm = function(msg){
+          //return true to simulate the OK button having been clicked
+          return true;
+        };
         var goal = { isCompleted: true };
         controller.toggleComplete(goal);
         updateDeferred.reject({ isCompleted: false });

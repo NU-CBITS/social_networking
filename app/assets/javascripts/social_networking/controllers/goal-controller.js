@@ -37,20 +37,24 @@
 
   // Persist the isCompleted attribute to the server.
   GoalCtrl.prototype.toggleComplete = function(currentGoal) {
-    currentGoal.isCompleted = !currentGoal.isCompleted;
-    this._goals.update(currentGoal)
-      .catch(function(goal) {
-        currentGoal.isCompleted = goal.isCompleted;
-      });
+    if (window.confirm("Are you sure you would like to mark this goal as complete? This action cannot be undone.")) {
+      currentGoal.isCompleted = !currentGoal.isCompleted;
+      this._goals.update(currentGoal)
+        .catch(function(goal) {
+          currentGoal.isCompleted = goal.isCompleted;
+        });
+    }
   };
 
   // Persist the isDeleted attribute to the server.
   GoalCtrl.prototype.toggleDeleted = function(currentGoal) {
-    currentGoal.isDeleted = !currentGoal.isDeleted;
-    this._goals.update(currentGoal)
-      .catch(function(goal) {
-        currentGoal.isDeleted = goal.isDeleted;
-      });
+    if (window.confirm("Are you sure you would like to delete this goal? This action cannot be undone.")) {
+      currentGoal.isDeleted = !currentGoal.isDeleted;
+      this._goals.update(currentGoal)
+        .catch(function (goal) {
+          currentGoal.isDeleted = goal.isDeleted;
+        });
+    }
   };
 
   // Persist a goal from the form.
