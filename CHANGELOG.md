@@ -1,3 +1,10 @@
+## 0.2.7 - 2015-03-23
+ * Merge pull request #20 from cbitstech/ems-90711482
+ * Update jasmine test for goal.
+ * Update goal coompletion and deletion.
+ * Merge pull request #19 from cbitstech/ems-90727968-goal-deletes
+ * Fixed broken goal delete logic.
+
 ## 0.2.6 - 2015-03-18
  * Merge pull request #18 from cbitstech/ems-90425842-modify-deleted-in-goals
  * Update Goal delete flag.
