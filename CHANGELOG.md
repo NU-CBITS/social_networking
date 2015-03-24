@@ -1,3 +1,10 @@
+## 0.2.8 - 2015-03-24
+ * Merge pull request #23 from cbitstech/gs-update-sprockets
+ * rubocop
+ * Update sprockets-rails to 2.2.2
+ * Merge pull request #21 from cbitstech/gs-remove-home-nav-link
+ * Remove extra home link from social ham nav
+
 ## 0.2.7 - 2015-03-23
  * Merge pull request #20 from cbitstech/ems-90711482
  * Update jasmine test for goal.
