@@ -27,7 +27,9 @@ Gem::Specification.new do |s|
 
   # there was a breaking change in 2.1.4; locking version
   # (https://github.com/rails/sprockets-rails/issues/167)
-  s.add_dependency "sprockets-rails", "= 2.1.3"
+  # s.add_dependency "sprockets-rails", "= 2.1.3"
+  # updated to 2.2.2 to integrate bootstrap themes
+  s.add_dependency "sprockets-rails", "= 2.2.2"
 
   s.add_development_dependency "pg"
   s.add_development_dependency "rspec-rails", "~> 3"
