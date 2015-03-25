@@ -1,6 +1,7 @@
 // Create the socialNetworking module and specify its required submodules.
 angular.module('socialNetworking', [
   'ngResource',
+  'infinite-scroll',
   'socialNetworking.controllers',
   'socialNetworking.filters',
   'socialNetworking.directives',

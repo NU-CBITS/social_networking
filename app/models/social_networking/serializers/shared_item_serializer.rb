@@ -15,6 +15,7 @@ module SocialNetworking
           id: model.id,
           participantId: item.participant_id,
           createdAt: model.created_at,
+          createdAtRaw: model.created_at.to_i,
           templatePath: "/social_networking/templates/#{ path }",
           isPublic: model.is_public,
           data: item.to_serialized,

@@ -7,6 +7,8 @@
                     memberProfiles, $filter, $http, $location, $scope) {
     this.actionItems = actionItems;
     this.feedItems = feedItems;
+    this.page = 0;
+    this.feedDisabled = false;
     this._memberProfiles = memberProfiles;
     this._homeTool = homeTool;
     this._currentParticipantId = currentParticipantId;
@@ -33,6 +35,23 @@
       }
     });
   }
+
+  HomeCtrl.prototype.getMore = function() {
+    if(!this.feedDisabled) {
+      this.feedDisabled = true;
+      var responsePromise = this._sharedResource.get('/social_networking/shared_items/participant/'+this._currentParticipantId+'/page/'+this.page);
+      var self = this;
+      responsePromise.success(function(data, status, headers, config) {
+        if (data && data.feedItems && 0 < data.feedItems.length) {
+          self.feedItems = self.feedItems.concat(data.feedItems);
+          self.feedDisabled = false;
+          self.page++;
+        } else {
+          $("#infinite-feed").attr("infinite-scroll-disabled", "true")
+        }
+      });
+    }
+  };
 
   HomeCtrl.prototype.setSelectedItem = function(item) {
     this._homeTool.setSelectedItem(item);

@@ -20,4 +20,5 @@ SocialNetworking::Engine.routes.draw do
   get "/templates/:path.html" => "templates#page", constraints: { path: /.+/  }
   post "profile_icons", to: "profile_icon#save"
   get "/shared_items/:id/hide", to: "shared_item#hide"
+  get "/shared_items/participant/:participant_id/page/:page", to: "shared_item#page"
 end
