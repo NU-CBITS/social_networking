@@ -1,3 +1,7 @@
+## 0.3.1 - 2015-03-26
+ * Merge pull request #25 from cbitstech/ems-90191168
+ * Add test cases for shared item controller.
+
 ## 0.3.0 - 2015-03-26
  * Merge pull request #24 from cbitstech/ems-90191168-infinite-scroll
  * Fixed several Javascript style issues.
