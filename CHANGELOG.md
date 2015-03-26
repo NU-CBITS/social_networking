@@ -1,3 +1,9 @@
+## 0.3.0 - 2015-03-26
+ * Merge pull request #24 from cbitstech/ems-90191168-infinite-scroll
+ * Fixed several Javascript style issues.
+ * Update jasmine test cases.
+ * Add infinite scroll to social feed.
+
 ## 0.2.8 - 2015-03-24
  * Merge pull request #23 from cbitstech/gs-update-sprockets
  * rubocop
