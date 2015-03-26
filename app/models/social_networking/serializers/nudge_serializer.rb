@@ -10,6 +10,7 @@ module SocialNetworking
           id: model.id,
           participantId: model.initiator_id,
           createdAt: model.created_at,
+          createdAtRaw: model.created_at.to_i,
           initiatorId: model.initiator_id,
           recipientId: model.recipient_id,
           summary: "nudged #{ recipient_profile.user_name }",

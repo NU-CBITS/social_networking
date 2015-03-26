@@ -7,6 +7,7 @@ module SocialNetworking
           className: "SocialNetworking::OnTheMindStatement",
           id: model.id,
           createdAt: model.created_at,
+          createdAtRaw: model.created_at.to_i,
           participantId: model.participant_id,
           summary: "said #{ model.description }",
           description: model.description,

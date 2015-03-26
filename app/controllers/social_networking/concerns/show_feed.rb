@@ -8,7 +8,7 @@ module SocialNetworking
 
         {
           action_items: action_items,
-          feed_items: feed_items,
+          feed_items: [],
           member_profiles: member_profiles,
           profile_path: @context.social_networking_profile_path
         }
@@ -27,21 +27,6 @@ module SocialNetworking
         end
 
         items
-      end
-
-      def feed_items
-        Serializers::OnTheMindStatementSerializer
-          .from_collection(
-            OnTheMindStatement.joins(participant: [{ memberships: :group }])
-              .where(groups: { id: @participant.active_group.id })
-              .includes(:comments, :likes)) +
-          Serializers::NudgeSerializer
-            .from_collection(
-              Nudge.joins(initiator: [{ memberships: :group }])
-                .where(groups: { id: @participant.active_group.id })
-                .includes(:comments)) +
-          Serializers::SharedItemSerializer
-            .from_collection(group_shared_items)
       end
 
       def group_shared_items

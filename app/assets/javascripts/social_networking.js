@@ -2,6 +2,7 @@
 //= require angular-resource.min
 //= require moment.min
 //= require jquery
+//= require ng-infinite-scroll.min
 //= require bootstrap/tooltip
 //= require bootstrap/popover
 //= require bootstrap/modal

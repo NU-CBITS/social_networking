@@ -45,8 +45,12 @@
 
   <%= render "social_networking/shared/comment_form" %>
 
-  <ul class="list-group">
-    <li ng-repeat="item in home.feedItems | orderBy:'createdAt':true"
+  <ul class="list-group"
+      id="infinite-feed"
+      infinite-scroll="home.getMore()"
+      infinite-scroll-immediate-check="true"
+      infinite-scroll-disabled="false">
+    <li ng-repeat="item in home.feedItems"
         ng-show="home.inFeedBrowseMode()"
         class="list-group-item"
         id="{{ item.className }}-{{ item.id }}">

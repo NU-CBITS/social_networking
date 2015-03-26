@@ -5,7 +5,8 @@ describe('HomeCtrl', function() {
       likeResource,
       scope,
       q,
-      deferred;
+      deferred,
+      sharedResource;
 
   beforeEach(function() {
     module('socialNetworking.controllers');
@@ -32,6 +33,13 @@ describe('HomeCtrl', function() {
                 return deferred.promise;
               }
     };
+    sharedResource = {
+      create: function() {
+        deferred = q.defer();
+
+        return deferred.promise;
+      }
+    }
   });
 
   beforeEach(inject(function($rootScope, $q, $controller, $filter, homeTool) {
@@ -47,7 +55,7 @@ describe('HomeCtrl', function() {
       feedItems: [],
       memberProfiles: [],
       $filter: $filter,
-      $http: {},
+      $http: sharedResource,
       $location: {},
       $scope: scope
     });
@@ -70,7 +78,8 @@ describe('HomeCtrl', function() {
     describe('when successful', function() {
       it('should return to feed mode and add the statement to the feed', function() {
         controller.saveOnYourMind();
-        deferred.resolve({ description: 'something good' });
+        deferred.resolve({ feedItems: 'feed item' });
+        controller.resetFeed = function() { return true; }
         scope.$apply();
 
         expect(controller.inFeedBrowseMode()).toBeTruthy();
