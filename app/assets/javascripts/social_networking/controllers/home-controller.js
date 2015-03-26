@@ -49,7 +49,7 @@
     this.page = 0;
     $("#infinite-feed").attr("infinite-scroll-disabled", "false");
     this.retrieveFeed();
-  }
+  };
 
   HomeCtrl.prototype.retrieveFeed = function () {
     var responsePromise = this._sharedResource.get('/social_networking/shared_items/participant/'+this._currentParticipantId+'/page/'+this.page);
@@ -58,12 +58,12 @@
       if (data && data.feedItems && 0 < data.feedItems.length) {
         self.feedItems = self.feedItems.concat(data.feedItems);
         self.feedDisabled = false;
-        self.page++;
+        self.page += 1;
       } else {
         $("#infinite-feed").attr("infinite-scroll-disabled", "true");
       }
     });
-  }
+  };
 
   HomeCtrl.prototype.setSelectedItem = function(item) {
     this._homeTool.setSelectedItem(item);
