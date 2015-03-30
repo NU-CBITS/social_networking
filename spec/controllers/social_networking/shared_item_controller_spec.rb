@@ -15,7 +15,7 @@ module SocialNetworking
 
     describe "POST hide" do
       let(:shared_item) do
-        double("shared item")
+        double("shared item", order: "")
       end
 
       context "when the participant is authenticated" do
@@ -46,10 +46,11 @@ module SocialNetworking
           shared_item_mock = { createdAtRaw: 3 }
 
           expect(OnTheMindStatement)
-            .to receive_message_chain(:joins, :where, :includes)
-          expect(Nudge).to receive_message_chain(:joins, :where, :includes)
+            .to receive_message_chain(:joins, :where, :order, :limit, :includes)
+          expect(Nudge)
+            .to receive_message_chain(:joins, :where, :order, :limit, :includes)
           expect(SharedItem)
-            .to receive_message_chain(:includes, :all, :select)
+            .to receive_message_chain(:joins, :where, :order, :limit, :includes)
           expect(Serializers::OnTheMindStatementSerializer)
             .to receive(:from_collection) { [on_the_mind_statement_mock] }
           expect(Serializers::NudgeSerializer)
