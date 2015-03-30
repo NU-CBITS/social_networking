@@ -1,3 +1,8 @@
+## 0.3.2 - 2015-03-30
+ * Merge pull request #26 from cbitstech/ems-feed-optimization
+ * Update feed paging logic.
+ * Further optimizations.
+
 ## 0.3.1 - 2015-03-26
  * Merge pull request #25 from cbitstech/ems-90191168
  * Add test cases for shared item controller.
