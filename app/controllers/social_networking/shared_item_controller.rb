@@ -25,17 +25,18 @@ module SocialNetworking
 
     def page
       items_by_page = []
-      page = shared_item_params[:page]
+      requested_page = shared_item_params[:page]
       start_index =
-        page ? shared_item_params[:page].to_i * SHARED_ITEM_PAGE_SIZE : 0
+        requested_page ? requested_page.to_i * SHARED_ITEM_PAGE_SIZE : 0
       feed_items_page =
         aggregate_feed_items(
-          Participant.find(shared_item_params[:participant_id])
+          Participant.find(shared_item_params[:participant_id]),
+          requested_page.to_i
         )
 
       if feed_items_page.size >= start_index
-        feed_items = feed_items_page
-                     .sort_by { |item| item[:createdAtRaw] }.reverse!
+        feed_items =
+          feed_items_page.sort_by { |item| item[:createdAtRaw] }.reverse!
         items_by_page =
           feed_items[start_index..(start_index + SHARED_ITEM_PAGE_SIZE)]
       end
@@ -49,29 +50,44 @@ module SocialNetworking
       params.permit(:id, :participant_id, :page)
     end
 
-    def group_shared_items(participant)
-      SharedItem
-        .includes(:item, :comments, :likes)
-        .all
-        .select do |shared_item|
-        shared_item.item.try(:participant).try(:active_group).try(:id) ==
-          participant.active_group.id
-      end
+    def group_shared_items(participant, requested_page)
+      SocialNetworking::SharedItem
+        .joins(participant: [{ memberships: :group }])
+        .where(groups: { id: participant.active_group.id })
+        .order(created_at: :desc)
+        .limit(SHARED_ITEM_PAGE_SIZE * (requested_page + 1))
+        .includes(:comments, :likes)
     end
 
-    def aggregate_feed_items(participant)
+    def aggregate_feed_items(participant, page)
+      on_the_minds_for_pariticipant_group(participant, page) +
+        nudges_for_participant_group(participant, page) +
+        shared_items_for_participant_group(participant, page)
+    end
+
+    def on_the_minds_for_pariticipant_group(participant, page)
       Serializers::OnTheMindStatementSerializer
         .from_collection(
           OnTheMindStatement.joins(participant: [{ memberships: :group }])
             .where(groups: { id: participant.active_group.id })
-            .includes(:comments, :likes)) +
-        Serializers::NudgeSerializer
-          .from_collection(
-            Nudge.joins(initiator: [{ memberships: :group }])
-              .where(groups: { id: participant.active_group.id })
-              .includes(:comments)) +
-        Serializers::SharedItemSerializer
-          .from_collection(group_shared_items(participant))
+            .order(created_at: :desc)
+            .limit(SHARED_ITEM_PAGE_SIZE * (page + 1))
+            .includes(:comments, :likes))
+    end
+
+    def nudges_for_participant_group(participant, page)
+      Serializers::NudgeSerializer
+        .from_collection(
+          Nudge.joins(initiator: [{ memberships: :group }])
+            .where(groups: { id: participant.active_group.id })
+            .order(created_at: :desc)
+            .limit(SHARED_ITEM_PAGE_SIZE * (page + 1))
+            .includes(:comments))
+    end
+
+    def shared_items_for_participant_group(participant, requested_page)
+      Serializers::SharedItemSerializer
+        .from_collection(group_shared_items(participant, requested_page))
     end
   end
 end
