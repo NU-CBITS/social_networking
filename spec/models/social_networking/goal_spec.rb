@@ -48,5 +48,25 @@ module SocialNetworking
 
       expect(Goal.for_week.count).to eq(count + 1)
     end
+
+    it "should return an incomplete goal" do
+      Goal.create(
+        participant_id: participant.id,
+        description: "return incomplete goals.",
+        created_at: Date.today - 1.day
+      )
+
+      expect(Goal.for_week.count).to eq(11)
+    end
+
+    it "should return no incomplete goals" do
+      Goal.create(
+        participant_id: participant.id,
+        description: "return no incomplete goals.",
+        created_at: Date.today - 2.day
+      )
+
+      expect(Goal.did_not_complete.count).to eq(0)
+    end
   end
 end
