@@ -52,7 +52,7 @@ module SocialNetworking
     it "should return an incomplete goal" do
       Goal.create(
         participant_id: participant.id,
-        description: "HHHHHRRRRRRMMMMMMPPPPPHHHHH.",
+        description: "return fixture incompletes plus one.",
         due_on: DateTime.now - 1.hour,
         deleted_at: nil,
         completed_at: nil
@@ -64,7 +64,7 @@ module SocialNetworking
     it "should return no incomplete goals" do
       Goal.create(
         participant_id: participant.id,
-        description: "return no incomplete goals.",
+        description: "return only fixture incomplete goals.",
         due_on: DateTime.now - 2,
         deleted_at: nil,
         completed_at: nil
