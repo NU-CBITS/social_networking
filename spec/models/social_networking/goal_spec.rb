@@ -50,7 +50,7 @@ module SocialNetworking
     end
 
     it "should return an incomplete goal" do
-      Goal.create(
+      incomplete_goal = Goal.create(
         participant_id: participant.id,
         description: "return fixture incompletes plus one.",
         due_on: DateTime.now - 1.hour,
@@ -58,11 +58,11 @@ module SocialNetworking
         completed_at: nil
       )
 
-      expect(Goal.did_not_complete.count).to eq(5)
+      expect(Goal.did_not_complete).to include(incomplete_goal)
     end
 
     it "should return no incomplete goals" do
-      Goal.create(
+      incomplete_goal = Goal.create(
         participant_id: participant.id,
         description: "return only fixture incomplete goals.",
         due_on: DateTime.now - 2,
@@ -70,7 +70,7 @@ module SocialNetworking
         completed_at: nil
       )
 
-      expect(Goal.did_not_complete.count).to eq(4)
+      expect(Goal.did_not_complete).to_not include(incomplete_goal)
     end
   end
 end
