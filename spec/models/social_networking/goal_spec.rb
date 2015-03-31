@@ -48,5 +48,18 @@ module SocialNetworking
 
       expect(Goal.for_week.count).to eq(count + 1)
     end
+
+    context "with goal sample data" do
+      fixtures(:all)
+
+      it "should return an incomplete goal" do
+        expect(Goal.did_not_complete.count).to eq(1)
+      end
+
+      it "should return no incomplete goals" do
+        Goal.find_by(description: "p1 omega").delete
+        expect(Goal.did_not_complete.count).to eq(0)
+      end
+    end
   end
 end

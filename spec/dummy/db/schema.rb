@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150318133353) do
+ActiveRecord::Schema.define(version: 20150327185919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 20150318133353) do
     t.datetime "updated_at"
   end
 
+  add_index "social_networking_comments", ["item_id", "item_type"], name: "index_social_networking_comments_on_item_id_and_item_type", using: :btree
+
   create_table "social_networking_goals", force: :cascade do |t|
     t.string   "description",    null: false
     t.integer  "participant_id", null: false
@@ -62,6 +64,7 @@ ActiveRecord::Schema.define(version: 20150318133353) do
     t.datetime "updated_at"
   end
 
+  add_index "social_networking_likes", ["item_id", "item_type"], name: "index_social_networking_likes_on_item_id_and_item_type", using: :btree
   add_index "social_networking_likes", ["participant_id", "item_id", "item_type"], name: "one_like_per_item", unique: true, using: :btree
 
   create_table "social_networking_nudges", force: :cascade do |t|
@@ -71,12 +74,19 @@ ActiveRecord::Schema.define(version: 20150318133353) do
     t.datetime "updated_at"
   end
 
+  add_index "social_networking_nudges", ["created_at"], name: "index_social_networking_nudges_on_created_at", using: :btree
+  add_index "social_networking_nudges", ["initiator_id"], name: "index_social_networking_nudges_on_initiator_id", using: :btree
+  add_index "social_networking_nudges", ["recipient_id"], name: "index_social_networking_nudges_on_recipient_id", using: :btree
+
   create_table "social_networking_on_the_mind_statements", force: :cascade do |t|
     t.text     "description",    null: false
     t.integer  "participant_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "social_networking_on_the_mind_statements", ["created_at"], name: "on_the_mind_created_at", using: :btree
+  add_index "social_networking_on_the_mind_statements", ["participant_id"], name: "on_the_mind_participant", using: :btree
 
   create_table "social_networking_profile_answers", force: :cascade do |t|
     t.integer  "social_networking_profile_question_id", null: false
@@ -114,6 +124,7 @@ ActiveRecord::Schema.define(version: 20150318133353) do
     t.integer  "participant_id"
   end
 
+  add_index "social_networking_shared_items", ["created_at"], name: "index_social_networking_shared_items_on_created_at", using: :btree
   add_index "social_networking_shared_items", ["participant_id"], name: "index_social_networking_shared_items_on_participant_id", using: :btree
 
   add_foreign_key "social_networking_comments", "participants", name: "fk_comments_participants"

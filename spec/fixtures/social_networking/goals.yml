@@ -24,6 +24,20 @@ participant1_goal_delta:
   deleted_at: <%= DateTime.now %>
   due_on: <%= Date.today %>
 
+participant1_goal_omega:
+  participant: participant1
+  description: p1 omega
+  deleted_at: <%= nil %>
+  completed_at: <%= nil %>
+  due_on: <%= Date.yesterday %>
+
+participant1_goal_zeta:
+  participant: participant1
+  description: p1 zeta
+  deleted_at: <%= nil %>
+  completed_at: <%= nil %>
+  due_on: <%= Date.today - 2.days %>
+
 participant1_goal_epsilon:
   participant: participant1
   description: p1 epsilon

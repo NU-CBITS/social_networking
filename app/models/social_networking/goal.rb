@@ -14,9 +14,11 @@ module SocialNetworking
     validate :not_due_in_the_past, on: :create
     validate :due_before_membership_ends, on: :create
 
+    # Within the last day, used for shared item generation
     scope :did_not_complete, (lambda do
       where(deleted_at: nil, completed_at: nil)
-      .where(arel_table[:due_on].lt(Date.today))
+      .where(arel_table[:due_on].lt(DateTime.now))
+      .where(arel_table[:due_on].gteq(DateTime.now - 1))
     end)
 
     def to_serialized
