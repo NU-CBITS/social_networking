@@ -49,30 +49,17 @@ module SocialNetworking
       expect(Goal.for_week.count).to eq(count + 1)
     end
 
-    it "should return an incomplete goal" do
-      incomplete_goal = Goal.create(
-        participant_id: participant.id,
-        description: "return fixture incompletes plus one.",
-        due_on: DateTime.now - 7.hour,
-        deleted_at: nil,
-        completed_at: nil
-      )
+    context "with goal sample data" do
+      fixtures(:all)
 
-      expect(Goal.did_not_complete
-               .exists?(id: incomplete_goal.id)).to eq(true)
-    end
+      it "should return an incomplete goal" do
+        expect(Goal.did_not_complete.count).to eq(1)
+      end
 
-    it "should return no incomplete goals" do
-      incomplete_goal = Goal.create(
-        participant_id: participant.id,
-        description: "return only fixture incomplete goals.",
-        due_on: DateTime.now - 2,
-        deleted_at: nil,
-        completed_at: nil
-      )
-
-      expect(Goal.did_not_complete
-               .exists?(id: incomplete_goal.id)).to eq(false)
+      it "should return no incomplete goals" do
+        Goal.find_by(description: "p1 omega").delete
+        expect(Goal.did_not_complete.count).to eq(0)
+      end
     end
   end
 end

@@ -22,7 +22,7 @@ module SocialNetworking
           it "returns accurate summaries" do
             participant = participants(:participant1)
             goal = SocialNetworking::Goal.first
-            expect(data.count).to eq 10
+            expect(data.count).to eq 12
             expect(data).to include(
               participant_id: participant.study_id,
               created_at: goal.created_at.iso8601,
