@@ -52,21 +52,25 @@ module SocialNetworking
     it "should return an incomplete goal" do
       Goal.create(
         participant_id: participant.id,
-        description: "return incomplete goals.",
-        created_at: Date.today - 1.day
+        description: "HHHHHRRRRRRMMMMMMPPPPPHHHHH.",
+        due_on: DateTime.now - 1.hour,
+        deleted_at: nil,
+        completed_at: nil
       )
 
-      expect(Goal.for_week.count).to eq(11)
+      expect(Goal.did_not_complete.count).to eq(5)
     end
 
     it "should return no incomplete goals" do
       Goal.create(
         participant_id: participant.id,
         description: "return no incomplete goals.",
-        created_at: Date.today - 2.day
+        due_on: DateTime.now - 2,
+        deleted_at: nil,
+        completed_at: nil
       )
 
-      expect(Goal.did_not_complete.count).to eq(0)
+      expect(Goal.did_not_complete.count).to eq(4)
     end
   end
 end
