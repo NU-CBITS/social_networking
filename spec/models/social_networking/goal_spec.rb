@@ -53,7 +53,7 @@ module SocialNetworking
       incomplete_goal = Goal.create(
         participant_id: participant.id,
         description: "return fixture incompletes plus one.",
-        due_on: DateTime.now - 1.hour,
+        due_on: DateTime.now - 7.hour,
         deleted_at: nil,
         completed_at: nil
       )
