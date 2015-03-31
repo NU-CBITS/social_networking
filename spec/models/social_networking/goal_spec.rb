@@ -58,7 +58,8 @@ module SocialNetworking
         completed_at: nil
       )
 
-      expect(Goal.did_not_complete).to include(incomplete_goal)
+      expect(Goal.did_not_complete
+               .exists?(id: incomplete_goal.id)).to eq(true)
     end
 
     it "should return no incomplete goals" do
@@ -70,7 +71,8 @@ module SocialNetworking
         completed_at: nil
       )
 
-      expect(Goal.did_not_complete).to_not include(incomplete_goal)
+      expect(Goal.did_not_complete
+               .exists?(id: incomplete_goal.id)).to eq(false)
     end
   end
 end
