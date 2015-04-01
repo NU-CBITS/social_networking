@@ -53,7 +53,7 @@ module SocialNetworking
       fixtures(:all)
 
       it "should return an incomplete goal" do
-        expect(Goal.did_not_complete.count).to be > 1
+        expect(Goal.did_not_complete.count).to be > 0
       end
 
       it "should return no incomplete goals" do
