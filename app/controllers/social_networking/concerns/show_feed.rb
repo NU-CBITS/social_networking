@@ -42,10 +42,17 @@ module SocialNetworking
       def member_profiles
         return if @participant.active_group.nil?
         group_participants =
-          @participant.active_group.active_participants
+          @participant
+          .active_group
+          .active_participants
+
+        live_participants = group_participants.to_a.delete_if do |participant|
+          participant.active_group.nil? ||
+          participant.active_group.id != @participant.active_group.id
+        end
 
         Serializers::ProfileSerializer.from_collection(
-          Profile.where(participant_id: group_participants.pluck(:id)))
+          Profile.where(participant_id: live_participants.map(&:id)))
       end
     end
   end
