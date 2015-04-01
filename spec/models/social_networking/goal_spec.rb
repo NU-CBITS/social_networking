@@ -53,12 +53,12 @@ module SocialNetworking
       fixtures(:all)
 
       it "should return an incomplete goal" do
-        expect(Goal.did_not_complete.count).to eq(1)
+        expect(Goal.did_not_complete.count).to be > 1
       end
 
       it "should return no incomplete goals" do
-        Goal.find_by(description: "p1 omega").delete
-        expect(Goal.did_not_complete.count).to eq(0)
+        expect { Goal.find_by(description: "p1 omega").delete }
+          .to change { Goal.did_not_complete.count }.by(-1)
       end
     end
   end
