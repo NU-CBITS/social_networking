@@ -1,3 +1,18 @@
+## 0.3.3 - 2015-04-01
+ * Merge pull request #29 from cbitstech/ems-91283378-update-goals-spec
+ * Merge pull request #28 from cbitstech/ems-91283446-hide-terminated-profiles
+ * Fixed logic problem with goal spec update.
+ * Refactor goals spec.
+ * Remove terminated profiles from social dash.
+ * Merge pull request #27 from cbitstech/ems-91283378-limit-goal-shared-item-notifications
+ * Final update to goal spec.
+ * Change time in spec for Travis testing.
+ * Further update specs.
+ * Fix spec issue.
+ * Update spec descriptions.
+ * Update spec for goal incomplete scope.
+ * Update scope for incomplete goals.
+
 ## 0.3.2 - 2015-03-30
  * Merge pull request #26 from cbitstech/ems-feed-optimization
  * Update feed paging logic.
