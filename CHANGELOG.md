@@ -1,3 +1,9 @@
+## 0.3.4 - 2015-05-01
+ * Merge pull request #31 from cbitstech/ecf_cleanup
+ * Merge pull request #30 from cbitstech/ecf_90707872_sn_reports
+ * update to Ruby 2.2.2, bump spec coverage minimum
+ * enforce iso8601 for Like report timestamp
+
 ## 0.3.3 - 2015-04-01
  * Merge pull request #29 from cbitstech/ems-91283378-update-goals-spec
  * Merge pull request #28 from cbitstech/ems-91283446-hide-terminated-profiles
