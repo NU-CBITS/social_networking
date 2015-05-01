@@ -6,7 +6,7 @@ require "capybara/rspec"
 require "capybara/poltergeist"
 
 require "simplecov"
-SimpleCov.minimum_coverage 83
+SimpleCov.minimum_coverage 84
 SimpleCov.start "rails"
 
 Capybara.javascript_driver = :poltergeist

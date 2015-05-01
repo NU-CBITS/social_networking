@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-- 2.2.0
+- 2.2.2
 before_script:
 - bundle exec rake app:db:create app:db:migrate
 notifications:
