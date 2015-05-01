@@ -13,6 +13,7 @@ module SocialNetworking
         context "when no likes performed" do
           it "returns an empty array" do
             SocialNetworking::Like.destroy_all
+
             expect(data).to be_empty
           end
         end
@@ -20,13 +21,16 @@ module SocialNetworking
         context "when likes performed" do
           it "returns accurate summaries" do
             participant = participants(:participant1)
-            like = SocialNetworking::Like.first
+            like = SocialNetworking::Like
+                   .find_by_participant_id(participant.id)
             item = (like.item.try(:item) || like.item)
-            expect(data.count).to eq 1
+
+            expect(data.count).to eq SocialNetworking::Like.count
             expect(data).to include(
               participant_id: participant.study_id,
               occurred_at: like.created_at.iso8601,
               item_type: item.class.to_s,
+              item_participant_id: item.participant.study_id,
               item_content: like.item_description
             )
           end
