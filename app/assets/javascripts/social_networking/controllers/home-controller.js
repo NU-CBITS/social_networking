@@ -114,6 +114,11 @@
         }
         self.cancelOnYourMindEntryMode();
         self._$location.url("/");
+        if (Notice) {
+          Notice.actionNotice("SocialNetworking::Comment",
+            "Comment on some shared content.",
+            comment.participantId)
+        }
       })
       .catch(function(message) {
         self.error = message.error;

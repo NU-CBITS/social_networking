@@ -15,11 +15,6 @@
         itemType: attributes.itemType,
         itemId: attributes.itemId
       });
-      if(Notice) {
-        Notice.actionNotice("SocialNetworking::Comment",
-                            "Comment on some shared content.",
-                            comment.participantId);
-      }
       return comment.$save();
     };
 
