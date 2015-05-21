@@ -43,6 +43,11 @@
         .catch(function(goal) {
           currentGoal.isCompleted = goal.isCompleted;
         });
+      if(Notice) {
+        Notice.actionNotice("SocialNetworking::Goal",
+                            "Complete a goal.",
+                            currentGoal.participantId);
+      }
     }
   };
 
@@ -67,6 +72,11 @@
           self.resetForm();
           self.participantGoals.push(goal);
           self.resetTabs();
+          if(Notice) {
+            Notice.actionNotice("SocialNetworking::Goal",
+                                "Create a goal.",
+                                goal.participantId);
+          }
         })
         .catch(function(message) {
           self.error = message.error;

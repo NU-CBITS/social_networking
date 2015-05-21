@@ -114,6 +114,11 @@
         }
         self.cancelOnYourMindEntryMode();
         self._$location.url("/");
+        if (Notice) {
+          Notice.actionNotice("SocialNetworking::Comment",
+            "Comment on some shared content.",
+            comment.participantId)
+        }
       })
       .catch(function(message) {
         self.error = message.error;
@@ -160,6 +165,11 @@
     this._likeResource.create({ itemType: item.className, itemId: item.id })
       .then(function(like) {
         item.likes.push(like);
+        if(Notice) {
+          Notice.actionNotice("SocialNetworking::Like",
+                              "Like a person's shared content.",
+                              item.participantId);
+        }
       })
       .catch(function(message) {
         self.error = message.error;
@@ -212,6 +222,14 @@
     for (var i = 0; i < this._memberProfiles.length; i += 1) {
       if (item && (this._memberProfiles[i].participantId === item.participantId)) {
         return this._memberProfiles[i].iconSrc;
+      }
+    }
+  };
+
+  HomeCtrl.prototype.profileDisplayNameFor = function(item) {
+    for (var i = 0; i < this._memberProfiles.length; i += 1) {
+      if (item && (this._memberProfiles[i].participantId === item.participantId)) {
+        return this._memberProfiles[i].username;
       }
     }
   };
