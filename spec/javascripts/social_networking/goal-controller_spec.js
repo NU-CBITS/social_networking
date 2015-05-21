@@ -32,7 +32,8 @@ describe('GoalCtrl', function() {
       goalTool: goalTool,
       currentGoals: [],
       participantStudyEndDate: '2014-01-01',
-      noticesEnabled: false
+      noticesEnabled: false,
+      noticeUtility: Notice
     });
   }));
 

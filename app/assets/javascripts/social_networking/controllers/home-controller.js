@@ -4,7 +4,8 @@
   // Provides access to the feed and its items.
   function HomeCtrl(OnYourMindResource, CommentResource, LikeResource,
                     homeTool, currentParticipantId, actionItems, feedItems,
-                    memberProfiles, $filter, $http, $location, $scope, noticesEnabled) {
+                    memberProfiles, $filter, $http, $location, $scope,
+                    noticesEnabled, noticeUtility) {
     this.actionItems = actionItems;
     this.feedItems = feedItems;
     this.page = 0;
@@ -20,6 +21,7 @@
     this._sharedResource = $http;
     this._$location = $location;
     this.noticesEnabled = noticesEnabled;
+    this.noticeUtility = noticeUtility;
 
     this._findFeedItem = function(filter) {
       return $filter('filter')(this.feedItems, filter)[0];
@@ -115,8 +117,8 @@
         }
         self.cancelOnYourMindEntryMode();
         self._$location.url("/");
-        if (self.noticesEnabled && Notice) {
-          Notice.actionNotice("SocialNetworking::Comment",
+        if (self.noticesEnabled && self.noticeUtility) {
+          self.noticeUtility.actionNotice("SocialNetworking::Comment",
             "Comment on some shared content.",
             comment.participantId);
         }
@@ -166,8 +168,8 @@
     this._likeResource.create({ itemType: item.className, itemId: item.id })
       .then(function(like) {
         item.likes.push(like);
-        if(self.noticesEnabled && Notice) {
-          Notice.actionNotice("SocialNetworking::Like",
+        if(self.noticesEnabled && self.noticeUtility) {
+          self.noticeUtility.actionNotice("SocialNetworking::Like",
                               "Like a person's shared content.",
                               item.participantId);
         }
@@ -249,5 +251,5 @@
     .controller('HomeCtrl', ['OnYourMindResource', 'CommentResource',
         'LikeResource', 'homeTool', 'participantId', 'actionItems',
         'feedItems', 'memberProfiles', '$filter', '$http', '$location',
-        '$scope', 'noticesEnabled', HomeCtrl]);
+        '$scope', 'noticesEnabled', 'noticeUtility', HomeCtrl]);
 })();
