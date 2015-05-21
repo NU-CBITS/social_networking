@@ -52,7 +52,7 @@ Run the specs
 
 ## Run JavaScript specs
 
-    rake js_spec
+    RAILS_ENV=test rake js_spec
 
 ## Run Ruby linter
 
