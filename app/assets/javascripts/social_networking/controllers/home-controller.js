@@ -118,7 +118,7 @@
         if (self.noticesEnabled && Notice) {
           Notice.actionNotice("SocialNetworking::Comment",
             "Comment on some shared content.",
-            comment.participantId)
+            comment.participantId);
         }
       })
       .catch(function(message) {

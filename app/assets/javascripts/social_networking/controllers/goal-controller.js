@@ -44,7 +44,7 @@
         .catch(function(goal) {
           currentGoal.isCompleted = goal.isCompleted;
         });
-      if(self.noticesEnabled && Notice) {
+      if(this.noticesEnabled && Notice) {
         Notice.actionNotice("SocialNetworking::Goal",
                             "Complete a goal.",
                             currentGoal.participantId);

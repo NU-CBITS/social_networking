@@ -1,15 +1,16 @@
 var Notice = (function() {
+  "use strict";
   var toastTimeout = 7000;
 
-  this.actionNotice = function(actionType, description, participantId) {
+  var actionNotice = function(actionType, description, participantId) {
     behaviorPostNotice(actionType, description, participantId);
     setTimeout(
       function () {
         incentivePostNotice(actionType, description, participantId);
       }, 3000);
-  }
+  };
 
-  this.incentivePostNotice = function(actionType, description, participantId) {
+  var incentivePostNotice = function(actionType, description, participantId) {
     $.ajax({
       type: "POST",
       url: "/participant_incentives/complete",
@@ -19,13 +20,13 @@ var Notice = (function() {
       },
       success: function (data, status) {
         if ('success' === status) {
-          incentive_real_time_toast(description);
+          incentivRealTimeToast(description);
         }
       }
     });
-  }
+  };
 
-  this.behaviorPostNotice = function(actionType, description, participantId) {
+  var behaviorPostNotice = function(actionType, description, participantId) {
     $.ajax({
       type: "POST",
       url: "/participant_behaviors/complete",
@@ -35,14 +36,14 @@ var Notice = (function() {
       },
       success: function (data, status) {
         if ('success' === status) {
-          behavior_real_time_toast(description);
+          behaviorRealTimeToast(description);
         }
       }
     });
-  }
+  };
 
-  this.incentiveToastView = function(incentiveId, description) {
-    real_time_toast("incentive", description);
+  var incentiveToastView = function(incentiveId, description) {
+    realTimeToast("incentive", description);
     setTimeout(
       function () {
         $.ajax({
@@ -50,10 +51,10 @@ var Notice = (function() {
           url: "/participant_incentives/" + incentiveId + "/complete"
         });
       }, toastTimeout);
-  }
+  };
 
-  this.behaviorToastView = function(behaviorId, description) {
-    real_time_toast("behavior", description);
+  var behaviorToastView = function(behaviorId, description) {
+    realTimeToast("behavior", description);
     setTimeout(
       function () {
         $.ajax({
@@ -61,25 +62,25 @@ var Notice = (function() {
           url: "/participant_behaviors/" + behaviorId + "/complete"
         });
       }, toastTimeout);
-  }
+  };
 
-  this.incentive_real_time_toast = function(description) {
-    real_time_toast('incentive', description);
-  }
+  var incentivRealTimeToast = function(description) {
+    realTimeToast('incentive', description);
+  };
 
-  this.behavior_real_time_toast = function(description) {
-    real_time_toast('behavior', description);
-  }
+  var behaviorRealTimeToast = function(description) {
+    realTimeToast('behavior', description);
+  };
 
-  this.real_time_toast = function(type, description) {
+  var realTimeToast = function(type, description) {
     $.toaster(
       {
         title: 'Congratulations',
         priority: 'success',
         message: 'you completed the ' + type + ': ' + description,
         settings: {timeout: toastTimeout}
-      })
-  }
+      });
+  };
 
   return this;
 }());
