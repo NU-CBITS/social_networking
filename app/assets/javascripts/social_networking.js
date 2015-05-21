@@ -6,4 +6,5 @@
 //= require bootstrap/tooltip
 //= require bootstrap/popover
 //= require bootstrap/modal
+//= require jquery.toaster
 //= require_tree .

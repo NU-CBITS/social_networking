@@ -4,7 +4,7 @@
   // Provides access to the feed and its items.
   function HomeCtrl(OnYourMindResource, CommentResource, LikeResource,
                     homeTool, currentParticipantId, actionItems, feedItems,
-                    memberProfiles, $filter, $http, $location, $scope) {
+                    memberProfiles, $filter, $http, $location, $scope, noticesEnabled) {
     this.actionItems = actionItems;
     this.feedItems = feedItems;
     this.page = 0;
@@ -19,6 +19,7 @@
     this._likeResource = LikeResource;
     this._sharedResource = $http;
     this._$location = $location;
+    this.noticesEnabled = noticesEnabled;
 
     this._findFeedItem = function(filter) {
       return $filter('filter')(this.feedItems, filter)[0];
@@ -114,7 +115,7 @@
         }
         self.cancelOnYourMindEntryMode();
         self._$location.url("/");
-        if (Notice) {
+        if (self.noticesEnabled && Notice) {
           Notice.actionNotice("SocialNetworking::Comment",
             "Comment on some shared content.",
             comment.participantId)
@@ -165,7 +166,7 @@
     this._likeResource.create({ itemType: item.className, itemId: item.id })
       .then(function(like) {
         item.likes.push(like);
-        if(Notice) {
+        if(self.noticesEnabled && Notice) {
           Notice.actionNotice("SocialNetworking::Like",
                               "Like a person's shared content.",
                               item.participantId);
@@ -248,5 +249,5 @@
     .controller('HomeCtrl', ['OnYourMindResource', 'CommentResource',
         'LikeResource', 'homeTool', 'participantId', 'actionItems',
         'feedItems', 'memberProfiles', '$filter', '$http', '$location',
-        '$scope', HomeCtrl]);
+        '$scope', 'noticesEnabled', HomeCtrl]);
 })();

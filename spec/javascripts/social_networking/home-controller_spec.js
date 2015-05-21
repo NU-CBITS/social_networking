@@ -57,7 +57,8 @@ describe('HomeCtrl', function() {
       $filter: $filter,
       $http: sharedResource,
       $location: {},
-      $scope: scope
+      $scope: scope,
+      noticesEnabled: false
     });
   }));
 
