@@ -1,3 +1,15 @@
+## 0.4.0 - 2015-05-22
+ * Merge pull request #33 from cbitstech/ems-95080280
+ * Add use strict into function container.
+ * Add specs for notice Ajax calls.
+ * Fixed scoping issue with exposure of Notice functions.
+ * Inject notice utility into angular controllers.
+ * Fix various js test issues an lint issues.
+ * Add js dependencies, update controller sigs.
+ * fix instruction for running JS specs
+ * Move comment notice logic into home controller.
+ * Migrate changes for notice creation.
+
 ## 0.3.4 - 2015-05-01
  * Merge pull request #31 from cbitstech/ecf_cleanup
  * Merge pull request #30 from cbitstech/ecf_90707872_sn_reports
