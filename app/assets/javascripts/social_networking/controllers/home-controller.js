@@ -4,7 +4,8 @@
   // Provides access to the feed and its items.
   function HomeCtrl(OnYourMindResource, CommentResource, LikeResource,
                     homeTool, currentParticipantId, actionItems, feedItems,
-                    memberProfiles, $filter, $http, $location, $scope) {
+                    memberProfiles, $filter, $http, $location, $scope,
+                    noticesEnabled, noticeUtility) {
     this.actionItems = actionItems;
     this.feedItems = feedItems;
     this.page = 0;
@@ -19,6 +20,8 @@
     this._likeResource = LikeResource;
     this._sharedResource = $http;
     this._$location = $location;
+    this.noticesEnabled = noticesEnabled;
+    this.noticeUtility = noticeUtility;
 
     this._findFeedItem = function(filter) {
       return $filter('filter')(this.feedItems, filter)[0];
@@ -114,6 +117,11 @@
         }
         self.cancelOnYourMindEntryMode();
         self._$location.url("/");
+        if (self.noticesEnabled && self.noticeUtility) {
+          self.noticeUtility.actionNotice("SocialNetworking::Comment",
+            "Comment on some shared content.",
+            comment.participantId);
+        }
       })
       .catch(function(message) {
         self.error = message.error;
@@ -160,6 +168,11 @@
     this._likeResource.create({ itemType: item.className, itemId: item.id })
       .then(function(like) {
         item.likes.push(like);
+        if(self.noticesEnabled && self.noticeUtility) {
+          self.noticeUtility.actionNotice("SocialNetworking::Like",
+                              "Like a person's shared content.",
+                              item.participantId);
+        }
       })
       .catch(function(message) {
         self.error = message.error;
@@ -216,6 +229,14 @@
     }
   };
 
+  HomeCtrl.prototype.profileDisplayNameFor = function(item) {
+    for (var i = 0; i < this._memberProfiles.length; i += 1) {
+      if (item && (this._memberProfiles[i].participantId === item.participantId)) {
+        return this._memberProfiles[i].username;
+      }
+    }
+  };
+
   HomeCtrl.prototype.taskVisited = function(item) {
       $.ajax({
           async: false,
@@ -230,5 +251,5 @@
     .controller('HomeCtrl', ['OnYourMindResource', 'CommentResource',
         'LikeResource', 'homeTool', 'participantId', 'actionItems',
         'feedItems', 'memberProfiles', '$filter', '$http', '$location',
-        '$scope', HomeCtrl]);
+        '$scope', 'noticesEnabled', 'noticeUtility', HomeCtrl]);
 })();

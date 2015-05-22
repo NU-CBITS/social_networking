@@ -23,5 +23,7 @@ module SocialNetworking
       ENV["MOODCONNECT_TWILIO_AUTH_TOKEN"]
     config.twilio_account_telephone_number =
       ENV["MOODCONNECT_TWILIO_PHONE_NUMBER"]
+
+    config.enable_notices = false
   end
 end

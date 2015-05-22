@@ -15,7 +15,6 @@
         itemType: attributes.itemType,
         itemId: attributes.itemId
       });
-
       return comment.$save();
     };
 

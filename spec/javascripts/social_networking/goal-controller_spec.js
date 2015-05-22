@@ -31,7 +31,9 @@ describe('GoalCtrl', function() {
       Goals: goalService,
       goalTool: goalTool,
       currentGoals: [],
-      participantStudyEndDate: '2014-01-01'
+      participantStudyEndDate: '2014-01-01',
+      noticesEnabled: false,
+      noticeUtility: Notice
     });
   }));
 

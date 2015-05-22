@@ -2,12 +2,15 @@
   "use strict";
 
   // Provides management of goals.
-  function GoalCtrl(GoalService, goalTool, currentGoals, studyEndDate) {
+  function GoalCtrl(GoalService, goalTool, currentGoals,
+                    studyEndDate, noticesEnabled, noticeUtility) {
     this._goals = GoalService;
     this._goalTool = goalTool;
     this.goalModel = this._goalTool.getModel();
     this.participantGoals = currentGoals;
     this.studyEndDate = studyEndDate;
+    this.noticesEnabled = noticesEnabled;
+    this.noticeUtility = noticeUtility;
 
     this.resetForm();
     this.resetTabs();
@@ -43,6 +46,11 @@
         .catch(function(goal) {
           currentGoal.isCompleted = goal.isCompleted;
         });
+      if(this.noticesEnabled && this.noticeUtility) {
+        this.noticeUtility.actionNotice("SocialNetworking::Goal",
+                            "Complete a goal.",
+                            currentGoal.participantId);
+      }
     }
   };
 
@@ -67,6 +75,11 @@
           self.resetForm();
           self.participantGoals.push(goal);
           self.resetTabs();
+          if(self.noticesEnabled && self.noticeUtility) {
+            self.noticeUtility.actionNotice("SocialNetworking::Goal",
+                                "Create a goal.",
+                                goal.participantId);
+          }
         })
         .catch(function(message) {
           self.error = message.error;
@@ -135,5 +148,6 @@
   // Create a module and register the controller.
   angular.module('socialNetworking.controllers')
     .controller('GoalCtrl', ['Goals', 'goalTool', 'currentGoals',
-                'participantStudyEndDate', GoalCtrl]);
+                'participantStudyEndDate', 'noticesEnabled',
+                'noticeUtility', GoalCtrl]);
 })();

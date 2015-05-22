@@ -107,4 +107,6 @@
 <script>
   angular.module('socialNetworking.values').value('participantStudyEndDate', '<%= current_participant.active_membership_end_date %>');
   angular.module('socialNetworking.values').value('currentGoals', <%= goals.to_json.html_safe %>);
+  angular.module('socialNetworking.values').value('noticesEnabled', <%= Rails.configuration.enable_notices %>);
+  angular.module('socialNetworking.values').value('noticeUtility', Notice);
 </script>

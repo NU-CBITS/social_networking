@@ -177,7 +177,9 @@
           .value('ProfileQuestions', <%= @profile_questions.to_json.html_safe %>)
           .value('actionItems', [])
           .value('memberProfiles', <%= @member_profiles.to_json.html_safe %>)
-          .value('feedItems', <%= @feed_items.to_json.html_safe %>);
+          .value('feedItems', <%= @feed_items.to_json.html_safe %>)
+          .value('noticesEnabled', <%= Rails.configuration.enable_notices %>)
+          .value('noticeUtility', Notice);
 
   function onReady() {
       if (<%= @profile.participant_id == current_participant.id %> && <%= @profile.icon_name.nil? %>) {
