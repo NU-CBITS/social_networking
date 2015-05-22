@@ -1,6 +1,6 @@
-"use strict";
-
 (function() {
+  "use strict";
+  
   function Notice() {
     var toastTimeout = 7000;
 
