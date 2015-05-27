@@ -51,6 +51,10 @@ module SocialNetworking
     end
     # rubocop:enable Style/PredicateName
 
+    def action
+      is_completed.present? ? "Completed" : "Did Not Complete"
+    end
+
     private
 
     def not_due_in_the_past
