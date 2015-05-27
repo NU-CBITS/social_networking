@@ -1,3 +1,7 @@
+## 0.4.1 - 2015-05-27
+ * Merge pull request #34 from cbitstech/ems_92231126_goal_text
+ * Change goal status text.
+
 ## 0.4.0 - 2015-05-22
  * Merge pull request #33 from cbitstech/ems-95080280
  * Add use strict into function container.
