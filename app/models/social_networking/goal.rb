@@ -52,7 +52,13 @@ module SocialNetworking
     # rubocop:enable Style/PredicateName
 
     def action
-      is_completed.present? ? "Completed" : "Did Not Complete"
+      if is_completed
+        "Completed"
+      elsif due_on < DateTime.now
+        "Did Not Complete"
+      else
+        "Created"
+      end
     end
 
     private
