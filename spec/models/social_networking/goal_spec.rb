@@ -61,5 +61,33 @@ module SocialNetworking
           .to change { Goal.did_not_complete.count }.by(-1)
       end
     end
+
+    context ".action" do
+      def goal(attributes = {})
+        Goal.create({
+          participant: participant,
+          description: "DESCription",
+          due_on: Date.today
+        }.merge(attributes))
+      end
+
+      it "is 'Completed' if the goal was completed" do
+        expect(goal(
+          completed_at: Date.today.advance(days: -2)
+        ).action).to eq "Completed"
+      end
+
+      it "is 'Did Not Complete' if in the past and goal not completed" do
+        expect(goal(
+          due_on: Date.today.advance(days: -1)
+        ).action).to eq "Did Not Complete"
+      end
+
+      it "is 'Created' when due in the future and goal is not completed" do
+        expect(goal(
+          due_on: Date.today.advance(days: 1)
+        ).action).to eq "Created"
+      end
+    end
   end
 end
