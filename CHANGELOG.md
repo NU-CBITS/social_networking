@@ -1,3 +1,7 @@
+## 0.4.2 - 2015-06-01
+ * Merge pull request #35 from cbitstech/msw_92231126_goal_description
+ * Update Goal Action
+
 ## 0.4.1 - 2015-05-27
  * Merge pull request #34 from cbitstech/ems_92231126_goal_text
  * Change goal status text.
