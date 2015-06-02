@@ -38,7 +38,7 @@ module SocialNetworking
         feed_items =
           feed_items_page.sort_by { |item| item[:createdAtRaw] }.reverse!
         items_by_page =
-          feed_items[start_index..(start_index + SHARED_ITEM_PAGE_SIZE)]
+          feed_items[start_index..(start_index + SHARED_ITEM_PAGE_SIZE - 1)]
       end
 
       render json: { feedItems: items_by_page }
