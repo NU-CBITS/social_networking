@@ -83,6 +83,12 @@ module SocialNetworking
         ).action).to eq "Did Not Complete"
       end
 
+      it "is 'Created' if due on is nil" do
+        expect(goal(
+          due_on: nil
+        ).action).to eq "Created"
+      end
+
       it "is 'Created' when due in the future and goal is not completed" do
         expect(goal(
           due_on: Date.today.advance(days: 1)

@@ -54,7 +54,7 @@ module SocialNetworking
     def action
       if is_completed
         "Completed"
-      elsif due_on < DateTime.now
+      elsif due_on && due_on < DateTime.now
         "Did Not Complete"
       else
         "Created"
