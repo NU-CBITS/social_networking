@@ -1,3 +1,8 @@
+## 0.4.3 - 2015-06-03
+ * Fix off by one error in feed items returned.
+ * Merge pull request #36 from cbitstech/msw_95983632_goal_bug
+ * Fix Due On Nil Bug
+
 ## 0.4.2 - 2015-06-01
  * Merge pull request #35 from cbitstech/msw_92231126_goal_description
  * Update Goal Action
