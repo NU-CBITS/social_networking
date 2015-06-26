@@ -10,5 +10,8 @@ module SocialNetworking
                foreign_key: :social_networking_profile_question_id
 
     validates :profile, :profile_question, presence: true
+    validates :social_networking_profile_question_id, uniqueness: {
+      scope: :social_networking_profile_id, message: "has already been answered"
+    }
   end
 end
