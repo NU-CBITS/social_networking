@@ -1,3 +1,7 @@
+## 0.4.4 - 2015-06-26
+ * Merge pull request #37 from cbitstech/msw_96292678_unique_constraint_error
+ * Add Model Unique Constraint
+
 ## 0.4.3 - 2015-06-03
  * Fix off by one error in feed items returned.
  * Merge pull request #36 from cbitstech/msw_95983632_goal_bug
