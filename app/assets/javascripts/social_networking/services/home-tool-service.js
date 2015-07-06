@@ -20,8 +20,7 @@
     HomeTool.MODES = {
       PROFILES: 0,
       FEED: 1,
-      ON_YOUR_MIND_ENTRY: 2,
-      COMMENT_ON: 3
+      ON_YOUR_MIND_ENTRY: 2
     };
     HomeTool.prototype.MODES = HomeTool.MODES;
 
@@ -41,7 +40,6 @@
         itemType: item.className,
         itemId: item.id
       });
-      this.setMode(this.MODES.COMMENT_ON);
     };
 
     HomeTool.prototype.getOnYourMindStatementModel = function() {

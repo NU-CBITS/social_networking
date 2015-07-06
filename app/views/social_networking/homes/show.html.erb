@@ -43,8 +43,6 @@
     </div>
   </form>
 
-  <%= render "social_networking/shared/comment_form" %>
-
   <ul class="list-group"
       id="infinite-feed"
       infinite-scroll="home.getMore()"
@@ -102,6 +100,18 @@
       <p ng-show="!!item.showLikes">
         Liked by: <span ng-repeat="like in item.likes">{{ like.participantDisplayName }} </span>
       </p>
+
+      <form novalidate role="form" ng-show="home.isCommentingOn(item)">
+        <div class="form-group">
+          <label for="comment-text">What do you think?</label>
+          <input type="text" class="form-control" id="comment-text" ng-model="home.commentModel.text" ng-maxlength="255" required focus-on="new-comment">
+        </div>
+
+        <div class="form-group">
+          <button class="btn btn-primary" ng-click="home.saveComment()" ng-disabled="commentOnForm.$invalid">Save</button>
+          <button class="btn btn-default" ng-click="home.closeCommentForm()">Cancel</button>
+        </div>
+      </form>
     </li>
   </ul>
 

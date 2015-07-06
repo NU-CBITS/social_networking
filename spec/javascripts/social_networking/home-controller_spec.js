@@ -2,6 +2,7 @@ describe('HomeCtrl', function() {
   var controller,
       onYourMindResource,
       commentResource,
+      homeTool,
       likeResource,
       scope,
       q,
@@ -42,14 +43,15 @@ describe('HomeCtrl', function() {
     }
   });
 
-  beforeEach(inject(function($rootScope, $q, $controller, $filter, homeTool) {
+  beforeEach(inject(function($rootScope, $q, $controller, $filter, _homeTool_) {
+    homeTool = _homeTool_;
     scope = $rootScope;
     q = $q;
     controller = $controller('HomeCtrl', {
       OnYourMindResource: onYourMindResource,
       CommentResource: commentResource,
       LikeResource: likeResource,
-      homeTool: homeTool,
+      homeTool: _homeTool_,
       participantId: 123,
       actionItems: [],
       feedItems: [],
@@ -65,6 +67,83 @@ describe('HomeCtrl', function() {
 
   it('should initialize the mode', function() {
     expect(controller.inFeedBrowseMode()).toBeTruthy();
+  });
+
+  describe('Commenting', function() {
+    describe('#commentOn', function() {
+      beforeEach(function() {
+        spyOn(controller, 'setSelectedItem');
+        spyOn(homeTool, 'newCommentOn');
+      });
+
+      it('builds and sets the item', function() {
+        controller.commentOn();
+
+        expect(controller.setSelectedItem).toHaveBeenCalled();
+        expect(homeTool.newCommentOn).toHaveBeenCalled();
+      });
+    });
+
+    describe('#closeCommentForm', function() {
+      it('removes the selected item from being commented on', function() {
+        var item = {};
+        controller.setSelectedItem(item);
+
+        expect(controller.isCommentingOn(item)).toEqual(true);
+
+        controller.closeCommentForm();
+
+        expect(controller.isCommentingOn(item)).toEqual(false);
+      });
+    });
+
+    describe('#isCommentingOn', function() {
+      it('returns whether the selected item is currently selected for commenting', function() {
+        var item = {};
+
+        expect(controller.isCommentingOn(item)).toEqual(false);
+
+        controller.setSelectedItem(item);
+
+        expect(controller.isCommentingOn(item)).toEqual(true);
+      });
+    });
+
+    describe('#saveComment', function() {
+      beforeEach(function() {
+        spyOn(controller, 'closeCommentForm');
+      });
+
+      describe('when the input field is empty', function() {
+        beforeEach(function() {
+          spyOn(homeTool, 'getCommentModel').and.callFake(function() {
+            return { text: '' };
+          });
+        });
+
+        it('closes the commenting form', function() {
+          controller.saveComment();
+
+          expect(controller.closeCommentForm).toHaveBeenCalled();
+        });
+      });
+
+      describe('when the input field is populated', function() {
+        beforeEach(function() {
+          spyOn(homeTool, 'getCommentModel').and.callFake(function() {
+            return { text: 'Great thought!' };
+          });
+        });
+
+        it('closes the commenting form', function() {
+          controller.saveComment();
+          deferred.resolve({});
+          scope.$apply();
+
+          expect(controller.closeCommentForm).toHaveBeenCalled();
+        });
+      });
+    });
   });
 
   describe('#show', function() {
