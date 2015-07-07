@@ -31,6 +31,10 @@
     </li>
   </ul>
 
+  <div class="alert alert-info" role="alert" ng-if="home.actionItems.length === 0">
+    You are all caught up! Great work!
+  </div>
+
   <form novalidate role="form" name="onYourMindForm" class="row" ng-show="home.inOnYourMindEntryMode()">
     <div class="form-group col-lg-8 col-md-8">
       <label for="new-on-your-mind-description">What's on your mind?</label>
