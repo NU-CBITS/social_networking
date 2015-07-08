@@ -134,5 +134,14 @@ module SocialNetworking
         end
       end
     end
+
+    describe "private methods" do
+      describe ".message_body" do
+        it "sends the body text with the social networking profile url" do
+          expect(controller.send(:message_body))
+            .to match %r{/social_networking/profile_page}
+        end
+      end
+    end
   end
 end
