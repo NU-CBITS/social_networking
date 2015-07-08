@@ -21,20 +21,11 @@
       </div>
     </div>
   </div>
-
-  <ul class="list-group action-items" ng-if="home.inFeedBrowseMode()">
+  <ul class="list-group profile-icon-top" ng-show="home.inFeedBrowseMode()">
     <li class="list-group-item">
-      <button class="btn btn-link" ng-click="home.newOnYourMindStatement()">What's on your mind?</button>
-    </li>
-    <li class="list-group-item" ng-repeat="item in home.actionItems">
-      <a class="btn btn-link" data-no-turbolink="true" ng-click="home.taskVisited(item)" href="{{ item.link }}">{{ item.label }}</a>
+      <button class="btn-link faded" ng-click="home.newOnYourMindStatement()">What's on your mind?</button>
     </li>
   </ul>
-
-  <div class="alert alert-info" role="alert" ng-if="home.actionItems.length === 0">
-    You are all caught up! Great work!
-  </div>
-
   <form novalidate role="form" name="onYourMindForm" class="row" ng-show="home.inOnYourMindEntryMode()">
     <div class="form-group col-lg-8 col-md-8">
       <label for="new-on-your-mind-description">What's on your mind?</label>
@@ -46,6 +37,19 @@
       <button class="btn btn-default" ng-click="home.cancelOnYourMindEntryMode()">Cancel</button>
     </div>
   </form>
+
+  <div class="panel panel-default" ng-show="home.inFeedBrowseMode()">
+    <div class="panel-heading"><h3 class="panel-title">To Do</h3></div>
+    <ul class="list-group" ng-if="home.inFeedBrowseMode()">
+      <li class="list-group-item" ng-repeat="item in home.actionItems">
+        <a data-no-turbolink="true" ng-click="home.taskVisited(item)" href="{{ item.link }}">{{ item.label }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="alert alert-info" role="alert" ng-if="home.actionItems.length === 0">
+    You are all caught up! Great work!
+  </div>
 
   <ul class="list-group"
       id="infinite-feed"
