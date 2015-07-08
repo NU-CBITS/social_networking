@@ -106,33 +106,35 @@
     var self = this;
     var model = this._homeTool.getCommentModel();
 
-    this._commentResource.create(model)
-      .then(function(comment) {
-        var item = self._findFeedItem({
-          className: comment.itemType,
-          id: comment.itemId
+    if (model.text && model.text !== '') {
+      this._commentResource.create(model)
+        .then(function(comment) {
+          var item = self._findFeedItem({
+            className: comment.itemType,
+            id: comment.itemId
+          });
+          if (item !== void 0) {
+            item.comments.push(comment);
+          }
+          self.closeCommentForm();
+          if (self.noticesEnabled && self.noticeUtility) {
+            self.noticeUtility.actionNotice("SocialNetworking::Comment",
+              "Comment on some shared content.",
+              comment.participantId);
+          }
+        })
+        .catch(function(message) {
+          self.error = message.error;
         });
-        if (item !== void 0) {
-          item.comments.push(comment);
-        }
-        self.cancelOnYourMindEntryMode();
-        self._$location.url("/");
-        if (self.noticesEnabled && self.noticeUtility) {
-          self.noticeUtility.actionNotice("SocialNetworking::Comment",
-            "Comment on some shared content.",
-            comment.participantId);
-        }
-      })
-      .catch(function(message) {
-        self.error = message.error;
-      });
+    } else {
+      self.closeCommentForm();
+    }
   };
 
   // Prepare to comment on a feed item.
   HomeCtrl.prototype.commentOn = function(item) {
     this.setSelectedItem(item);
     this._homeTool.newCommentOn(item);
-    this._$location.url("/commentForm");
   };
 
   // A Participant may only like a feed item once.
@@ -195,9 +197,8 @@
            this._homeTool.MODES.ON_YOUR_MIND_ENTRY;
   };
 
-  // Is the tool in Comment On Mode?
-  HomeCtrl.prototype.inCommentOnMode = function() {
-    return this._homeTool.getMode() === this._homeTool.MODES.COMMENT_ON;
+  HomeCtrl.prototype.isCommentingOn = function(item) {
+    return this._homeTool.getSelectedItem(item) === item;
   };
 
   // Leave On Your Mind Entry Mode.
@@ -205,9 +206,8 @@
     this._homeTool.setMode(this._homeTool.MODES.FEED);
   };
 
-  // Leave Comment On Mode.
-  HomeCtrl.prototype.cancelCommentOnMode = function() {
-    this._$location.url("/");
+  HomeCtrl.prototype.closeCommentForm = function() {
+    this._homeTool.setSelectedItem({});
   };
 
   // Switch tool modes.
