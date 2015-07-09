@@ -80,9 +80,11 @@ participant with ID: " + recipient.id.to_s
     end
 
     def message_body
-      ["You've sparked some activity! Log in [#{home_url}] to see \
+      profile_url = social_networking_profile_url
+
+      ["You've sparked some activity! Log in [#{profile_url}] to see \
 who commented on your post.",
-       "Someone commented on your post! Log in [#{home_url}] to\
+       "Someone commented on your post! Log in [#{profile_url}] to\
  learn more."].sample
     end
   end
