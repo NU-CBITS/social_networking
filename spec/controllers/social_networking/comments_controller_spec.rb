@@ -6,7 +6,8 @@ module SocialNetworking
       double("participant",
              id: 987,
              contact_preference: "sms",
-             phone_number: "163009101110")
+             phone_number: "163009101110",
+             is_admin: false)
     end
     let(:participant_email) do
       double("participant",
@@ -23,6 +24,7 @@ module SocialNetworking
       double("comment",
              id: 8_675_309,
              participant_id: participant.id,
+             participant: participant,
              text: "I like cheeses",
              item_id: 5,
              item_type: "SocialNetworking::OnTheMindStatement")

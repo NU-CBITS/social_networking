@@ -40,7 +40,7 @@
     <div class="panel-heading"><h3 class="panel-title">To Do</h3></div>
     <ul class="list-group" ng-if="home.inFeedBrowseMode()">
       <li class="list-group-item" ng-repeat="item in home.actionItems">
-        <a data-no-turbolink="true" ng-click="home.taskVisited(item)" href="{{ item.link }}">{{ item.label }}</a>
+        <a href="" data-no-turbolink="true" ng-click="home.taskVisited(item)" href="{{ item.link }}">{{ item.label }}</a>
       </li>
     </ul>
   </div>
@@ -59,63 +59,89 @@
         class="list-group-item"
         id="{{ item.className }}-{{ item.id }}">
       <p>
-        <div class="feed-item-displayname" ng-if="!item.data.summary.length">
-          <img width="40px" ng-if="item.isAdmin" src="{{ home.profileIconSrcFor(item) }}">
-          <strong>{{ home.profileDisplayNameFor(item) }}</strong> {{ item.summary }}
+        <div class="media feed-item-displayname" ng-if="!item.data.summary.length">
+          <div ng-if="item.isAdmin" class="media-left">
+            <img class="feed-participant-icon" ng-src="{{ home.profileIconSrcFor(item) }}">
+            </div>
+          <div class="media-body">
+            <strong>{{ home.profileDisplayNameFor(item) }}</strong> {{ item.summary }}
+          </div>
         </div>
-        <div class="feed-item-displayname" ng-if="item.data.summary.length">
-        <img width="40px" ng-if="item.isAdmin" src="{{ home.profileIconSrcFor(item) }}">
-          <strong>{{ home.profileDisplayNameFor(item) }}</strong> {{ item.data.summary }}
+        <div class="media feed-item-displayname" ng-if="item.data.summary.length">
+          <div ng-if="item.isAdmin" class="media-left">
+            <img class="feed-participant-icon" ng-src="{{ home.profileIconSrcFor(item) }}">
+          </div>
+          <div class="media-body">
+            <strong>{{ home.profileDisplayNameFor(item) }}</strong> {{ item.data.summary }}
+          </div>
         </div>
-
       </p>
 
       <div class="actions">
-        <a ng-if="home.canAddLikeTo(item)" class="feed_action_btn like" title="like this item" ng-click="home.addLikeTo(item)">
+
+        <a href="" ng-if="home.canAddLikeTo(item)" class="like" title="like this item" ng-click="home.addLikeTo(item)">
           Like ({{!!item.likes.length ? item.likes.length : 0}})
         </a>
-        <a ng-if="!home.canAddLikeTo(item)&&!!item.likes.length" class="feed_action_btn likes"  title="show who likes this feed item" ng-click="item.showLikes = !item.showLikes">
+        <a href="" ng-if="!home.canAddLikeTo(item)&&!!item.likes.length" class="likes"  title="show who likes this feed item" ng-click="item.showLikes = !item.showLikes">
           Like ({{item.likes.length}})
         </a>
-        <span class="pipespace" ng-if="home.canAddLikeTo(item) || !!item.likes.length"> | </span>
-        <a class="feed_action_btn comments" title="view comments" ng-click="item.showComments = !item.showComments">
+        <span ng-if="home.canAddLikeTo(item) || !!item.likes.length">&nbsp;|&nbsp;</span>
+        <a href="" class="comments" title="view comments" ng-click="item.showComments = !item.showComments">
           Comment ({{ item.comments.length ? item.comments.length : 0}})
         </a>
-        <span class="pipespace" ng-if="home.hasSummary(item)"> | </span>
-        <a class="feed_action_btn" ng-if="home.hasSummary(item)" title="view details" ng-click="item.showSummary = !item.showSummary">
+        <span ng-if="home.hasSummary(item)">&nbsp;|&nbsp;</span>
+        <a href="" ng-if="home.hasSummary(item)" title="view details" ng-click="item.showSummary = !item.showSummary">
           <span ng-if="!item.showSummary">More</span>
           <span ng-if="!!item.showSummary">Less</span>
         </a>
-        <!--
-        <button class="btn btn-link" ng-if="home.canHide(item)" title="hide this feed item from others" ng-click="home.hideSharedItem(item)">
-          <i class="fa fa-remove fa-2x"></i>
-        </button>
-        -->
       </div>
-      <div class="post_extra_info">
-        <div ng-if="home.hasSummary(item)" ng-show="!!item.showSummary" ng-include src="item.templatePath + '/_summary.html'"></div>
 
-        <p ng-show="!!item.showLikes">
-          Liked by: <span ng-repeat="like in item.likes">{{ like.participantDisplayName }} </span>
-        </p>
+      <div class="media" ng-if="home.hasSummary(item)" ng-show="!!item.showSummary">
+        <div class="media-left"></div>
+        <div class="media-body" ng-include src="item.templatePath + '/_summary.html'">
+          
+        </div>
+      </div>
 
-        <p ng-show="!!item.showComments" class="comment text-muted" ng-repeat="comment in item.comments"><img width="40px;" ng-if="comment.isAdmin" ng-src="{{ home.profileIconSrcFor(comment) }}"> <strong>{{ home.profileDisplayNameFor(comment) }}</strong>: <span class="text-info">{{ comment.text }}</span></p>
+      <div class="media" ng-show="!!item.showLikes">
+        <div class="media-left"></div>
+        <div class="media-body">
+          <p>
+            Liked by: <span ng-repeat="like in item.likes">{{ like.participantDisplayName }} </span>
+          </p>
+        </div>
+      </div>
 
-        <a ng-show="!!item.showComments" class="feed_action_btn" ng-click="home.commentOn(item)">
+      <div class="media comment text-muted" ng-show="!!item.showComments" ng-repeat="comment in item.comments">
+        <div class="media-left">
+            <img class="media-object media-middle feed-participant-icon" ng-if="comment.isAdmin" ng-src="{{ home.profileIconSrcFor(comment) }}">
+        </div>
+        <div class="media-body">
+          <strong>{{ home.profileDisplayNameFor(comment) }}</strong>: <span>{{ comment.text }}</span>
+        </div>
+      </div>
+
+      <div class="media">
+        <a href="" ng-show="!!item.showComments" ng-click="home.commentOn(item)">
           Add Comment
         </a>
+      </div>
 
-      <form novalidate role="form" ng-show="home.isCommentingOn(item)">
-        <div class="form-group">
-          <label for="comment-text">What do you think?</label>
-          <input type="text" class="form-control" id="comment-text" ng-model="home.commentModel.text" ng-maxlength="255" required focus-on="new-comment">
-        </div>
+      <div class="media" ng-show="home.isCommentingOn(item)">
+        <div class="media-left"></div>
+        <div class="media-body">
+          <form novalidate role="form" >
+            <div class="form-group">
+              <label for="comment-text">What do you think?</label>
+              <input type="text" class="form-control" id="comment-text" ng-model="home.commentModel.text" ng-maxlength="255" required focus-on="new-comment">
+            </div>
 
-        <div class="form-group">
-          <button class="btn btn-primary" ng-click="home.saveComment()" ng-disabled="commentOnForm.$invalid">Save</button>
-          <button class="btn btn-default" ng-click="home.closeCommentForm()">Cancel</button>
+            <div class="form-group">
+              <button class="btn btn-primary" ng-click="home.saveComment()" ng-disabled="commentOnForm.$invalid">Save</button>
+              <button class="btn btn-default" ng-click="home.closeCommentForm()">Cancel</button>
+            </div>
+          </form>
         </div>
-      </form>
       </div>
     </li>
   </ul>
