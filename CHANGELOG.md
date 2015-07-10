@@ -1,3 +1,17 @@
+## 0.4.5 - 2015-07-10
+ * Merge pull request #43 from cbitstech/msw_97469748_remove_partial_calls
+ * Remove Partial Calls
+ * Merge pull request #42 from cbitstech/msw_93446774_notification_redirect
+ * Merge pull request #41 from cbitstech/cl_98660544_implement_home_page_layout_change
+ * Update Email Redirect
+ * Implement Mockup Design On Home Page
+ * Merge pull request #40 from cbitstech/msw_bug_add_in_necessary_comment_form
+ * Add Comment Form Partial
+ * Merge pull request #39 from cbitstech/msw_97469224_comment_form
+ * Add Inline Commenting
+ * Merge pull request #38 from cbitstech/msw_97540736_action_item_alert
+ * Add Action Item Alert
+
 ## 0.4.4 - 2015-06-26
  * Merge pull request #37 from cbitstech/msw_96292678_unique_constraint_error
  * Add Model Unique Constraint
