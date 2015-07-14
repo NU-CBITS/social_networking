@@ -1,3 +1,6 @@
+## 0.4.6 - 2015-07-14
+ * Merge pull request #44 from cbitstech/cl_98682348_implement_mobile_feed_layout_change
+
 ## 0.4.5 - 2015-07-10
  * Merge pull request #43 from cbitstech/msw_97469748_remove_partial_calls
  * Remove Partial Calls
