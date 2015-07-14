@@ -1,3 +1,7 @@
+## 0.4.7 - 2015-07-14
+ * Merge pull request #45 from cbitstech/msw_98849186_fix_profile_saving_and_alert
+ * Fix Profile Page Bugs
+
 ## 0.4.6 - 2015-07-14
  * Merge pull request #44 from cbitstech/cl_98682348_implement_mobile_feed_layout_change
 
