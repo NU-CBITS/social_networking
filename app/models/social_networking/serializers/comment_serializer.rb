@@ -6,6 +6,7 @@ module SocialNetworking
         {
           id: model.id,
           participantId: model.participant_id,
+          isAdmin: model.participant.is_admin,
           text: model.text,
           itemType: model.item_type,
           itemId: model.item_id

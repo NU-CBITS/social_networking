@@ -10,12 +10,14 @@ module SocialNetworking
                  contact_preference: "sms",
                  phone_number: "16309101110",
                  email: "test@tester.com",
-                 display_name: "hamburger")
+                 display_name: "hamburger",
+                 is_admin: false)
         end
         let(:nudge) do
           double("nudge",
                  id: 8_675_309,
                  created_at: DateTime.new,
+                 initiator: participant,
                  initiator_id: participant.id,
                  recipient_id: 123,
                  comments: [])

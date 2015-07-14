@@ -13,7 +13,11 @@ module SocialNetworking
              participant_id: participant.id,
              item_id: 5,
              item_type: "SocialNetworking::Comment",
-             participant: double("participant", display_name: "test"))
+             participant: double("participant",
+                                 display_name: "test",
+                                 is_admin: false
+                                )
+             )
     end
     let(:errors) { double("errors", full_messages: ["baz"]) }
 

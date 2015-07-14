@@ -9,6 +9,7 @@ module SocialNetworking
           createdAt: model.created_at,
           createdAtRaw: model.created_at.to_i,
           participantId: model.participant_id,
+          isAdmin: model.participant.is_admin,
           summary: "said #{ model.description }",
           description: model.description,
           comments: CommentSerializer.from_collection(model.comments),

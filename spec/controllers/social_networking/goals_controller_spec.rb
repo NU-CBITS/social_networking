@@ -2,12 +2,13 @@ require "spec_helper"
 
 module SocialNetworking
   describe GoalsController, type: :controller do
-    let(:participant) { double("participant", id: 987) }
+    let(:participant) { double("participant", id: 987, is_admin: false) }
     let(:goal) do
       double("goal",
              id: 8_675_309,
              created_at: DateTime.new,
              participant_id: participant.id,
+             participant: participant,
              description: "run a marathon",
              is_deleted: false,
              due_on: Date.today,

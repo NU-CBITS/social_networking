@@ -4,12 +4,13 @@ module SocialNetworking
   describe OnTheMindStatementsController, type: :controller do
     describe "POST create" do
       context "when the participant is authenticated" do
-        let(:participant) { double("participant", id: 987) }
+        let(:participant) { double("participant", id: 987, is_admin: false) }
         let(:on_the_mind_statement) do
           double("on_the_mind_statement",
                  id: 8_675_309,
                  created_at: DateTime.new,
                  participant_id: participant.id,
+                 participant: participant,
                  description: "foo",
                  comments: [],
                  likes: [])

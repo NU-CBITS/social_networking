@@ -14,6 +14,7 @@ module SocialNetworking
           className: "SocialNetworking::SharedItem",
           id: model.id,
           participantId: item.participant_id,
+          isAdmin: item.participant.is_admin,
           createdAt: model.created_at,
           createdAtRaw: model.created_at.to_i,
           templatePath: "/social_networking/templates/#{ path }",
