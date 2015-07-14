@@ -18,7 +18,7 @@
             var answer = new ProfileAnswerResource({
                 profile_id: attributes.profile_id,
                 profile_question_id: attributes.profile_question_id,
-                answer_text: attributes.answer_text
+                answer_text: attributes.answer_text || ""
             });
 
             return answer.$save();
@@ -30,7 +30,7 @@
                 id: attributes.id,
                 profile_id: attributes.profile_id,
                 profile_question_id: attributes.profile_question_id,
-                answer_text: attributes.answer_text
+                answer_text: attributes.answer_text || ""
             });
 
             return answer.$save();
