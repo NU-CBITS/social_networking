@@ -37,10 +37,12 @@
   </form>
 
   <div class="panel panel-default" ng-show="home.inFeedBrowseMode()">
-    <div class="panel-heading"><h3 class="panel-title">To Do</h3></div>
+    <div class="panel-heading">
+      <h3 class="panel-title">To Do</h3>
+    </div>
     <ul class="list-group" ng-if="home.inFeedBrowseMode()">
       <li class="list-group-item" ng-repeat="item in home.actionItems">
-        <a href="" data-no-turbolink="true" ng-click="home.taskVisited(item)" href="{{ item.link }}">{{ item.label }}</a>
+        <a data-no-turbolink="true" ng-click="home.taskVisited(item)" href="{{ item.link }}">{{ item.label }}</a>
       </li>
     </ul>
   </div>
