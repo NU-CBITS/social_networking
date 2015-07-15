@@ -11,6 +11,7 @@ module SocialNetworking
     end
 
     def show
+      current_participant.navigation_status.context = nil
       if params[:id].present?
         @profile = Profile.find(params[:id])
         store_nudge_initiators(@profile.participant_id)
