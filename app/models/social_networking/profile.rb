@@ -30,11 +30,7 @@ module SocialNetworking
     end
 
     def user_name
-      if participant.is_admin
-        "ThinkFeelDo"
-      else
-        participant.display_name
-      end
+      participant.display_name
     end
   end
 end
