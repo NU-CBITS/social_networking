@@ -1,3 +1,7 @@
+## 0.4.9 - 2015-07-15
+ * Merge pull request #48 from cbitstech/msw_97540736_bug_in_alert_message
+ * Fix Alert Error
+
 ## 0.4.8 - 2015-07-15
  * Merge pull request #47 from cbitstech/cl_97428316_style_profile_page_questions
  * Implement profile question mockup style changes
