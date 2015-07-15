@@ -1,3 +1,9 @@
+## 0.4.8 - 2015-07-15
+ * Merge pull request #47 from cbitstech/cl_97428316_style_profile_page_questions
+ * Implement profile question mockup style changes
+ * Merge pull request #46 from cbitstech/msw_bug_fix_todo_link_navigation
+ * Fix To Do List Navigation
+
 ## 0.4.7 - 2015-07-14
  * Merge pull request #45 from cbitstech/msw_98849186_fix_profile_saving_and_alert
  * Fix Profile Page Bugs
