@@ -76,7 +76,7 @@
         this._answerResource.create(answerModel).then(function() {
           self.storeAnswer(profileId, questionId);
         }).catch(function(message) {
-          self.$window.confirm("There was an error: " + message.data.error + ".");
+          self.$window.confirm("There was an error: " + ((message || {}).data || {}).error + ".");
           self._answerResource.getOne(profileId, questionId)
             .then(function(profileAnswer) {
               answerModel.answer_text = profileAnswer.answer_text;
@@ -93,7 +93,7 @@
         .then(function() {
           self._answerStates[questionId].editable = false;
         }).catch(function(message) {
-          self.$window.confirm("There was an error: " + message.data.error + ".");
+          self.$window.confirm("There was an error: " + ((message || {}).data || {}).error + ".");
         });
       }
     };

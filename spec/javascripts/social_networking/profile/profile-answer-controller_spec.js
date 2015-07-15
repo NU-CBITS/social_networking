@@ -108,17 +108,20 @@ describe('ProfileAnswerCtrl', function() {
     });
 
     describe('answer model is a new object', function() {
-      describe('when saving fails', function() {
+      var callProfileAnswersRejectCreate = function(messageObject) {
+        profileAnswers.create.and.callFake(function() {
+          var deferred, promise;
+
+          deferred = $q.defer();
+          promise = deferred.promise;
+          deferred.reject(messageObject);
+          return promise;
+        });
+      };
+
+      describe('when saving fails with an error message', function() {
         beforeEach(function() {
-          profileAnswers.create.and.callFake(function() {
-            var deferred, promise;
-
-            deferred = $q.defer();
-            promise = deferred.promise;
-            deferred.reject({ data: { error: 'Holy guacamole!' } });
-            return promise;
-          });
-
+          callProfileAnswersRejectCreate({ data: { error: 'Holy guacamole!' } });
           controller = controller('ProfileAnswerCtrl', {
             ProfileAnswers: profileAnswers
           });
@@ -143,6 +146,27 @@ describe('ProfileAnswerCtrl', function() {
           $rootScope.$apply();
 
           expect(controller.answerModels[questionId].id).toBe(undefined);
+        });
+      });
+
+      describe('when saving fails without an error message', function() {
+        beforeEach(function() {
+          callProfileAnswersRejectCreate();
+          controller = controller('ProfileAnswerCtrl', {
+            ProfileAnswers: profileAnswers
+          });
+          controller.setModel(newAnswer);
+        });
+
+        it('displays a confirm dialog to the user', function() {
+          spyOn($window, 'confirm');
+
+          expect($window.confirm).not.toHaveBeenCalled();
+
+          controller.save(profileId, questionId);
+          $rootScope.$apply();
+
+          expect($window.confirm).toHaveBeenCalled();
         });
       });
     });
