@@ -1,7 +1,7 @@
 <div ng-controller="GoalCtrl as goal">
   <div class="row hidden-xs">
     <div class="col-sm-3 col-md-3 col-lg-3">
-      <button class="btn btn-link" ng-click="goal.new()" ng-show="goal.inBrowseMode()">+ add a goal</button>
+      <button class="btn btn-default" ng-click="goal.new()" ng-show="goal.inBrowseMode()">+ add a goal</button>
     </div>
 
     <div class="col-sm-9 col-md-9 col-lg-9">
@@ -73,11 +73,8 @@
       </p>
 
       <div>
-        <button class="btn btn-link complete" ng-click="goal.toggleComplete(participantGoal)" ng-if="!participantGoal.isDeleted && !participantGoal.isCompleted">
-          <span class="fa-stack">
-            <i class="fa fa-square-o fa-stack-2x"></i>
-            <i class="fa fa-check fa-stack-2x" ng-if="participantGoal.isCompleted"></i>
-          </span>
+        <button class="btn btn-default complete" ng-click="goal.toggleComplete(participantGoal)" ng-if="!participantGoal.isDeleted && !participantGoal.isCompleted">
+          Complete
         </button>
         <button ng-if="!participantGoal.isDeleted && !participantGoal.isCompleted" class="btn btn-link edit" ng-click="goal.edit(participantGoal)"><i class="fa fa-pencil fa-2x"></i></button>
         <button ng-if="!participantGoal.isDeleted && !participantGoal.isCompleted" class="btn btn-link delete" ng-click="goal.toggleDeleted(participantGoal)"><i class="fa fa-trash text-danger fa-2x"></i></button>
