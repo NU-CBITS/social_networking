@@ -1,3 +1,9 @@
+## 0.4.10 - 2015-07-16
+ * Merge pull request #50 from cbitstech/cl_97469840_Replace_ThinkFeelDo_moderator_name
+ * Change how default admin name is handled
+ * Merge pull request #49 from cbitstech/cl_97469756_Remove_HOME_text_from_profile_page
+ * Remove erroneous ">>Landing" text on profile pages
+
 ## 0.4.9 - 2015-07-15
  * Merge pull request #48 from cbitstech/msw_97540736_bug_in_alert_message
  * Fix Alert Error
