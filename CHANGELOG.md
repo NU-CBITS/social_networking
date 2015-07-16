@@ -1,3 +1,7 @@
+## 0.4.11 - 2015-07-16
+ * Merge pull request #51 from cbitstech/msw_97468964_complete_goal
+ * Update Goal Tool Page
+
 ## 0.4.10 - 2015-07-16
  * Merge pull request #50 from cbitstech/cl_97469840_Replace_ThinkFeelDo_moderator_name
  * Change how default admin name is handled
