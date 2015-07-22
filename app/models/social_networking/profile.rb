@@ -21,6 +21,10 @@ module SocialNetworking
       {}
     end
 
+    def started?
+      profile_answers.any?
+    end
+
     def description
       "Welcome, #{user_name}!"
     end

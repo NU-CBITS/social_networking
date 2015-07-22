@@ -19,7 +19,7 @@ module SocialNetworking
       def action_items
         items = ActionItem.for(@participant)
         current_profile = Profile.find_by_participant_id(@participant.id)
-        if !current_profile || !current_profile.icon_name
+        unless current_profile.try(:started?)
           items.unshift(
             link: @context.social_networking_profile_path,
             label: "Create a Profile"
