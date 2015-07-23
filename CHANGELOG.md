@@ -1,3 +1,7 @@
+## 0.4.12 - 2015-07-23
+ * Merge pull request #52 from cbitstech/msw_97540736_to_action_items
+ * Update Action Items
+
 ## 0.4.11 - 2015-07-16
  * Merge pull request #51 from cbitstech/msw_97468964_complete_goal
  * Update Goal Tool Page
