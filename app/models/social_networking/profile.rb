@@ -34,7 +34,11 @@ module SocialNetworking
     end
 
     def user_name
-      participant.display_name
+      if participant.is_admin
+        Rails.application.config.moderating_participant_display_name
+      else
+        participant.display_name
+      end
     end
   end
 end
