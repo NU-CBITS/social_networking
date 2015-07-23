@@ -36,20 +36,7 @@
     </div>
   </form>
 
-  <div class="panel panel-default" ng-show="home.inFeedBrowseMode()">
-    <div class="panel-heading">
-      <h3 class="panel-title">To Do</h3>
-    </div>
-    <ul class="list-group" ng-if="home.inFeedBrowseMode()">
-      <li class="list-group-item" ng-repeat="item in home.actionItems">
-        <a data-no-turbolink="true" ng-click="home.taskVisited(item)" href="{{ item.link }}">{{ item.label }}</a>
-      </li>
-    </ul>
-  </div>
-
-  <div class="alert alert-info" role="alert" ng-if="home.actionItems.length === 0">
-    You are all caught up! Great work!
-  </div>
+  <%= render "social_networking/homes/action_items" %>
 
   <ul class="list-group"
       id="infinite-feed"

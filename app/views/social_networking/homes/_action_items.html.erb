@@ -1,0 +1,13 @@
+<div class="panel panel-default" ng-if="home.inFeedBrowseMode()">
+  <div class="panel-heading">
+    <h3 class="panel-title">To Do</h3>
+  </div>
+  <div class="panel-body" ng-if="home.actionItems.length === 0">
+    <p class="text-info">You are all caught up! Great work!</p>
+  </div>
+  <ul class="list-group" ng-if="home.inFeedBrowseMode()">
+    <li class="list-group-item" ng-repeat="item in home.actionItems">
+      <a data-no-turbolink="true" ng-click="home.taskVisited(item)" href="{{ item.link }}">{{ item.label }}</a>
+    </li>
+  </ul>
+</div>
