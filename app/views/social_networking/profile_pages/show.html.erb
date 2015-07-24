@@ -146,7 +146,9 @@
             <img class="feed-participant-icon" ng-if="item.isAdmin" ng-src="{{ home.profileIconSrcFor(item) }}"> 
           </div>
           <div class="media-body">
-            <strong>{{ home.profileDisplayNameFor(item) }}</strong> {{ item.summary }}
+            <span class="pull-right text-muted">{{home.timeAgoInWords(item.createdAt)}}</span>
+            <strong>{{ home.profileDisplayNameFor(item) }}</strong>
+            {{ item.summary }}
           </div>
         </div>
       </p>

@@ -53,7 +53,9 @@
             <img class="feed-participant-icon" ng-src="{{ home.profileIconSrcFor(item) }}">
             </div>
           <div class="media-body">
-            <strong>{{ home.profileDisplayNameFor(item) }}</strong> {{ item.summary }}
+            <span class="pull-right text-muted">{{home.timeAgoInWords(item.createdAt)}}</span>
+            <strong>{{ home.profileDisplayNameFor(item) }}</strong>
+            {{ item.summary }}
           </div>
         </div>
         <div class="media feed-item-displayname" ng-if="item.data.summary.length">
