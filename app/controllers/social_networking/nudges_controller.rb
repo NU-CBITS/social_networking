@@ -32,8 +32,6 @@ module SocialNetworking
 
     # Select message from list, determine contact preference, then
     # trigger the notification based on the preference.
-    # rubocop:disable Metrics/AbcSize
-    # rubocop:disable Metrics/CyclomaticComplexity
     def notify
       recipient = Participant.find(sanitized_params[:recipient_id])
 
@@ -41,20 +39,14 @@ module SocialNetworking
       when "email"
         send_notify_email(@nudge, message_body)
       when "sms"
-        if recipient.phone_number && !recipient.phone_number.blank?
-          send_sms(recipient, message_body)
-        end
+        send_sms(recipient, message_body) if recipient.phone_number.present?
       when "phone"
-        if recipient.phone_number && !recipient.phone_number.blank?
-          send_sms(recipient, message_body)
-        end
+        send_sms(recipient, message_body) if recipient.phone_number.present?
       else
         logger.error "ERROR: contact preference is not set for \
-        participant with ID: " + recipient.id
+        participant with ID: #{recipient.id}"
       end
     end
-    # rubocop:enable Metrics/AbcSize
-    # rubocop:enable Metrics/CyclomaticComplexity
 
     def model_errors
       @nudge.errors.full_messages.join(", ")
@@ -70,7 +62,7 @@ module SocialNetworking
     end
 
     def message_body
-      site_root_url = home_url
+      site_root_url = social_networking_profile_url
       ["You've been nudged by #{current_participant.display_name}! Log \
 in (#{site_root_url}) to find out who nudged you.",
        "#{current_participant.display_name} just nudged you! Log in \
