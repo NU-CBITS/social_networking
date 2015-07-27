@@ -56,6 +56,27 @@ module SocialNetworking
             allow(controller).to receive(:send_sms) { nil }
           end
 
+          it "sends an email alert with the localized app name" do
+            allow(controller).to receive(:t)
+              .with("application_name", default: "ThinkFeelDo")
+              .and_return("SunnySide")
+            expect(NudgeMailer).to receive(:nudge_email_alert)
+              .with(anything, anything, "You've been NUDGED on SunnySide")
+            allow(NudgeMailer)
+              .to receive_message_chain(:nudge_email_alert, :deliver)
+
+            post :create, recipientId: 123
+          end
+
+          it "sends an email alert with a default app name if none is found" do
+            expect(NudgeMailer).to receive(:nudge_email_alert)
+              .with(anything, anything, "You've been NUDGED on ThinkFeelDo")
+            allow(NudgeMailer)
+              .to receive_message_chain(:nudge_email_alert, :deliver)
+
+            post :create, recipientId: 123
+          end
+
           it "should return the new record" do
             expect(NudgeMailer)
               .to receive_message_chain(:nudge_email_alert, :deliver)
