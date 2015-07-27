@@ -69,6 +69,29 @@ describe('HomeCtrl', function() {
     expect(controller.inFeedBrowseMode()).toBeTruthy();
   });
 
+  describe('#timeAgoInWords', function() {
+    var foo;
+
+    beforeEach(function() {
+      foo = {
+        calendar: function() {
+          return "foo";
+        }
+      };
+      window.moment = function() {
+        return foo;
+      };
+
+      spyOn(foo, 'calendar');
+    });
+
+    it('runs .calendar to display the time in words of an event', function() {
+      controller.timeAgoInWords();
+
+      expect(foo.calendar).toHaveBeenCalled();
+    });
+  });
+
   describe('Commenting', function() {
     describe('#commentOn', function() {
       beforeEach(function() {

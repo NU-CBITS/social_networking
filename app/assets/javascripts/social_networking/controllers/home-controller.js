@@ -246,6 +246,10 @@
       });
   };
 
+  HomeCtrl.prototype.timeAgoInWords = function(createdAt) {
+    return moment(createdAt).calendar();
+  };
+
   // Create a module and register the controller.
   angular.module('socialNetworking.controllers')
     .controller('HomeCtrl', ['OnYourMindResource', 'CommentResource',
