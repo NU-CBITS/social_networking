@@ -48,8 +48,8 @@
     </div>
 
     <% if current_participant.id != @profile.participant_id %>
-      <div class="profiles-nudge profile-box-border">
-        <a href="" id="nudge-link" ng-click="profile.nudge(<%= @profile.participant_id %>)">Nudge</a>
+      <div class="profiles-nudge profile-box-border well well-lg">
+        <a class="btn btn-lg btn-primary" href="" id="nudge-link" ng-click="profile.nudge(<%= @profile.participant_id %>)">Nudge</a>
         <br><span>{{ profile.nudgeAlert }}</span>
       </div>
     <% end %>
