@@ -1,3 +1,13 @@
+## 0.4.13 - 2015-07-28
+ * Merge pull request #56 from cbitstech/cl_97469840_Replace_ThinkFeelDo_moderator_name
+ * Add unit tests and make nudge email subject app-specific
+ * Merge pull request #57 from cbitstech/cl_99740088_Make_nudge_button_larger
+ * Make Nudge button more noticable
+ * Merge pull request #53 from cbitstech/cl_97469840_Replace_ThinkFeelDo_moderator_name
+ * Merge pull request #54 from cbitstech/msw_98485472_add_timestamps_to_feed
+ * Add Timestamp to Feed Items
+ * Make moderator display name depend on application
+
 ## 0.4.12 - 2015-07-23
  * Merge pull request #52 from cbitstech/msw_97540736_to_action_items
  * Update Action Items
