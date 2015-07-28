@@ -3,6 +3,7 @@ module SocialNetworking
     # adds associations to Participant class
     module Participant
       extend ActiveSupport::Concern
+
       included do
         has_many :social_networking_comments,
                  class_name: "SocialNetworking::Comment",
@@ -27,6 +28,15 @@ module SocialNetworking
         has_one :social_networking_profile,
                 class_name: "SocialNetworking::Profile",
                 dependent: :destroy
+
+        validates :email, presence: true, if: "contact_preference == 'email'"
+        validates :phone_number, presence: true, if: :phone_number?
+
+        private
+
+        def phone_number?
+          %w(sms phone).include?(contact_preference)
+        end
       end
     end
   end

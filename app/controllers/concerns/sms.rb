@@ -12,8 +12,8 @@ module Sms
   def send_sms(recipient = current_user, message_body)
     return if recipient.phone_number.blank?
 
-    logger.info("INFO BEFORE: SMS notification sent \
-                 to:" + recipient.phone_number)
+    logger.info "INFO BEFORE: SMS notification sent "\
+                "to: #{recipient.phone_number}"
     if recipient.is_a?(Participant)
       if Rails.env.staging? || Rails.env.production?
         client = Twilio::REST::Client.new(
@@ -22,14 +22,14 @@ module Sms
         account = client.account
         account.messages.create(message_attributes(recipient, message_body))
       else
-        logger.info("INFO - SMS attributes: " \
-                    "#{ message_attributes(recipient, message_body) }")
+        logger.info "INFO - SMS attributes: "\
+                    "#{message_attributes(recipient, message_body)}"
       end
     else
       logger.error "Error: Expected recipient to be a Participant."
     end
-    logger.info("INFO AFTER: SMS notification sent \
-                 to:" + recipient.phone_number)
+    logger.info "INFO AFTER: SMS notification sent "\
+                "to: #{recipient.phone_number}"
   end
   # rubocop:enable Metrics/AbcSize
 
@@ -38,9 +38,9 @@ module Sms
   def message_attributes(recipient, body)
     {
       from:
-        "#{ Rails.application.config.twilio_account_telephone_number }",
+        "#{Rails.application.config.twilio_account_telephone_number}",
       to:
-        "+#{ recipient.phone_number }",
+        "+#{recipient.phone_number}",
       body:
         body
     }

@@ -7,6 +7,11 @@ module SocialNetworking
         let(:nudge) { double("nudge", recipient_id: 1) }
         let(:participant) { double("participant", id: 1, display_name: "joe") }
 
+        def recipient(attributes = {})
+          double("recipient", { id: 1, contact_preference: nil }
+            .merge(attributes))
+        end
+
         before do
           @routes = Engine.routes
           allow(controller).to receive(:current_participant) { participant }
@@ -16,32 +21,14 @@ module SocialNetworking
           allow(Nudge).to receive(:new) { nudge }
         end
 
-        context "record saves" do
-          let(:logger) { Rails.logger }
-
-          def recipient(attributes = {})
-            double("recipient", attributes)
-          end
-
+        context "nudge saves and notification is sent" do
           before do
-            allow(logger).to receive(:error)
-            allow(logger).to receive(:info)
             allow(nudge).to receive(:save) { true }
           end
 
-          describe "recipient has no contact preference" do
-            it "should return serialized nudge" do
-              allow(Participant).to receive(:find) do
-                recipient(id: 1, contact_preference: nil)
-              end
-
-              expect(logger).to receive(:error)
-
-              post :create
-
-              assert_response 200
-              expect(json["foo"]).to eq("bar")
-            end
+          after do
+            assert_response 200
+            expect(json["message"]).to eq "Nudge sent!"
           end
 
           describe "recipient prefers to be contacted via phone" do
@@ -50,7 +37,7 @@ module SocialNetworking
                 recipient(contact_preference: "phone", phone_number: "#")
               end
 
-              expect(logger).to receive(:info)
+              expect(controller).to receive(:send_sms)
 
               post :create
             end
@@ -62,7 +49,7 @@ module SocialNetworking
                 recipient(contact_preference: "sms", phone_number: "#")
               end
 
-              expect(logger).to receive(:info)
+              expect(controller).to receive(:send_sms)
 
               post :create
             end
@@ -105,12 +92,15 @@ module SocialNetworking
         context "record doesn't save" do
           let(:errors) { double("errors", full_messages: ["baz"]) }
 
-          it "should return the error message" do
+          it "returns the error message" do
+            allow(Participant).to receive(:find) do
+              recipient(contact_preference: "email", email: "mia@ex.co")
+            end
             allow(nudge).to receive_messages(save: false, errors: errors)
             post :create
 
             assert_response 400
-            expect(json["error"]).to eq("baz")
+            expect(json["error"]).to eq "baz"
           end
         end
       end

@@ -2,6 +2,7 @@
 module SocialNetworking
   # Manage Nudges.
   class NudgesController < ApplicationController
+    before_action :set_recipient
     include Sms
 
     def index
@@ -15,7 +16,7 @@ module SocialNetworking
 
       if @nudge.save
         notify
-        render json: Serializers::NudgeSerializer.new(@nudge).to_serialized
+        render json: { message: "Nudge sent!" }
       else
         render json: { error: model_errors }, status: 400
       end
@@ -33,18 +34,11 @@ module SocialNetworking
     # Select message from list, determine contact preference, then
     # trigger the notification based on the preference.
     def notify
-      recipient = Participant.find(sanitized_params[:recipient_id])
-
-      case recipient.contact_preference
+      case @recipient.contact_preference
       when "email"
-        send_notify_email(@nudge, message_body)
-      when "sms"
-        send_sms(recipient, message_body) if recipient.phone_number.present?
-      when "phone"
-        send_sms(recipient, message_body) if recipient.phone_number.present?
-      else
-        logger.error "ERROR: contact preference is not set for \
-        participant with ID: #{recipient.id}"
+        send_notify_email
+      when "sms", "phone"
+        send_sms(@recipient, message_body)
       end
     end
 
@@ -53,12 +47,13 @@ module SocialNetworking
     end
 
     # Trigger nudge notification email
-    def send_notify_email(nudge, message_body)
+    def send_notify_email
       NudgeMailer.nudge_email_alert(
-        Participant.find(nudge.recipient_id),
+        @recipient,
         message_body,
         "You've been NUDGED on "\
-        "#{t 'application_name', default: 'ThinkFeelDo' }").deliver
+        "#{t('application_name', default: 'ThinkFeelDo')}").deliver
+      true
     end
 
     def message_body
@@ -73,6 +68,10 @@ them hanging - log in (#{site_root_url}) to say hi!",
 Log in (#{site_root_url}) to see who nudged you.",
        "Psst - you've been nudged by #{current_participant.display_name}! \
 Log in (#{site_root_url}) to support a fellow group member!"].sample
+    end
+
+    def set_recipient
+      @recipient = Participant.find(sanitized_params[:recipient_id])
     end
   end
 end
