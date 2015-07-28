@@ -7,7 +7,8 @@
       self._profiles = Profiles;
       self._nudges = Nudges;
       self.profile = {};
-      self._profiles.getOne(profileId).then(function(profile) {
+      self._profiles.getOne(profileId)
+      .then(function(profile) {
           self.id = profile.id;
           self.profile = profile;
           self.iconSrc = '';
@@ -21,9 +22,12 @@
     var self = this;
 
     this._nudges.create(recipient_id)
-      .then(function() {
-        self.nudgeAlert = "Nudge sent!";
-      });
+      .then(function(response) {
+        self.nudgeAlert = response.message;
+      })
+      .catch(function(response) {
+        self.nudgeAlert = response.data.error;
+      })
   };
 
   // Update the profile icon
