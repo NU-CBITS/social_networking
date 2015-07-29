@@ -1,3 +1,8 @@
+## 0.4.15 - 2015-07-29
+ * Merge pull request #58 from cbitstech/msw_99741330_update_nudge_route_for_email_notifications
+ * Refactor Updates
+ * Update Nudge Notification Email
+
 ## 0.4.14 - 2015-07-28
 
 
