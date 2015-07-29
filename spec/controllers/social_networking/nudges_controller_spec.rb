@@ -4,103 +4,103 @@ module SocialNetworking
   describe NudgesController, type: :controller do
     describe "POST create" do
       context "when the participant is authenticated" do
-        let(:participant) do
-          double("participant",
-                 id: 987,
-                 contact_preference: "sms",
-                 phone_number: "16309101110",
-                 email: "test@tester.com",
-                 display_name: "hamburger",
-                 is_admin: false)
-        end
-        let(:nudge) do
-          double("nudge",
-                 id: 8_675_309,
-                 created_at: DateTime.new,
-                 initiator: participant,
-                 initiator_id: participant.id,
-                 recipient_id: 123,
-                 comments: [])
-        end
-        let(:receiver) do
-          double(
-            "receiver",
-            id: 123,
-            email: "test@tester.com",
-            contact_preference: "email",
-            phone_number: "16309201110"
-          )
+        let(:nudge) { double("nudge", recipient_id: 1) }
+        let(:participant) { double("participant", id: 1, display_name: "joe") }
+
+        def recipient(attributes = {})
+          double("recipient", { id: 1, contact_preference: nil }
+            .merge(attributes))
         end
 
         before do
           @routes = Engine.routes
-          allow(controller).to receive(:authenticate_participant!)
           allow(controller).to receive(:current_participant) { participant }
-
-          expect(Nudge).to receive(:new).with(
-            initiator_id: participant.id,
-            recipient_id: "123"
-          ) { nudge }
-
-          allow(Profile).to receive(:find_by_participant_id)
-            .and_return(double("profile", user_name: "F. Bar"))
-          allow(nudge).to receive(:save) { true }
-          allow(Participant).to receive(:find) { participant }
-          allow(controller).to receive(:send_sms) { nil }
+          allow(Serializers::NudgeSerializer)
+            .to receive_message_chain(:new, :to_serialized)
+            .and_return(foo: :bar)
+          allow(Nudge).to receive(:new) { nudge }
         end
 
-        context "and the record saves" do
+        context "nudge saves and notification is sent" do
           before do
             allow(nudge).to receive(:save) { true }
-            allow(Participant).to receive(:find) { receiver }
-            allow(controller).to receive(:send_sms) { nil }
           end
 
-          it "sends an email alert with the localized app name" do
-            allow(controller).to receive(:t)
-              .with("application_name", default: "ThinkFeelDo")
-              .and_return("SunnySide")
-            expect(NudgeMailer).to receive(:nudge_email_alert)
-              .with(anything, anything, "You've been NUDGED on SunnySide")
-            allow(NudgeMailer)
-              .to receive_message_chain(:nudge_email_alert, :deliver)
-
-            post :create, recipientId: 123
-          end
-
-          it "sends an email alert with a default app name if none is found" do
-            expect(NudgeMailer).to receive(:nudge_email_alert)
-              .with(anything, anything, "You've been NUDGED on ThinkFeelDo")
-            allow(NudgeMailer)
-              .to receive_message_chain(:nudge_email_alert, :deliver)
-
-            post :create, recipientId: 123
-          end
-
-          it "should return the new record" do
-            expect(NudgeMailer)
-              .to receive_message_chain(:nudge_email_alert, :deliver)
-            post :create, recipientId: 123
-
+          after do
             assert_response 200
-            expect(json["id"]).to eq(8_675_309)
-            expect(json["recipientId"]).to eq(123)
-            expect(json["initiatorId"]).to eq(987)
+            expect(json["message"]).to eq "Nudge sent!"
+          end
+
+          describe "recipient prefers to be contacted via phone" do
+            it "should notify via phone" do
+              allow(Participant).to receive(:find) do
+                recipient(contact_preference: "phone", phone_number: "#")
+              end
+
+              expect(controller).to receive(:send_sms)
+
+              post :create
+            end
+          end
+
+          describe "recipient prefers to be contacted via sms" do
+            it "should notify via sms" do
+              allow(Participant).to receive(:find) do
+                recipient(contact_preference: "sms", phone_number: "#")
+              end
+
+              expect(controller).to receive(:send_sms)
+
+              post :create
+            end
+          end
+
+          describe "recipient prefers to be contacted via email" do
+            before do
+              allow(Participant).to receive(:find) do
+                recipient(contact_preference: "email", email: "mia@ex.co")
+              end
+              allow(NudgeMailer)
+                .to receive_message_chain(:nudge_email_alert, :deliver)
+            end
+
+            it "sends an email alert with a default app name" do
+              expect(NudgeMailer).to receive(:nudge_email_alert)
+                .with(anything, anything, "You've been NUDGED on ThinkFeelDo")
+
+              post :create
+            end
+
+            it "should notify via email alert with the localized app name" do
+              allow(controller).to receive(:t).and_return("SunnySide")
+
+              expect(NudgeMailer).to receive(:nudge_email_alert)
+                .with(anything, anything, "You've been NUDGED on SunnySide")
+
+              post :create
+            end
+
+            it "should contain email that redirects patient to their profile" do
+              expect(NudgeMailer).to receive(:nudge_email_alert)
+                .with(anything, %r{/social_networking/profile_page}, anything)
+
+              post :create
+            end
           end
         end
 
-        context "and the record doesn't save" do
+        context "record doesn't save" do
           let(:errors) { double("errors", full_messages: ["baz"]) }
 
-          before do
+          it "returns the error message" do
+            allow(Participant).to receive(:find) do
+              recipient(contact_preference: "email", email: "mia@ex.co")
+            end
             allow(nudge).to receive_messages(save: false, errors: errors)
-          end
-
-          it "should return the error message" do
-            post :create, recipientId: 123
+            post :create
 
             assert_response 400
-            expect(json["error"]).to eq("baz")
+            expect(json["error"]).to eq "baz"
           end
         end
       end
