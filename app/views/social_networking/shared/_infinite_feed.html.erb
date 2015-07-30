@@ -1,0 +1,94 @@
+<li ng-repeat="item in home.feedItems | orderBy:'createdAt':true"
+    ng-show="home.inFeedBrowseMode()"
+    class="list-group-item"
+    id="{{ item.className }}-{{ item.id }}">
+  <p>
+    <div class="media feed-item-displayname" ng-if="!item.data.summary.length">
+      <div ng-if="item.isAdmin" class="media-left">
+        <img class="feed-participant-icon" ng-src="{{ home.profileIconSrcFor(item) }}">
+      </div>
+      <div class="media-body">
+        <span class="pull-right text-muted">{{home.timeAgoInWords(item.createdAt)}}</span>
+        <strong>{{ home.profileDisplayNameFor(item) }}</strong>
+        {{ item.summary }}
+      </div>
+    </div>
+    <div class="media feed-item-displayname" ng-if="item.data.summary.length">
+      <div ng-if="item.isAdmin" class="media-left">
+        <img class="feed-participant-icon" ng-src="{{ home.profileIconSrcFor(item) }}">
+      </div>
+      <div class="media-body">
+        <span class="pull-right text-muted">{{home.timeAgoInWords(item.createdAt)}}</span>
+        <strong>{{ home.profileDisplayNameFor(item) }}</strong>
+        {{ item.summary }}
+      </div>
+    </div>
+  </p>
+
+  <div class="actions">
+    <a href="" ng-if="home.canAddLikeTo(item)" class="like" title="like this item" ng-click="home.addLikeTo(item)">
+      Like ({{!!item.likes.length ? item.likes.length : 0}})
+    </a>
+    <a href="" ng-if="!home.canAddLikeTo(item)&&!!item.likes.length" class="likes"  title="show who likes this feed item" ng-click="item.showLikes = !item.showLikes">
+      Like ({{item.likes.length}})
+    </a>
+    <span ng-if="home.canAddLikeTo(item) || !!item.likes.length">&nbsp;|&nbsp;</span>
+    <a href="" class="comments" title="view comments" ng-click="item.showComments = !item.showComments">
+      Comment ({{ item.comments.length ? item.comments.length : 0}})
+    </a>
+    <span ng-if="home.hasSummary(item)">&nbsp;|&nbsp;</span>
+    <a href="" ng-if="home.hasSummary(item)" title="view details" ng-click="item.showSummary = !item.showSummary">
+      <span ng-if="!item.showSummary">More</span>
+      <span ng-if="!!item.showSummary">Less</span>
+    </a>
+  </div>
+
+  <div class="media" ng-if="home.hasSummary(item)" ng-show="!!item.showSummary">
+    <div class="media-left"></div>
+    <div class="media-body" ng-include src="item.templatePath + '/_summary.html'"></div>
+  </div>
+
+  <div ng-show="!!item.showLikes">
+    <p><strong>Liked by:</strong></p>
+    <p ng-repeat="like in item.likes">
+      <strong class="text-muted">{{ like.participantDisplayName }}</strong>
+      <span class="pull-right text-muted">{{home.timeAgoInWords(like.createdAt)}}</span>
+    </p>
+  </div>
+
+  <div ng-show="!!item.showComments">
+    <p><strong>Comments</strong></p>
+    <div class="media comment text-muted" ng-repeat="comment in item.comments">
+      <div class="media-left" ng-if="comment.isAdmin">
+        <img class="media-object feed-participant-icon" ng-src="{{ home.profileIconSrcFor(comment) }}">
+      </div>
+      <div class="media-body">
+        <strong>{{ home.profileDisplayNameFor(comment) }}</strong>: <span>{{ comment.text }}</span>
+        <span class="pull-right text-muted">{{home.timeAgoInWords(comment.createdAt)}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="media">
+    <a href="" ng-show="!!item.showComments" ng-click="home.commentOn(item)">
+      Add Comment
+    </a>
+  </div>
+
+  <div class="media" ng-show="home.isCommentingOn(item)">
+    <div class="media-left"></div>
+    <div class="media-body">
+      <form novalidate role="form" >
+        <div class="form-group">
+          <label for="comment-text">What do you think?</label>
+          <input type="text" class="form-control" id="comment-text" ng-model="home.commentModel.text" ng-maxlength="255" required focus-on="new-comment">
+        </div>
+
+        <div class="form-group">
+          <button class="btn btn-primary" ng-click="home.saveComment()" ng-disabled="commentOnForm.$invalid">Save</button>
+          <button class="btn btn-default" ng-click="home.closeCommentForm()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</li>
