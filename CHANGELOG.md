@@ -1,3 +1,7 @@
+## 0.4.16 - 2015-07-30
+ * Merge pull request #59 from cbitstech/msw_98485472_update_timestamps_combine_views
+ * Update Timestamps & Combine Views
+
 ## 0.4.15 - 2015-07-29
  * Merge pull request #58 from cbitstech/msw_99741330_update_nudge_route_for_email_notifications
  * Refactor Updates
