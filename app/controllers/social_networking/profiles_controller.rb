@@ -30,16 +30,18 @@ module SocialNetworking
     end
 
     def update
-      profile = Profile.find(profile_params[:id])
-      profile.update(icon_name: profile_params[:icon_name])
-
-      render json: Serializers::ProfileSerializer.new(profile).to_serialized
+      profile = current_participant.social_networking_profile.find(params[:id])
+      if profile.update(icon_name: profile_params[:icon_name])
+        render json: Serializers::ProfileSerializer.new(profile).to_serialized
+      else
+        render json: { error: profile.errors.full_messages }, status: 400
+      end
     end
 
     private
 
     def profile_params
-      params.permit(:profile, :id, :icon_name)
+      params.permit(:id, :icon_name)
     end
 
     def record_not_found
