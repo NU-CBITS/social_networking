@@ -26,7 +26,7 @@ module SocialNetworking
     end
 
     def create
-      profile_id = Profile.find_by_participant_id(current_participant.id).id
+      profile_id = current_participant.social_networking_profile.try(:id)
       @profile_answer = ProfileAnswer
                         .new(social_networking_profile_id: profile_id,
                              social_networking_profile_question_id:
@@ -42,7 +42,9 @@ module SocialNetworking
     end
 
     def update
-      @profile_answer = ProfileAnswer
+      @profile_answer = current_participant
+                        .social_networking_profile
+                        .profile_answers
                         .where(id: profile_answer_params[:id]).first! ||
                         fail(ActiveRecord::RecordNotFound)
 
