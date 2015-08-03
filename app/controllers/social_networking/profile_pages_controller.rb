@@ -61,7 +61,7 @@ module SocialNetworking
       @notifications = Nudge.search(participant_id)
       @nudges = []
       @notifications.each do |notification|
-        @nudges.push(notification.initiator.email)
+        @nudges.push(notification.initiator.display_name)
       end
     end
 
