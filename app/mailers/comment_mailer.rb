@@ -4,7 +4,7 @@ class CommentMailer < ActionMailer::Base
     logger.info("INFO BEFORE: Comment email notification sent \
 to:" + receiving_participant.email)
     @message_body = message_body
-    subject = subject.nil? ? message_body : subject
+    subject = subject.empty? ? message_body : subject
     mail(to: receiving_participant.email, subject: subject).deliver
     logger.info("INFO AFTER: Comment email notification sent \
 to:" + receiving_participant.email)
