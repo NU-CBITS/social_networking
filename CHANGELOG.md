@@ -1,3 +1,12 @@
+## 0.4.17 - 2015-08-04
+ * Merge pull request #62 from cbitstech/msw_99072664_add_scoping_to_profile_questions
+ * Scope Profile to Participant
+ * Merge pull request #60 from cbitstech/msw_99739944_update_nudge
+ * Merge pull request #61 from cbitstech/msw_99235668_remove_unused_service
+ * Answer Profile Questions
+ * Remove Unused Service
+ * Update Nudge Alert
+
 ## 0.4.16 - 2015-07-30
  * Merge pull request #59 from cbitstech/msw_98485472_update_timestamps_combine_views
  * Update Timestamps & Combine Views
