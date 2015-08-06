@@ -3,31 +3,36 @@ require "spec_helper"
 module SocialNetworking
   describe CommentsController, type: :controller do
     let(:participant) do
-      double("participant",
-             id: 987,
-             contact_preference: "sms",
-             phone_number: "163009101110",
-             is_admin: false)
+      instance_double(
+        Participant,
+        id: 987,
+        contact_preference: "sms",
+        phone_number: "163009101110",
+        is_admin: false)
     end
     let(:participant_email) do
-      double("participant",
-             id: 987,
-             contact_preference: "email",
-             phone_number: "163009101110")
+      instance_double(
+        Participant,
+        id: 987,
+        contact_preference: "email",
+        phone_number: "163009101110")
     end
     let(:participant_email_2) do
-      double("participant_email_2",
-             id: 543,
-             contact_preference: "email")
+      instance_double(
+        Participant,
+        id: 543,
+        contact_preference: "email")
     end
     let(:comment) do
-      double("comment",
-             id: 8_675_309,
-             participant_id: participant.id,
-             participant: participant,
-             text: "I like cheeses",
-             item_id: 5,
-             item_type: "SocialNetworking::OnTheMindStatement")
+      instance_double(
+        Comment,
+        created_at: Time.zone.now,
+        id: 8_675_309,
+        participant_id: participant.id,
+        participant: participant,
+        text: "I like cheeses",
+        item_id: 5,
+        item_type: "SocialNetworking::OnTheMindStatement")
     end
     let(:errors) { double("errors", full_messages: ["baz"]) }
 
@@ -51,13 +56,14 @@ module SocialNetworking
           before do
             allow(comment).to receive(:save) { true }
             allow(OnTheMindStatement).to receive(:find) {
-              double("item", participant_id: 1)
+              instance_double(OnTheMindStatement, participant_id: 1)
             }
             allow(Participant).to receive(:find) {
-              double("some_participant",
-                     id: 987,
-                     contact_preference: "sms",
-                     phone_number: "16309101110")
+              instance_double(
+                Participant,
+                id: 987,
+                contact_preference: "sms",
+                phone_number: "16309101110")
             }
             allow(controller).to receive(:notify) { nil }
           end
@@ -77,9 +83,10 @@ module SocialNetworking
         context "and the record saves" do
           before do
             allow(comment).to receive(:save) { true }
-            allow(OnTheMindStatement).to receive(:find) {
-                                           double("item", participant_id: 1)
-                                         }
+            allow(OnTheMindStatement)
+              .to receive(:find) {
+                instance_double(OnTheMindStatement, participant_id: 1)
+              }
             allow(Participant).to receive(:find) { participant_email }
             allow(controller).to receive(:notify) { nil }
           end
@@ -101,7 +108,9 @@ module SocialNetworking
           before do
             allow(comment).to receive(:save) { true }
             allow(OnTheMindStatement)
-              .to receive(:find) { double("item", participant_id: 1) }
+              .to receive(:find) {
+                instance_double(OnTheMindStatement, participant_id: 1)
+              }
             allow(Participant).to receive(:find) { participant_email_2 }
           end
 

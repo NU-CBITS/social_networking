@@ -4,6 +4,7 @@ module SocialNetworking
     class LikeSerializer < Serializer
       def to_serialized
         {
+          createdAt: model.created_at,
           id: model.id,
           participantId: model.participant_id,
           participantDisplayName: model.participant.display_name,
