@@ -12,7 +12,9 @@ module SocialNetworking
     has_many :comments, as: "item"
     has_many :likes, as: "item"
 
-    validates :participant, presence: true
+    validates :participant,
+              presence: true,
+              uniqueness: { scope: :participant_id }
 
     delegate :latest_action_at, :active_membership_end_date,
              to: :participant

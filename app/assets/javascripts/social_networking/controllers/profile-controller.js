@@ -34,7 +34,10 @@
   ProfileCtrl.prototype.update_profile_icon = function(icon_name, controller) {
     controller.iconSrc = icon_name;
     controller._profiles.update(controller).then(function(profile) {
-        controller.profile.iconSrc = profile.iconSrc;
+      controller.profile.iconSrc = profile.iconSrc;
+    })
+    .catch(function(response) {
+      window.alert(response.data.error);
     });
     $('#icon-selection-button').click();
   };

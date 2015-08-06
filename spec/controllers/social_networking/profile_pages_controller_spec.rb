@@ -5,12 +5,11 @@ module SocialNetworking
     let(:group) { double("group", social_networking_profile_questions: []) }
     let(:participant_status) { double("participant_status", :context= => "") }
     let(:participant) do
-      double(
-        "participant",
-        active_group: group,
-        navigation_status: participant_status)
+      instance_double(
+        Participant,
+        active_group: group)
     end
-    let(:initiator) { double("participant") }
+    let(:initiator) { instance_double(Participant) }
 
     describe "GET show" do
       context "when the current participant is authenticated" do
@@ -26,7 +25,7 @@ module SocialNetworking
           end
 
           context "current participant has been nudged" do
-            let(:nudge) { double("nudge", initiator: initiator) }
+            let(:nudge) { instance_double(Nudge, initiator: initiator) }
 
             it "displays the display name of the participant who nudged" do
               allow(Nudge).to receive(:search) { [nudge] }
