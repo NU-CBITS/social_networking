@@ -11,24 +11,7 @@ module SocialNetworking
     end
 
     def show
-      if params[:id].present?
-        @profile = Profile.find(params[:id])
-        store_nudge_initiators(@profile.participant_id)
-      elsif current_participant.social_networking_profile
-        @profile = current_participant.social_networking_profile
-      else
-        @profile = Profile
-                   .find_or_create_by(participant_id: current_participant.id,
-                                      active: true) do |profile|
-          begin
-            SharedItem.create(
-              item: profile,
-              action_type: Profile::Actions.created)
-          rescue ActiveRecord::StatementInvalid
-            logger.info("Shared item already created for existing profile.")
-          end
-        end
-      end
+      store_nudge_initiators(@profile.participant_id)
       set_member_profiles
       load_feed_items
     end
@@ -44,25 +27,23 @@ module SocialNetworking
     end
 
     def set_current_profile
-      id = params[:id] || current_participant.id
-      @profile = Profile.find_or_create_by(
-        participant_id: id, active: true) do |profile|
-        begin
-          SharedItem.create(
-            item: profile,
-            action_type: Profile::Actions.created)
-        rescue ActiveRecord::StatementInvalid
-          logger.info("Shared item already created for existing profile.")
-        end
+      if params[:id]
+        @profile = Profile.find(params[:id])
+      else
+        @profile = Profile
+                   .find_or_initialize_by(
+                     participant_id: current_participant.id)
+        @profile.update_attributes(active: true)
       end
-      store_nudge_initiators(@profile.participant_id)
     end
 
     def store_nudge_initiators(participant_id)
-      @notifications = Nudge.search(participant_id)
-      @nudges = []
-      @notifications.each do |notification|
-        @nudges.push(notification.initiator.display_name)
+      @nudging_display_names = []
+      Nudge
+        .search(participant_id)
+        .each do |notification|
+        @nudging_display_names.push(
+          notification.initiator.display_name)
       end
     end
 

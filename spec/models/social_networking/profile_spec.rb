@@ -32,5 +32,11 @@ module SocialNetworking
               ).to eq("Social Networking")
       end
     end
+
+    it "is shared after creation" do
+      expect do
+        Profile.create(participant: participant)
+      end.to change { SharedItem.count }.by(1)
+    end
   end
 end

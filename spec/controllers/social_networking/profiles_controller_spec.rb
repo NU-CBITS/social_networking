@@ -3,15 +3,15 @@ require "spec_helper"
 module SocialNetworking
   describe ProfilesController, type: :controller do
     context "participant is authenticated" do
-      let(:participant) { instance_double("participant") }
-      let(:profile) { instance_double("profile") }
+      let(:participant) { instance_double(Participant) }
+      let(:profile) { instance_double(Profile) }
 
       before do
         @routes = Engine.routes
 
         expect(controller).to receive(:current_participant) { participant }
         expect(participant)
-          .to receive_message_chain(:social_networking_profile) { profile }
+          .to receive(:social_networking_profile) { profile }
       end
 
       describe "PUT update" do

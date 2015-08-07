@@ -57,10 +57,10 @@
 </div>
 
 <% if current_participant.id == @profile.participant_id %>
-  <% unless @nudges.empty? %>
-    <div class="alert alert-info" id="nudge-alert">
-      <button type="button" class="close" data-dismiss="alert" onclick="$('#nudge-alert').hide();"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      <%= @nudges.to_sentence %> nudged you!
+  <% unless @nudging_display_names.empty? %>
+    <div class="alert alert-info">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <%= @nudging_display_names.to_sentence %> nudged you!
     </div>
   <% end %>
   <div ng-controller="ProfileQuestionsCtrl as profileQuestions">
