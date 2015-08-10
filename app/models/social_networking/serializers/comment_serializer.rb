@@ -4,6 +4,7 @@ module SocialNetworking
     class CommentSerializer < Serializer
       def to_serialized
         {
+          createdAt: model.created_at,
           id: model.id,
           participantId: model.participant_id,
           isAdmin: model.participant.is_admin,
