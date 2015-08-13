@@ -22,6 +22,16 @@ describe('Alert', function() {
     });
   });
 
+  describe('#getAlerts', function() {
+    it('returns all alerts', function() {
+      expect(alertService.getAlerts()).toEqual([]);
+
+      alertService.alerts = ['foo']
+
+      expect(alertService.getAlerts()).toEqual(['foo']);
+    });
+  });
+
   describe('#removeAlert', function() {
     it('removes alert from array of alerts', function() {
       alertService.alerts = ['alert']

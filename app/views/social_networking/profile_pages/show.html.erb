@@ -55,7 +55,7 @@
     <% end %>
   </div>
 
-  <div ng-repeat="alert in profile.getAlerts" class="alert {{alert.cssClass}}">
+  <div ng-repeat="alert in profile.getAlerts()" class="alert {{alert.cssClass}}">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="profile.removeAlert(alert)">
       <span aria-hidden="true">&times;</span>
       <span class="sr-only">Close</span>

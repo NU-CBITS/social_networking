@@ -7,16 +7,19 @@
     return {
       alerts: [],
       addError: function(message) {
-        this.alerts.push({
+        this.getAlerts().push({
           cssClass: ErrorClass,
           message: message
         });
       },
+      getAlerts: function() {
+        return this.alerts;
+      },
       removeAlert: function(alert) {
         var index;
 
-        index = this.alerts.indexOf(alert);
-        this.alerts.splice(index, 1);
+        index = this.getAlerts().indexOf(alert);
+        this.getAlerts().splice(index, 1);
       }
     };
   }

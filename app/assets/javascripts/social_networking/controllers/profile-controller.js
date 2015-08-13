@@ -7,7 +7,9 @@
       this._profiles = Profiles;
       this._nudges = Nudges;
       this.alertService = alertService;
-      this.getAlerts = alertService.alerts;
+      this.getAlerts = function() {
+        return alertService.getAlerts();
+      };
       this.profile = {};
       this.removeAlert = function(alert) {
         alertService.removeAlert(alert);
