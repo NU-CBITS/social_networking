@@ -7,13 +7,17 @@
       this._profiles = Profiles;
       this._nudges = Nudges;
       this.alertService = alertService;
+      this.getAlerts = alertService.alerts;
       this.profile = {};
+      this.removeAlert = function(alert) {
+        alertService.removeAlert(alert);
+      };
       this._profiles.getOne(profileId).then(function(profile) {
         self.id = profile.id;
         self.profile = profile;
         self.iconSrc = '';
       }).catch(function(error) {
-        self.alertService.addError(error);
+        alertService.addError(error);
       });
   }
 

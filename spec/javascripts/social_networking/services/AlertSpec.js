@@ -21,4 +21,13 @@ describe('Alert', function() {
       }])
     });
   });
+
+  describe('#removeAlert', function() {
+    it('removes alert from array of alerts', function() {
+      alertService.alerts = ['alert']
+      alertService.removeAlert('alert');
+
+      expect(alertService.alerts).toEqual([]);
+    });
+  });
 });

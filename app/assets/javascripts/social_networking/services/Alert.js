@@ -11,6 +11,12 @@
           cssClass: ErrorClass,
           message: message
         });
+      },
+      removeAlert: function(alert) {
+        var index;
+
+        index = this.alerts.indexOf(alert);
+        this.alerts.splice(index, 1);
       }
     };
   }
