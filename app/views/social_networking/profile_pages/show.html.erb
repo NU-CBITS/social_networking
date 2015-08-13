@@ -14,7 +14,7 @@
           <div class="modal-body">
             <% @profile_icons.each_with_index do |icon_name, index| %>
               <% if 0 == index % 6 %><div class="row"><% end %>
-              <div ng-click="profile.update_profile_icon('<%= icon_name %>', profile)" class="col-lg-2 col-sm-4 col-xs-4 text-center icon-selection">
+              <div ng-click="profile.updateProfileIcon('<%= icon_name %>')" class="col-lg-2 col-sm-4 col-xs-4 text-center icon-selection">
                 <%= image_tag 'social_networking/profile_icon_'+ icon_name +'.png' %>
               </div>
               <% if 5 == index % 6 || index + 1 == @profile_icons.size %></div><% end %>
@@ -53,6 +53,14 @@
         <br><span>{{ profile.nudgeAlert }}</span>
       </div>
     <% end %>
+  </div>
+
+  <div ng-repeat="alert in profile.alertService.alerts" class="alert {{alert.cssClass}}">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+      <span class="sr-only">Close</span>
+    </button>
+    {{alert.message}}
   </div>
 </div>
 

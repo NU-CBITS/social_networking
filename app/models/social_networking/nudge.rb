@@ -13,7 +13,7 @@ module SocialNetworking
 
     validates :initiator, :recipient, presence: true
 
-    def self.search(recipient_id)
+    def self.search(recipient_id = nil)
       if recipient_id
         select(:initiator_id)
           .where(recipient_id: recipient_id)

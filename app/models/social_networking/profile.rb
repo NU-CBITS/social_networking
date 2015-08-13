@@ -14,6 +14,7 @@ module SocialNetworking
     has_many :comments, as: "item"
     has_many :likes, as: "item"
 
+    validates :participant, presence: true
     validates :participant_id, uniqueness: true
 
     delegate :latest_action_at, :active_membership_end_date,

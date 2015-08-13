@@ -38,13 +38,9 @@ module SocialNetworking
     end
 
     def store_nudge_initiators(participant_id)
-      @nudging_display_names = []
-      Nudge
-        .search(participant_id)
-        .each do |notification|
-        @nudging_display_names.push(
-          notification.initiator.display_name)
-      end
+      @nudging_display_names =  Nudge
+                                .search(participant_id)
+                                .map { |n| n.initiator.display_name }
     end
 
     def set_profile_questions
