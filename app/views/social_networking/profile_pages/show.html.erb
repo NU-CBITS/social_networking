@@ -14,7 +14,7 @@
           <div class="modal-body">
             <% @profile_icons.each_with_index do |icon_name, index| %>
               <% if 0 == index % 6 %><div class="row"><% end %>
-              <div ng-click="profile.update_profile_icon('<%= icon_name %>', profile)" class="col-lg-2 col-sm-4 col-xs-4 text-center icon-selection">
+              <div ng-click="profile.updateProfileIcon('<%= icon_name %>')" class="col-lg-2 col-sm-4 col-xs-4 text-center icon-selection">
                 <%= image_tag 'social_networking/profile_icon_'+ icon_name +'.png' %>
               </div>
               <% if 5 == index % 6 || index + 1 == @profile_icons.size %></div><% end %>
@@ -54,13 +54,21 @@
       </div>
     <% end %>
   </div>
+
+  <div ng-repeat="alert in profile.getAlerts()" class="alert {{alert.cssClass}}">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="profile.removeAlert(alert)">
+      <span aria-hidden="true">&times;</span>
+      <span class="sr-only">Close</span>
+    </button>
+    {{alert.message}}
+  </div>
 </div>
 
 <% if current_participant.id == @profile.participant_id %>
-  <% unless @nudges.empty? %>
-    <div class="alert alert-info" id="nudge-alert">
-      <button type="button" class="close" data-dismiss="alert" onclick="$('#nudge-alert').hide();"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      <%= @nudges.to_sentence %> nudged you!
+  <% unless @nudging_display_names.empty? %>
+    <div class="alert alert-info">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <%= @nudging_display_names.to_sentence %> nudged you!
     </div>
   <% end %>
   <div ng-controller="ProfileQuestionsCtrl as profileQuestions">

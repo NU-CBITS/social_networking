@@ -2,48 +2,54 @@
   "use strict";
 
   // Provide interaction with a participant's profile.
-  function ProfileCtrl(profileId, Profiles, Nudges) {
+  function ProfileCtrl(alertService, profileId, Profiles, Nudges) {
       var self = this;
-      self._profiles = Profiles;
-      self._nudges = Nudges;
-      self.profile = {};
-      self._profiles.getOne(profileId)
-      .then(function(profile) {
-          self.id = profile.id;
-          self.profile = profile;
-          self.iconSrc = '';
+      this._profiles = Profiles;
+      this._nudges = Nudges;
+      this.alertService = alertService;
+      this.getAlerts = function() {
+        return alertService.getAlerts();
+      };
+      this.profile = {};
+      this.removeAlert = function(alert) {
+        alertService.removeAlert(alert);
+      };
+      this._profiles.getOne(profileId).then(function(profile) {
+        self.id = profile.id;
+        self.profile = profile;
+        self.iconSrc = '';
       }).catch(function(error) {
-          window.console.log(error);
+        alertService.addError(error);
       });
   }
 
   // Send a nudge from one participant to another.
-  ProfileCtrl.prototype.nudge = function(recipient_id) {
+  ProfileCtrl.prototype.nudge = function(recipientId) {
     var self = this;
 
-    this._nudges.create(recipient_id)
+    this._nudges.create(recipientId)
       .then(function(response) {
         self.nudgeAlert = response.message;
       })
       .catch(function(response) {
-        self.nudgeAlert = response.data.error;
+        self.alertService.addError(response.data.error);
       });
   };
 
-  // Update the profile icon
-  ProfileCtrl.prototype.update_profile_icon = function(icon_name, controller) {
-    controller.iconSrc = icon_name;
-    controller._profiles.update(controller).then(function(profile) {
-        controller.profile.iconSrc = profile.iconSrc;
+  ProfileCtrl.prototype.updateProfileIcon = function(iconName) {
+    var self = this;
+    this.iconSrc = iconName;
+    this._profiles.update(this)
+    .then(function(profile) {
+      self.profile.iconSrc = profile.iconSrc;
+    })
+    .catch(function(response) {
+      self.alertService.addError(response.data.error);
     });
     $('#icon-selection-button').click();
   };
 
-  ProfileCtrl.prototype.getIconSrc = function(controller) {
-    return controller.profile.iconSrc;
-  };
-
   // Create a module and register the controllers.
   angular.module('socialNetworking.controllers')
-    .controller('ProfileCtrl', ['profileId', 'Profiles', 'Nudges', ProfileCtrl]);
+    .controller('ProfileCtrl', ['alertService', 'profileId', 'Profiles', 'Nudges', ProfileCtrl]);
 })();

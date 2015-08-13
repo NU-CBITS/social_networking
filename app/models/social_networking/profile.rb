@@ -4,6 +4,8 @@ module SocialNetworking
     ACTION_TYPES = %w( created completed )
     Actions = Struct.new(*ACTION_TYPES.map(&:to_sym)).new(*ACTION_TYPES)
 
+    after_create :share_profile
+
     belongs_to :participant
     has_many :profile_answers,
              class_name: "SocialNetworking::ProfileAnswer",
@@ -13,6 +15,7 @@ module SocialNetworking
     has_many :likes, as: "item"
 
     validates :participant, presence: true
+    validates :participant_id, uniqueness: true
 
     delegate :latest_action_at, :active_membership_end_date,
              to: :participant
@@ -39,6 +42,14 @@ module SocialNetworking
       else
         participant.display_name
       end
+    end
+
+    private
+
+    def share_profile
+      SharedItem.create(
+        item: self,
+        action_type: Profile::Actions.created)
     end
   end
 end
