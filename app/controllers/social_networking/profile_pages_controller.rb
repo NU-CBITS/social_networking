@@ -6,14 +6,14 @@ module SocialNetworking
     before_action :set_current_profile,
                   :set_profile_questions,
                   :set_profile_icon_names
-
+    before_action :store_nudge_initiators,
+                  :set_member_profiles,
+                  :load_feed_items,
+                  only: :show
     def index
     end
 
     def show
-      store_nudge_initiators(@profile.participant_id)
-      set_member_profiles
-      load_feed_items
     end
 
     private
@@ -37,9 +37,9 @@ module SocialNetworking
       end
     end
 
-    def store_nudge_initiators(participant_id)
+    def store_nudge_initiators
       @nudging_display_names =  Nudge
-                                .search(participant_id)
+                                .search(@profile.participant_id)
                                 .map { |n| n.initiator.display_name }
     end
 
