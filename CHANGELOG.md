@@ -1,3 +1,19 @@
+## 0.4.18 - 2015-08-14
+ * Merge pull request #67 from cbitstech/msw_100582464_add_profile_partials
+ * Create Profile Question Partial
+ * Merge pull request #66 from cbitstech/msw_100582464_fix_icon_updating
+ * Remain Consistent in Controller Calls
+ * Add Remove Alert Method
+ * Add Alert Service
+ * Update Calls in Controller
+ * Fix Updating Profile Icon
+ * Merge pull request #65 from cbitstech/msw_98485472_fix_timestamps
+ * Add CreatedAt Attribute
+ * Merge pull request #64 from cbitstech/msw_100522400_mailer_nil_parameter
+ * Update Params of Mailer
+ * Merge pull request #63 from cbitstech/msw_100522400_improve_spec_coverage
+ * Increase Spec Coverage
+
 ## 0.4.17 - 2015-08-04
  * Merge pull request #62 from cbitstech/msw_99072664_add_scoping_to_profile_questions
  * Scope Profile to Participant
