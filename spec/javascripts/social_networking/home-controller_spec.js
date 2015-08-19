@@ -39,6 +39,11 @@ describe('HomeCtrl', function() {
         deferred = q.defer();
 
         return deferred.promise;
+      },
+      get: function() {
+        deferred = q.defer();
+
+        return deferred.promise;
       }
     }
   });
@@ -201,6 +206,82 @@ describe('HomeCtrl', function() {
         expect(controller.inOnYourMindEntryMode()).toBeTruthy();
         expect(controller.feedItems.length).toBe(0);
         expect(controller.error).toBe('baz');
+      });
+    });
+  });
+
+  describe('#getMore', function() {
+    describe('when feed is disabled', function() {
+      it('remains disabled', function() {
+        controller.feedDisabled = true;
+        controller.getMore();
+
+        expect(controller.feedDisabled).toBe(true);
+      });
+    });
+
+    describe('when feed is enabled', function() {
+      it('is set to disabled', function() {
+        controller.feedDisabled = false;
+        controller.getMore();
+
+        expect(controller.feedDisabled).toBe(true);
+      });
+
+      describe('when promise resolves', function() {
+        function getMore(items) {
+          items = items || [];
+          controller.getMore();
+          deferred.resolve({feedItems: items});
+          scope.$digest();
+        }
+
+        describe('when feed items exist', function() {
+          var items = ['foo'];
+
+          it('sets concatenated feed items', function() {
+            controller.feedItems = ['bar']
+            getMore(items);
+
+            expect(controller.feedItems).toEqual(['bar', 'foo']);
+          });
+
+          it('disables feed', function() {
+            controller.feedDisabled = false;
+            getMore(items);
+
+            expect(controller.feedDisabled).toBe(false);
+          });
+
+          it('increments the page number', function() {
+            controller.page = 1;
+            getMore(items);
+
+            expect(controller.page).toBe(2);
+          });
+        });
+
+        describe('when no feed items exist', function() {
+          function getFixture() {
+            return $('#jasmine_content');
+          }
+
+          function getFeed() {
+            return getFixture()
+                   .append('<div id="infinite-feed" infinite-scroll-disabled="false" />')
+                   .find('#infinite-feed');
+          }
+
+          it('disables infinite scroll', function() {
+            var feed = getFeed();
+            
+            expect(feed.attr('infinite-scroll-disabled')).toBe('false');
+
+            getMore();
+
+            expect(feed.attr('infinite-scroll-disabled')).toBe('true');
+          });
+        });
       });
     });
   });
