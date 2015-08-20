@@ -1,3 +1,7 @@
+## 0.4.20 - 2015-08-20
+ * Merge pull request #70 from cbitstech/msw_100582464_fix_feed_item_bug
+ * Fix Feed Bug
+
 ## 0.4.19 - 2015-08-20
  * Merge pull request #69 from cbitstech/msw_100582464_update_home_specs_and_serializer_specs
  * Update Specs
