@@ -177,7 +177,7 @@ describe('HomeCtrl', function() {
   describe('#show', function() {
     it('should set the appropriate mode', function() {
       controller.show('profiles');
-      expect(controller.inProfilesBrowseMode()).toBeTruthy();
+      expect(controller.inFeedBrowseMode()).toBeFalsy();
       controller.show('feed');
       expect(controller.inFeedBrowseMode()).toBeTruthy();
     });
@@ -232,7 +232,7 @@ describe('HomeCtrl', function() {
         function getMore(items) {
           items = items || [];
           controller.getMore();
-          deferred.resolve({feedItems: items});
+          deferred.resolve({data: {feedItems: items}});
           scope.$digest();
         }
 
