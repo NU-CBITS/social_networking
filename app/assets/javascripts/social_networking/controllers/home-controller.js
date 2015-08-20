@@ -57,7 +57,9 @@
   HomeCtrl.prototype.retrieveFeed = function () {
     var responsePromise = this._sharedResource.get('/social_networking/shared_items/participant/'+this._currentParticipantId+'/page/'+this.page);
     var self = this;
-    responsePromise.then(function(data, status, headers, config) {
+
+    function successCallback(data, status, headers, config) {
+      data = data.data;
       if (data && data.feedItems && 0 < data.feedItems.length) {
         self.feedItems = self.feedItems.concat(data.feedItems);
         self.feedDisabled = false;
@@ -65,7 +67,9 @@
       } else {
         $("#infinite-feed").attr("infinite-scroll-disabled", "true");
       }
-    });
+    }
+
+    responsePromise.then(successCallback);
   };
 
   HomeCtrl.prototype.setSelectedItem = function(item) {
@@ -146,23 +150,6 @@
     return able_to_like;
   };
 
-  // Only certain types of sharable items can be hidden.
-  HomeCtrl.prototype.canHide = function(item) {
-    return item.isPublic &&
-        (item.summary.indexOf("Activity") > -1 ||
-        item.summary.indexOf("Thought") > -1) &&
-        this._currentParticipantId === item.participantId;
-  };
-
-  // Hides a feed item.
-  HomeCtrl.prototype.hideSharedItem = function(item) {
-      var responsePromise = this._sharedResource.get("/social_networking/shared_items/" + item.id + "/hide");
-      responsePromise.success(function(data, status, headers, config) {
-          item.isPublic = false;
-          item.summary = item.summary.substring(0, item.summary.indexOf(":"));
-      });
-  };
-
   // "Like" a feed item.
   HomeCtrl.prototype.addLikeTo = function(item) {
     var self = this;
@@ -184,11 +171,6 @@
   // Is the tool in Feed Browse Mode?
   HomeCtrl.prototype.inFeedBrowseMode = function() {
     return this._homeTool.getMode() === this._homeTool.MODES.FEED;
-  };
-
-  // Is the tool in Profiles Browse Mode?
-  HomeCtrl.prototype.inProfilesBrowseMode = function() {
-    return this._homeTool.getMode() === this._homeTool.MODES.PROFILES;
   };
 
   // Is the tool in On Your Mind Entry Mode?
@@ -238,12 +220,12 @@
   };
 
   HomeCtrl.prototype.taskVisited = function(item) {
-      $.ajax({
-          async: false,
-          dataType: "script",
-          type: "PUT",
-          url: "/participants/task_status/" + item.task_id
-      });
+    $.ajax({
+      async: false,
+      dataType: "script",
+      type: "PUT",
+      url: "/participants/task_status/" + item.task_id
+    });
   };
 
   HomeCtrl.prototype.timeAgoInWords = function(createdAt) {
