@@ -1,3 +1,7 @@
+## 0.4.19 - 2015-08-20
+ * Merge pull request #69 from cbitstech/msw_100582464_update_home_specs_and_serializer_specs
+ * Update Specs
+
 ## 0.4.18 - 2015-08-14
  * Merge pull request #67 from cbitstech/msw_100582464_add_profile_partials
  * Create Profile Question Partial
