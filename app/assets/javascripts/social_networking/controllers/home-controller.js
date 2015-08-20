@@ -57,7 +57,7 @@
   HomeCtrl.prototype.retrieveFeed = function () {
     var responsePromise = this._sharedResource.get('/social_networking/shared_items/participant/'+this._currentParticipantId+'/page/'+this.page);
     var self = this;
-    responsePromise.success(function(data, status, headers, config) {
+    responsePromise.then(function(data, status, headers, config) {
       if (data && data.feedItems && 0 < data.feedItems.length) {
         self.feedItems = self.feedItems.concat(data.feedItems);
         self.feedDisabled = false;
