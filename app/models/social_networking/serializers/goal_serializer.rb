@@ -14,7 +14,7 @@ module SocialNetworking
           description: model.description,
           isCompleted: model.is_completed,
           isDeleted: model.is_deleted,
-          dueOn: model.due_on,
+          dueOn: model.due_on ? model.due_on.to_s(:date) : "",
           comments: CommentSerializer.from_collection(model.comments)
         }
       end
