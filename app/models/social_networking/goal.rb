@@ -25,8 +25,7 @@ module SocialNetworking
       if due_on
         {
           description: description,
-          dueOn: due_on,
-          dueOnDisplay: due_on ? due_on.strftime("%b. %e, %Y at %l:%M%p") : ""
+          dueOn: due_on.to_s(:date)
         }
       else
         {}
