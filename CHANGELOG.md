@@ -1,3 +1,8 @@
+## 0.4.21 - 2015-08-21
+ * Merge pull request #71 from cbitstech/msw_91861818_update_achieve_time_formats
+ * Update Date Format
+ * Update travis config
+
 ## 0.4.20 - 2015-08-20
  * Merge pull request #70 from cbitstech/msw_100582464_fix_feed_item_bug
  * Fix Feed Bug
