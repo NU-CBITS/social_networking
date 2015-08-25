@@ -15,7 +15,7 @@ describe "goal tool", type: :feature, js: true do
   end
 
   scenario "Displays due date" do
-    expect(page).to have_content "Due: #{Date.today.strftime("%m/%d/%Y")}"
+    expect(page).to have_content "Due: #{Date.today.strftime("%b %d %Y")}"
   end
 
   scenario "Participant completes a goal" do
