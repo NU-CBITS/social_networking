@@ -11,7 +11,7 @@ module SocialNetworking
           item: thought,
           item_label: "label",
           id: 1,
-          created_at: Time.now,
+          created_at: Time.zone.now,
           is_public: true,
           action_type: "",
           likes: [],

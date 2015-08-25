@@ -10,7 +10,7 @@ module SocialNetworking
           Nudge,
           id: 1,
           initiator_id: 1,
-          created_at: Time.now,
+          created_at: Time.zone.now,
           recipient_id: 1,
           comments: []
         )

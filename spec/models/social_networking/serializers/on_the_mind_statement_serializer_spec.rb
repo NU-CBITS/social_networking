@@ -8,7 +8,7 @@ module SocialNetworking
         instance_double(
           OnTheMindStatement,
           id: 1,
-          created_at: Time.now,
+          created_at: Time.zone.now,
           participant_id: 1,
           description: "",
           comments: [],
