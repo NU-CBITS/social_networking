@@ -49,6 +49,26 @@ module SocialNetworking
       expect(Goal.for_week.count).to eq(count + 1)
     end
 
+    describe ".to_serialized" do
+      def goal(attributes = {})
+        Goal.create({
+          participant: participant,
+          description: "foo",
+          due_on: Date.today
+        }.merge(attributes))
+      end
+
+      it "sets `dueOn` property with correct format" do
+        expect(goal.to_serialized[:dueOn])
+          .to eq Date.today.to_s(:participant_date)
+      end
+
+      it "returns an empty hash if `due_on` is nil" do
+        expect(goal(due_on: nil).to_serialized)
+          .to eq({})
+      end
+    end
+
     context "with goal sample data" do
       fixtures(:all)
 

@@ -25,7 +25,7 @@ module SocialNetworking
       if due_on
         {
           description: description,
-          dueOn: due_on.to_s(:date)
+          dueOn: due_on.to_s(:participant_date)
         }
       else
         {}
