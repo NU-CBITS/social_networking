@@ -1,3 +1,8 @@
+## 0.4.22 - 2015-08-26
+ * Merge pull request #72 from cbitstech/msw_91861818_update_due_at_date_formate
+ * Update Failing Spec
+ * Update Goal Serializer's Date Format
+
 ## 0.4.21 - 2015-08-21
  * Merge pull request #71 from cbitstech/msw_91861818_update_achieve_time_formats
  * Update Date Format
