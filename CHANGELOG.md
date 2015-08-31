@@ -1,3 +1,10 @@
+## 0.4.24 - 2015-08-31
+ * Merge pull request #75 from cbitstech/msw_101934888_fix_failing_spec
+ * Update Like Serializer Spec
+ * Merge pull request #74 from cbitstech/msw_101934888_update_timestamps
+ * Remove Unnecessary ActiveRecord Class
+ * Add Common Views and Add View Specs
+
 ## 0.4.23 - 2015-08-26
  * Merge pull request #73 from cbitstech/msw_91861818_update_to_serialized
  * Update To Serialized For Goals
