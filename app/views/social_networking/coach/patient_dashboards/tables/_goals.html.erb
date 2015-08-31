@@ -1,0 +1,67 @@
+<div class="panel panel-default cdb_panel" id="goals-container">
+  <div class="panel-heading">
+    <h3 class="panel-title adjusted-panel-title">
+      <a data-toggle="collapse" data-parent="#accordion" href="#goalsCollapse">
+        Goals
+      </a>
+    </h3>
+  </div>
+
+  <div id="goalsCollapse" class="panel-collapse collapse in">
+    <div class="panel-body">
+      <div class="table-responsive div-table-viz">
+        <table class="table table-hover data-table" id="goals_data">
+          <thead>
+          <tr>
+            <th class="not-displayed"></th>
+            <th>Description</th>
+            <th>Completed At</th>
+            <th>Deleted At</th>
+            <th>Due On</th>
+            <th>Created Date</th>
+            <th>Week</th>
+            <th>Likes</th>
+            <th>Comments</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <% membership.goals.each do |goal| %>
+            <tr>
+              <td class="not-displayed">
+                <%= goal.created_at.to_i %>
+              </td>
+              <td><%= goal.description %></td>
+              <td><%= goal.completed_at ? goal.completed_at.to_s(:standard) : "Incomplete" %></td>
+              <td><%= goal.deleted_at ? goal.deleted_at.to_s(:standard) : "Not Deleted" %></td>
+              <td><%= goal.due_on ? goal.due_on.to_s(:user_date) : content_tag(:span, "Unscheduled", class: "label label-warning") %></td>
+              <td><%= goal.created_at.to_s(:standard) %></td>
+              <td><%= week_in_study(goal.created_at, membership) %></td>
+              <td><%= goal_like_count(goal) %></td>
+              <td><%= goal.comments.count %></td>
+            </tr>
+          <% end %>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(function () {
+    return $('#goals_data').dataTable({
+      order: [[0, "desc"]],
+      columnDefs: [
+        {
+          targets: [0],
+          visible: false
+        },
+        {
+          targets: [6],
+          iDataSort: [0]
+        }
+      ]
+    });
+  });
+</script>

@@ -1,0 +1,39 @@
+<table id="<%= @participant.id %>-social-summary-totals" class="table table-hover">
+  <thead>
+    <tr>
+      <th>Social Activity</th><th>Today</th><th>Last 7 Days</th><th>Totals</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td><a href="#likesCollapse">Likes</a></td>
+    <td><%= membership.likes.for_today.count %></td>
+    <td><%= membership.likes.for_week.count %></td>
+    <td><%= membership.likes.count %></td>
+  </tr>
+  <tr>
+    <td><a href="#nudges-initiated">Nudges</a></td>
+    <td><%= membership.nudges.for_today.count %></td>
+    <td><%= membership.nudges.for_week.count %></td>
+    <td><%= membership.nudges.count %></td>
+  </tr>
+  <tr>
+    <td><a href="#commentsCollapse">Comments</a></td>
+    <td><%= membership.comments.for_today.count %></td>
+    <td><%= membership.comments.for_week.count %></td>
+    <td><%= membership.comments.count %></td>
+  </tr>
+  <tr>
+    <td><a href="#goalsCollapse">Goals</a></td>
+    <td><%= membership.goals.for_today.count %></td>
+    <td><%= membership.goals.for_week.count %></td>
+    <td><%= membership.goals.count %></td>
+  </tr>
+  <tr>
+    <td><a href="#on-my-mindCollapse">"On My Mind" Statements</a></td>
+    <td><%= membership.on_the_minds.for_today.count %></td>
+    <td><%= membership.on_the_minds.for_week.count %></td>
+    <td><%= membership.on_the_minds.count %></td>
+  </tr>
+  </tbody>
+</table>

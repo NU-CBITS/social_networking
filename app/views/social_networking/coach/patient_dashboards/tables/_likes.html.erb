@@ -1,0 +1,57 @@
+<div class="panel panel-default cdb_panel" id="likes-container">
+  <div class="panel-heading">
+    <h3 class="panel-title adjusted-panel-title">
+      <a data-toggle="collapse" data-parent="#accordion" href="#likesCollapse">
+        Likes
+      </a>
+    </h3>
+  </div>
+
+  <div id="likesCollapse" class="panel-collapse collapse in">
+    <div class="panel-body">
+      <div class="table-responsive div-table-viz">
+        <table class="table table-hover data-table" id="likes_data">
+          <thead>
+          <tr>
+            <th class="not-displayed"></th>
+            <th>Item Liked</th>
+            <th>Created At</th>
+            <th>Week</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <% membership.likes.each do |like| %>
+            <tr>
+              <td class="not-displayed">
+                <%= like.created_at.to_i %>
+              </td>
+              <td><%= comment_item_description(like) %> </td>
+              <td><%= like.created_at.to_s(:standard) %></td>
+              <td><%= week_in_study(like.created_at, membership) %></td>
+            </tr>
+          <% end %>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(function () {
+    return $('#likes_data').dataTable({
+      order: [[0, "desc"]],
+      columnDefs: [
+        {
+          targets: [0],
+          visible: false
+        },
+        {
+          targets: [2],
+          iDataSort: [0]
+        }
+      ]
+    });
+  });
+</script>

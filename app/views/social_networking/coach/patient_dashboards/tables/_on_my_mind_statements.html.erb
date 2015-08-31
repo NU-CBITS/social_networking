@@ -1,0 +1,62 @@
+<div class="panel panel-default cdb_panel" id="on-my-mind-container">
+  <div class="panel-heading">
+    <h3 class="panel-title adjusted-panel-title">
+      <a data-toggle="collapse" data-parent="#accordion" href="#on-my-mindCollapse">
+        On-My-Mind Statements
+      </a>
+    </h3>
+  </div>
+
+  <div id="on-my-mindCollapse" class="panel-collapse collapse in">
+    <div class="panel-body">
+      <div class="table-responsive div-table-viz">
+        <table class="table table-hover data-table" id="on-my-mind_data">
+          <thead>
+          <tr>
+            <th class="not-displayed"></th>
+            <th>Description</th>
+            <th>Created</th>
+            <th>Week</th>
+            <th>Likes</th>
+            <th>Comments</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <% membership.on_the_minds.each do |statement| %>
+
+            <tr>
+              <td class="not-displayed">
+                <%= statement.created_at.to_i %>
+              </td>
+              <td><%= statement.description %></td>
+              <td><%= statement.created_at.to_s(:standard) %></td>
+              <td><%= week_in_study(statement.created_at, membership) %></td>
+              <td><%= statement.likes.count %></td>
+              <td><%= statement.comments.count %></td>
+            </tr>
+          <% end %>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(function () {
+    return $('#on-my-mind_data').dataTable({
+      order: [[0, "desc"]],
+      columnDefs: [
+        {
+          targets: [0],
+          visible: false
+        },
+        {
+          targets: [3],
+          iDataSort: [0]
+        }
+      ]
+    });
+  });
+</script>

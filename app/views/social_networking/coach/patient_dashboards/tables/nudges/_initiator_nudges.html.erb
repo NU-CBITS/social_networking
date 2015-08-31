@@ -1,0 +1,22 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Nudges Initiated</h3>
+  </div>
+
+  <table id="nudges-initiated" class="table">
+    <thead>
+      <tr>
+        <th>Sent At</th>
+        <th>Sent To</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% nudges.each do |nudge| %>
+        <tr>
+          <td><%= nudge.created_at.to_s(:standard) %></td>
+          <td><%= nudge.recipient.study_id %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
