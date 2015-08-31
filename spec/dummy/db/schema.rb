@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150831152253) do
+ActiveRecord::Schema.define(version: 20150327185919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,9 +26,6 @@ ActiveRecord::Schema.define(version: 20150831152253) do
     t.string  "title",     default: "",    null: false
     t.boolean "is_social", default: false, null: false
     t.boolean "has_woz",   default: false
-  end
-
-  create_table "memberships", force: :cascade do |t|
   end
 
   create_table "participants", force: :cascade do |t|

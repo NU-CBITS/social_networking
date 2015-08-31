@@ -1,3 +1,3 @@
-class Membership < ActiveRecord::Base
+class Membership
   include SocialNetworking::Concerns::Membership
 end
