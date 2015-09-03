@@ -5,8 +5,8 @@ module SocialNetworking
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     before_action :set_current_profile,
                   :set_profile_questions,
-                  :set_profile_icon_names
-
+                  :set_profile_icon_names,
+                  :set_navigation_status_context
     def index
     end
 
@@ -17,6 +17,10 @@ module SocialNetworking
     end
 
     private
+
+    def set_navigation_status_context
+      current_participant.navigation_status.context = nil
+    end
 
     def set_member_profiles
       return if current_participant.active_group.nil?
