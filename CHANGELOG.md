@@ -1,3 +1,7 @@
+## 0.4.25 - 2015-09-04
+ * Merge pull request #76 from cbitstech/msw_100847372_add_context
+ * Clear Navigation Context
+
 ## 0.4.24 - 2015-08-31
  * Merge pull request #75 from cbitstech/msw_101934888_fix_failing_spec
  * Update Like Serializer Spec
