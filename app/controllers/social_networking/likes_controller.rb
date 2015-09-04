@@ -68,12 +68,13 @@ module SocialNetworking
       end
     end
 
-    # Trigger a notification email
-    def send_notify_email(recipient, message_body)
-      LikeMailer.like_email_alert(
-        recipient,
-        message_body,
-        "Someone LIKED what you did on ThinkFeelDo")
+    def send_notify_email(recipient, body)
+      Mailer
+        .notify(
+          recipient: recipient,
+          body: body,
+          subject: "Someone LIKED what you did on "\
+          "#{t('application_name', default: 'ThinkFeelDo')}")
     end
   end
 end

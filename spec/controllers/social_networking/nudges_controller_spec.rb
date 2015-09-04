@@ -60,13 +60,16 @@ module SocialNetworking
               allow(Participant).to receive(:find) do
                 recipient(contact_preference: "email", email: "mia@ex.co")
               end
-              allow(NudgeMailer)
-                .to receive_message_chain(:nudge_email_alert, :deliver)
+              allow(Mailer)
+                .to receive_message_chain(:notify, :deliver)
             end
 
             it "sends an email alert with a default app name" do
-              expect(NudgeMailer).to receive(:nudge_email_alert)
-                .with(anything, anything, "You've been NUDGED on ThinkFeelDo")
+              expect(Mailer).to receive(:notify)
+                .with(
+                  recipient: anything,
+                  body: anything,
+                  subject: "You've been NUDGED on ThinkFeelDo")
 
               post :create
             end
@@ -74,15 +77,21 @@ module SocialNetworking
             it "should notify via email alert with the localized app name" do
               allow(controller).to receive(:t).and_return("SunnySide")
 
-              expect(NudgeMailer).to receive(:nudge_email_alert)
-                .with(anything, anything, "You've been NUDGED on SunnySide")
+              expect(Mailer).to receive(:notify)
+                .with(
+                  recipient: anything,
+                  body: anything,
+                  subject: "You've been NUDGED on SunnySide")
 
               post :create
             end
 
             it "should contain email that redirects patient to their profile" do
-              expect(NudgeMailer).to receive(:nudge_email_alert)
-                .with(anything, %r{/social_networking/profile_page}, anything)
+              expect(Mailer).to receive(:notify)
+                .with(
+                  recipient: anything,
+                  body: %r{/social_networking/profile_page},
+                  subject: anything)
 
               post :create
             end

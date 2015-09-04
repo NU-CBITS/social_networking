@@ -34,10 +34,11 @@ module SocialNetworking
     # Select message from list, determine contact preference, then
     # trigger the notification based on the preference.
     def notify
-      case @recipient.contact_preference
-      when "email"
+      return if current_participant == @recipient
+
+      if @recipient.contact_preference == "email"
         send_notify_email
-      when "sms", "phone"
+      else
         send_sms(@recipient, message_body)
       end
     end
@@ -48,12 +49,12 @@ module SocialNetworking
 
     # Trigger nudge notification email
     def send_notify_email
-      NudgeMailer.nudge_email_alert(
-        @recipient,
-        message_body,
-        "You've been NUDGED on "\
-        "#{t('application_name', default: 'ThinkFeelDo')}").deliver
-      true
+      Mailer
+        .notify(
+          recipient: @recipient,
+          body: message_body,
+          subject: "You've been NUDGED on "\
+          "#{t('application_name', default: 'ThinkFeelDo')}")
     end
 
     def message_body

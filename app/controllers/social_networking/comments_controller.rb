@@ -31,20 +31,10 @@ module SocialNetworking
     # rubocop:disable Metrics/CyclomaticComplexity
     def notify(recipient)
       return if current_participant == recipient
-      case recipient.contact_preference
-      when "email"
+      if recipient.contact_preference == "email"
         send_notify_email(recipient, message_body)
-      when "sms"
-        if recipient.phone_number && !recipient.phone_number.blank?
-          send_sms(recipient, message_body)
-        end
-      when "phone"
-        if recipient.phone_number && !recipient.phone_number.blank?
-          send_sms(recipient, message_body)
-        end
       else
-        logger.error "ERROR: contact preference is not set for \
-participant with ID: " + recipient.id.to_s
+        send_sms(recipient, message_body)
       end
     end
     # rubocop:enable Metrics/AbcSize
@@ -71,12 +61,13 @@ participant with ID: " + recipient.id.to_s
       @comment.errors.full_messages.join(", ")
     end
 
-    # Trigger nudge notification email
-    def send_notify_email(recipient, message_body)
-      CommentMailer.comment_email_alert(
-        recipient,
-        message_body,
-        "You received a COMMENT on ThinkFeelDo")
+    def send_notify_email(recipient, body)
+      Mailer
+        .notify(
+          recipient: recipient,
+          body: body,
+          subject: "You received a COMMENT on "\
+          "#{t('application_name', default: 'ThinkFeelDo')}")
     end
 
     def message_body

@@ -63,7 +63,6 @@ module SocialNetworking
             post :create,
                  itemId: 5,
                  itemType: "SocialNetworking::Comment"
-            allow(LikeMailer).to receive(:like_email_alert) { nil }
             assert_response 200
             expect(json["id"]).to eq(8_675_309)
             expect(json["participantId"]).to eq(987)
@@ -87,7 +86,7 @@ module SocialNetworking
             post :create,
                  itemId: 5,
                  itemType: "SocialNetworking::Comment"
-            expect(LikeMailer).not_to receive(:like_email_alert)
+            expect(Mailer).not_to receive(:notify)
             assert_response 200
             expect(json["id"]).to eq(8_675_309)
             expect(json["participantId"]).to eq(participant.id)
@@ -107,12 +106,12 @@ module SocialNetworking
           end
 
           it "send an email notification with a subject" do
-            expect(LikeMailer).to receive(:like_email_alert)
-              .with(participant_email, /.*[social_networking\/home]/, /.*/)
+            allow(Mailer).to receive_message_chain("notify.deliver")
             post :create,
                  itemId: 5,
                  itemType: "SocialNetworking::Comment"
             assert_response 200
+
             expect(json["id"]).to eq(8_675_309)
             expect(json["participantId"]).to eq(participant.id)
           end

@@ -96,7 +96,7 @@ module SocialNetworking
                  text: "I like cheeses",
                  itemId: 5,
                  itemType: "SocialNetworking::OnTheMindStatement"
-            expect(CommentMailer).not_to receive(:comment_email_alert)
+            expect(Mailer).not_to receive(:notify)
             assert_response 200
             expect(json["id"]).to eq(8_675_309)
             expect(json["text"]).to eq("I like cheeses")
@@ -115,8 +115,7 @@ module SocialNetworking
           end
 
           it "should call the comment mailer with a subject" do
-            expect(CommentMailer).to receive(:comment_email_alert)
-              .with(participant_email_2, /.*[social_networking\/home]/, /.*/)
+            allow(Mailer).to receive_message_chain("notify.deliver")
             post :create,
                  text: "I like cheeses",
                  itemId: 5,
