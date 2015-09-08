@@ -5,7 +5,7 @@ require "twilio-ruby"
 module Sms
   extend ActiveSupport::Concern
 
-  def send_sms(recipient = current_user, message_body)
+  def send_sms(recipient, message_body)
     return unless Rails.env.staging? || Rails.env.production?
     return if recipient.phone_number.try(:blank?)
     client = Twilio::REST::Client.new(

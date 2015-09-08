@@ -5,21 +5,15 @@ module SocialNetworking
     describe ".notify" do
       let(:recipient) { instance_double(Participant, email: "obama@ex.co") }
 
-      describe "When subject and body exist" do
-        let(:mail) do
-          Mailer.notify(
-            recipient: recipient,
-            body: "body",
-            subject: "subject")
-        end
-
-        it "delivers mail with a subject" do
-          expect(mail.subject).to eq "subject"
-        end
-
-        it "delivers the body" do
-          expect(mail.body).to match "body"
-        end
+      it "delivers an email" do
+        expect do
+          Mailer
+            .notify(
+              recipient: recipient,
+              body: "foo",
+              subject: "bar")
+            .deliver
+        end.to change { ActionMailer::Base.deliveries.count }.by(1)
       end
     end
   end

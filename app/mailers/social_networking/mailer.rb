@@ -3,7 +3,7 @@ module SocialNetworking
   class Mailer < ActionMailer::Base
     def notify(recipient:, body:, subject:)
       @message_body = body
-      mail(to: recipient.email, subject: subject).deliver
+      mail(to: recipient.email, subject: subject)
     end
   end
 end

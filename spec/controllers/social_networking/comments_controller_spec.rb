@@ -5,151 +5,124 @@ module SocialNetworking
     let(:participant) do
       instance_double(
         Participant,
-        id: 987,
-        contact_preference: "sms",
-        phone_number: "163009101110",
+        id: 1,
         is_admin: false)
-    end
-    let(:participant_email) do
-      instance_double(
-        Participant,
-        id: 987,
-        contact_preference: "email",
-        phone_number: "163009101110")
-    end
-    let(:participant_email_2) do
-      instance_double(
-        Participant,
-        id: 543,
-        contact_preference: "email")
     end
     let(:comment) do
       instance_double(
         Comment,
         created_at: Time.zone.now,
-        id: 8_675_309,
+        id: "foo",
         participant_id: participant.id,
         participant: participant,
         text: "I like cheeses",
         item_id: 5,
         item_type: "SocialNetworking::OnTheMindStatement")
     end
-    let(:errors) { double("errors", full_messages: ["baz"]) }
 
-    before(:each) { @routes = Engine.routes }
+    def recipient(attributes = {})
+      instance_double(
+        Participant, {
+          contact_preference: nil
+        }.merge(attributes))
+    end
 
     describe "POST create" do
-      context "when the participant is authenticated" do
+      describe "when shared item is an 'On Mind Statement'" do
         before do
-          allow(controller).to receive(:authenticate_participant!)
-          allow(controller).to receive(:current_participant)
-            .and_return(participant_email)
-          allow(Comment).to receive(:new).with(
-            participant_id: participant.id,
-            text: "I like cheeses",
-            item_id: "5",
-            item_type: "SocialNetworking::OnTheMindStatement"
-          ) { comment }
+          @routes = Engine.routes
+          allow(Comment).to receive(:new) { comment }
+          allow(controller)
+            .to receive(:current_participant) { participant }
         end
 
-        context "and the record saves" do
+        context "the record saves" do
           before do
             allow(comment).to receive(:save) { true }
-            allow(OnTheMindStatement).to receive(:find) {
-              instance_double(OnTheMindStatement, participant_id: 1)
-            }
-            allow(Participant).to receive(:find) {
-              instance_double(
-                Participant,
-                id: 987,
-                contact_preference: "sms",
-                phone_number: "16309101110")
-            }
-            allow(controller).to receive(:notify) { nil }
+            allow(SocialNetworking::OnTheMindStatement)
+              .to receive_message_chain("find.participant_id")
           end
 
           it "should return the new record" do
-            post :create,
-                 text: "I like cheeses",
-                 itemId: 5,
-                 itemType: "SocialNetworking::OnTheMindStatement"
+            allow(Participant).to receive(:find) { recipient }
+
+            post :create
+
             assert_response 200
-            expect(json["id"]).to eq(8_675_309)
+            expect(json["id"]).to eq("foo")
             expect(json["text"]).to eq("I like cheeses")
-            expect(json["participantId"]).to eq(987)
+            expect(json["participantId"]).to eq(participant.id)
+          end
+
+          describe "recipient prefers to be contacted via phone" do
+            it "should notify via phone" do
+              allow(Participant)
+                .to receive(:find)
+                .and_return(recipient(contact_preference: "phone"))
+
+              expect_any_instance_of(Notification)
+                .to receive(:notify)
+
+              post :create
+            end
+          end
+
+          describe "recipient prefers to be contacted via sms" do
+            it "should notify via sms" do
+              allow(Participant)
+                .to receive(:find)
+                .and_return(recipient(contact_preference: "sms"))
+
+              expect_any_instance_of(Notification)
+                .to receive(:notify)
+
+              post :create
+            end
+          end
+
+          describe "recipient prefers to be contacted via email" do
+            let(:recipient_with_eamil) do
+              recipient(contact_preference: "email")
+            end
+            let(:notication) { instance_double(Notification) }
+
+            before do
+              allow(controller).to receive(:t) { "SunnySide" }
+              allow(Participant).to receive(:find) do
+                recipient_with_eamil
+              end
+              allow(notication).to receive(:notify)
+              allow(Notification).to receive(:new) { notication }
+            end
+
+            it "should notify via email with link and text 'SunnySide'" do
+              expect(Notification)
+                .to receive(:new)
+                .with(
+                  current_participant: participant,
+                  mailer: Mailer,
+                  recipient: recipient_with_eamil,
+                  message_body: %r{/social_networking/profile_page},
+                  subject: "You received a COMMENT on SunnySide")
+              expect(notication).to receive(:notify)
+
+              post :create
+            end
           end
         end
 
-        context "and the record saves" do
-          before do
-            allow(comment).to receive(:save) { true }
-            allow(OnTheMindStatement)
-              .to receive(:find) {
-                instance_double(OnTheMindStatement, participant_id: 1)
-              }
-            allow(Participant).to receive(:find) { participant_email }
-            allow(controller).to receive(:notify) { nil }
-          end
+        context "the record doesn't save" do
+          let(:errors) { double("errors", full_messages: ["baz"]) }
 
-          it "should not send out a notification email" do
-            post :create,
-                 text: "I like cheeses",
-                 itemId: 5,
-                 itemType: "SocialNetworking::OnTheMindStatement"
-            expect(Mailer).not_to receive(:notify)
-            assert_response 200
-            expect(json["id"]).to eq(8_675_309)
-            expect(json["text"]).to eq("I like cheeses")
-            expect(json["participantId"]).to eq(987)
-          end
-        end
+          it "returns an error message" do
+            allow(comment)
+              .to receive_messages(save: false, errors: errors)
 
-        context "and the record saves" do
-          before do
-            allow(comment).to receive(:save) { true }
-            allow(OnTheMindStatement)
-              .to receive(:find) {
-                instance_double(OnTheMindStatement, participant_id: 1)
-              }
-            allow(Participant).to receive(:find) { participant_email_2 }
-          end
-
-          it "should call the comment mailer with a subject" do
-            allow(Mailer).to receive_message_chain("notify.deliver")
-            post :create,
-                 text: "I like cheeses",
-                 itemId: 5,
-                 itemType: "SocialNetworking::OnTheMindStatement"
-            assert_response 200
-            expect(json["id"]).to eq(8_675_309)
-            expect(json["text"]).to eq("I like cheeses")
-            expect(json["participantId"]).to eq(987)
-          end
-        end
-
-        context "and the record doesn't save" do
-          before do
-            allow(comment).to receive_messages(save: false, errors: errors)
-          end
-
-          it "should return the error message" do
-            post :create,
-                 text: "I like cheeses",
-                 itemId: 5,
-                 itemType: "SocialNetworking::OnTheMindStatement"
+            post :create
 
             assert_response 400
             expect(json["error"]).to eq("baz")
           end
-        end
-      end
-    end
-
-    describe "private methods" do
-      describe ".message_body" do
-        it "sends the body text with the social networking profile url" do
-          expect(controller.send(:message_body))
-            .to match %r{/social_networking/profile_page}
         end
       end
     end
