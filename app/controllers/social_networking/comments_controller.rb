@@ -47,7 +47,7 @@ module SocialNetworking
     end
 
     def set_recipient
-      if "SocialNetworking::SharedItem" == @comment.item_type
+      if @comment.item_type == "SocialNetworking::SharedItem"
         comment_item_participant_id =
           SharedItem.find(@comment.item_id).item_type.constantize
           .find(@comment.item_id).participant_id

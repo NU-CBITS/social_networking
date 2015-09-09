@@ -9,7 +9,6 @@ module SocialNetworking
       render json: Serializers::NudgeSerializer.from_collection(@nudges)
     end
 
-    # Create a new nudge and notify the recipient
     def create
       @nudge = Nudge.new(sanitized_params)
 

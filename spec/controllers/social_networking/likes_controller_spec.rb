@@ -43,9 +43,8 @@ module SocialNetworking
               .to receive_message_chain("find.participant_id")
           end
 
-          it "should return the new record" do
-            allow(Participant)
-              .to receive(:find) { recipient }
+          it "returns a json record" do
+            allow(Participant).to receive(:find) { recipient }
 
             post :create
 
@@ -56,48 +55,20 @@ module SocialNetworking
             expect(json["participantId"]).to eq(participant.id)
           end
 
-          describe "recipient prefers to be contacted via phone" do
-            it "should notify via phone" do
-              allow(Participant)
-                .to receive(:find)
-                .and_return(recipient(contact_preference: "phone"))
-
-              expect_any_instance_of(Notification)
-                .to receive(:notify)
-
-              post :create
-            end
-          end
-
-          describe "recipient prefers to be contacted via sms" do
-            it "should notify via sms" do
-              allow(Participant)
-                .to receive(:find)
-                .and_return(recipient(contact_preference: "sms"))
-
-              expect_any_instance_of(Notification)
-                .to receive(:notify)
-
-              post :create
-            end
-          end
-
           describe "recipient prefers to be contacted via email" do
             let(:recipient_with_eamil) do
               recipient(contact_preference: "email")
             end
-            let(:notication) { instance_double(Notification) }
 
             before do
               allow(controller).to receive(:t) { "SunnySide" }
               allow(Participant)
                 .to receive(:find) { recipient_with_eamil }
-              allow(notication).to receive(:notify)
               allow(Notification)
-                .to receive(:new) { notication }
+                .to receive_message_chain("new.notify")
             end
 
-            it "should notify via email with link and text 'SunnySide'" do
+            it "should notify via email with link and application name" do
               expect(Notification)
                 .to receive(:new)
                 .with(
@@ -106,7 +77,6 @@ module SocialNetworking
                   recipient: recipient_with_eamil,
                   message_body: %r{/social_networking/profile_page},
                   subject: /SunnySide/)
-              expect(notication).to receive(:notify)
 
               post :create
             end

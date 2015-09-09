@@ -33,7 +33,7 @@ module SocialNetworking
     end
 
     def set_recipient
-      if "SocialNetworking::SharedItem" == @like.item_type
+      if @like.item_type == "SocialNetworking::SharedItem"
         like_item_participant_id =
           SharedItem.find(@like.item_id).item_type.constantize
           .find(@like.item_id).participant_id
