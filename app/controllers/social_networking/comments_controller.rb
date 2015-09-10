@@ -1,54 +1,19 @@
 module SocialNetworking
   # Manage Comments.
   class CommentsController < ApplicationController
-    include Sms
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
     def create
       @comment = Comment.new(sanitized_params)
 
       if @comment.save
-        if "SocialNetworking::SharedItem" == @comment.item_type
-          comment_item_type =
-            SharedItem.find(@comment.item.id).item_type
-          comment_item_participant_id =
-            comment_item_type.constantize
-            .find(@comment.item.item_id).participant_id
-          notify Participant.find(comment_item_participant_id)
-        else
-          notify Participant.find(@comment.item_type.constantize
-                            .find(@comment.item_id).participant_id)
-        end
+        set_recipient
+        build_notification.notify
         render json: Serializers::CommentSerializer.new(@comment).to_serialized
       else
         render json: { error: model_errors }, status: 400
       end
     end
-
-    # Select message from list, determine contact preference, then
-    # trigger the notification based on the preference.
-    # rubocop:disable Metrics/AbcSize
-    # rubocop:disable Metrics/CyclomaticComplexity
-    def notify(recipient)
-      return if current_participant == recipient
-      case recipient.contact_preference
-      when "email"
-        send_notify_email(recipient, message_body)
-      when "sms"
-        if recipient.phone_number && !recipient.phone_number.blank?
-          send_sms(recipient, message_body)
-        end
-      when "phone"
-        if recipient.phone_number && !recipient.phone_number.blank?
-          send_sms(recipient, message_body)
-        end
-      else
-        logger.error "ERROR: contact preference is not set for \
-participant with ID: " + recipient.id.to_s
-      end
-    end
-    # rubocop:enable Metrics/AbcSize
-    # rubocop:enable Metrics/CyclomaticComplexity
 
     private
 
@@ -71,12 +36,27 @@ participant with ID: " + recipient.id.to_s
       @comment.errors.full_messages.join(", ")
     end
 
-    # Trigger nudge notification email
-    def send_notify_email(recipient, message_body)
-      CommentMailer.comment_email_alert(
-        recipient,
-        message_body,
-        "You received a COMMENT on ThinkFeelDo")
+    def build_notification
+      Notification.new(
+        current_participant: current_participant,
+        mailer: Mailer,
+        recipient: @recipient,
+        message_body: message_body,
+        subject: "You received a COMMENT on "\
+          "#{t('application_name', default: 'ThinkFeelDo')}")
+    end
+
+    def set_recipient
+      if @comment.item_type == "SocialNetworking::SharedItem"
+        comment_item_participant_id =
+          SharedItem.find(@comment.item_id).item_type.constantize
+          .find(@comment.item_id).participant_id
+        @recipient = Participant.find(comment_item_participant_id)
+      else
+        @recipient = Participant
+                     .find(@comment.item_type.constantize
+                     .find(@comment.item_id).participant_id)
+      end
     end
 
     def message_body

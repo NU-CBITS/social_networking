@@ -1,26 +1,14 @@
-# Like controller.
 module SocialNetworking
   # Manage Likes.
   class LikesController < ApplicationController
-    include Sms
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
-    # Create a new like and notify the creator of the liked item
     def create
       @like = Like.new(sanitized_params)
 
       if @like.save
-        if "SocialNetworking::SharedItem" == @like.item_type
-          like_item_type =
-            SharedItem.find(@like.item.id).item_type
-          like_item_participant_id =
-            like_item_type.constantize
-            .find(@like.item.item_id).participant_id
-          notify Participant.find(like_item_participant_id)
-        else
-          notify Participant.find(@like.item_type.constantize
-                            .find(@like.item_id).participant_id)
-        end
+        set_recipient
+        build_notification.notify
         render json: Serializers::LikeSerializer.new(@like).to_serialized
       else
         render json: { error: model_errors }, status: 400
@@ -44,36 +32,43 @@ module SocialNetworking
       s_params
     end
 
+    def set_recipient
+      if @like.item_type == "SocialNetworking::SharedItem"
+        like_item_participant_id =
+          SharedItem.find(@like.item_id).item_type.constantize
+          .find(@like.item_id).participant_id
+        @recipient = Participant.find(like_item_participant_id)
+      else
+        @recipient = Participant
+                     .find(@like.item_type.constantize
+                     .find(@like.item_id).participant_id)
+      end
+    end
+
     def model_errors
       @like.errors.full_messages.join(", ")
     end
 
-    # Determine the body of the notification and then send the notification
-    # based on the contact preferences.
-    def notify(recipient)
-      return if current_participant == recipient
+    def message_body
+      profile_url = social_networking_profile_url
 
-      message_body = [
+      [
         "Someone liked your post! " \
-        "Log in (#{home_url}) to see who.",
+        "Log in (#{profile_url}) to see who.",
         "People like what you're doing! " \
-        "Log in (#{home_url}) " \
+        "Log in (#{profile_url}) " \
         "to see what's happening!"
       ].sample
-
-      if recipient.contact_preference == "email"
-        send_notify_email(recipient, message_body)
-      else
-        send_sms(recipient, message_body)
-      end
     end
 
-    # Trigger a notification email
-    def send_notify_email(recipient, message_body)
-      LikeMailer.like_email_alert(
-        recipient,
-        message_body,
-        "Someone LIKED what you did on ThinkFeelDo")
+    def build_notification
+      Notification.new(
+        current_participant: current_participant,
+        mailer: Mailer,
+        recipient: @recipient,
+        message_body: message_body,
+        subject: "Someone LIKED what you did on "\
+        "#{t('application_name', default: 'ThinkFeelDo')}")
     end
   end
 end
