@@ -1,3 +1,10 @@
+## 0.4.26 - 2015-09-11
+ * Merge pull request #77 from cbitstech/msw_100766496_update_email_app_text
+ * Update Specs
+ * Add Notification Class
+ * Update SMS Module
+ * Update and Refactor Mailer
+
 ## 0.4.25 - 2015-09-04
  * Merge pull request #76 from cbitstech/msw_100847372_add_context
  * Clear Navigation Context
