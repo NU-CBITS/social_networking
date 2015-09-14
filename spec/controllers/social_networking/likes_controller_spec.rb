@@ -28,12 +28,15 @@ module SocialNetworking
     end
 
     describe "POST create" do
+      before do
+        @routes = Engine.routes
+        allow(controller)
+          .to receive(:current_participant) { participant }
+      end
+
       describe "when shared item is a 'Comment'" do
         before do
-          @routes = Engine.routes
           allow(Like).to receive(:new) { like }
-          allow(controller)
-            .to receive(:current_participant) { participant }
         end
 
         context "the record saves" do
@@ -94,6 +97,40 @@ module SocialNetworking
 
             assert_response 400
             expect(json["error"]).to eq("baz")
+          end
+        end
+      end
+
+      describe "when shared item is a 'SharedItem'" do
+        let(:shareable_item) do
+          instance_double(
+            Like,
+            created_at: Time.zone.now,
+            id: "bar",
+            item_id: 1,
+            item_type: "SocialNetworking::SharedItem",
+            participant_id: participant.id,
+            participant: participant)
+        end
+
+        before do
+          allow(Like).to receive(:new) { shareable_item }
+          expect(shareable_item).to receive(:save) { true }
+          expect(SharedItem)
+            .to receive_message_chain("find.item_type.constantize")
+            .and_return(Like)
+          expect(shareable_item)
+            .to receive_message_chain("item.item_id")
+          expect(Like)
+            .to receive_message_chain("find.participant_id")
+          expect(Participant).to receive(:find) { recipient }
+        end
+
+        describe "when the record saves" do
+          it "has a successful request" do
+            post :create
+
+            assert_response 200
           end
         end
       end
