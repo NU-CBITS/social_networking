@@ -26,21 +26,24 @@
   </p>
 
   <div class="actions">
-    <a href="" ng-if="home.canAddLikeTo(item)" class="like" title="like this item" ng-click="home.addLikeTo(item)">
-      Like ({{!!item.likes.length ? item.likes.length : 0}})
+    <a href="" class="comments" title="View comments" ng-click="item.showComments = !item.showComments">
+      Comments ({{home.associationCount(item.comments)}})
     </a>
-    <a href="" ng-if="!home.canAddLikeTo(item)&&!!item.likes.length" class="likes"  title="show who likes this feed item" ng-click="item.showLikes = !item.showLikes">
-      Like ({{item.likes.length}})
-    </a>
-    <span ng-if="home.canAddLikeTo(item) || !!item.likes.length">&nbsp;|&nbsp;</span>
-    <a href="" class="comments" title="view comments" ng-click="item.showComments = !item.showComments">
-      Comment ({{ item.comments.length ? item.comments.length : 0}})
-    </a>
-    <span ng-if="home.hasSummary(item)">&nbsp;|&nbsp;</span>
-    <a href="" ng-if="home.hasSummary(item)" title="view details" ng-click="item.showSummary = !item.showSummary">
-      <span ng-if="!item.showSummary">More</span>
-      <span ng-if="!!item.showSummary">Less</span>
-    </a>
+
+    <span ng-if="home.hasLikeableContent(item)">
+      <span> | </span>
+      <a href="" class="likes" title="View likes" ng-click="item.showLikes = !item.showLikes">
+        Likes ({{home.associationCount(item.likes)}})
+      </a>
+    </span>
+
+    <span ng-if="home.hasSummary(item)">
+      <span> | </span>
+      <a href="" title="View details" ng-click="item.showSummary = !item.showSummary">
+        <span ng-if="!item.showSummary">More</span>
+        <span ng-if="!!item.showSummary">Less</span>
+      </a>
+    </span>
   </div>
 
   <div class="media" ng-if="home.hasSummary(item)" ng-show="!!item.showSummary">
@@ -54,6 +57,9 @@
       <strong class="text-muted">{{ like.participantDisplayName }}</strong>
       <span class="pull-right text-muted">{{home.timeAgoInWords(like.createdAt)}}</span>
     </p>
+    <a href="" ng-if="home.isLikeable(item)" title="Like this item" ng-click="home.addLikeTo(item)">
+      Like
+    </a>
   </div>
 
   <div ng-show="!!item.showComments">
