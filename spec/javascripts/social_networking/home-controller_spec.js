@@ -285,4 +285,66 @@ describe('HomeCtrl', function() {
       });
     });
   });
+
+  describe('#canAddLikeTo', function() {
+    var item;
+
+    beforeEach(function() {
+      item = {};
+      expect(controller._currentParticipantId)
+        .toEqual(123);
+    });
+
+    it('returns false if the item is a nudge', function() {
+      expect(controller.canAddLikeTo({ description: "nudge" }))
+        .toEqual(false);
+    });
+
+    it('returns false if the item is has already been liked by the participant', function() {
+      item.likes = [{ participantId: 123 }];
+
+      expect(controller.canAddLikeTo(item))
+        .toEqual(false);
+    });
+
+    it('returns true if the item is has not been liked by the current participant and the item is not a nudge', function() {
+      item.description = "foo";
+      item.likes = [{ participantId: 1 }];
+
+      expect(controller.canAddLikeTo(item))
+        .toEqual(true);
+    });
+  });
+
+  describe('#isLikeable', function() {
+    it('returns true if the item is not a nudge', function() {
+      expect(controller.isLikeable({ description: "foo" }))
+        .toEqual(true);
+    });
+
+    it('returns false if the item is not a nudge', function() {
+      expect(controller.isLikeable({ description: "nudge" }))
+        .toEqual(false);
+    });
+  });
+
+  describe('#associationCount', function() {
+    var item;
+
+    beforeEach(function() {
+      item = {};
+    });
+
+    it('returns the number of associations', function() {
+      item.likes = [{ participantId: 1 }];
+
+      expect(controller.associationCount(item.likes))
+        .toEqual(1);
+    });
+
+    it('returns the 0 if no associations exist', function() {
+      expect(controller.associationCount(item.likes))
+        .toEqual(0);
+    });
+  });
 });

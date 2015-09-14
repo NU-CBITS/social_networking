@@ -50,7 +50,7 @@ module SocialNetworking
       if @comment.item_type == "SocialNetworking::SharedItem"
         comment_item_participant_id =
           SharedItem.find(@comment.item_id).item_type.constantize
-          .find(@comment.item_id).participant_id
+          .find(@comment.item.item_id).participant_id
         @recipient = Participant.find(comment_item_participant_id)
       else
         @recipient = Participant
