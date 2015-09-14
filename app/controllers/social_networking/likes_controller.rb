@@ -36,7 +36,7 @@ module SocialNetworking
       if @like.item_type == "SocialNetworking::SharedItem"
         like_item_participant_id =
           SharedItem.find(@like.item_id).item_type.constantize
-          .find(@like.item_id).participant_id
+          .find(@like.item.item_id).participant_id
         @recipient = Participant.find(like_item_participant_id)
       else
         @recipient = Participant
