@@ -1,6 +1,8 @@
 ;(function() {
   "use strict";
 
+  var NUDGE = "nudge";
+
   // Provides access to the feed and its items.
   function HomeCtrl(OnYourMindResource, CommentResource, LikeResource,
                     homeTool, currentParticipantId, actionItems, feedItems,
@@ -143,11 +145,15 @@
 
   // A Participant may only like a feed item once.
   HomeCtrl.prototype.canAddLikeTo = function(item) {
-    var able_to_like = item.description !== "nudge" &&
-      (this._findLikes(item.likes, {
-        participantId: this._currentParticipantId
-      }) || []).length === 0;
-    return able_to_like;
+    return !isNudge(item) && !participantHasLiked(this, item);
+  };
+
+  HomeCtrl.prototype.isLikeable = function(item) {
+    return !isNudge(item);
+  };
+
+  HomeCtrl.prototype.associationCount = function(associations) {
+    return associations ? associations.length : 0;
   };
 
   // "Like" a feed item.
@@ -231,6 +237,20 @@
   HomeCtrl.prototype.timeAgoInWords = function(createdAt) {
     return moment(createdAt).calendar();
   };
+
+  function participantHasLiked(controller, item) {
+    return (controller._findLikes(item.likes, {
+      participantId: controller._currentParticipantId
+    }) || []).length !== 0;
+  }
+
+  function description(item) {
+    return item.description;
+  }
+
+  function isNudge(item) {
+    return description(item) === NUDGE;
+  }
 
   // Create a module and register the controller.
   angular.module('socialNetworking.controllers')
