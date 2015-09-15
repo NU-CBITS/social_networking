@@ -1,3 +1,9 @@
+## 0.4.27 - 2015-09-15
+ * Merge pull request #80 from cbitstech/msw_102783014_update_liking
+ * Fix Home Controller Liking
+ * Merge pull request #78 from cbitstech/msw_100766496_fix_comment_error
+ * Fix Like and Comment Controller Bug
+
 ## 0.4.26 - 2015-09-11
  * Merge pull request #77 from cbitstech/msw_100766496_update_email_app_text
  * Update Specs
