@@ -1,3 +1,6 @@
+;(function() {
+  'use strict';
+
 describe('HomeCtrl', function() {
   var controller,
       onYourMindResource,
@@ -80,7 +83,7 @@ describe('HomeCtrl', function() {
     beforeEach(function() {
       foo = {
         calendar: function() {
-          return "foo";
+          return 'foo';
         }
       };
       window.moment = function() {
@@ -285,4 +288,63 @@ describe('HomeCtrl', function() {
       });
     });
   });
+
+  describe('#associationCount', function() {
+    it('returns the number of associations', function() {
+      var item = {};
+      item.likes = [{ participantId: 1 }];
+
+      expect(controller.associationCount(item.likes))
+        .toEqual(1);
+    });
+
+    it('returns the count of 0 if no associations exist', function() {
+      var item = {};
+
+      expect(controller.associationCount(item.likes))
+        .toEqual(0);
+    });
+  });
+
+  describe('#hasLikeableContent', function() {
+    it('returns true if the item is not a nudge', function() {
+      expect(controller.hasLikeableContent({ description: 'foo' }))
+        .toEqual(true);
+    });
+
+    it('returns false if the item is not a nudge', function() {
+      expect(controller.hasLikeableContent({ description: 'nudge' }))
+        .toEqual(false);
+    });
+  });
+
+  describe('#isLikeable', function() {
+    it('returns false if the item is a nudge', function() {
+      expect(controller.isLikeable({ description: 'nudge' }))
+        .toEqual(false);
+    });
+
+    it('returns false if the item has already been liked by the participant', function() {
+      var item = {};
+      item.likes = [{ participantId: 123 }];
+
+      expect(controller._currentParticipantId)
+        .toEqual(123);
+      expect(controller.isLikeable(item))
+        .toEqual(false);
+    });
+
+    it('returns true if the item has not been liked by the current participant and the item is not a nudge', function() {
+      var item = {};
+      item.description = 'foo';
+      item.likes = [{ participantId: 1 }];
+
+      expect(controller._currentParticipantId)
+        .toEqual(123);
+      expect(controller.isLikeable(item))
+        .toEqual(true);
+    });
+  });
 });
+})();
+

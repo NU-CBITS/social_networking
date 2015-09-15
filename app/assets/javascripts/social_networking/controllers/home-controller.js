@@ -1,5 +1,7 @@
 ;(function() {
-  "use strict";
+  'use strict';
+
+  var NUDGE = 'nudge';
 
   // Provides access to the feed and its items.
   function HomeCtrl(OnYourMindResource, CommentResource, LikeResource,
@@ -32,12 +34,16 @@
     };
 
     $scope.$on('$locationChangeStart', function(e, newUrl, oldUrl) {
-      if (oldUrl.split("#")[1] === "/commentForm") {
+      if (oldUrl.split('#')[1] === '/commentForm') {
         // force a refresh
-        location.href = newUrl.split("#")[0];
+        location.href = newUrl.split('#')[0];
       }
     });
   }
+
+  HomeCtrl.prototype.associationCount = function(associationArray) {
+    return associationArray ? associationArray.length : 0;
+  };
 
   HomeCtrl.prototype.getMore = function() {
     if(!this.feedDisabled) {
@@ -50,7 +56,7 @@
     this.feedDisabled = false;
     this.feedItems = [];
     this.page = 0;
-    $("#infinite-feed").attr("infinite-scroll-disabled", "false");
+    $('#infinite-feed').attr('infinite-scroll-disabled', 'false');
     this.retrieveFeed();
   };
 
@@ -65,7 +71,7 @@
         self.feedDisabled = false;
         self.page += 1;
       } else {
-        $("#infinite-feed").attr("infinite-scroll-disabled", "true");
+        $('#infinite-feed').attr('infinite-scroll-disabled', 'true');
       }
     }
 
@@ -122,8 +128,8 @@
           }
           self.closeCommentForm();
           if (self.noticesEnabled && self.noticeUtility) {
-            self.noticeUtility.actionNotice("SocialNetworking::Comment",
-              "Comment on some shared content.",
+            self.noticeUtility.actionNotice('SocialNetworking::Comment',
+              'Comment on some shared content.',
               comment.participantId);
           }
         })
@@ -141,16 +147,6 @@
     this._homeTool.newCommentOn(item);
   };
 
-  // A Participant may only like a feed item once.
-  HomeCtrl.prototype.canAddLikeTo = function(item) {
-    var able_to_like = item.description !== "nudge" &&
-      (this._findLikes(item.likes, {
-        participantId: this._currentParticipantId
-      }) || []).length === 0;
-    return able_to_like;
-  };
-
-  // "Like" a feed item.
   HomeCtrl.prototype.addLikeTo = function(item) {
     var self = this;
 
@@ -158,14 +154,18 @@
       .then(function(like) {
         item.likes.push(like);
         if(self.noticesEnabled && self.noticeUtility) {
-          self.noticeUtility.actionNotice("SocialNetworking::Like",
-                              "Like a person's shared content.",
+          self.noticeUtility.actionNotice('SocialNetworking::Like',
+                              'Like a person\'s shared content.',
                               item.participantId);
         }
       })
       .catch(function(message) {
         self.error = message.error;
       });
+  };
+
+  HomeCtrl.prototype.hasLikeableContent = function(item) {
+    return !isNudge(item);
   };
 
   // Is the tool in Feed Browse Mode?
@@ -181,6 +181,10 @@
 
   HomeCtrl.prototype.isCommentingOn = function(item) {
     return this._homeTool.getSelectedItem(item) === item;
+  };
+
+  HomeCtrl.prototype.isLikeable = function(item) {
+    return !isNudge(item) && !participantHasLiked(this, item);
   };
 
   // Leave On Your Mind Entry Mode.
@@ -222,15 +226,29 @@
   HomeCtrl.prototype.taskVisited = function(item) {
     $.ajax({
       async: false,
-      dataType: "script",
-      type: "PUT",
-      url: "/participants/task_status/" + item.task_id
+      dataType: 'script',
+      type: 'PUT',
+      url: '/participants/task_status/' + item.task_id
     });
   };
 
   HomeCtrl.prototype.timeAgoInWords = function(createdAt) {
     return moment(createdAt).calendar();
   };
+
+  function isNudge(item) {
+    return itemDescription(item) === NUDGE;
+  }
+
+  function itemDescription(item) {
+    return item.description;
+  }
+
+  function participantHasLiked(controller, item) {
+    return (controller._findLikes(item.likes, {
+      participantId: controller._currentParticipantId
+    }) || []).length !== 0;
+  }
 
   // Create a module and register the controller.
   angular.module('socialNetworking.controllers')
