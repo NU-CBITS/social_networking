@@ -1,0 +1,12 @@
+<%# Form for testing. See social_networking/app/views/social_networking/shared/_sharing_fields.html for original %>
+<div class="form-group">
+  <label for="{{ ITEM_TYPE }}_shared_item">Share the content of this {{ ITEM_TYPE_DISPLAY }}?</label>
+  <label class="radio-inline">
+    <input type="radio" class="{{ ITEM_TYPE }}_shared_item_true" name="{{ ITEM_TYPE }}[shared_items_attributes][][is_public]" id="{{ ITEM_TYPE }}_shared_item_1" value="1" checked> Yes
+  </label>
+  <label class="radio-inline">
+    <input type="radio" name="{{ ITEM_TYPE }}[shared_items_attributes][][is_public]" id="{{ ITEM_TYPE }}_shared_item_2" value="0"> No
+  </label>
+</div>
+
+<input type="hidden" name="{{ ITEM_TYPE }}[shared_items_attributes][][action_type]" value="{{ ACTION_TYPE }}">
