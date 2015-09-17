@@ -1,0 +1,28 @@
+<% template = File.join(Rails.root, 'app/views/social_networking/shared/_sharing_fields.html') %>
+<% js_helper = Class.new.extend(ActionView::Helpers::JavaScriptHelper) %>
+
+;(function() {
+  function addSharingToNewShareableForm() {
+    'use strict';
+
+    var actionType,
+        displayName,
+        itemType,
+        placeholder, 
+        template;
+
+    placeholder = $('.new-shareable-form-after-form-groups');
+    actionType = placeholder.data('actionType');
+    itemType = placeholder.data('itemType');
+    template = '<%= js_helper.j Erubis::Eruby.new(File.read(template)).result %>';
+    displayName = itemType;
+    if (displayName) {
+      displayName = displayName.replace('_', ' ');
+    }
+    template = template.replace(/{{ ITEM_TYPE }}/g, itemType).replace(/{{ ITEM_TYPE_DISPLAY }}/g, displayName).replace(/{{ ACTION_TYPE }}/g, actionType);
+
+    placeholder.append(template);
+  };
+
+  $(document).on('page:ready page:change', addSharingToNewShareableForm);
+})();
