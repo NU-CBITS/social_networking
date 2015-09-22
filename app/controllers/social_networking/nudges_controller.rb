@@ -46,13 +46,11 @@ module SocialNetworking
     def message_body
       profile_url = social_networking_profile_url
       ["You've been nudged by #{current_participant.display_name}! Log \
-in (#{profile_url}) to find out who nudged you.",
+in (#{profile_url}) to view details.",
        "#{current_participant.display_name} just nudged you! Log in \
 (#{profile_url}) to view your nudge!",
        "Hey! #{current_participant.display_name} nudged you! Don't leave \
 them hanging - log in (#{profile_url}) to say hi!",
-       "Looks like #{current_participant.display_name}'s thinking about you! \
-Log in (#{profile_url}) to see who nudged you.",
        "Psst - you've been nudged by #{current_participant.display_name}! \
 Log in (#{profile_url}) to support a fellow group member!"].sample
     end
