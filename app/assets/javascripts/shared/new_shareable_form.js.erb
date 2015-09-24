@@ -1,11 +1,5 @@
-<% template = File.join(Rails.root, 'app/views/social_networking/shared/_sharing_fields.html') %>
+<% template = File.join(SocialNetworking::Engine.root, 'app/views/social_networking/shared/_sharing_fields.html') %>
 <% js_helper = Class.new.extend(ActionView::Helpers::JavaScriptHelper) %>
-<% if File.exist?(template) %>
-  <% file = js_helper.j(Erubis::Eruby.new(File.read(template)).result) %>
-<% else %>
-  <% file = "" %>
-  console.warn('Warning, app/views/social_networking/shared/_sharing_fields.html is not defined in host app and sharing is not possible.');
-<% end %>
 
 ;(function() {
   function addSharingToNewShareableForm() {
@@ -20,7 +14,7 @@
     placeholder = $('.new-shareable-form-after-form-groups');
     actionType = placeholder.data('actionType');
     itemType = placeholder.data('itemType');
-    template = '<%= file %>';
+    template = '<%= js_helper.j(Erubis::Eruby.new(File.read(template)).result) %>';
     displayName = itemType;
     if (displayName) {
       displayName = displayName.replace('_', ' ');
