@@ -82,38 +82,7 @@ describe('addSharingToNewShareableForm', function() {
         });
 
         it('formats hidden inputs', function() {
-          expect(getPage().find('[value=planned]').length)
-            .toEqual(1);
-        });
-      });
-
-      describe('on page ready', function() {
-        beforeEach(function() {
-          initListener('page:ready');
-        });
-
-        it('formats label for attribute', function() {
-          expect(getPage().find('label[for=' + ITEM_TYPE + '_shared_item]').length)
-            .toEqual(1);
-        });
-
-        it('formats label content', function() {
-          expect(getPage().find('label[for=' + ITEM_TYPE + '_shared_item]').text())
-            .toMatch('Share the content of this ' + ITEM_TYPE);
-        });
-
-        it('formats "yes" radio input', function() {
-          expect(getPage().find('input#' + ITEM_TYPE + '_shared_item_1[value=1]').length)
-            .toEqual(1);
-        });
-
-        it('formats "no" radio input', function() {
-          expect(getPage().find('input#' + ITEM_TYPE + '_shared_item_2[value=0]').length)
-            .toEqual(1);
-        });
-
-        it('formats hidden inputs', function() {
-          expect(getPage().find('[value=' + ACTION_TYPE + ']').length)
+          expect(getPage().find('[type="hidden"][value=' + ACTION_TYPE + ']').length)
             .toEqual(1);
         });
       });
