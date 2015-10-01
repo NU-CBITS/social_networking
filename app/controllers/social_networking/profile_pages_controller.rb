@@ -42,9 +42,9 @@ module SocialNetworking
 
     def set_member_profiles
       return unless active_group
-      group_participants = active_group.active_participants
       @member_profiles = Serializers::ProfileSerializer.from_collection(
-        Profile.where(participant_id: group_participants.pluck(:id)))
+        Profile.where(
+          participant_id: active_group.active_participants.pluck(:id)))
     end
 
     def set_current_profile

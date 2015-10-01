@@ -57,5 +57,6 @@
     .value('feedItems', <%= feed_items.to_json.html_safe %>)
     .value('memberProfiles', <%= member_profiles.to_json.html_safe %>)
     .value('noticesEnabled', <%= Rails.configuration.enable_notices %>)
-    .value('noticeUtility', Notice);
+    .value('noticeUtility', Notice)
+    .value('resource', 'shared_items');
 </script>

@@ -5,16 +5,16 @@
 
   // Provides access to the feed and its items.
   function HomeCtrl(OnYourMindResource, CommentResource, LikeResource,
-                    homeTool, currentParticipantId, actionItems, feedItems,
+                    homeTool, participantId, actionItems, feedItems,
                     memberProfiles, $filter, $http, $location, $scope,
-                    noticesEnabled, noticeUtility) {
+                    noticesEnabled, noticeUtility, resource) {
     this.actionItems = actionItems;
     this.feedItems = feedItems;
     this.page = 0;
     this.feedDisabled = false;
     this._memberProfiles = memberProfiles;
     this._homeTool = homeTool;
-    this._currentParticipantId = currentParticipantId;
+    this._participantId = participantId;
     this.onYourMindModel = this._homeTool.getOnYourMindStatementModel();
     this.commentModel = this._homeTool.getCommentModel();
     this._onYourMindResource = OnYourMindResource;
@@ -24,6 +24,7 @@
     this._$location = $location;
     this.noticesEnabled = noticesEnabled;
     this.noticeUtility = noticeUtility;
+    this._resource = resource;
 
     this._findFeedItem = function(filter) {
       return $filter('filter')(this.feedItems, filter)[0];
@@ -61,10 +62,8 @@
   };
 
   HomeCtrl.prototype.retrieveFeed = function () {
-    var responsePromise, self = this;
-
-    responsePromise = this._sharedResource.get('/social_networking/profiles_page/participant/' + this._currentParticipantId + '/page/' + this.page);
-    // responsePromise = this._sharedResource.get('/social_networking/shared_items/participant/'+this._currentParticipantId+'/page/'+this.page);
+    var responsePromise = this._sharedResource.get('/social_networking/' + this._resource + '/participant/' + this._participantId + '/page/' + this.page);
+    var self = this;
 
     function successCallback(data, status, headers, config) {
       data = data.data;
@@ -248,7 +247,7 @@
 
   function participantHasLiked(controller, item) {
     return (controller._findLikes(item.likes, {
-      participantId: controller._currentParticipantId
+      participantId: controller._participantId
     }) || []).length !== 0;
   }
 
@@ -257,5 +256,5 @@
     .controller('HomeCtrl', ['OnYourMindResource', 'CommentResource',
         'LikeResource', 'homeTool', 'participantId', 'actionItems',
         'feedItems', 'memberProfiles', '$filter', '$http', '$location',
-        '$scope', 'noticesEnabled', 'noticeUtility', HomeCtrl]);
+        '$scope', 'noticesEnabled', 'noticeUtility', 'resource', HomeCtrl]);
 })();

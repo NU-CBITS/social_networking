@@ -10,7 +10,9 @@ module SocialNetworking
       let(:participant2) { participants(:participant2) }
       let(:participant3) { participants(:participant3) }
       let(:show_feed_extension) { Class.new { extend ShowFeed } }
-      let(:active_record_results)  { double("active_record_results") }
+      let(:active_record_results) do
+        double("active_record_results", pluck: nil)
+      end
       let(:array_results) { double("participant_array") }
 
       it "should exclude terminated participants from profile list" do

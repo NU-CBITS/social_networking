@@ -12,8 +12,10 @@ module SocialNetworking
         end
 
         def page_items
-          if feed_items_page.size >= start_index
-            feed_items[start_index..(start_index + SHARED_ITEM_PAGE_SIZE - 1)]
+          if feed_items.size >= start_index
+            sorted_feed_items[
+              start_index..(start_index + SHARED_ITEM_PAGE_SIZE - 1)
+            ]
           else
             []
           end
@@ -21,16 +23,8 @@ module SocialNetworking
 
         private
 
-        def feed_items_page
-          on_the_mind_statements + nudges + shared_items
-        end
-
         def feed_items
-          feed_items_page.sort_by { |item| item[:createdAtRaw] }.reverse!
-        end
-
-        def start_index
-          page * SHARED_ITEM_PAGE_SIZE
+          on_the_mind_statements + nudges + shared_items
         end
 
         def nudges
@@ -63,6 +57,14 @@ module SocialNetworking
                 .order(created_at: :desc)
                 .limit(SHARED_ITEM_PAGE_SIZE * (page + 1))
             )
+        end
+
+        def sorted_feed_items
+          feed_items.sort_by { |item| item[:createdAtRaw] }.reverse!
+        end
+
+        def start_index
+          page * SHARED_ITEM_PAGE_SIZE
         end
       end
     end

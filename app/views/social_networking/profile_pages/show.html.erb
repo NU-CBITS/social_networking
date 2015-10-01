@@ -91,7 +91,8 @@
           .value('memberProfiles', <%= @member_profiles.to_json.html_safe %>)
           .value('feedItems', [])
           .value('noticesEnabled', <%= Rails.configuration.enable_notices %>)
-          .value('noticeUtility', Notice);
+          .value('noticeUtility', Notice)
+          .value('resource', 'profiles_page');
 
   function displayProfileIcons() {
     if (<%= @profile.participant_id == current_participant.id %> && <%= @profile.icon_name.nil? %>) {

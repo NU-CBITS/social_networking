@@ -69,7 +69,8 @@ describe('HomeCtrl', function() {
       $location: {},
       $scope: scope,
       noticesEnabled: false,
-      noticeUtility: Notice
+      noticeUtility: Notice,
+      resource: 'someResource'
     });
   }));
 
@@ -328,7 +329,7 @@ describe('HomeCtrl', function() {
       var item = {};
       item.likes = [{ participantId: 123 }];
 
-      expect(controller._currentParticipantId)
+      expect(controller._participantId)
         .toEqual(123);
       expect(controller.isLikeable(item))
         .toEqual(false);
@@ -339,7 +340,7 @@ describe('HomeCtrl', function() {
       item.description = 'foo';
       item.likes = [{ participantId: 1 }];
 
-      expect(controller._currentParticipantId)
+      expect(controller._participantId)
         .toEqual(123);
       expect(controller.isLikeable(item))
         .toEqual(true);
