@@ -3,6 +3,7 @@ SocialNetworking::Engine.routes.draw do
   get "/profile_page", to: "profile_pages#show", as: :social_networking_profile
   get "/profile_page/:id", to: "profile_pages#show", as: :social_networking_profile_with_id
   get "/profiles_page", to: "profile_pages#index", as: :social_networking_profiles
+  get "/profiles_page/participant/:participant_id/page/:page", to: "profile_pages#page"
 
   # server api
   put "profiles/:id", to: "profiles#update", as: :profile

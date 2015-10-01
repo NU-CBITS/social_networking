@@ -61,8 +61,10 @@
   };
 
   HomeCtrl.prototype.retrieveFeed = function () {
-    var responsePromise = this._sharedResource.get('/social_networking/shared_items/participant/'+this._currentParticipantId+'/page/'+this.page);
-    var self = this;
+    var responsePromise, self = this;
+
+    responsePromise = this._sharedResource.get('/social_networking/profiles_page/participant/' + this._currentParticipantId + '/page/' + this.page);
+    // responsePromise = this._sharedResource.get('/social_networking/shared_items/participant/'+this._currentParticipantId+'/page/'+this.page);
 
     function successCallback(data, status, headers, config) {
       data = data.data;

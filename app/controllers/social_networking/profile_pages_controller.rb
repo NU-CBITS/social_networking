@@ -1,7 +1,7 @@
 module SocialNetworking
   # Manage Participants.
-  # rubocop:disable Metrics/ClassLength
   class ProfilePagesController < ApplicationController
+    include Concerns::ProfilePage
     rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
     before_action :set_current_profile,
                   :set_profile_questions,
@@ -13,26 +13,43 @@ module SocialNetworking
     def show
       store_nudge_initiators(@profile.participant_id)
       set_member_profiles
-      load_feed_items
+    end
+
+    def page
+      render json: { feedItems: feed.page_items }
     end
 
     private
+
+    def feed
+      Concerns::ProfilePage::Feed.new(
+        participant_id: profile_page_params[:participant_id],
+        page: profile_page_params[:page])
+    end
+
+    def profile_page_params
+      params
+        .permit(:id, :participant_id, :page)
+    end
+
+    def active_group
+      current_participant.active_group
+    end
 
     def set_navigation_status_context
       current_participant.navigation_status.context = nil
     end
 
     def set_member_profiles
-      return if current_participant.active_group.nil?
-      group_participants =
-        current_participant.active_group.active_participants
+      return unless active_group
+      group_participants = active_group.active_participants
       @member_profiles = Serializers::ProfileSerializer.from_collection(
         Profile.where(participant_id: group_participants.pluck(:id)))
     end
 
     def set_current_profile
-      if params[:id]
-        @profile = Profile.find(params[:id])
+      if profile_id
+        @profile = Profile.find(profile_id)
       else
         @profile = Profile
                    .find_or_initialize_by(
@@ -44,7 +61,7 @@ module SocialNetworking
     def store_nudge_initiators(participant_id)
       @nudging_display_names =  Nudge
                                 .search(participant_id)
-                                .map { |n| n.initiator.display_name }
+                                .map { |nudge| nudge.initiator.display_name }
     end
 
     def set_profile_questions
@@ -57,65 +74,12 @@ module SocialNetworking
       render json: { error: "profile not found" }, status: 404
     end
 
-    # rubocop:disable Metrics/AbcSize
-    def load_feed_items
-      pid = @profile.participant_id
-      @feed_items = (
-        Serializers::OnTheMindStatementSerializer.from_collection(
-          OnTheMindStatement.where(participant_id: pid).includes(:comments)
-        ) +
-        Serializers::NudgeSerializer.from_collection(
-          Nudge.where(initiator_id: pid).includes(:comments)
-        ) +
-        Serializers::SharedItemSerializer.from_collection(
-          SharedItem.includes(:item, :comments).to_a.select do |s|
-            if s.item
-              s.item.participant_id == pid
-            else
-              logger.info "DATA INTEGRITY ISSUE: \
-SharedItem (id:#{s.id}) related item doesn't include a participant ID."
-              false
-            end
-          end
-        )
-      )
+    def profile_id
+      profile_page_params[:id]
     end
-    # rubocop:enable Metrics/AbcSize
 
-    # rubocop:disable Metrics/MethodLength
     def set_profile_icon_names
-      @profile_icons = %w(
-        art
-        bike
-        bolt
-        bookshelf
-        die
-        fashion
-        flower
-        genius
-        heart
-        helicopter
-        hourglass
-        keyboard
-        magnifyingglass
-        megaphone2
-        microphone
-        music
-        paintbrush2
-        plane
-        polaroidcamera
-        present
-        recycle
-        scooter
-        shipwheel
-        shoeprints
-        star
-        travelerbag
-        ufo
-        umbrella
-        weather)
+      @profile_icons = Profile.icon_names
     end
-    # rubocop:enable Metrics/MethodLength
   end
-  # rubocop:enable Metrics/ClassLength
 end

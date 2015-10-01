@@ -20,6 +20,39 @@ module SocialNetworking
     delegate :latest_action_at, :active_membership_end_date,
              to: :participant
 
+    def self.icon_names
+      %w(
+        art
+        bike
+        bolt
+        bookshelf
+        die
+        fashion
+        flower
+        genius
+        heart
+        helicopter
+        hourglass
+        keyboard
+        magnifyingglass
+        megaphone2
+        microphone
+        music
+        paintbrush2
+        plane
+        polaroidcamera
+        present
+        recycle
+        scooter
+        shipwheel
+        shoeprints
+        star
+        travelerbag
+        ufo
+        umbrella
+        weather)
+    end
+
     def to_serialized
       {}
     end
