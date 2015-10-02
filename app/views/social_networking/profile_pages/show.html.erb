@@ -44,7 +44,9 @@
     </div>
 
     <div class="profiles-last-online profile-box-border">
-      <h3>Last seen: {{ profile.profile.latestAction | timeFromNow }}</h3>
+      <h3 ng-class="profile.profile.isAdmin ? 'transparent' : ''">
+        Last seen: {{ profile.profile.latestAction | timeFromNow }}
+      </h3>
     </div>
 
     <% if current_participant.id != @profile.participant_id %>

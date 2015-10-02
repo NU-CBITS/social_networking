@@ -5,7 +5,9 @@
   function profileStatus() {
     return {
       template: '<h2>{{ profile.username }}</h2>' +
-                '<h3>Last seen: {{ profile.latestAction | timeFromNow }}</h3>'
+                '<h3 ng-class="profile.isAdmin ? \'transparent\' : \'\'">' +
+                  'Last seen: {{ profile.latestAction | timeFromNow }}' +
+                '</h3>'
     };
   }
 
