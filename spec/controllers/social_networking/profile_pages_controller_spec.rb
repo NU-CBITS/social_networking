@@ -24,7 +24,6 @@ module SocialNetworking
 
           expect(controller).to receive(:store_nudge_initiators)
           expect(controller).to receive(:set_member_profiles)
-          expect(controller).to receive(:load_feed_items)
         end
 
         context "when params contains profile id" do

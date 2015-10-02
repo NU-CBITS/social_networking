@@ -68,7 +68,11 @@
 
 <div ng-controller="HomeCtrl as home">
   <%= render "social_networking/shared/comment_form" %>
-  <ul class="list-group">
+  <ul class="list-group"
+    id="infinite-feed"
+    infinite-scroll="home.getMore()"
+    infinite-scroll-immediate-check="true"
+    infinite-scroll-disabled="false">
     <%= render "social_networking/shared/infinite_feed" %>
   </ul>
 </div>
@@ -78,23 +82,23 @@
   <input id="icon_name" name="profile[icon_name]" type="hidden" value="<%= @profile.icon_name %>"/>
 </form>
 
-<!-- bootstrap Angular app with current participant id -->
 <script>
   angular.module('socialNetworking')
-          .value('participantId', <%= current_participant.id %>)
+          .value('participantId', <%= @profile.participant_id %>)
           .value('profileId', <%= @profile.id %>)
           .value('ProfileQuestions', <%= @profile_questions.to_json.html_safe %>)
           .value('actionItems', [])
           .value('memberProfiles', <%= @member_profiles.to_json.html_safe %>)
-          .value('feedItems', <%= @feed_items.to_json.html_safe %>)
+          .value('feedItems', [])
           .value('noticesEnabled', <%= Rails.configuration.enable_notices %>)
-          .value('noticeUtility', Notice);
+          .value('noticeUtility', Notice)
+          .value('resource', 'profiles_page');
 
-  function onReady() {
+  function displayProfileIcons() {
     if (<%= @profile.participant_id == current_participant.id %> && <%= @profile.icon_name.nil? %>) {
       $('#profile-icon-selection').modal('show');
     }
   }
 
-  $(document).on("ready page:load page:change", onReady);
+  $(document).on("page:change", displayProfileIcons);
 </script>

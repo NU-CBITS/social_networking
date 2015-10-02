@@ -16,6 +16,10 @@ module SocialNetworking
 
       private
 
+      def active_group
+        @participant.active_group
+      end
+
       def action_items
         items = ActionItem.for(@participant)
         current_profile = Profile.find_by_participant_id(@participant.id)
@@ -29,30 +33,11 @@ module SocialNetworking
         items
       end
 
-      def group_shared_items
-        SharedItem
-          .includes(:item, :comments, :likes)
-          .all
-          .select do |shared_item|
-            shared_item.item.try(:participant).try(:active_group).try(:id) ==
-              @participant.active_group.id
-          end
-      end
-
       def member_profiles
-        return if @participant.active_group.nil?
-        group_participants =
-          @participant
-          .active_group
-          .active_participants
-
-        live_participants = group_participants.to_a.delete_if do |participant|
-          participant.active_group.nil? ||
-          participant.active_group.id != @participant.active_group.id
-        end
-
+        return unless active_group
         Serializers::ProfileSerializer.from_collection(
-          Profile.where(participant_id: live_participants.map(&:id)))
+          Profile.where(
+            participant_id: active_group.active_participants.pluck(:id)))
       end
     end
   end
