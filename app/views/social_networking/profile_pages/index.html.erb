@@ -8,7 +8,9 @@
           {{ profile.username }}
         </a>
       </p>
-      <p>Last seen: {{ profile.latestAction | timeFromNow }}</p>
+      <p ng-class="profile.isAdmin ? 'transparent' : ''">
+        Last seen: {{ profile.latestAction | timeFromNow }}
+      </p>
     </div>
     <dl>
       <dt ng-repeat-start="r in profile.responses">{{ r.question }}</dt>
