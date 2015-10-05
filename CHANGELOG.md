@@ -1,3 +1,9 @@
+## 0.4.29 - 2015-10-05
+ * Merge pull request #85 from cbitstech/msw_100037354_update_feed_item_loading
+ * Add Profile Page Feed Spec
+ * Update Home Controller with Resource
+ * Implement Dynamic Feed
+
 ## 0.4.28 - 2015-09-24
  * Merge pull request #84 from cbitstech/msw_103441490_add_warn_message
  * Add Sharing Form Into SN
