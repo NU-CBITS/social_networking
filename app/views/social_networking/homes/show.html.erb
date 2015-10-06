@@ -13,7 +13,9 @@
           </div>
 
           <div class="profile-border profile-last-seen">
-            <p>Last seen: {{ profile.latestAction | timeFromNow }}</p>
+            <p ng-class="profile.isAdmin ? 'invisible' : ''">
+              Last seen: {{ profile.latestAction | timeFromNow }}
+            </p>
           </div>
         </div>
       </div>
