@@ -1,3 +1,7 @@
+## 0.5.0 - 2015-10-06
+ * Merge pull request #87 from cbitstech/msw_104565788_hide_timestamp
+ * Update Views to Hide Admin Timestamp
+
 ## 0.4.29 - 2015-10-05
  * Merge pull request #85 from cbitstech/msw_100037354_update_feed_item_loading
  * Add Profile Page Feed Spec
