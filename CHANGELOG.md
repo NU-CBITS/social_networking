@@ -1,3 +1,7 @@
+## 0.5.1 - 2015-11-03
+ * Merge pull request #88 from cbitstech/msw_101718358_adjust_incentive_size
+ * Define Instance Variable
+
 ## 0.5.0 - 2015-10-06
  * Merge pull request #87 from cbitstech/msw_104565788_hide_timestamp
  * Update Views to Hide Admin Timestamp
