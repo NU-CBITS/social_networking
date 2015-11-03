@@ -1,3 +1,7 @@
+## 0.5.2 - 2015-11-03
+ * Merge pull request #89 from cbitstech/msw_101718358_add_helper_method
+ * Add Reference to Constant in View
+
 ## 0.5.1 - 2015-11-03
  * Merge pull request #88 from cbitstech/msw_101718358_adjust_incentive_size
  * Define Instance Variable
