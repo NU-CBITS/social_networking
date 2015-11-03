@@ -6,8 +6,7 @@ module SocialNetworking
     before_action :set_current_profile,
                   :set_profile_questions,
                   :set_profile_icon_names,
-                  :set_navigation_status_context,
-                  :set_icon_size
+                  :set_navigation_status_context
     def index
     end
 
@@ -57,13 +56,6 @@ module SocialNetworking
                      participant_id: current_participant.id)
         @profile.update_attributes(active: true)
       end
-    end
-
-    def set_icon_size
-      @profile_page_flower_list_dimensions = Rails
-                                             .application
-                                             .config
-                                             .PROFILE_PAGE_LIST_DIMENSIONS
     end
 
     def store_nudge_initiators(participant_id)
