@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150327185919) do
+ActiveRecord::Schema.define(version: 20151211204425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,11 +106,11 @@ ActiveRecord::Schema.define(version: 20150327185919) do
   end
 
   create_table "social_networking_profiles", force: :cascade do |t|
-    t.integer  "participant_id", null: false
+    t.integer  "participant_id",                 null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "icon_name"
-    t.boolean  "active"
+    t.boolean  "active",         default: false, null: false
   end
 
   create_table "social_networking_shared_items", force: :cascade do |t|
