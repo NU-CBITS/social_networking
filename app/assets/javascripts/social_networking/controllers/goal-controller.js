@@ -15,7 +15,9 @@
     this.resetForm();
     this.resetTabs();
     if (typeof $ !== 'undefined') {
-      $("#help-pop").popover();
+      $("#help-pop").popover({
+        html: true
+      });
     }
   }
 
