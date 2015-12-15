@@ -1,3 +1,9 @@
+## 0.6.0 - 2015-12-15
+ * Merge pull request #90 from cbitstech/msw_106226936_update_goal_text
+ * Merge pull request #91 from cbitstech/msw_99322588_add_default_value_social_networking_profiles
+ * Add Tool Help Text
+ * Add Not Default Profile Migration
+
 ## 0.5.2 - 2015-11-03
  * Merge pull request #89 from cbitstech/msw_101718358_add_helper_method
  * Add Reference to Constant in View
