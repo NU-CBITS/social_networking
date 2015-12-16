@@ -1,3 +1,7 @@
+## 0.6.1 - 2015-12-16
+ * Merge pull request #92 from cbitstech/msw_104572752_restrict_deleting
+ * Add Dependent Destroy
+
 ## 0.6.0 - 2015-12-15
  * Merge pull request #90 from cbitstech/msw_106226936_update_goal_text
  * Merge pull request #91 from cbitstech/msw_99322588_add_default_value_social_networking_profiles
