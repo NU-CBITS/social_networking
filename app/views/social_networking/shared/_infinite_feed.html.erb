@@ -27,13 +27,13 @@
 
   <div class="actions">
     <a href="" class="comments" title="View comments" ng-click="item.showComments = !item.showComments">
-      Comments ({{home.associationCount(item.comments)}})
+      Comment ({{home.associationCount(item.comments)}})
     </a>
 
     <span ng-if="home.hasLikeableContent(item)">
       <span> | </span>
       <a href="" class="likes" title="View likes" ng-click="item.showLikes = !item.showLikes">
-        Likes ({{home.associationCount(item.likes)}})
+        Like ({{home.associationCount(item.likes)}})
       </a>
     </span>
 
