@@ -1,3 +1,7 @@
+## 0.7.0 - 2015-12-21
+ * Merge pull request #93 from cbitstech/msw_108473372_feed_update
+ * Update Feed Text
+
 ## 0.6.1 - 2015-12-16
  * Merge pull request #92 from cbitstech/msw_104572752_restrict_deleting
  * Add Dependent Destroy
