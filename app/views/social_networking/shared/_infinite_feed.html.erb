@@ -26,7 +26,9 @@
   </p>
 
   <div class="actions">
-    Comment
+    <a href="" ng-click="home.commentOn(item)">
+      Comment
+    </a>
     <a href="" class="comments" title="View comments" ng-click="item.showComments = !item.showComments">
       ({{home.associationCount(item.comments)}})
     </a>
@@ -57,7 +59,7 @@
   </div>
 
   <div ng-show="!!item.showLikes">
-    <p><strong>Liked by:</strong></p>
+    <strong>Liked by:</strong><br />
     <p ng-repeat="like in item.likes">
       <strong class="text-muted">{{ like.participantDisplayName }}</strong>
       <span class="pull-right text-muted">{{home.timeAgoInWords(like.createdAt)}}</span>
@@ -65,7 +67,7 @@
   </div>
 
   <div ng-show="!!item.showComments">
-    <p><strong>Comments</strong></p>
+    <strong>Comments</strong><br />
     <div class="media comment text-muted" ng-repeat="comment in item.comments">
       <div class="media-left" ng-if="comment.isAdmin">
         <img class="media-object feed-participant-icon" ng-src="{{ home.profileIconSrcFor(comment) }}">
@@ -75,12 +77,6 @@
         <span class="pull-right text-muted">{{home.timeAgoInWords(comment.createdAt)}}</span>
       </div>
     </div>
-  </div>
-
-  <div class="media">
-    <a href="" ng-show="!!item.showComments" ng-click="home.commentOn(item)">
-      Add Comment
-    </a>
   </div>
 
   <div class="media" ng-show="home.isCommentingOn(item)">
