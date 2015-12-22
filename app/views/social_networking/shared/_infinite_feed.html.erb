@@ -53,9 +53,8 @@
     </span>
   </div>
 
-  <div class="media" ng-if="home.hasSummary(item)" ng-show="!!item.showSummary">
-    <div class="media-left"></div>
-    <div class="media-body" ng-include src="item.templatePath + '/_summary.html'"></div>
+  <div ng-if="home.hasSummary(item)" ng-show="!!item.showSummary">
+    <div ng-include src="item.templatePath + '/_summary.html'"></div>
   </div>
 
   <div ng-show="!!item.showLikes">
@@ -79,20 +78,17 @@
     </div>
   </div>
 
-  <div class="media" ng-show="home.isCommentingOn(item)">
-    <div class="media-left"></div>
-    <div class="media-body">
-      <form novalidate role="form" >
-        <div class="form-group">
-          <label for="comment-text">What do you think?</label>
-          <input type="text" class="form-control" id="comment-text" ng-model="home.commentModel.text" ng-maxlength="255" required focus-on="new-comment">
-        </div>
+  <div ng-show="home.isCommentingOn(item)">
+    <form novalidate role="form" >
+      <div class="form-group">
+        <label for="comment-text">What do you think?</label>
+        <input type="text" class="form-control" id="comment-text" ng-model="home.commentModel.text" ng-maxlength="255" required focus-on="new-comment">
+      </div>
 
-        <div class="form-group">
-          <button class="btn btn-primary" ng-click="home.saveComment()" ng-disabled="commentOnForm.$invalid">Save</button>
-          <button class="btn btn-default" ng-click="home.closeCommentForm()">Cancel</button>
-        </div>
-      </form>
-    </div>
+      <div class="form-group">
+        <button class="btn btn-primary" ng-click="home.saveComment()" ng-disabled="commentOnForm.$invalid">Save</button>
+        <button class="btn btn-default" ng-click="home.closeCommentForm()">Cancel</button>
+      </div>
+    </form>
   </div>
 </li>
