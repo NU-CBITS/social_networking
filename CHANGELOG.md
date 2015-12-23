@@ -1,3 +1,12 @@
+## 0.8.0 - 2015-12-23
+ * Merge pull request #96 from cbitstech/msw_108473514_create_comment
+ * Merge pull request #95 from cbitstech/msw_108485338_expand_comment
+ * Merge pull request #94 from cbitstech/msw_108485424_like
+ * Remove Media HTML
+ * Have Comment Link Allow for Commenting
+ * Expand Comments on Number
+ * Like Count Displays Likes
+
 ## 0.7.0 - 2015-12-21
  * Merge pull request #93 from cbitstech/msw_108473372_feed_update
  * Update Feed Text
