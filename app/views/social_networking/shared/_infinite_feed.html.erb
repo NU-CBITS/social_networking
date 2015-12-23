@@ -32,8 +32,12 @@
 
     <span ng-if="home.hasLikeableContent(item)">
       <span> | </span>
+      <a href="" ng-if="home.isLikeable(item)" title="Like this item" ng-click="home.addLikeTo(item)">
+        Like
+      </a>
+      <span ng-if="!home.isLikeable(item)" class="text-muted">Like</span>
       <a href="" class="likes" title="View likes" ng-click="item.showLikes = !item.showLikes">
-        Like ({{home.associationCount(item.likes)}})
+        ({{home.associationCount(item.likes)}})
       </a>
     </span>
 
@@ -57,9 +61,6 @@
       <strong class="text-muted">{{ like.participantDisplayName }}</strong>
       <span class="pull-right text-muted">{{home.timeAgoInWords(like.createdAt)}}</span>
     </p>
-    <a href="" ng-if="home.isLikeable(item)" title="Like this item" ng-click="home.addLikeTo(item)">
-      Like
-    </a>
   </div>
 
   <div ng-show="!!item.showComments">
