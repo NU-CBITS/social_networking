@@ -106,4 +106,22 @@ describe('GoalCtrl', function() {
       });
     });
   });
+
+  describe('.dateAtEndOfTrial', function() {
+    describe('when studyEndDate is not `null`', function() {
+      it('returns formatted date of the end of trial', function() {
+        controller.studyEndDate = new Date(1451423241949);
+
+        expect(controller.dateAtEndOfTrial()).toBe('Dec 29 2015');
+      });
+    })
+
+    describe('when studyEndDate is `null`', function() {
+      it('returns formatted date of the end of trial', function() {
+        controller.studyEndDate = null;
+
+        expect(controller.dateAtEndOfTrial()).toBeNull();
+      });
+    })
+  });
 });

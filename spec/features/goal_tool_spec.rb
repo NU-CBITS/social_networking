@@ -8,7 +8,7 @@ describe "goal tool", type: :feature, js: true do
   scenario "Participant enters a new goal" do
     click_button "+ add a goal"
     fill_in "What is your goal?", with: "all of the things"
-    choose "end of 2 weeks"
+    choose "end of study"
     click_button "Save"
 
     expect(page).to have_content("all of the things")
@@ -41,7 +41,7 @@ describe "goal tool", type: :feature, js: true do
   scenario "Participant edits a goal" do
     edit "run"
     fill_in "What is your goal?", with: "run foo"
-    choose "end of 4 weeks"
+    choose "end of study"
     click_button "Save"
 
     expect(page).to have_content("run foo")
