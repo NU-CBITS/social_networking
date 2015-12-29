@@ -41,24 +41,9 @@
           <input type="radio" name="due-on" ng-model="goal.goalModel.dueOn" value=""> no specific date
         </label>
       </div>
-      <div class="radio" ng-if="goal.atLeastNWeeksLeftInTrial(1)">
-        <label>
-          <input type="radio" name="due-on" ng-model="goal.goalModel.dueOn" value="{{ goal.dateInNWeeks(1) }}"> end of one week
-        </label>
-      </div>
-      <div class="radio" ng-if="goal.atLeastNWeeksLeftInTrial(2)">
-        <label>
-          <input type="radio" name="due-on" ng-model="goal.goalModel.dueOn" id="due-in-2-weeks" value="{{ goal.dateInNWeeks(2) }}"> end of 2 weeks
-        </label>
-      </div>
-      <div class="radio" ng-if="goal.atLeastNWeeksLeftInTrial(4)">
-        <label>
-          <input type="radio" name="due-on" ng-model="goal.goalModel.dueOn" value="{{ goal.dateInNWeeks(4) }}"> end of 4 weeks
-        </label>
-      </div>
       <div class="radio" ng-if="goal.dateAtEndOfTrial() !== null">
         <label>
-          <input type="radio" name="due-on" ng-model="goal.goalModel.dueOn" value="{{ goal.dateAtEndOfTrial() }}"> 8 weeks (end of study)
+          <input type="radio" name="due-on" ng-model="goal.goalModel.dueOn" value="{{ goal.dateAtEndOfTrial() }}"> end of study
         </label>
       </div>
     </div>
