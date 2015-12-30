@@ -1,3 +1,9 @@
+## 0.8.1 - 2015-12-30
+ * Merge pull request #98 from cbitstech/msw_fix_spec
+ * Update Failing Spec
+ * Merge pull request #97 from cbitstech/msw_104632958_update_achieve_display
+ * Remove Unnecessary Fields
+
 ## 0.8.0 - 2015-12-23
  * Merge pull request #96 from cbitstech/msw_108473514_create_comment
  * Merge pull request #95 from cbitstech/msw_108485338_expand_comment
