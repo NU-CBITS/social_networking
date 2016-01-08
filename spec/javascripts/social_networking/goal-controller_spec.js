@@ -134,7 +134,7 @@ describe('GoalCtrl', function() {
 
   describe('.dateAtEndOfTrial', function() {
     describe('when studyEndDate is defined', function() {
-      describe('when sudy end date is in the past', function() {
+      describe('when study end date is in the past', function() {
         it('returns `null`', function() {
           controller.studyEndDate = new Date(1451423241949);
 
@@ -142,8 +142,8 @@ describe('GoalCtrl', function() {
         });
       });
 
-      describe('when sudy end date is in the future', function() {
-        it('returns formatted date of one week in the future', function() {
+      describe('when study end date is in the future', function() {
+        it('returns formatted date of the future date', function() {
           var today = moment('2015-12-22').toDate();
           jasmine.clock().mockDate(today);
           controller.studyEndDate = new Date(1451423241949);
@@ -151,7 +151,7 @@ describe('GoalCtrl', function() {
           expect(controller.dateAtEndOfTrial()).toBe('Dec 29 2015');
         });
       });
-    })
+    });
 
     describe('when studyEndDate is `null`', function() {
       it('returns formatted date of the end of trial', function() {
@@ -159,7 +159,7 @@ describe('GoalCtrl', function() {
 
         expect(controller.dateAtEndOfTrial()).toBeNull();
       });
-    })
+    });
   });
 
   describe('.atLeastNWeeksLeftInTrial', function() {
