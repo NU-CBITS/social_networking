@@ -37,6 +37,14 @@ describe('GoalCtrl', function() {
     });
   }));
 
+  beforeEach(function() {
+    jasmine.clock().install();
+  });
+
+  afterEach(function() {
+    jasmine.clock().uninstall();
+  });
+
   it('should initialize the mode', function() {
     expect(controller.inBrowseMode()).toBeTruthy();
   });
@@ -107,8 +115,25 @@ describe('GoalCtrl', function() {
     });
   });
 
+  describe('.dateInNWeeks', function() {
+    describe('when week number is defined', function() {
+      it('returns formatted date of one week in the future', function() {
+        var today = moment('2015-12-22').toDate();
+        jasmine.clock().mockDate(today);
+
+        expect(controller.dateInNWeeks(1)).toBe('Dec 29 2015');
+      });
+    })
+
+    describe('when week number is undefined', function() {
+      it('returns `null`', function() {
+        expect(controller.dateInNWeeks()).toBeNull();
+      });
+    })
+  });
+
   describe('.dateAtEndOfTrial', function() {
-    describe('when studyEndDate is not `null`', function() {
+    describe('when studyEndDate is defined', function() {
       it('returns formatted date of the end of trial', function() {
         controller.studyEndDate = new Date(1451423241949);
 
@@ -123,5 +148,32 @@ describe('GoalCtrl', function() {
         expect(controller.dateAtEndOfTrial()).toBeNull();
       });
     })
+  });
+
+  describe('.atLeastNWeeksLeftInTrial', function() {
+    describe('study end date is 2 weeks in the future', function() {
+      beforeEach(function() {
+        controller.studyEndDate = moment().add(2, 'weeks');
+      });
+
+      describe('when week number is before the end date', function() {
+        it('returns `true`', function() {
+          expect(controller.atLeastNWeeksLeftInTrial(1)).toBe(true);
+        });
+      });
+
+      describe('when week number is after the end date', function() {
+        it('returns `false`', function() {
+          expect(controller.atLeastNWeeksLeftInTrial(3)).toBe(false);
+        });
+      });
+
+      describe('when week number is undefined', function() {
+        it('defaults to 0th week', function() {
+          expect(controller.atLeastNWeeksLeftInTrial())
+            .toBe(controller.atLeastNWeeksLeftInTrial(0));
+        });
+      });
+    });
   });
 });
