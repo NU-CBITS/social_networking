@@ -1,3 +1,7 @@
+## 0.8.2 - 2016-01-08
+ * Merge pull request #99 from cbitstech/msw_104632958_update_achieve_display
+ * Update Dynamic Achieve Display
+
 ## 0.8.1 - 2015-12-30
  * Merge pull request #98 from cbitstech/msw_fix_spec
  * Update Failing Spec
