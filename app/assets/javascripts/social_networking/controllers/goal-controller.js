@@ -127,12 +127,27 @@
     return this._goalTool.getTab();
   };
 
+  GoalCtrl.prototype.dateInNWeeks = function(week_number) {
+    if (week_number) {
+      return moment().add(week_number, 'weeks').format('MMM DD YYYY');
+    } else {
+      return null;
+    }
+  };
+
   GoalCtrl.prototype.dateAtEndOfTrial = function() {
     if (this.studyEndDate) {
       return moment(this.studyEndDate).format("MMM DD YYYY");
     } else {
       return null;
     }
+  };
+
+  GoalCtrl.prototype.atLeastNWeeksLeftInTrial = function(week_number) {
+    week_number = week_number || 0;
+
+    return moment().add(week_number, 'weeks')
+      .isBefore(moment(this.studyEndDate));
   };
 
   GoalCtrl.prototype.setFilter = function(type) {

@@ -5,13 +5,39 @@ describe "goal tool", type: :feature, js: true do
 
   before { visit "/social_networking/goal_tool" }
 
-  scenario "Participant enters a new goal" do
-    click_button "+ add a goal"
-    fill_in "What is your goal?", with: "all of the things"
-    choose "end of study"
-    click_button "Save"
+  describe "Participant enters a new goal" do
+    let(:two_weeks) { Time.current.advance(days: 14).strftime("%b %d %Y") }
+    let(:eight_weeks) { Time.current.advance(days: 56).strftime("%b %d %Y") }
 
-    expect(page).to have_content("all of the things")
+    scenario "goal is to be completed within 2 weeks" do
+      click_button "+ add a goal"
+      fill_in "What is your goal?", with: "all of the things"
+      choose "end of 2 weeks"
+      click_button "Save"
+
+      expect(page)
+        .to have_content "all of the things Due: #{two_weeks}"
+    end
+
+    scenario "goal is to be completed at the end of the study" do
+      click_button "+ add a goal"
+      fill_in "What is your goal?", with: "the end!"
+      choose "end of study"
+      click_button "Save"
+
+      expect(page)
+        .to have_content "the end! Due: #{eight_weeks}"
+    end
+
+    scenario "goal is to be completed within no specific date" do
+      click_button "+ add a goal"
+      fill_in "What is your goal?", with: "When should I finish this?"
+      choose "no specific date"
+      click_button "Save"
+
+      expect(page)
+        .to have_content "When should I finish this? Due: no date given"
+    end
   end
 
   scenario "Displays due date" do
@@ -41,7 +67,7 @@ describe "goal tool", type: :feature, js: true do
   scenario "Participant edits a goal" do
     edit "run"
     fill_in "What is your goal?", with: "run foo"
-    choose "end of study"
+    choose "end of 4 weeks"
     click_button "Save"
 
     expect(page).to have_content("run foo")
