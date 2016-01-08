@@ -136,7 +136,7 @@
   };
 
   GoalCtrl.prototype.dateAtEndOfTrial = function() {
-    if (this.studyEndDate) {
+    if (this.studyEndDate && moment(this.studyEndDate) > moment()) {
       return moment(this.studyEndDate).format("MMM DD YYYY");
     } else {
       return null;
