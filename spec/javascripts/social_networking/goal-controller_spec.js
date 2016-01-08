@@ -134,10 +134,22 @@ describe('GoalCtrl', function() {
 
   describe('.dateAtEndOfTrial', function() {
     describe('when studyEndDate is defined', function() {
-      it('returns formatted date of the end of trial', function() {
-        controller.studyEndDate = new Date(1451423241949);
+      describe('when sudy end date is in the past', function() {
+        it('returns `null`', function() {
+          controller.studyEndDate = new Date(1451423241949);
 
-        expect(controller.dateAtEndOfTrial()).toBe('Dec 29 2015');
+          expect(controller.dateAtEndOfTrial()).toBeNull();
+        });
+      });
+
+      describe('when sudy end date is in the future', function() {
+        it('returns formatted date of one week in the future', function() {
+          var today = moment('2015-12-22').toDate();
+          jasmine.clock().mockDate(today);
+          controller.studyEndDate = new Date(1451423241949);
+
+          expect(controller.dateAtEndOfTrial()).toBe('Dec 29 2015');
+        });
       });
     })
 
