@@ -1,3 +1,9 @@
+## 0.8.3 - 2016-01-08
+ * Merge pull request #101 from cbitstech/msw_104632958_update_spelling
+ * Fix Spec Spelling
+ * Merge pull request #100 from cbitstech/msw_104632958_end_patients_no_option
+ * Ended Patients No End of Study Goal
+
 ## 0.8.2 - 2016-01-08
  * Merge pull request #99 from cbitstech/msw_104632958_update_achieve_display
  * Update Dynamic Achieve Display
