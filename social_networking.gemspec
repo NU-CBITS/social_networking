@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email       = ["ericcf@northwestern.edu"]
   s.homepage    = "https://github.com/cbitstech/social_networking"
   s.summary     = "Social networking components"
-  s.description = "Social networking components"
+  s.description = "Social networking components, including the feed tool"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*",
@@ -24,12 +24,12 @@ Gem::Specification.new do |s|
   s.add_dependency "rails", "~> 4.1"
   s.add_dependency "twilio-ruby", "~> 3.12"
   s.add_dependency "sprockets-rails", "= 2.2.2"
-  s.add_development_dependency "pg"
+  s.add_development_dependency "pg", "~> 0.18"
   s.add_development_dependency "rspec-rails", "~> 3"
   s.add_development_dependency "capybara", "~> 2"
-  s.add_development_dependency "poltergeist"
+  s.add_development_dependency "poltergeist", "~> 1.8"
   s.add_development_dependency "jshintrb", "~> 0.2"
   # needed in CI environment
-  s.add_development_dependency "therubyracer"
+  s.add_development_dependency "therubyracer", "~> 0.12"
   s.add_development_dependency "simplecov", "~> 0.9.1"
 end
