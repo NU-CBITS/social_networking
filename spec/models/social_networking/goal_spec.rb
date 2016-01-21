@@ -110,8 +110,9 @@ module SocialNetworking
       end
 
       it "is 'Created' when due in the future and goal is not completed" do
+        puts "mock #{ Time.zone.today + 1.day }"
         expect(goal(
-          due_on: Date.today.advance(days: 1)
+          due_on: Time.zone.today + 1.day
         ).action).to eq "Created"
       end
     end
