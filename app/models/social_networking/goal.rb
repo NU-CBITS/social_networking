@@ -17,8 +17,8 @@ module SocialNetworking
     # Within the last day, used for shared item generation
     scope :did_not_complete, (lambda do
       where(deleted_at: nil, completed_at: nil)
-      .where(arel_table[:due_on].lt(DateTime.now))
-      .where(arel_table[:due_on].gteq(DateTime.now - 1))
+      .where(arel_table[:due_on].lt(Time.zone.today))
+      .where(arel_table[:due_on].gteq(Time.zone.today - 1.day))
     end)
 
     def to_serialized
@@ -53,7 +53,7 @@ module SocialNetworking
     def action
       if is_completed
         "Completed"
-      elsif due_on && due_on < DateTime.now
+      elsif due_on && due_on < Time.zone.today
         "Did Not Complete"
       else
         "Created"
