@@ -244,6 +244,3 @@ DEPENDENCIES
   social_networking!
   therubyracer (~> 0.12)
   twilio-ruby (~> 3.12)
-
-BUNDLED WITH
-   1.11.2
