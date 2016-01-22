@@ -8,7 +8,7 @@ GIT
 PATH
   remote: .
   specs:
-    social_networking (0.8.3)
+    social_networking (0.8.4)
       rails (~> 4.1)
       sprockets-rails (= 2.2.2)
       twilio-ruby (~> 3.12)

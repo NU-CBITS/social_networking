@@ -1,3 +1,11 @@
+## 0.8.4 - 2016-01-21
+ * Merge pull request #103 from cbitstech/msw_update_gemfilelock
+ * Run Bunder
+ * Merge pull request #102 from cbitstech/ecf_updates
+ * fix date and time issues
+ * re-bundle
+ * quiet gem build warnings
+
 ## 0.8.3 - 2016-01-08
  * Merge pull request #101 from cbitstech/msw_104632958_update_spelling
  * Fix Spec Spelling
