@@ -1,3 +1,5 @@
+require_dependency "social_networking/application_controller"
+
 module SocialNetworking
   # Provide Participant home page tools.
   class HomesController < ApplicationController

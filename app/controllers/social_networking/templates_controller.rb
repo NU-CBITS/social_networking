@@ -1,3 +1,5 @@
+require_dependency "social_networking/application_controller"
+
 module SocialNetworking
   # Sends back static templates.
   class TemplatesController < ApplicationController

@@ -1,3 +1,5 @@
+require_dependency "social_networking/application_controller"
+
 module SocialNetworking
   # Manage shared items
   class SharedItemController < ApplicationController
