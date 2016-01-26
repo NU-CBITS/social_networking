@@ -1,3 +1,7 @@
+## 0.9.0 - 2016-01-26
+ * Merge pull request #104 from cbitstech/msw_111326814_update_verified_request
+ * Update verified_request?
+
 ## 0.8.4 - 2016-01-21
  * Merge pull request #103 from cbitstech/msw_update_gemfilelock
  * Run Bunder
