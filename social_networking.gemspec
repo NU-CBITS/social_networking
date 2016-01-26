@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
 
   s.test_files = Dir["spec/**/*"]
 
-  s.add_dependency "rails", "~> 4.1"
+  s.add_dependency "rails", "~> 4.2"
   s.add_dependency "twilio-ruby", "~> 3.12"
   s.add_dependency "sprockets-rails", "= 2.2.2"
   s.add_development_dependency "pg", "~> 0.18"

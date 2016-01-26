@@ -1,3 +1,5 @@
+require_dependency "social_networking/application_controller"
+
 # Controller used to Manage Nudges.
 module SocialNetworking
   # Manage Nudges.
