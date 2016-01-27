@@ -1,3 +1,7 @@
+## 0.9.1 - 2016-01-27
+ * Merge pull request #105 from cbitstech/msw_110176596_update_gems
+ * Update Gems
+
 ## 0.9.0 - 2016-01-26
  * Merge pull request #104 from cbitstech/msw_111326814_update_verified_request
  * Update verified_request?
