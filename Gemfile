@@ -18,12 +18,11 @@ gem "twilio-ruby", "~> 3.12"
 
 gem "git_tagger",
     tag: "1.1.8",
-    git: "https://github.com/eschlange/git_tagger.git"
+    git: "https://github.com/cbitstech/git_tagger.git"
 
 group :development, :test do
   gem "jasmine-rails", "= 0.10.0"
   gem "rubocop", "~> 0.25"
-  gem "launchy"
 end
 
 group :development do
