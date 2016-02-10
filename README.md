@@ -66,3 +66,19 @@ Run the specs
 
 Note that when updating Angular, it is necessary to update
 `spec/javascripts/helpers/angular-mocks.js`.
+
+## Publishing to RubyGems
+
+Build the `social_networking` gem
+
+```console
+gem build social_networking.gemspec
+```
+
+Publish to [rubygems.org](https://rubygems.org)
+
+```console
+gem push social_networking-x.x.x.gem
+```
+
+View the published `social_networking` gem [here](https://rubygems.org/gems/social_networking)

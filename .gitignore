@@ -8,3 +8,6 @@ spec/dummy/tmp
 .idea/*
 Gemfile.lock
 coverage
+
+# RubyGems
+social_networking-*.gem
