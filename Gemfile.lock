@@ -229,11 +229,11 @@ DEPENDENCIES
   brakeman (~> 3)
   capybara (~> 2)
   git_tagger!
-  jasmine-rails (= 0.12.2)
+  jasmine-rails (~> 0.12)
   jquery-rails (~> 3.1)
   jshintrb (~> 0.2)
   pg (~> 0.18)
-  phantomjs (~> 1.9.8.0)
+  phantomjs (~> 1.9)
   poltergeist (~> 1.8)
   rspec-rails (~> 3)
   rubocop (~> 0.25)

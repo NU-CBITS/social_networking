@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_dependency "twilio-ruby", "~> 3.12"
   s.add_dependency "sprockets-rails", "= 2.2.2"
   s.add_development_dependency "pg", "~> 0.18"
-  s.add_development_dependency "phantomjs", "~> 1.9.8.0"
+  s.add_development_dependency "phantomjs", "~> 1.9"
   s.add_development_dependency "rspec-rails", "~> 3"
   s.add_development_dependency "capybara", "~> 2"
   s.add_development_dependency "poltergeist", "~> 1.8"
