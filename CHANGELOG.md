@@ -1,3 +1,8 @@
+## 0.9.2 - 2016-02-10
+ * Merge pull request #106 from cbitstech/msw_110176596_update_gemspec
+ * Update Gems
+ * Update For RubyGems
+
 ## 0.9.1 - 2016-01-27
  * Merge pull request #105 from cbitstech/msw_110176596_update_gems
  * Update Gems
