@@ -21,10 +21,6 @@ gem "git_tagger",
     git: "https://github.com/cbitstech/git_tagger.git"
 
 group :development, :test do
-  gem "jasmine-rails", "= 0.10.0"
+  gem "jasmine-rails", "~> 0.12"
   gem "rubocop", "~> 0.25"
-end
-
-group :development do
-  gem "brakeman", require: false
 end
