@@ -2,6 +2,8 @@ module SocialNetworking
   # Top level engine controller
   # Inherits from host's ApplicationController.
   class ApplicationController < ::ApplicationController
+    include Concerns::InvalidAuthToken
+
     CSRF_COOKIE_NAME = "XSRF-TOKEN"
     CSRF_HEADER_NAME = "X-XSRF-TOKEN"
 
