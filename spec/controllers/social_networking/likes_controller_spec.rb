@@ -1,7 +1,9 @@
 require "spec_helper"
 
 module SocialNetworking
-  describe LikesController, type: :controller do
+  RSpec.describe LikesController, type: :controller do
+    routes { Engine.routes }
+
     let(:participant) do
       instance_double(
         Participant,
@@ -29,7 +31,6 @@ module SocialNetworking
 
     describe "POST create" do
       before do
-        @routes = Engine.routes
         allow(controller)
           .to receive(:current_participant) { participant }
       end
@@ -133,6 +134,18 @@ module SocialNetworking
             assert_response 200
           end
         end
+      end
+
+      describe "when authorization token has expired" do
+        before do
+          allow(Like)
+            .to receive(:new)
+            .and_raise ActionController::InvalidAuthenticityToken
+
+          post :create
+        end
+
+        it_behaves_like "an untrusted action"
       end
     end
   end

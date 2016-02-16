@@ -1,0 +1,25 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "d1a0033a01fa888b5c8a5e09d91b3b4175c343c82e2ffbab2d7874ecad21d5eb",
+      "message": "Render path contains parameter value",
+      "file": "app/controllers/social_networking/templates_controller.rb",
+      "line": 11,
+      "link": "http://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(file => \"social_networking/templates/#{params[:path].gsub(/[^_a-z\\/]+/m, \"\")}.html\", { :layout => nil })",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "SocialNetworking::TemplatesController",
+        "method": "page"
+      },
+      "user_input": "params[:path].gsub(/[^_a-z\\/]+/m, \"\")",
+      "confidence": "Medium",
+      "note": ""
+    }
+  ],
+  "updated": "2016-02-16 10:31:18 -0600",
+  "brakeman_version": "3.1.5"
+}
