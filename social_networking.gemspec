@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.description = "Social networking components, including the feed tool"
   s.license     = "MIT"
 
-  s.files = Dir["{app,config,db,lib}/**/*",
+  s.files = Dir["{app,config,db,lib,vendor}/**/*",
                 "MIT-LICENSE",
                 "Rakefile",
                 "README.md"]
