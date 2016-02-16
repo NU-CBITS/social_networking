@@ -36,7 +36,7 @@ module SocialNetworking
           recipient: recipient,
           body: message_body,
           subject: subject)
-        .deliver
+        .deliver_now
     end
   end
 end

@@ -12,7 +12,7 @@ module SocialNetworking
               recipient: recipient,
               body: "foo",
               subject: "bar")
-            .deliver
+            .deliver_now
         end.to change { ActionMailer::Base.deliveries.count }.by(1)
       end
     end
