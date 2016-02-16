@@ -1,3 +1,13 @@
+## 0.9.3 - 2016-02-16
+ * include vendor directory in gem
+ * Merge pull request #110 from cbitstech/ecf_ruby_cache
+ * test Ruby 2.3.0 and cache gems on Travis
+ * Merge pull request #109 from cbitstech/ecf_fix_deprecations
+ * update methods due to deprecation warnings
+ * Merge pull request #107 from cbitstech/msw_113630033_csrf_bug
+ * Update Gem
+ * Rescue if Token is Invalid
+
 ## 0.9.2 - 2016-02-10
  * Merge pull request #106 from cbitstech/msw_110176596_update_gemspec
  * Update Gems
