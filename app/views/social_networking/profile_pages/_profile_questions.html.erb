@@ -16,7 +16,11 @@
       </h3>
       <div class="panel panel-<%= panel_class %>">
         <div class="panel-heading">
-          <strong class="panel-title">Profile</strong>
+          <strong class="panel-title">
+            Profile
+            &middot;
+            <small>Please be sure to click 'Save' after each response.</small>
+          </strong>
         </div>
         <div class="panel-body">
           <div ng-repeat="question in profileQuestions.questions | orderBy:'order'"

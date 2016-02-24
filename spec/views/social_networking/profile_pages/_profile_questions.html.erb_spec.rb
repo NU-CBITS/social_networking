@@ -47,6 +47,12 @@ module SocialNetworking
           render
         end
 
+        it "displays correct heading" do
+          expect(rendered)
+            .to have_text "Profile · Please be sure to click "\
+                          "'Save' after each response"
+        end
+
         it "does not display nudge message" do
           expect(rendered).to_not have_text "nudged you!"
         end
