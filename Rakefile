@@ -56,8 +56,8 @@ end
 
 desc "Run all specs and linters"
 task :spec_lint do
-  Rake::Task["all_spec"].invoke
   Rake::Task["lint"].invoke
+  Rake::Task["all_spec"].invoke
 end
 
 task default: :spec_lint
