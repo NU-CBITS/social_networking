@@ -1,3 +1,9 @@
+## 0.10.0 - 2016-02-26
+ * Merge pull request #112 from cbitstech/msw_update_rakefile
+ * Update Rakefile
+ * Merge pull request #111 from cbitstech/msw_113928051_add_profile_text
+ * Update Profile Header
+
 ## 0.9.3 - 2016-02-16
  * include vendor directory in gem
  * Merge pull request #110 from cbitstech/ecf_ruby_cache
