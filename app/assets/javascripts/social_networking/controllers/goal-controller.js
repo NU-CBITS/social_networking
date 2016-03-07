@@ -3,10 +3,11 @@
 
   // Provides management of goals.
   function GoalCtrl(GoalService, goalTool, currentGoals,
-                    studyEndDate, noticesEnabled, noticeUtility) {
+                    studyEndDate, noticesEnabled, noticeUtility, SN_CONSTANTS) {
     this._goals = GoalService;
     this._goalTool = goalTool;
     this.goalModel = this._goalTool.getModel();
+    this.textMaxLength = SN_CONSTANTS.TEXT_MAX_LENGTH;
     this.participantGoals = currentGoals;
     this.studyEndDate = studyEndDate;
     this.noticesEnabled = noticesEnabled;
@@ -154,6 +155,13 @@
     this._goalTool.setFilter(type);
   };
 
+  GoalCtrl.prototype.showCharLimit = function(inputTag) {
+    $(inputTag)
+      .showCharLimit({
+        maxlength: this.textMaxLength
+      });
+  };
+
   GoalCtrl.prototype.getFilter = function() {
     return this._goalTool.getFilter();
   };
@@ -162,5 +170,5 @@
   angular.module('socialNetworking.controllers')
     .controller('GoalCtrl', ['Goals', 'goalTool', 'currentGoals',
                 'participantStudyEndDate', 'noticesEnabled',
-                'noticeUtility', GoalCtrl]);
+                'noticeUtility', 'SN_CONSTANTS', GoalCtrl]);
 })();

@@ -7,9 +7,11 @@
   function HomeCtrl(OnYourMindResource, CommentResource, LikeResource,
                     homeTool, participantId, actionItems, feedItems,
                     memberProfiles, $filter, $http, $location, $scope,
-                    noticesEnabled, noticeUtility, resource) {
+                    noticesEnabled, noticeUtility, resource, SN_CONSTANTS) {
     this.actionItems = actionItems;
     this.feedItems = feedItems;
+    this.textMaxLength = SN_CONSTANTS.TEXT_MAX_LENGTH;
+    this.bootstrapInputClass = SN_CONSTANTS.INPUT_CLASS;
     this.page = 0;
     this.feedDisabled = false;
     this._memberProfiles = memberProfiles;
@@ -176,6 +178,8 @@
 
   // Is the tool in On Your Mind Entry Mode?
   HomeCtrl.prototype.inOnYourMindEntryMode = function() {
+    this.resetAllCharCountText(this.bootstrapInputClass);
+
     return this._homeTool.getMode() ===
            this._homeTool.MODES.ON_YOUR_MIND_ENTRY;
   };
@@ -224,6 +228,20 @@
     }
   };
 
+  HomeCtrl.prototype.resetAllCharCountText = function(inputClass) {
+    $(inputClass)
+      .trigger('check.show-char-limit');
+  };
+
+  HomeCtrl.prototype.showCharLimit = function(inputTag) {
+    this.resetAllCharCountText(this.bootstrapInputClass);
+
+    $(inputTag)
+      .showCharLimit({
+        maxlength: this.textMaxLength
+      });
+  };
+
   HomeCtrl.prototype.taskVisited = function(item) {
     $.ajax({
       async: false,
@@ -256,5 +274,5 @@
     .controller('HomeCtrl', ['OnYourMindResource', 'CommentResource',
         'LikeResource', 'homeTool', 'participantId', 'actionItems',
         'feedItems', 'memberProfiles', '$filter', '$http', '$location',
-        '$scope', 'noticesEnabled', 'noticeUtility', 'resource', HomeCtrl]);
+        '$scope', 'noticesEnabled', 'noticeUtility', 'resource', 'SN_CONSTANTS', HomeCtrl]);
 })();

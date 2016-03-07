@@ -39,7 +39,13 @@
                 <input type="hidden" name="id" ng-if="answer.answerModels[question.id].id !== null">
 
                 <div class="form-group col-lg-8 col-md-8">
-                  <input type="text" class="form-control" id="new-answer-description-{{question.id}}" ng-model="answer.answerModels[question.id].answer_text" ng-maxlength="255">
+                  <input
+                    class="form-control"
+                    id="new-answer-description-{{question.id}}"
+                    ng-focus="answer.showCharLimit('#new-answer-description-' + question.id)"
+                    ng-maxlength="answer.textMaxLength"
+                    ng-model="answer.answerModels[question.id].answer_text"
+                    type="text">
                 </div>
 
                 <div class="form-group col-lg-8 col-md-8">
@@ -71,7 +77,6 @@
         <div class="panel-body">
           <div ng-repeat="question in profileQuestions.questions | orderBy:'order'" class="panel panel-<%= panel_class %>" ng-init="answer.storeAnswer(<%= @profile.id %>, question.id, answer)">
             <div class="panel-heading"><strong class="panel-title">{{ question.question_text }}</strong></div>
-
             <div class="panel-body">
               {{ answer.answerModels[question.id].answer_text }}
             </div>

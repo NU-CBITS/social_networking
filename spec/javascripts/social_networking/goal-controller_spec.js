@@ -33,7 +33,10 @@ describe('GoalCtrl', function() {
       currentGoals: [],
       participantStudyEndDate: '2014-01-01',
       noticesEnabled: false,
-      noticeUtility: Notice
+      noticeUtility: Notice,
+      SN_CONSTANTS: {
+        TEXT_MAX_LENGTH: 1
+      }
     });
   }));
 
@@ -186,6 +189,26 @@ describe('GoalCtrl', function() {
             .toBe(controller.atLeastNWeeksLeftInTrial(0));
         });
       });
+    });
+  });
+
+  describe('.showCharLimit', function() {
+    var $content = $('#jasmine_content');
+
+    beforeEach(function() {
+      $content
+        .append('<input id="foo">');
+    });
+
+    afterEach(function() {
+      $content.empty();
+    });
+
+    it('returns char count status of the text field', function() {
+      controller.showCharLimit('#foo');
+
+      expect($content.find('#foo__status').text())
+        .toBe('1 character left');
     });
   });
 });

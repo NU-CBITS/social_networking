@@ -2,10 +2,11 @@
     "use strict";
 
     // Provide interaction with a participant's profile answers to profile questions.
-    function ProfileAnswerCtrl($window, ProfileAnswers) {
+    function ProfileAnswerCtrl($window, ProfileAnswers, SN_CONSTANTS) {
       this._answerResource = ProfileAnswers;
       this.answerModels = {};
       this._answerStates = {};
+      this.textMaxLength = SN_CONSTANTS.TEXT_MAX_LENGTH;
       this.$window = $window;
     }
 
@@ -27,6 +28,13 @@
           self.answerModels[questionId] = answerModel;
           self._answerStates[questionId] = {};
           self._answerStates[questionId].editable = true;
+        });
+    };
+
+    ProfileAnswerCtrl.prototype.showCharLimit = function(inputTag) {
+      $(inputTag)
+        .showCharLimit({
+          maxlength: this.textMaxLength
         });
     };
 
@@ -100,5 +108,5 @@
 
     // Create a module and register the controllers.
     angular.module('socialNetworking.controllers')
-      .controller('ProfileAnswerCtrl', ['$window', 'ProfileAnswers', ProfileAnswerCtrl]);
+      .controller('ProfileAnswerCtrl', ['$window', 'ProfileAnswers', 'SN_CONSTANTS', ProfileAnswerCtrl]);
 })();
