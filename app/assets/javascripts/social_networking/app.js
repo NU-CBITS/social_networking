@@ -7,7 +7,10 @@ angular.module('socialNetworking', [
   'socialNetworking.directives',
   'socialNetworking.services',
   'socialNetworking.values'
-]);
+]).constant("SN_CONSTANTS", {
+  TEXT_MAX_LENGTH: 1000,
+  INPUT_CLASS: '.form-control'
+});
 
 // Define submodules.
 angular.module('socialNetworking.controllers', []);

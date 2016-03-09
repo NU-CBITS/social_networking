@@ -24,13 +24,14 @@ describe('ProfileAnswerCtrl', function() {
       answer_text: answerText,
       profile_id: profileId,
       profile_question_id: questionId
-    };
+    }
   }));
 
   describe('#ifAnswered', function() {
     beforeEach(function() {
       controller = controller('ProfileAnswerCtrl', {
-        ProfileAnswers: function() {}
+        ProfileAnswers: function() {},
+        SN_CONSTANTS: {}
       });
     });
 
@@ -82,7 +83,8 @@ describe('ProfileAnswerCtrl', function() {
         });
 
         controller = controller('ProfileAnswerCtrl', {
-          ProfileAnswers: profileAnswers
+          ProfileAnswers: profileAnswers,
+          SN_CONSTANTS: {}
         });
 
         controller.setModel(newAnswer);
@@ -123,7 +125,8 @@ describe('ProfileAnswerCtrl', function() {
         beforeEach(function() {
           callProfileAnswersRejectCreate({ data: { error: 'Holy guacamole!' } });
           controller = controller('ProfileAnswerCtrl', {
-            ProfileAnswers: profileAnswers
+            ProfileAnswers: profileAnswers,
+            SN_CONSTANTS: {}
           });
           controller.setModel(newAnswer);
         });
@@ -153,7 +156,8 @@ describe('ProfileAnswerCtrl', function() {
         beforeEach(function() {
           callProfileAnswersRejectCreate();
           controller = controller('ProfileAnswerCtrl', {
-            ProfileAnswers: profileAnswers
+            ProfileAnswers: profileAnswers,
+            SN_CONSTANTS: {}
           });
           controller.setModel(newAnswer);
         });
@@ -169,6 +173,32 @@ describe('ProfileAnswerCtrl', function() {
           expect($window.confirm).toHaveBeenCalled();
         });
       });
+    });
+  });
+
+  describe('.showCharLimit', function() {
+    var $content = $('#jasmine_content');
+
+    beforeEach(function() {
+      $content
+        .append('<input id="foo">');
+        controller = controller('ProfileAnswerCtrl', {
+          ProfileAnswers: function() {},
+          SN_CONSTANTS: {
+            TEXT_MAX_LENGTH: 1
+          }
+        });
+    });
+
+    afterEach(function() {
+      $content.empty();
+    });
+
+    it('returns char count status of the text field', function() {
+      controller.showCharLimit('#foo');
+
+      expect($content.find('#foo__status').text())
+        .toBe('1 character left');
     });
   });
 });

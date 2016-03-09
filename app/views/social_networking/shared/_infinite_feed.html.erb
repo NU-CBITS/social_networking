@@ -81,8 +81,8 @@
   <div ng-show="home.isCommentingOn(item)">
     <form novalidate role="form" >
       <div class="form-group">
-        <label for="comment-text">What do you think?</label>
-        <input type="text" class="form-control" id="comment-text" ng-model="home.commentModel.text" ng-maxlength="255" required focus-on="new-comment">
+        <label for="comment-text-{{ item.id }}">What do you think?</label>
+        <input type="text" class="form-control" id="comment-text-{{ item.id }}" ng-model="home.commentModel.text" ng-maxlength="home.textMaxLength" required focus-on="new-comment" ng-focus="home.showCharLimit('input#comment-text-' + item.id)">
       </div>
 
       <div class="form-group">
