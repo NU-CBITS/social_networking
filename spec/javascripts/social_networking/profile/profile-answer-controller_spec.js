@@ -27,28 +27,6 @@ describe('ProfileAnswerCtrl', function() {
     }
   }));
 
-  describe('#ifAnswered', function() {
-    beforeEach(function() {
-      controller = controller('ProfileAnswerCtrl', {
-        ProfileAnswers: function() {},
-        SN_CONSTANTS: {}
-      });
-    });
-
-    it('returns `true` if the participant has answered at least one profile question', function() {
-      controller.answerModels = {}
-      controller.answerModels[questionId] = savedAnswer;
-
-      expect(controller.ifAnswered(questions)).toBe(true);
-    });
-
-    it('returns `false` if the participant has not answered at least one profile question', function() {
-      controller.answerModels = {};
-
-      expect(controller.ifAnswered(questions)).toBe(false);
-    });
-  });
-
   describe('#save', function() {
     beforeEach(function() {
       newAnswer = {
@@ -69,6 +47,11 @@ describe('ProfileAnswerCtrl', function() {
       });
 
       profileAnswers.create();
+
+      controller = controller('ProfileAnswerCtrl', {
+        ProfileAnswers: profileAnswers,
+        SN_CONSTANTS: {}
+      });
     });
 
     describe('when saving succeeds', function() {
@@ -80,11 +63,6 @@ describe('ProfileAnswerCtrl', function() {
           promise = deferred.promise;
           deferred.resolve();
           return promise;
-        });
-
-        controller = controller('ProfileAnswerCtrl', {
-          ProfileAnswers: profileAnswers,
-          SN_CONSTANTS: {}
         });
 
         controller.setModel(newAnswer);
@@ -124,10 +102,6 @@ describe('ProfileAnswerCtrl', function() {
       describe('when saving fails with an error message', function() {
         beforeEach(function() {
           callProfileAnswersRejectCreate({ data: { error: 'Holy guacamole!' } });
-          controller = controller('ProfileAnswerCtrl', {
-            ProfileAnswers: profileAnswers,
-            SN_CONSTANTS: {}
-          });
           controller.setModel(newAnswer);
         });
 
@@ -155,10 +129,6 @@ describe('ProfileAnswerCtrl', function() {
       describe('when saving fails without an error message', function() {
         beforeEach(function() {
           callProfileAnswersRejectCreate();
-          controller = controller('ProfileAnswerCtrl', {
-            ProfileAnswers: profileAnswers,
-            SN_CONSTANTS: {}
-          });
           controller.setModel(newAnswer);
         });
 
@@ -176,29 +146,49 @@ describe('ProfileAnswerCtrl', function() {
     });
   });
 
-  describe('.showCharLimit', function() {
-    var $content = $('#jasmine_content');
-
+  describe('when controller is defined', function() {
     beforeEach(function() {
-      $content
-        .append('<input id="foo">');
-        controller = controller('ProfileAnswerCtrl', {
-          ProfileAnswers: function() {},
-          SN_CONSTANTS: {
-            TEXT_MAX_LENGTH: 1
-          }
-        });
+      controller = controller('ProfileAnswerCtrl', {
+        ProfileAnswers: function() {},
+        SN_CONSTANTS: {
+          TEXT_MAX_LENGTH: 1
+        }
+      });
     });
 
-    afterEach(function() {
-      $content.empty();
+    describe('#ifAnswered', function() {
+      it('returns `true` if the participant has answered at least one profile question', function() {
+        controller.answerModels = {}
+        controller.answerModels[questionId] = savedAnswer;
+
+        expect(controller.ifAnswered(questions)).toBe(true);
+      });
+
+      it('returns `false` if the participant has not answered at least one profile question', function() {
+        controller.answerModels = {};
+
+        expect(controller.ifAnswered(questions)).toBe(false);
+      });
     });
 
-    it('returns char count status of the text field', function() {
-      controller.showCharLimit('#foo');
+    describe('.showCharLimit', function() {
+      var $content = $('#jasmine_content');
 
-      expect($content.find('#foo__status').text())
-        .toBe('1 character left');
+      beforeEach(function() {
+        $content
+          .append('<input id="foo">');
+      });
+
+      afterEach(function() {
+        $content.empty();
+      });
+
+      it('returns char count status of the text field', function() {
+        controller.showCharLimit('#foo');
+
+        expect($content.find('#foo__status').text())
+          .toBe('1 character left');
+      });
     });
   });
 });
