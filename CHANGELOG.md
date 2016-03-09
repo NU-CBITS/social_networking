@@ -1,3 +1,10 @@
+## 0.11.0 - 2016-03-09
+ * Merge pull request #115 from cbitstech/msw_113927979_dynamic_character_limit_update
+ * Dry up Spec
+ * Merge pull request #114 from cbitstech/msw_113927979_dynamic_character_limit_update
+ * Update Rails
+ * Add Character Count
+
 ## 0.10.0 - 2016-02-26
  * Merge pull request #112 from cbitstech/msw_update_rakefile
  * Update Rakefile
