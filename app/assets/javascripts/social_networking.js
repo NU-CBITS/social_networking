@@ -6,5 +6,6 @@
 //= require bootstrap/tooltip
 //= require bootstrap/popover
 //= require bootstrap/modal
+//= require jquery.show_char_limit
 //= require jquery.toaster
 //= require_tree .

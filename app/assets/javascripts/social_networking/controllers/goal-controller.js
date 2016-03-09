@@ -3,7 +3,7 @@
 
   // Provides management of goals.
   function GoalCtrl(GoalService, goalTool, currentGoals,
-                    studyEndDate, noticesEnabled, noticeUtility) {
+                    studyEndDate, noticesEnabled, noticeUtility, charLimitService) {
     this._goals = GoalService;
     this._goalTool = goalTool;
     this.goalModel = this._goalTool.getModel();
@@ -11,9 +11,10 @@
     this.studyEndDate = studyEndDate;
     this.noticesEnabled = noticesEnabled;
     this.noticeUtility = noticeUtility;
-
     this.resetForm();
     this.resetTabs();
+    this.showCharLimit = charLimitService.showCharLimit
+    this.textMaxLength = charLimitService.textMaxLength;
     if (typeof $ !== 'undefined') {
       $("#help-pop").popover({
         html: true
@@ -162,5 +163,5 @@
   angular.module('socialNetworking.controllers')
     .controller('GoalCtrl', ['Goals', 'goalTool', 'currentGoals',
                 'participantStudyEndDate', 'noticesEnabled',
-                'noticeUtility', GoalCtrl]);
+                'noticeUtility', 'charLimitService', GoalCtrl]);
 })();

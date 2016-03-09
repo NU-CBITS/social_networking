@@ -4,7 +4,7 @@ describe('ProfileAnswerCtrl', function() {
 
   beforeEach(module('socialNetworking.controllers'));
 
-  beforeEach(inject(function($controller, _$rootScope_, _$q_, _$window_) {
+  beforeEach(inject(function($controller, _$rootScope_, _$q_, _$window_, _charLimitService_) {
     $rootScope = _$rootScope_;
     $q = _$q_;
     $window = _$window_;
@@ -24,7 +24,7 @@ describe('ProfileAnswerCtrl', function() {
       answer_text: answerText,
       profile_id: profileId,
       profile_question_id: questionId
-    };
+    }
   }));
 
   describe('#ifAnswered', function() {
@@ -169,6 +169,29 @@ describe('ProfileAnswerCtrl', function() {
           expect($window.confirm).toHaveBeenCalled();
         });
       });
+    });
+  });
+
+  describe('.showCharLimit', function() {
+    var $content = $('#jasmine_content');
+
+    beforeEach(function() {
+      $content
+        .append('<input id="foo">');
+        controller = controller('ProfileAnswerCtrl', {
+          ProfileAnswers: function() {}
+        });
+    });
+
+    afterEach(function() {
+      $content.empty();
+    });
+
+    it('returns char count status of the text field', function() {
+      controller.showCharLimit('#foo');
+
+      expect($content.find('#foo__status').text())
+        .toBe('1 character left');
     });
   });
 });

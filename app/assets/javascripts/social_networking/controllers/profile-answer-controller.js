@@ -2,10 +2,12 @@
     "use strict";
 
     // Provide interaction with a participant's profile answers to profile questions.
-    function ProfileAnswerCtrl($window, ProfileAnswers) {
+    function ProfileAnswerCtrl($window, ProfileAnswers, charLimitService) {
       this._answerResource = ProfileAnswers;
       this.answerModels = {};
       this._answerStates = {};
+      this.showCharLimit = charLimitService.showCharLimit
+      this.textMaxLength = charLimitService.textMaxLength;
       this.$window = $window;
     }
 
@@ -100,5 +102,5 @@
 
     // Create a module and register the controllers.
     angular.module('socialNetworking.controllers')
-      .controller('ProfileAnswerCtrl', ['$window', 'ProfileAnswers', ProfileAnswerCtrl]);
+      .controller('ProfileAnswerCtrl', ['$window', 'ProfileAnswers', 'charLimitService', ProfileAnswerCtrl]);
 })();

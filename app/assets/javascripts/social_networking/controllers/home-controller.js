@@ -7,7 +7,7 @@
   function HomeCtrl(OnYourMindResource, CommentResource, LikeResource,
                     homeTool, participantId, actionItems, feedItems,
                     memberProfiles, $filter, $http, $location, $scope,
-                    noticesEnabled, noticeUtility, resource) {
+                    noticesEnabled, noticeUtility, resource, charLimitService) {
     this.actionItems = actionItems;
     this.feedItems = feedItems;
     this.page = 0;
@@ -25,6 +25,9 @@
     this.noticesEnabled = noticesEnabled;
     this.noticeUtility = noticeUtility;
     this._resource = resource;
+    this.resetAllCharCountText = charLimitService.resetAllCharCountText;
+    this.showCharLimit = charLimitService.showCharLimit
+    this.textMaxLength = charLimitService.textMaxLength;
 
     this._findFeedItem = function(filter) {
       return $filter('filter')(this.feedItems, filter)[0];
@@ -176,6 +179,8 @@
 
   // Is the tool in On Your Mind Entry Mode?
   HomeCtrl.prototype.inOnYourMindEntryMode = function() {
+    this.resetAllCharCountText();
+
     return this._homeTool.getMode() ===
            this._homeTool.MODES.ON_YOUR_MIND_ENTRY;
   };
@@ -256,5 +261,5 @@
     .controller('HomeCtrl', ['OnYourMindResource', 'CommentResource',
         'LikeResource', 'homeTool', 'participantId', 'actionItems',
         'feedItems', 'memberProfiles', '$filter', '$http', '$location',
-        '$scope', 'noticesEnabled', 'noticeUtility', 'resource', HomeCtrl]);
+        '$scope', 'noticesEnabled', 'noticeUtility', 'resource', 'charLimitService', HomeCtrl]);
 })();

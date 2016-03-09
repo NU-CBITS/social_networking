@@ -51,7 +51,7 @@ describe('HomeCtrl', function() {
     }
   });
 
-  beforeEach(inject(function($rootScope, $q, $controller, $filter, _homeTool_) {
+  beforeEach(inject(function($rootScope, $q, $controller, $filter, _homeTool_, _charLimitService_) {
     homeTool = _homeTool_;
     scope = $rootScope;
     q = $q;
@@ -70,7 +70,8 @@ describe('HomeCtrl', function() {
       $scope: scope,
       noticesEnabled: false,
       noticeUtility: Notice,
-      resource: 'someResource'
+      resource: 'someResource',
+      charLimitService: _charLimitService_
     });
   }));
 
@@ -344,6 +345,35 @@ describe('HomeCtrl', function() {
         .toEqual(123);
       expect(controller.isLikeable(item))
         .toEqual(true);
+    });
+  });
+
+  describe('.showCharLimit', function() {
+    var $content = $('#jasmine_content');
+
+    beforeEach(function() {
+      $content
+        .append('<input id="foo">');
+    });
+
+    afterEach(function() {
+      $content.empty();
+    });
+
+    it('returns char count status of the text field', function() {
+      controller.showCharLimit('#foo');
+
+      expect($content.find('#foo__status').text())
+        .toBe('1 character left');
+    });
+
+    it('returns char count status of the text field', function() {
+      spyOn(controller, 'resetAllCharCountText');
+
+      controller.showCharLimit('#foo');
+
+      expect(controller.resetAllCharCountText)
+        .toHaveBeenCalledWith('.bar');
     });
   });
 });

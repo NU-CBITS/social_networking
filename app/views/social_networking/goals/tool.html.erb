@@ -31,7 +31,7 @@
 
     <div class="form-group col-lg-8 col-md-8">
       <label for="new-goal-description">What is your goal?</label>
-      <input type="text" class="form-control" id="new-goal-description" ng-model="goal.goalModel.description" ng-maxlength="255" required focus-on="new-goal">
+      <input type="text" class="form-control" id="new-goal-description" ng-model="goal.goalModel.description" ng-maxlength="goal.textMaxLength" required focus-on="new-goal" ng-focus="goal.showCharLimit('input#new-goal-description')">
     </div>
 
     <div class="form-group col-lg-8 col-md-8">

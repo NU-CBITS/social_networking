@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151211204425) do
+ActiveRecord::Schema.define(version: 20160308201931) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,10 +36,10 @@ ActiveRecord::Schema.define(version: 20151211204425) do
   end
 
   create_table "social_networking_comments", force: :cascade do |t|
-    t.integer  "participant_id", null: false
-    t.string   "text",           null: false
-    t.integer  "item_id",        null: false
-    t.string   "item_type",      null: false
+    t.integer  "participant_id",              null: false
+    t.string   "text",           limit: 1000, null: false
+    t.integer  "item_id",                     null: false
+    t.string   "item_type",                   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -47,8 +47,8 @@ ActiveRecord::Schema.define(version: 20151211204425) do
   add_index "social_networking_comments", ["item_id", "item_type"], name: "index_social_networking_comments_on_item_id_and_item_type", using: :btree
 
   create_table "social_networking_goals", force: :cascade do |t|
-    t.string   "description",    null: false
-    t.integer  "participant_id", null: false
+    t.string   "description",    limit: 1000, null: false
+    t.integer  "participant_id",              null: false
     t.date     "due_on"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -79,8 +79,8 @@ ActiveRecord::Schema.define(version: 20151211204425) do
   add_index "social_networking_nudges", ["recipient_id"], name: "index_social_networking_nudges_on_recipient_id", using: :btree
 
   create_table "social_networking_on_the_mind_statements", force: :cascade do |t|
-    t.text     "description",    null: false
-    t.integer  "participant_id", null: false
+    t.string   "description",    limit: 1000, null: false
+    t.integer  "participant_id",              null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -89,9 +89,9 @@ ActiveRecord::Schema.define(version: 20151211204425) do
   add_index "social_networking_on_the_mind_statements", ["participant_id"], name: "on_the_mind_participant", using: :btree
 
   create_table "social_networking_profile_answers", force: :cascade do |t|
-    t.integer  "social_networking_profile_question_id", null: false
+    t.integer  "social_networking_profile_question_id",              null: false
     t.integer  "order"
-    t.string   "answer_text",                           null: false
+    t.string   "answer_text",                           limit: 1000, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "social_networking_profile_id"

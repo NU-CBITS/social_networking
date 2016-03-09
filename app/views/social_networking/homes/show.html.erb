@@ -23,13 +23,13 @@
   </div>
   <ul class="list-group profile-icon-top" ng-show="home.inFeedBrowseMode()">
     <li class="list-group-item">
-      <button class="btn-link faded" ng-click="home.newOnYourMindStatement()">What's on your mind?</button>
+      <button class="btn-link faded" ng-click="home.newOnYourMindStatement();">What's on your mind?</button>
     </li>
   </ul>
   <form novalidate role="form" name="onYourMindForm" class="row" ng-show="home.inOnYourMindEntryMode()">
     <div class="form-group col-lg-8 col-md-8">
       <label for="new-on-your-mind-description">What's on your mind?</label>
-      <input type="text" class="form-control" id="new-on-your-mind-description" ng-model="home.onYourMindModel.description" ng-maxlength="255" required focus-on="new-goal">
+      <input type="text" class="form-control" id="new-on-your-mind-description" ng-model="home.onYourMindModel.description" ng-maxlength="home.textMaxLength" required focus-on="new-goal" ng-focus="home.showCharLimit('input#new-on-your-mind-description')">
     </div>
 
     <div class="form-group col-lg-8 col-md-8">

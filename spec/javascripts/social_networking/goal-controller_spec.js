@@ -24,7 +24,7 @@ describe('GoalCtrl', function() {
     };
   });
 
-  beforeEach(inject(function($rootScope, $q, $controller, goalTool) {
+  beforeEach(inject(function($rootScope, $q, $controller, goalTool, _charLimitService_) {
     scope = $rootScope;
     q = $q;
     controller = $controller('GoalCtrl', {
@@ -33,7 +33,8 @@ describe('GoalCtrl', function() {
       currentGoals: [],
       participantStudyEndDate: '2014-01-01',
       noticesEnabled: false,
-      noticeUtility: Notice
+      noticeUtility: Notice,
+      charLimitService: _charLimitService_
     });
   }));
 
@@ -186,6 +187,26 @@ describe('GoalCtrl', function() {
             .toBe(controller.atLeastNWeeksLeftInTrial(0));
         });
       });
+    });
+  });
+
+  describe('.showCharLimit', function() {
+    var $content = $('#jasmine_content');
+
+    beforeEach(function() {
+      $content
+        .append('<input id="foo">');
+    });
+
+    afterEach(function() {
+      $content.empty();
+    });
+
+    it('returns char count status of the text field', function() {
+      controller.showCharLimit('#foo');
+
+      expect($content.find('#foo__status').text())
+        .toBe('1 character left');
     });
   });
 });
