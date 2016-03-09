@@ -24,7 +24,7 @@ describe('GoalCtrl', function() {
     };
   });
 
-  beforeEach(inject(function($rootScope, $q, $controller, goalTool) {
+  beforeEach(inject(function($rootScope, $q, $controller, goalTool, _charLimitService_) {
     scope = $rootScope;
     q = $q;
     controller = $controller('GoalCtrl', {
@@ -34,9 +34,7 @@ describe('GoalCtrl', function() {
       participantStudyEndDate: '2014-01-01',
       noticesEnabled: false,
       noticeUtility: Notice,
-      SN_CONSTANTS: {
-        TEXT_MAX_LENGTH: 1
-      }
+      charLimitService: _charLimitService_
     });
   }));
 

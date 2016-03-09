@@ -7,11 +7,9 @@
   function HomeCtrl(OnYourMindResource, CommentResource, LikeResource,
                     homeTool, participantId, actionItems, feedItems,
                     memberProfiles, $filter, $http, $location, $scope,
-                    noticesEnabled, noticeUtility, resource, SN_CONSTANTS) {
+                    noticesEnabled, noticeUtility, resource, charLimitService) {
     this.actionItems = actionItems;
     this.feedItems = feedItems;
-    this.textMaxLength = SN_CONSTANTS.TEXT_MAX_LENGTH;
-    this.bootstrapInputClass = SN_CONSTANTS.INPUT_CLASS;
     this.page = 0;
     this.feedDisabled = false;
     this._memberProfiles = memberProfiles;
@@ -27,6 +25,9 @@
     this.noticesEnabled = noticesEnabled;
     this.noticeUtility = noticeUtility;
     this._resource = resource;
+    this.resetAllCharCountText = charLimitService.resetAllCharCountText;
+    this.showCharLimit = charLimitService.showCharLimit
+    this.textMaxLength = charLimitService.textMaxLength;
 
     this._findFeedItem = function(filter) {
       return $filter('filter')(this.feedItems, filter)[0];
@@ -178,7 +179,7 @@
 
   // Is the tool in On Your Mind Entry Mode?
   HomeCtrl.prototype.inOnYourMindEntryMode = function() {
-    this.resetAllCharCountText(this.bootstrapInputClass);
+    this.resetAllCharCountText();
 
     return this._homeTool.getMode() ===
            this._homeTool.MODES.ON_YOUR_MIND_ENTRY;
@@ -228,20 +229,6 @@
     }
   };
 
-  HomeCtrl.prototype.resetAllCharCountText = function(inputClass) {
-    $(inputClass)
-      .trigger('check.show-char-limit');
-  };
-
-  HomeCtrl.prototype.showCharLimit = function(inputTag) {
-    this.resetAllCharCountText(this.bootstrapInputClass);
-
-    $(inputTag)
-      .showCharLimit({
-        maxlength: this.textMaxLength
-      });
-  };
-
   HomeCtrl.prototype.taskVisited = function(item) {
     $.ajax({
       async: false,
@@ -274,5 +261,5 @@
     .controller('HomeCtrl', ['OnYourMindResource', 'CommentResource',
         'LikeResource', 'homeTool', 'participantId', 'actionItems',
         'feedItems', 'memberProfiles', '$filter', '$http', '$location',
-        '$scope', 'noticesEnabled', 'noticeUtility', 'resource', 'SN_CONSTANTS', HomeCtrl]);
+        '$scope', 'noticesEnabled', 'noticeUtility', 'resource', 'charLimitService', HomeCtrl]);
 })();

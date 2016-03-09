@@ -4,7 +4,7 @@ describe('ProfileAnswerCtrl', function() {
 
   beforeEach(module('socialNetworking.controllers'));
 
-  beforeEach(inject(function($controller, _$rootScope_, _$q_, _$window_) {
+  beforeEach(inject(function($controller, _$rootScope_, _$q_, _$window_, _charLimitService_) {
     $rootScope = _$rootScope_;
     $q = _$q_;
     $window = _$window_;
@@ -30,8 +30,7 @@ describe('ProfileAnswerCtrl', function() {
   describe('#ifAnswered', function() {
     beforeEach(function() {
       controller = controller('ProfileAnswerCtrl', {
-        ProfileAnswers: function() {},
-        SN_CONSTANTS: {}
+        ProfileAnswers: function() {}
       });
     });
 
@@ -83,8 +82,7 @@ describe('ProfileAnswerCtrl', function() {
         });
 
         controller = controller('ProfileAnswerCtrl', {
-          ProfileAnswers: profileAnswers,
-          SN_CONSTANTS: {}
+          ProfileAnswers: profileAnswers
         });
 
         controller.setModel(newAnswer);
@@ -125,8 +123,7 @@ describe('ProfileAnswerCtrl', function() {
         beforeEach(function() {
           callProfileAnswersRejectCreate({ data: { error: 'Holy guacamole!' } });
           controller = controller('ProfileAnswerCtrl', {
-            ProfileAnswers: profileAnswers,
-            SN_CONSTANTS: {}
+            ProfileAnswers: profileAnswers
           });
           controller.setModel(newAnswer);
         });
@@ -156,8 +153,7 @@ describe('ProfileAnswerCtrl', function() {
         beforeEach(function() {
           callProfileAnswersRejectCreate();
           controller = controller('ProfileAnswerCtrl', {
-            ProfileAnswers: profileAnswers,
-            SN_CONSTANTS: {}
+            ProfileAnswers: profileAnswers
           });
           controller.setModel(newAnswer);
         });
@@ -183,10 +179,7 @@ describe('ProfileAnswerCtrl', function() {
       $content
         .append('<input id="foo">');
         controller = controller('ProfileAnswerCtrl', {
-          ProfileAnswers: function() {},
-          SN_CONSTANTS: {
-            TEXT_MAX_LENGTH: 1
-          }
+          ProfileAnswers: function() {}
         });
     });
 

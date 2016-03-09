@@ -51,7 +51,7 @@ describe('HomeCtrl', function() {
     }
   });
 
-  beforeEach(inject(function($rootScope, $q, $controller, $filter, _homeTool_) {
+  beforeEach(inject(function($rootScope, $q, $controller, $filter, _homeTool_, _charLimitService_) {
     homeTool = _homeTool_;
     scope = $rootScope;
     q = $q;
@@ -71,10 +71,7 @@ describe('HomeCtrl', function() {
       noticesEnabled: false,
       noticeUtility: Notice,
       resource: 'someResource',
-      SN_CONSTANTS: {
-        TEXT_MAX_LENGTH: 1,
-        INPUT_CLASS: '.bar'
-      }
+      charLimitService: _charLimitService_
     });
   }));
 
