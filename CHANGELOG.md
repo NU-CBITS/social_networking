@@ -1,3 +1,7 @@
+## 0.11.1 - 2016-03-14
+ * Merge pull request #116 from cbitstech/ems-113289299
+ * Update button to help section of goals.
+
 ## 0.11.0 - 2016-03-09
  * Merge pull request #115 from cbitstech/msw_113927979_dynamic_character_limit_update
  * Dry up Spec
