@@ -55,7 +55,7 @@ module SocialNetworking
 
             expect_any_instance_of(Notification)
               .to receive(:send_sms)
-                    .and_raise(Twilio::REST::RequestError.new("SMS error."))
+              .and_raise(Twilio::REST::RequestError.new("SMS error."))
 
             notification.notify
           end
