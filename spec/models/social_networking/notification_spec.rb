@@ -48,6 +48,17 @@ module SocialNetworking
 
             notification.notify
           end
+
+          it "handles a Twilio SMS exception" do
+            allow(recipient)
+              .to receive(:contact_preference) { "sms" }
+
+            expect_any_instance_of(Notification)
+              .to receive(:send_sms)
+              .and_raise(Twilio::REST::RequestError.new("SMS error."))
+
+            notification.notify
+          end
         end
       end
     end

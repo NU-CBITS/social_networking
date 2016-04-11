@@ -26,7 +26,17 @@ module SocialNetworking
       if recipient.contact_preference == "email"
         send_email
       else
-        send_sms(recipient, message_body)
+        begin
+          send_sms(recipient, message_body)
+        rescue Twilio::REST::RequestError => exception
+          Raven
+            .capture_message "TWILLIO: failed to notify recipient via SMS",
+                             extra: {
+                               message: exception.message,
+                               phone_number: recipient.try(:phone_number),
+                               participant: recipient.try(:id)
+                             } if defined?(Raven)
+        end
       end
     end
 
