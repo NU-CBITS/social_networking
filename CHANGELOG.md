@@ -1,3 +1,8 @@
+## 0.11.2 - 2016-04-11
+ * Merge pull request #117 from cbitstech/ems-117253091
+ * Fix rubocop issue.
+ * Handle Twilio SMS notification exceptions.
+
 ## 0.11.1 - 2016-03-14
  * Merge pull request #116 from cbitstech/ems-113289299
  * Update button to help section of goals.
