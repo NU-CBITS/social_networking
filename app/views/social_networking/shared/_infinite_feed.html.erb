@@ -79,7 +79,7 @@
   </div>
 
   <div ng-show="home.isCommentingOn(item)">
-    <form novalidate role="form" >
+    <form novalidate role="form" name="commentOnForm">
       <div class="form-group">
         <label for="comment-text-{{ item.id }}">What do you think?</label>
         <input type="text" class="form-control" id="comment-text-{{ item.id }}" ng-model="home.commentModel.text" ng-maxlength="home.textMaxLength" required focus-on="new-comment" ng-focus="home.showCharLimit('input#comment-text-' + item.id)">
