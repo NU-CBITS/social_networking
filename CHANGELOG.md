@@ -1,3 +1,7 @@
+## 0.11.3 - 2016-04-21
+ * Merge pull request #118 from cbitstech/ems-117952073
+ * Add missing form name to feed comment form.
+
 ## 0.11.2 - 2016-04-11
  * Merge pull request #117 from cbitstech/ems-117253091
  * Fix rubocop issue.
