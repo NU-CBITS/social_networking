@@ -3,6 +3,7 @@
 
 describe('HomeCtrl', function() {
   var controller,
+      currentParticipantId,
       onYourMindResource,
       commentResource,
       homeTool,
@@ -55,11 +56,13 @@ describe('HomeCtrl', function() {
     homeTool = _homeTool_;
     scope = $rootScope;
     q = $q;
+    currentParticipantId = 81;
     controller = $controller('HomeCtrl', {
       OnYourMindResource: onYourMindResource,
       CommentResource: commentResource,
       LikeResource: likeResource,
       homeTool: _homeTool_,
+      currentParticipantId: currentParticipantId,
       participantId: 123,
       actionItems: [],
       feedItems: [],
@@ -331,10 +334,10 @@ describe('HomeCtrl', function() {
 
     it('returns false if the item has already been liked by the participant', function() {
       var item = {};
-      item.likes = [{ participantId: 123 }];
+      item.likes = [
+        { participantId: currentParticipantId }
+      ];
 
-      expect(controller._participantId)
-        .toEqual(123);
       expect(controller.isLikeable(item))
         .toEqual(false);
     });
@@ -344,8 +347,6 @@ describe('HomeCtrl', function() {
       item.description = 'foo';
       item.likes = [{ participantId: 1 }];
 
-      expect(controller._participantId)
-        .toEqual(123);
       expect(controller.isLikeable(item))
         .toEqual(true);
     });

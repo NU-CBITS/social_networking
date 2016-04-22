@@ -86,6 +86,7 @@
 
 <script>
   angular.module('socialNetworking')
+          .value('currentParticipantId', <%= current_participant.id %>)
           .value('participantId', <%= @profile.participant_id %>)
           .value('profileId', <%= @profile.id %>)
           .value('ProfileQuestions', <%= @profile_questions.to_json.html_safe %>)
