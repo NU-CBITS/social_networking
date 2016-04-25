@@ -1,3 +1,7 @@
+## 0.11.4 - 2016-04-25
+ * Merge pull request #119 from cbitstech/msw_118139125_fix_home_controller
+ * Pass in Current Participant
+
 ## 0.11.3 - 2016-04-21
  * Merge pull request #118 from cbitstech/ems-117952073
  * Add missing form name to feed comment form.
