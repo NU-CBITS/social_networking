@@ -1,3 +1,7 @@
+## 0.11.5 - 2016-04-25
+ * Merge pull request #120 from cbitstech/msw_118139125_update_like_filter
+ * Change Filter to be Strict Match
+
 ## 0.11.4 - 2016-04-25
  * Merge pull request #119 from cbitstech/msw_118139125_fix_home_controller
  * Pass in Current Participant
