@@ -5,7 +5,7 @@
 
   // Provides access to the feed and its items.
   function HomeCtrl(OnYourMindResource, CommentResource, LikeResource,
-                    homeTool, participantId, actionItems, feedItems,
+                    homeTool, currentParticipantId, participantId, actionItems, feedItems,
                     memberProfiles, $filter, $http, $location, $scope,
                     noticesEnabled, noticeUtility, resource, SN_CONSTANTS) {
     this.actionItems = actionItems;
@@ -16,6 +16,7 @@
     this.feedDisabled = false;
     this._memberProfiles = memberProfiles;
     this._homeTool = homeTool;
+    this._currentParticipantId = currentParticipantId;
     this._participantId = participantId;
     this.onYourMindModel = this._homeTool.getOnYourMindStatementModel();
     this.commentModel = this._homeTool.getCommentModel();
@@ -265,14 +266,14 @@
 
   function participantHasLiked(controller, item) {
     return (controller._findLikes(item.likes, {
-      participantId: controller._participantId
-    }) || []).length !== 0;
+      participantId: controller._currentParticipantId
+    }) || []).length;
   }
 
   // Create a module and register the controller.
   angular.module('socialNetworking.controllers')
     .controller('HomeCtrl', ['OnYourMindResource', 'CommentResource',
-        'LikeResource', 'homeTool', 'participantId', 'actionItems',
+        'LikeResource', 'homeTool', 'currentParticipantId', 'participantId', 'actionItems',
         'feedItems', 'memberProfiles', '$filter', '$http', '$location',
         '$scope', 'noticesEnabled', 'noticeUtility', 'resource', 'SN_CONSTANTS', HomeCtrl]);
 })();
