@@ -119,6 +119,7 @@
   HomeCtrl.prototype.saveComment = function() {
     var self = this;
     var model = this._homeTool.getCommentModel();
+    self.closeCommentForm();
 
     if (model.text && model.text !== '') {
       this._commentResource.create(model)
@@ -130,7 +131,6 @@
           if (item !== void 0) {
             item.comments.push(comment);
           }
-          self.closeCommentForm();
           if (self.noticesEnabled && self.noticeUtility) {
             self.noticeUtility.actionNotice('SocialNetworking::Comment',
               'Comment on some shared content.',
@@ -140,8 +140,6 @@
         .catch(function(message) {
           self.error = message.error;
         });
-    } else {
-      self.closeCommentForm();
     }
   };
 
