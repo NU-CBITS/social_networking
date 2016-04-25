@@ -34,7 +34,7 @@
     };
 
     this._findLikes = function(likes, filter) {
-      return $filter('filter')(likes, filter);
+      return $filter('filter')(likes, filter, true);
     };
 
     $scope.$on('$locationChangeStart', function(e, newUrl, oldUrl) {

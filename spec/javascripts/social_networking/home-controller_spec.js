@@ -4,6 +4,7 @@
 describe('HomeCtrl', function() {
   var controller,
       currentParticipantId,
+      participantId,
       onYourMindResource,
       commentResource,
       homeTool,
@@ -56,14 +57,15 @@ describe('HomeCtrl', function() {
     homeTool = _homeTool_;
     scope = $rootScope;
     q = $q;
-    currentParticipantId = 81;
+    currentParticipantId = 6;
+    participantId = 86;
     controller = $controller('HomeCtrl', {
       OnYourMindResource: onYourMindResource,
       CommentResource: commentResource,
       LikeResource: likeResource,
       homeTool: _homeTool_,
       currentParticipantId: currentParticipantId,
-      participantId: 123,
+      participantId: participantId,
       actionItems: [],
       feedItems: [],
       memberProfiles: [],
@@ -346,6 +348,15 @@ describe('HomeCtrl', function() {
       var item = {};
       item.description = 'foo';
       item.likes = [{ participantId: 1 }];
+
+      expect(controller.isLikeable(item))
+        .toEqual(true);
+    });
+
+    it('returns `true` when only the creator has liked the shared item', function() {
+      var item = {};
+      item.description = 'foo';
+      item.likes = [{ participantId: participantId }];
 
       expect(controller.isLikeable(item))
         .toEqual(true);
