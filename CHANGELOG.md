@@ -1,3 +1,6 @@
+## 0.11.6 - 2016-04-26
+ * Immediately hiding comment form after submit. (#121)
+
 ## 0.11.5 - 2016-04-25
  * Merge pull request #120 from cbitstech/msw_118139125_update_like_filter
  * Change Filter to be Strict Match
