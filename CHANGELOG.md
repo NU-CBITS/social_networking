@@ -1,3 +1,7 @@
+## 0.11.7 - 2016-05-09
+ * Merge pull request #122 from cbitstech/ems-118962341
+ * Remove task status controlelr references.
+
 ## 0.11.6 - 2016-04-26
  * Immediately hiding comment form after submit. (#121)
 
