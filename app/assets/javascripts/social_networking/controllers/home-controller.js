@@ -241,15 +241,6 @@
       });
   };
 
-  HomeCtrl.prototype.taskVisited = function(item) {
-    $.ajax({
-      async: false,
-      dataType: 'script',
-      type: 'PUT',
-      url: '/participants/task_status/' + item.task_id
-    });
-  };
-
   HomeCtrl.prototype.timeAgoInWords = function(createdAt) {
     return moment(createdAt).calendar();
   };
