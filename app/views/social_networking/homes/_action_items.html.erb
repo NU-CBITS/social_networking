@@ -7,7 +7,7 @@
   </div>
   <ul class="list-group" ng-if="home.inFeedBrowseMode()">
     <li class="list-group-item" ng-repeat="item in home.actionItems">
-      <a data-no-turbolink="true" ng-click="home.taskVisited(item)" href="{{ item.link }}">{{ item.label }}</a>
+      <a data-no-turbolink="true" href="{{ item.link }}">{{ item.label }}</a>
     </li>
   </ul>
 </div>
