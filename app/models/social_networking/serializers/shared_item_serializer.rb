@@ -3,7 +3,7 @@ module SocialNetworking
     # Serializes Shared Item models.
     class SharedItemSerializer < Serializer
       def to_serialized
-        item = model.item
+        item = model.try(:item)
         return nil if item.nil?
 
         path = item.class.to_s.pluralize.underscore
