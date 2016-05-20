@@ -1,3 +1,7 @@
+## 0.11.8 - 2016-05-20
+ * Merge pull request #124 from cbitstech/ecf_upgrade_ruby
+ * upgrade to Ruby 2.3.0
+
 ## 0.11.7 - 2016-05-09
  * Merge pull request #122 from cbitstech/ems-118962341
  * Remove task status controlelr references.
