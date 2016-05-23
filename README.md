@@ -11,7 +11,7 @@ authenticatable `Participant` class stored in a `participants` table.
 
 Add to your `Gemfile`
 
-    gem 'social_networking', git: 'git://github.com/cbitstech/social_networking.git'
+    gem 'social_networking', git: 'git://github.com/NU-CBITS/social_networking.git'
 
 Then
 
