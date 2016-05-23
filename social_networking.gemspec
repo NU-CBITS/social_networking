@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = SocialNetworking::VERSION
   s.authors     = ["Eric Carty-Fickes", "Eric Schlange", "Michael Wehrley"]
   s.email       = ["eric.schlange@northwestern.edu"]
-  s.homepage    = "https://github.com/cbitstech/social_networking"
+  s.homepage    = "https://github.com/NU-CBITS/social_networking"
   s.summary     = "Social networking components"
   s.description = "Social networking components, including the feed tool"
   s.license     = "MIT"
