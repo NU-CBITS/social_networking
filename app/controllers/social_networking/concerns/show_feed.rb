@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SocialNetworking
   module Concerns
     # Collects data for feed/profiles page.
@@ -37,7 +38,9 @@ module SocialNetworking
         return unless active_group
         Serializers::ProfileSerializer.from_collection(
           Profile.where(
-            participant_id: active_group.active_participants.pluck(:id)))
+            participant_id: active_group.active_participants.pluck(:id)
+          )
+        )
       end
     end
   end

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "spec_helper"
 
 module SocialNetworking
@@ -11,7 +12,9 @@ module SocialNetworking
             instance_double(
               Participant,
               id: 1,
-              active_membership_end_date: Date.new))
+              active_membership_end_date: Date.new
+            )
+          )
         allow(view)
           .to receive(:goals)
       end

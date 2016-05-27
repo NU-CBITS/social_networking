@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "spec_helper"
 
 module SocialNetworking
@@ -11,11 +12,10 @@ module SocialNetworking
       describe "Likes exist" do
         before do
           expect(membership)
-            .to receive(:likes) { [like]  }
+            .to receive(:likes) { [like] }
           expect(view)
-            .to receive_messages(
-              comment_item_description: "bar",
-              week_in_study: 1)
+            .to receive_messages(comment_item_description: "bar",
+                                 week_in_study: 1)
         end
 
         it "displays correct formatted date time" do

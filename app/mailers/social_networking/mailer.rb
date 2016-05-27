@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SocialNetworking
   # Notifies participants of comments, likes, and nudges.
   class Mailer < ActionMailer::Base

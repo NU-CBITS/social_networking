@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "spec_helper"
 
 module SocialNetworking
@@ -12,7 +13,7 @@ module SocialNetworking
           participant_id: participant1.id,
           item: goal,
           text: "love this test",
-          created_at: Date.today
+          created_at: Time.zone.today
         )
       end.to change { Comment.for_today.count }.by(1)
     end
@@ -23,14 +24,14 @@ module SocialNetworking
           participant_id: participant1.id,
           item: goal,
           text: "love this test",
-          created_at: Date.today - 1.days
+          created_at: Time.zone.today - 1.day
         )
 
         Comment.create(
           participant_id: participant1.id,
           item: goal,
           text: "love this test",
-          created_at: Date.today - 8.days
+          created_at: Time.zone.today - 8.days
         )
       end.to change { Comment.for_week.count }.by(1)
     end

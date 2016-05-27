@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require_dependency "social_networking/application_controller"
 
 module SocialNetworking
@@ -26,7 +27,8 @@ module SocialNetworking
     def feed
       Concerns::ProfilePage::Feed.new(
         participant_id: profile_page_params[:participant_id],
-        page: profile_page_params[:page])
+        page: profile_page_params[:page]
+      )
     end
 
     def profile_page_params
@@ -46,7 +48,9 @@ module SocialNetworking
       return unless active_group
       @member_profiles = Serializers::ProfileSerializer.from_collection(
         Profile.where(
-          participant_id: active_group.active_participants.pluck(:id)))
+          participant_id: active_group.active_participants.pluck(:id)
+        )
+      )
     end
 
     def set_current_profile
@@ -55,7 +59,8 @@ module SocialNetworking
       else
         @profile = Profile
                    .find_or_initialize_by(
-                     participant_id: current_participant.id)
+                     participant_id: current_participant.id
+                   )
         @profile.update_attributes(active: true)
       end
     end

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SocialNetworking
   # A sign of approval of a piece of content by a Participant.
   class Like < ActiveRecord::Base
@@ -10,9 +11,11 @@ module SocialNetworking
 
     scope :for_today,
           lambda {
-            where(arel_table[:created_at]
-                    .gteq(Date.today.beginning_of_day)
-                    .and(arel_table[:created_at].lteq(Date.today.end_of_day)))
+            where(
+              arel_table[:created_at]
+              .gteq(Time.zone.today.beginning_of_day)
+              .and(arel_table[:created_at].lteq(Time.zone.today.end_of_day))
+            )
           }
 
     scope :for_week,

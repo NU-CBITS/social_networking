@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SocialNetworking
   module Concerns
     module ProfilePage
@@ -34,7 +35,8 @@ module SocialNetworking
                 .where(initiator_id: participant_id)
                 .order(created_at: :desc)
                 .limit(SHARED_ITEM_PAGE_SIZE * (page + 1))
-                .includes(:comments))
+                .includes(:comments)
+            )
         end
 
         def on_the_mind_statements
@@ -44,7 +46,8 @@ module SocialNetworking
                 .where(participant_id: participant_id)
                 .order(created_at: :desc)
                 .limit(SHARED_ITEM_PAGE_SIZE * (page + 1))
-                .includes(:comments, :likes))
+                .includes(:comments, :likes)
+            )
         end
 
         def shared_items

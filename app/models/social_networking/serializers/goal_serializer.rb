@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SocialNetworking
   module Serializers
     # Serializes Goal models.
@@ -9,8 +10,8 @@ module SocialNetworking
           createdAt: model.created_at,
           participantId: model.participant_id,
           isAdmin: model.participant.is_admin,
-          summary: "#{ model.participant_id } set the goal " \
-                   "#{ model.description }",
+          summary: "#{model.participant_id} set the goal " \
+                   "#{model.description}",
           description: model.description,
           isCompleted: model.is_completed,
           isDeleted: model.is_deleted,

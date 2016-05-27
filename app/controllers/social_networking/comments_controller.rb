@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require_dependency "social_networking/application_controller"
 
 module SocialNetworking
@@ -45,14 +46,15 @@ module SocialNetworking
         recipient: @recipient,
         message_body: message_body,
         subject: "You received a COMMENT on "\
-          "#{t('application_name', default: 'ThinkFeelDo')}")
+          "#{t('application_name', default: 'ThinkFeelDo')}"
+      )
     end
 
     def set_recipient
       if @comment.item_type == "SocialNetworking::SharedItem"
         comment_item_participant_id =
           SharedItem.find(@comment.item_id).item_type.constantize
-          .find(@comment.item.item_id).participant_id
+                    .find(@comment.item.item_id).participant_id
         @recipient = Participant.find(comment_item_participant_id)
       else
         @recipient = Participant

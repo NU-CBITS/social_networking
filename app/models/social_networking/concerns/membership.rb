@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SocialNetworking
   module Concerns
     # adds scops to Membership class

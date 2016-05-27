@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SocialNetworking
   module Serializers
     # Serializes OnTheMindStatement models.
@@ -10,7 +11,7 @@ module SocialNetworking
           createdAtRaw: model.created_at.to_i,
           participantId: model.participant_id,
           isAdmin: model.participant.is_admin,
-          summary: "said #{ model.description }",
+          summary: "said #{model.description}",
           description: model.description,
           comments: CommentSerializer.from_collection(model.comments),
           likes: LikeSerializer.from_collection(model.likes)

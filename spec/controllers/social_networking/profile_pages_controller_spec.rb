@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "spec_helper"
 
 module SocialNetworking
@@ -7,7 +8,8 @@ module SocialNetworking
       instance_double(
         Participant,
         active_group: group,
-        id: 1)
+        id: 1
+      )
     end
     let(:profile) { instance_double(Profile, participant_id: 1, active: nil) }
     let(:initiator) { instance_double(Participant) }

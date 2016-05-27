@@ -1,7 +1,8 @@
+# frozen_string_literal: true
 module SocialNetworking
   # A set of data representing a Social Profile belonging to a Participant.
   class Profile < ActiveRecord::Base
-    ACTION_TYPES = %w( created completed )
+    ACTION_TYPES = %w( created completed ).freeze
     Actions = Struct.new(*ACTION_TYPES.map(&:to_sym)).new(*ACTION_TYPES)
 
     after_create :share_profile
@@ -21,36 +22,11 @@ module SocialNetworking
              to: :participant
 
     def self.icon_names
-      %w(
-        art
-        bike
-        bolt
-        bookshelf
-        die
-        fashion
-        flower
-        genius
-        heart
-        helicopter
-        hourglass
-        keyboard
-        magnifyingglass
-        megaphone2
-        microphone
-        music
-        paintbrush2
-        plane
-        polaroidcamera
-        present
-        recycle
-        scooter
-        shipwheel
-        shoeprints
-        star
-        travelerbag
-        ufo
-        umbrella
-        weather)
+      %w( art bike bolt bookshelf die fashion flower genius
+          heart helicopter hourglass keyboard magnifyingglass
+          megaphone2 microphone music paintbrush2 plane
+          polaroidcamera present recycle scooter shipwheel
+          shoeprints star travelerbag ufo umbrella weather )
     end
 
     def to_serialized
@@ -82,7 +58,8 @@ module SocialNetworking
     def share_profile
       SharedItem.create(
         item: self,
-        action_type: Profile::Actions.created)
+        action_type: Profile::Actions.created
+      )
     end
   end
 end

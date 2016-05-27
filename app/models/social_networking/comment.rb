@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SocialNetworking
   # A comment written by a Participant and attached to a piece of content.
   class Comment < ActiveRecord::Base
@@ -8,8 +9,8 @@ module SocialNetworking
 
     scope :for_today, lambda {
       where(arel_table[:created_at]
-                .gteq(Date.today.beginning_of_day)
-                .and(arel_table[:created_at].lteq(Date.today.end_of_day)))
+                .gteq(Time.zone.today.beginning_of_day)
+                .and(arel_table[:created_at].lteq(Time.zone.today.end_of_day)))
     }
 
     scope :for_week, lambda {

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "spec_helper"
 
 module SocialNetworking
@@ -9,7 +10,8 @@ module SocialNetworking
         Participant,
         display_name: "Robin",
         id: 1,
-        is_admin: false)
+        is_admin: false
+      )
     end
     let(:like) do
       instance_double(
@@ -19,14 +21,16 @@ module SocialNetworking
         participant_id: participant.id,
         item_id: 5,
         item_type: "SocialNetworking::Comment",
-        participant: participant)
+        participant: participant
+      )
     end
 
     def recipient(attributes = {})
       instance_double(
         Participant, {
           contact_preference: nil
-        }.merge(attributes))
+        }.merge(attributes)
+      )
     end
 
     describe "POST create" do
@@ -80,7 +84,8 @@ module SocialNetworking
                   mailer: Mailer,
                   recipient: recipient_with_eamil,
                   message_body: %r{/social_networking/profile_page},
-                  subject: /SunnySide/)
+                  subject: /SunnySide/
+                )
 
               post :create
             end
@@ -111,7 +116,8 @@ module SocialNetworking
             item_id: 1,
             item_type: "SocialNetworking::SharedItem",
             participant_id: participant.id,
-            participant: participant)
+            participant: participant
+          )
         end
 
         before do

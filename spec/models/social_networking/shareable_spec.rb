@@ -1,3 +1,4 @@
+# frozen_string_literal: false
 require "spec_helper"
 
 module SocialNetworking

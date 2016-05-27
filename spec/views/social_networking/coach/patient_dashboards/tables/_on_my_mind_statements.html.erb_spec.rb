@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "spec_helper"
 
 module SocialNetworking
@@ -8,22 +9,23 @@ module SocialNetworking
       let(:statement) do
         instance_double(
           OnTheMindStatement,
-          created_at: Time.zone.now)
+          created_at: Time.zone.now
+        )
       end
       let(:membership) { instance_double(::Membership) }
 
       describe "Statments exist" do
         before do
           expect(membership)
-            .to receive(:on_the_minds) { [statement]  }
+            .to receive(:on_the_minds) { [statement] }
           expect(statement)
             .to receive_messages(
               comments: [],
               description: "Windy cIty raiLz",
-              likes: [])
+              likes: []
+            )
           expect(view)
-            .to receive_messages(
-              week_in_study: 1)
+            .to receive_messages(week_in_study: 1)
 
           render partial: "social_networking/coach/patient_dashboards"\
                  "/tables/on_my_mind_statements",

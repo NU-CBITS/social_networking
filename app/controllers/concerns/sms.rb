@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "rubygems"
 require "twilio-ruby"
 
@@ -8,7 +9,8 @@ module Sms
     return if recipient.phone_number.blank?
     client = Twilio::REST::Client.new(
       Rails.application.config.twilio_account_sid,
-      Rails.application.config.twilio_auth_token)
+      Rails.application.config.twilio_auth_token
+    )
     account = client.account
     account.messages.create(message_attributes(recipient, message_body))
   end
@@ -18,7 +20,7 @@ module Sms
   def message_attributes(recipient, body)
     {
       from:
-        "#{Rails.application.config.twilio_account_telephone_number}",
+        Rails.application.config.twilio_account_telephone_number.to_s,
       to:
         "+#{recipient.phone_number}",
       body:
