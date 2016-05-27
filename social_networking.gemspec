@@ -21,9 +21,14 @@ Gem::Specification.new do |s|
 
   s.test_files = Dir["spec/**/*"]
 
-  s.add_dependency "rails", "~> 4.2"
+  s.add_dependency "jquery-rails", "~> 3.1"
   s.add_dependency "twilio-ruby", "~> 3.12"
   s.add_dependency "sprockets-rails", "= 2.2.2"
+  s.add_dependency "bootstrap-sass", "~> 3.1"
+  s.add_dependency "jasmine-rails", "~> 0.12"
+  s.add_dependency "rubocop", "~> 0.25"
+
+  s.add_development_dependency "git_tagger", "~> 1.1"
   s.add_development_dependency "pg", "~> 0.18"
   s.add_development_dependency "phantomjs", "~> 1.9"
   s.add_development_dependency "rspec-rails", "~> 3"
