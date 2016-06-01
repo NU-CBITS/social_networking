@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "jquery-rails", "~> 3.1"
   s.add_dependency "twilio-ruby", "~> 3.12"
-  s.add_dependency "sprockets-rails", "= 2.2.2"
+  s.add_dependency "sass-rails", "~> 6.0.0.beta1"
   s.add_dependency "bootstrap-sass", "~> 3.1"
   s.add_dependency "rubocop", "~> 0.25"
 

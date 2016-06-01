@@ -68,11 +68,11 @@ module SocialNetworking
     end
 
     def transform_goal_params(params)
-      if true == params[:is_completed]
+      if params[:is_completed].to_s == true.to_s
         params[:completed_at] = DateTime.current
         @is_completed_set = true
       end
-      if true == params[:is_deleted]
+      if params[:is_deleted].to_s == true.to_s
         params[:deleted_at] = DateTime.current
         @is_deleted_set = true
       end

@@ -42,9 +42,8 @@ ActiveRecord::Schema.define(version: 20160308201931) do
     t.string   "item_type",                   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["item_id", "item_type"], name: "index_social_networking_comments_on_item_id_and_item_type", using: :btree
   end
-
-  add_index "social_networking_comments", ["item_id", "item_type"], name: "index_social_networking_comments_on_item_id_and_item_type", using: :btree
 
   create_table "social_networking_goals", force: :cascade do |t|
     t.string   "description",    limit: 1000, null: false
@@ -62,31 +61,28 @@ ActiveRecord::Schema.define(version: 20160308201931) do
     t.string   "item_type",      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["item_id", "item_type"], name: "index_social_networking_likes_on_item_id_and_item_type", using: :btree
+    t.index ["participant_id", "item_id", "item_type"], name: "one_like_per_item", unique: true, using: :btree
   end
-
-  add_index "social_networking_likes", ["item_id", "item_type"], name: "index_social_networking_likes_on_item_id_and_item_type", using: :btree
-  add_index "social_networking_likes", ["participant_id", "item_id", "item_type"], name: "one_like_per_item", unique: true, using: :btree
 
   create_table "social_networking_nudges", force: :cascade do |t|
     t.integer  "initiator_id", null: false
     t.integer  "recipient_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["created_at"], name: "index_social_networking_nudges_on_created_at", using: :btree
+    t.index ["initiator_id"], name: "index_social_networking_nudges_on_initiator_id", using: :btree
+    t.index ["recipient_id"], name: "index_social_networking_nudges_on_recipient_id", using: :btree
   end
-
-  add_index "social_networking_nudges", ["created_at"], name: "index_social_networking_nudges_on_created_at", using: :btree
-  add_index "social_networking_nudges", ["initiator_id"], name: "index_social_networking_nudges_on_initiator_id", using: :btree
-  add_index "social_networking_nudges", ["recipient_id"], name: "index_social_networking_nudges_on_recipient_id", using: :btree
 
   create_table "social_networking_on_the_mind_statements", force: :cascade do |t|
     t.string   "description",    limit: 1000, null: false
     t.integer  "participant_id",              null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["created_at"], name: "on_the_mind_created_at", using: :btree
+    t.index ["participant_id"], name: "on_the_mind_participant", using: :btree
   end
-
-  add_index "social_networking_on_the_mind_statements", ["created_at"], name: "on_the_mind_created_at", using: :btree
-  add_index "social_networking_on_the_mind_statements", ["participant_id"], name: "on_the_mind_participant", using: :btree
 
   create_table "social_networking_profile_answers", force: :cascade do |t|
     t.integer  "social_networking_profile_question_id",              null: false
@@ -95,9 +91,8 @@ ActiveRecord::Schema.define(version: 20160308201931) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "social_networking_profile_id"
+    t.index ["social_networking_profile_id", "social_networking_profile_question_id"], name: "profile_answers_unique", unique: true, using: :btree
   end
-
-  add_index "social_networking_profile_answers", ["social_networking_profile_id", "social_networking_profile_question_id"], name: "profile_answers_unique", unique: true, using: :btree
 
   create_table "social_networking_profile_questions", force: :cascade do |t|
     t.string   "question_text", null: false
@@ -122,10 +117,9 @@ ActiveRecord::Schema.define(version: 20160308201931) do
     t.string   "action_type",    default: "",   null: false
     t.string   "item_label"
     t.integer  "participant_id"
+    t.index ["created_at"], name: "index_social_networking_shared_items_on_created_at", using: :btree
+    t.index ["participant_id"], name: "index_social_networking_shared_items_on_participant_id", using: :btree
   end
-
-  add_index "social_networking_shared_items", ["created_at"], name: "index_social_networking_shared_items_on_created_at", using: :btree
-  add_index "social_networking_shared_items", ["participant_id"], name: "index_social_networking_shared_items_on_participant_id", using: :btree
 
   add_foreign_key "social_networking_comments", "participants", name: "fk_comments_participants"
   add_foreign_key "social_networking_goals", "participants", name: "fk_goals_participants"
