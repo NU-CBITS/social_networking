@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SocialNetworking
   module Serializers
     # Serializes Shared Item models.
@@ -16,11 +17,11 @@ module SocialNetworking
           isAdmin: item.participant.is_admin,
           createdAt: model.created_at,
           createdAtRaw: model.created_at.to_i,
-          templatePath: "/social_networking/templates/#{ path }",
+          templatePath: "/social_networking/templates/#{path}",
           isPublic: model.is_public,
           data: item.to_serialized,
-          summary: "#{ model.action_type } #{ indefinite_articlerize(label) }" \
-                   "#{ model.is_public ? ": " + item.description : "" }",
+          summary: "#{model.action_type} #{indefinite_articlerize(label)}" \
+                   "#{model.is_public ? ": " + item.description : ""}",
           description: item.description,
           comments: CommentSerializer.from_collection(model.comments),
           likes: LikeSerializer.from_collection(model.likes)
@@ -31,7 +32,7 @@ module SocialNetworking
 
       # lifted from http://stackoverflow.com/questions/5381738/rails-article-helper-a-or-an
       def indefinite_articlerize(word)
-        "a#{ %w(a e i o u).include?(word[0].downcase) ? "n" : "" } #{ word }"
+        "a#{%w(a e i o u).include?(word[0].downcase) ? "n" : ""} #{word}"
       end
     end
   end

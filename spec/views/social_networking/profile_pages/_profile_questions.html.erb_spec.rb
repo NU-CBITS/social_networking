@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "spec_helper"
 
 module SocialNetworking
@@ -15,13 +16,11 @@ module SocialNetworking
 
     describe "participant viewing other profile" do
       it "does not display profile form" do
-        assign(
-          :profile,
-          instance_double(
-            Profile,
-            icon_name: "",
-            id: 1,
-            participant_id: 2))
+        assign(:profile,
+               instance_double(Profile,
+                               icon_name: "",
+                               id: 1,
+                               participant_id: 2))
         render
 
         expect(rendered)
@@ -31,13 +30,11 @@ module SocialNetworking
 
     describe "participant viewing own profile" do
       before do
-        assign(
-          :profile,
-          instance_double(
-            Profile,
-            icon_name: "",
-            id: 1,
-            participant_id: 1))
+        assign(:profile,
+               instance_double(Profile,
+                               icon_name: "",
+                               id: 1,
+                               participant_id: 1))
         assign(:profile_icons, [])
       end
 
@@ -74,8 +71,8 @@ module SocialNetworking
       describe "nudges exist" do
         it "displays nudge message along with each initiator's display name" do
           assign(:nudging_display_names, [
-            "Old Man!", "Red Riding Hood"
-          ])
+                   "Old Man!", "Red Riding Hood"
+                 ])
           render
 
           expect(rendered)

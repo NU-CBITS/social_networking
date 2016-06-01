@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "spec_helper"
 
 module SocialNetworking
@@ -6,7 +7,7 @@ module SocialNetworking
       fixtures :all
 
       def data
-        @data ||=  SocialNetworking::Reports::Goal.all
+        @data ||= SocialNetworking::Reports::Goal.all
       end
 
       describe ".all" do

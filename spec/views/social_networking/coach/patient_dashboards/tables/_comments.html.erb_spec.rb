@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "spec_helper"
 
 module SocialNetworking
@@ -6,21 +7,19 @@ module SocialNetworking
                  type: :view do
     describe "Shared comments" do
       let(:comment) do
-        instance_double(
-          Comment,
-          created_at: Time.zone.now,
-          text: "foo")
+        instance_double(Comment,
+                        created_at: Time.zone.now,
+                        text: "foo")
       end
       let(:membership) { instance_double(::Membership) }
 
       describe "Comments exist" do
         before do
           expect(membership)
-            .to receive(:comments) { [comment]  }
+            .to receive(:comments) { [comment] }
           expect(view)
-            .to receive_messages(
-              comment_item_description: "bar",
-              week_in_study: 1)
+            .to receive_messages(comment_item_description: "bar",
+                                 week_in_study: 1)
 
           render partial: "social_networking/coach/patient_dashboards"\
                  "/tables/comments",

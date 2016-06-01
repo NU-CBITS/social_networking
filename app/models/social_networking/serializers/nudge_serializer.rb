@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SocialNetworking
   module Serializers
     # Serializes Nudge models.
@@ -14,7 +15,7 @@ module SocialNetworking
           createdAtRaw: model.created_at.to_i,
           initiatorId: model.initiator_id,
           recipientId: model.recipient_id,
-          summary: "nudged #{ recipient_profile.user_name }",
+          summary: "nudged #{recipient_profile.user_name}",
           description: "nudge",
           comments: CommentSerializer.from_collection(model.comments)
         }

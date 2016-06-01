@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "spec_helper"
 
 module SocialNetworking
@@ -13,7 +14,7 @@ module SocialNetworking
         participant_id: participant1.id,
         item_id: goal.id,
         item_type: "SocialNetworking::Goal",
-        created_at: Date.today
+        created_at: Time.zone.today
       )
 
       expect(Like.for_today.count).to eq(count + 1)
@@ -26,14 +27,14 @@ module SocialNetworking
         participant_id: participant1.id,
         item_id: goal.id,
         item_type: "SocialNetworking::Goal",
-        created_at: Date.today - 1.day
+        created_at: Time.zone.today - 1.day
       )
 
       Like.create(
         participant_id: participant1.id,
         item_id: goal.id,
         item_type: "SocialNetworking::Goal",
-        created_at: Date.today - 8.days
+        created_at: Time.zone.today - 8.days
       )
 
       expect(Like.for_week.count).to eq(count + 1)
@@ -82,7 +83,7 @@ module SocialNetworking
           participant_id: participant_id,
           item_id: item_id,
           item_type: item_type,
-          created_at: Date.today - 1.day
+          created_at: Time.zone.today - 1.day
         )
       end
     end

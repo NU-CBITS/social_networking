@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require_dependency "social_networking/application_controller"
 
 # Controller used to Manage Nudges.
@@ -42,7 +43,8 @@ module SocialNetworking
         recipient: @recipient,
         message_body: message_body,
         subject: "You've been NUDGED on "\
-          "#{t('application_name', default: 'ThinkFeelDo')}")
+          "#{t('application_name', default: 'ThinkFeelDo')}"
+      )
     end
 
     def message_body

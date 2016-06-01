@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "spec_helper"
 
 module SocialNetworking
@@ -14,7 +15,7 @@ module SocialNetworking
       OnTheMindStatement.create(
         participant_id: participant1.id,
         description: "I'm writing tests.",
-        created_at: Date.today
+        created_at: Time.zone.today
       )
 
       expect(OnTheMindStatement.for_today.count).to eq(count + 1)
@@ -26,13 +27,13 @@ module SocialNetworking
       OnTheMindStatement.create(
         participant_id: participant1.id,
         description: "I'm writing tests.",
-        created_at: Date.today - 1.day
+        created_at: Time.zone.today - 1.day
       )
 
       OnTheMindStatement.create(
         participant_id: participant1.id,
         description: "I'm writing tests.",
-        created_at: Date.today - 8.days
+        created_at: Time.zone.today - 8.days
       )
 
       expect(OnTheMindStatement.for_week.count).to eq(count + 1)
@@ -42,7 +43,7 @@ module SocialNetworking
       otms = OnTheMindStatement.create(
         participant_id: participant1.id,
         description: "I'm writing tests.",
-        created_at: Date.today - 1.day
+        created_at: Time.zone.today - 1.day
       )
 
       expect(otms.shared_description).to eq("I'm writing tests.")
@@ -69,9 +70,7 @@ module SocialNetworking
 
       describe "and someone has commented on the statement" do
         before do
-          statement.comments.create!(
-            participant: participant2,
-            text: "foo")
+          statement.comments.create!(participant: participant2, text: "foo")
         end
 
         describe "upon deletion" do

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require_dependency "social_networking/application_controller"
 
 module SocialNetworking
@@ -9,11 +10,11 @@ module SocialNetworking
     def hide
       shared_item_to_hide = SharedItem.find_by_id(shared_item_params[:id])
       if current_participant.id == shared_item_to_hide.item.participant.id
-        if shared_item_to_hide.update_attribute(:is_public, false)
-          status = :accepted
-        else
-          status = :internal_server_error
-        end
+        status = if shared_item_to_hide.update_attribute(:is_public, false)
+                   :accepted
+                 else
+                   :internal_server_error
+                 end
       else
         status = :unauthorized
       end
@@ -74,7 +75,8 @@ module SocialNetworking
             .where(groups: { id: participant.active_group.id })
             .order(created_at: :desc)
             .limit(SHARED_ITEM_PAGE_SIZE * (page + 1))
-            .includes(:comments, :likes))
+            .includes(:comments, :likes)
+        )
     end
 
     def nudges_for_participant_group(participant, page)
@@ -84,7 +86,8 @@ module SocialNetworking
             .where(groups: { id: participant.active_group.id })
             .order(created_at: :desc)
             .limit(SHARED_ITEM_PAGE_SIZE * (page + 1))
-            .includes(:comments))
+            .includes(:comments)
+        )
     end
 
     def shared_items_for_participant_group(participant, requested_page)

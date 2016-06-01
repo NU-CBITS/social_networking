@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Features
   module AuthenticationHelpers
     unless ActionController::Base.new.respond_to?(:authenticate_participant!)

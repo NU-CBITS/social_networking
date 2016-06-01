@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "spec_helper"
 
 describe "goal tool", type: :feature, js: true do
@@ -41,7 +42,7 @@ describe "goal tool", type: :feature, js: true do
   end
 
   scenario "Displays due date" do
-    expect(page).to have_content "Due: #{Date.today.strftime("%b %d %Y")}"
+    expect(page).to have_content "Due: #{Time.zone.today.strftime("%b %d %Y")}"
   end
 
   scenario "Participant completes a goal" do
@@ -83,26 +84,26 @@ describe "goal tool", type: :feature, js: true do
 
   def complete(label)
     goal = SocialNetworking::Goal.find_by_description(label)
-    find("li#goal-#{ goal.id } button.complete").click
+    find("li#goal-#{goal.id} button.complete").click
   end
 
   def uncomplete(label)
     goal = SocialNetworking::Goal.find_by_description(label)
-    find("li#goal-#{ goal.id } button.complete").click
+    find("li#goal-#{goal.id} button.complete").click
   end
 
   def delete(label)
     goal = SocialNetworking::Goal.find_by_description(label)
-    find("li#goal-#{ goal.id } button.delete").click
+    find("li#goal-#{goal.id} button.delete").click
   end
 
   def edit(label)
     goal = SocialNetworking::Goal.find_by_description(label)
-    find("li#goal-#{ goal.id } button.edit").click
+    find("li#goal-#{goal.id} button.edit").click
   end
 
   def restore(label)
     goal = SocialNetworking::Goal.find_by_description(label)
-    find("li#goal-#{ goal.id } button.restore").click
+    find("li#goal-#{goal.id} button.restore").click
   end
 end

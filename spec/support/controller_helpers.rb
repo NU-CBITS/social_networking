@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Controllers
   module JsonHelpers
     def json

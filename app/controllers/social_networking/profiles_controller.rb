@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require_dependency "social_networking/application_controller"
 
 module SocialNetworking
@@ -17,11 +18,13 @@ module SocialNetworking
       else
         profile = Profile
                   .find_or_initialize_by(
-                    participant_id: current_participant.id) do |profile_new|
+                    participant_id: current_participant.id
+                  ) do |profile_new|
           begin
             SharedItem.create(
               item: profile_new,
-              action_type: Profile::Actions.created)
+              action_type: Profile::Actions.created
+            )
           rescue ActiveRecord::StatementInvalid
             logger.info("Shared item already created for existing profile.")
           end

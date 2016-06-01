@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "spec_helper"
 
 module SocialNetworking
@@ -8,7 +9,7 @@ module SocialNetworking
         let(:on_the_mind_statement) do
           double("on_the_mind_statement",
                  id: 8_675_309,
-                 created_at: DateTime.new,
+                 created_at: Time.zone.now,
                  participant_id: participant.id,
                  participant: participant,
                  description: "foo",

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SocialNetworking
   # Sends sms or emails to participants.
   class Notification
@@ -8,12 +9,11 @@ module SocialNetworking
                 :message_body,
                 :subject
 
-    def initialize(
-      current_participant:,
-      mailer:,
-      recipient:,
-      message_body:,
-      subject:)
+    def initialize(current_participant:,
+                   mailer:,
+                   recipient:,
+                   message_body:,
+                   subject:)
       @current_participant = current_participant
       @mailer = mailer
       @message_body = message_body
@@ -45,7 +45,8 @@ module SocialNetworking
         .notify(
           recipient: recipient,
           body: message_body,
-          subject: subject)
+          subject: subject
+        )
         .deliver_now
     end
   end

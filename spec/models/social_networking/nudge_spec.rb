@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "spec_helper"
 
 module SocialNetworking
@@ -13,7 +14,7 @@ module SocialNetworking
       Nudge.create(
         initiator_id: participant1.id,
         recipient_id: participant2.id,
-        created_at: Date.today
+        created_at: Time.zone.today
       )
 
       expect(Nudge.for_today.count).to eq(count + 1)
@@ -25,13 +26,13 @@ module SocialNetworking
       Nudge.create(
         initiator_id: participant1.id,
         recipient_id: participant2.id,
-        created_at: Date.today - 1.day
+        created_at: Time.zone.today - 1.day
       )
 
       Nudge.create(
         initiator_id: participant1.id,
         recipient_id: participant2.id,
-        created_at: Date.today - 8.days
+        created_at: Time.zone.today - 8.days
       )
 
       expect(Nudge.for_week.count).to eq(count + 1)

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "spec_helper"
 
 module SocialNetworking
@@ -6,12 +7,12 @@ module SocialNetworking
     let(:goal) do
       double("goal",
              id: 8_675_309,
-             created_at: DateTime.new,
+             created_at: DateTime.current,
              participant_id: participant.id,
              participant: participant,
              description: "run a marathon",
              is_deleted: false,
-             due_on: Date.today,
+             due_on: Time.zone.today,
              is_completed: false,
              comments: [])
     end
@@ -47,7 +48,7 @@ module SocialNetworking
           allow(Goal).to receive(:new).with(
             participant_id: participant.id,
             description: "run a marathon",
-            completed_at: DateTime.now
+            completed_at: DateTime.current
           ) { goal }
         end
 
@@ -103,7 +104,7 @@ module SocialNetworking
             allow(goal)
               .to receive(:update).with(participant_id: participant.id,
                                         description: "run a marathon",
-                                        deleted_at: DateTime.now) { true }
+                                        deleted_at: DateTime.current) { true }
             post :update,
                  id: 1234,
                  description: goal.description,
@@ -127,7 +128,7 @@ module SocialNetworking
               allow(goal).to receive(:update).with(
                 participant_id: participant.id,
                 description: "run a marathon",
-                completed_at: DateTime.now
+                completed_at: DateTime.current
               ) { true }
               allow(goal).to receive(:previous_changes)
                 .and_return("is_completed" => [false, true])

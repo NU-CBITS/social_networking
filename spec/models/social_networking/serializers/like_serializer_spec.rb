@@ -1,13 +1,13 @@
+# frozen_string_literal: true
 require "spec_helper"
 
 module SocialNetworking
   module Serializers
     RSpec.describe LikeSerializer do
       let(:participant) do
-        instance_double(
-          Participant,
-          display_name: "foo",
-          is_admin: true)
+        instance_double(Participant,
+                        display_name: "foo",
+                        is_admin: true)
       end
       let(:like) do
         instance_double(

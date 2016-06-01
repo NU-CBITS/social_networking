@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require_dependency "social_networking/application_controller"
 
 module SocialNetworking
@@ -38,7 +39,7 @@ module SocialNetworking
       if @like.item_type == "SocialNetworking::SharedItem"
         like_item_participant_id =
           SharedItem.find(@like.item_id).item_type.constantize
-          .find(@like.item.item_id).participant_id
+                    .find(@like.item.item_id).participant_id
         @recipient = Participant.find(like_item_participant_id)
       else
         @recipient = Participant
@@ -70,7 +71,8 @@ module SocialNetworking
         recipient: @recipient,
         message_body: message_body,
         subject: "Someone LIKED what you did on "\
-        "#{t('application_name', default: 'ThinkFeelDo')}")
+        "#{t('application_name', default: 'ThinkFeelDo')}"
+      )
     end
   end
 end

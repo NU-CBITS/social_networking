@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require_dependency "social_networking/application_controller"
 
 module SocialNetworking
@@ -13,7 +14,8 @@ module SocialNetworking
           social_networking_profile_id:
             profile_answer_params[:profile_id],
           social_networking_profile_question_id:
-            profile_answer_params[:profile_question_id]).first
+            profile_answer_params[:profile_question_id]
+        ).first
       end
 
       if answer
@@ -48,7 +50,7 @@ module SocialNetworking
                         .social_networking_profile
                         .profile_answers
                         .where(id: profile_answer_params[:id]).first! ||
-                        fail(ActiveRecord::RecordNotFound)
+                        raise(ActiveRecord::RecordNotFound)
 
       if @profile_answer
          .update(answer_text: profile_answer_params[:answer_text])

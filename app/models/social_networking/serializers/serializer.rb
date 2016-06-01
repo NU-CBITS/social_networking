@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SocialNetworking
   module Serializers
     # Abstract serializer.

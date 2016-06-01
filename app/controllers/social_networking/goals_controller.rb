@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require_dependency "social_networking/application_controller"
 
 module SocialNetworking
@@ -34,7 +35,7 @@ module SocialNetworking
       @goal = Goal.where(
         participant_id: current_participant.id,
         id: params[:id]
-      ).first || fail(ActiveRecord::RecordNotFound)
+      ).first || raise(ActiveRecord::RecordNotFound)
 
       if @goal.update(sanitized_params)
         if @is_completed_set
@@ -67,12 +68,12 @@ module SocialNetworking
     end
 
     def transform_goal_params(params)
-      if true == params[:is_completed]
-        params[:completed_at] = DateTime.now
+      if params[:is_completed].to_s == true.to_s
+        params[:completed_at] = DateTime.current
         @is_completed_set = true
       end
-      if true == params[:is_deleted]
-        params[:deleted_at] = DateTime.now
+      if params[:is_deleted].to_s == true.to_s
+        params[:deleted_at] = DateTime.current
         @is_deleted_set = true
       end
       params.delete(:is_completed)

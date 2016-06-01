@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "spec_helper"
 
 module SocialNetworking
@@ -8,10 +9,9 @@ module SocialNetworking
       it "delivers an email" do
         expect do
           Mailer
-            .notify(
-              recipient: recipient,
-              body: "foo",
-              subject: "bar")
+            .notify(recipient: recipient,
+                    body: "foo",
+                    subject: "bar")
             .deliver_now
         end.to change { ActionMailer::Base.deliveries.count }.by(1)
       end

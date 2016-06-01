@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SocialNetworking
   module Concerns
     # Rescues exception when authenticity token has expired

@@ -3,9 +3,13 @@ AllCops:
     - bin/**/*
     - config/**/*
     - db/**/*
+    - gemfiles/**/*
     - spec/dummy/**/*
     - vendor/**/*
-  RunRailsCops: true
+  TargetRubyVersion: 2.3
+
+Rails:
+  Enabled: true
 
 Documentation:
   Exclude:
@@ -13,6 +17,10 @@ Documentation:
 
 MethodLength:
   Max: 30
+
+ModuleLength:
+  Exclude:
+    - spec/**/*
 
 PredicateName:
   Exclude:

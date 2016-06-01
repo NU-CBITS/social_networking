@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "spec_helper"
 
 module SocialNetworking
@@ -10,16 +11,18 @@ module SocialNetworking
       let(:received) do
         instance_double(
           Nudge,
-          created_at: Time.now,
+          created_at: Time.zone.now,
           initiator: participant2,
-          recipient: participant1)
+          recipient: participant1
+        )
       end
       let(:sent) do
         instance_double(
           Nudge,
-          created_at: Time.now + 1.hour,
+          created_at: Time.zone.now + 1.hour,
           initiator: participant1,
-          recipient: participant2)
+          recipient: participant2
+        )
       end
 
       describe "Received Nudges" do

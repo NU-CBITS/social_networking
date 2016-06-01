@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SocialNetworking
   # A statement by a Participant to be shared with the Group.
   class OnTheMindStatement < ActiveRecord::Base
@@ -10,8 +11,8 @@ module SocialNetworking
     scope :for_today, lambda {
       where(
         "created_at <= ? AND created_at >= ?",
-        Date.today.end_of_day,
-        Date.today.beginning_of_day
+        Time.zone.today.end_of_day,
+        Time.zone.today.beginning_of_day
       )
     }
 

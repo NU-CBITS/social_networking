@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SocialNetworking
   # A question that is posed to participants when a profile is being created or
   # updated.

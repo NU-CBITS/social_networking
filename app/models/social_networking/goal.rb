@@ -1,10 +1,11 @@
+# frozen_string_literal: true
 module SocialNetworking
   # Something to be completed by a Participant.
   class Goal < ActiveRecord::Base
     # create a mini DSL for types of Goal actions
-    ACTION_TYPES = %w( created completed did_not_complete )
+    ACTION_TYPES = %w( created completed did_not_complete ).freeze
     Actions = Struct.new(*ACTION_TYPES.map(&:to_sym))
-              .new(*(ACTION_TYPES.map { |t| t.gsub(/_/, " ") }))
+                    .new(*(ACTION_TYPES.map { |t| t.tr("_", " ") }))
 
     belongs_to :participant
     has_many :comments, as: "item"
@@ -63,7 +64,7 @@ module SocialNetworking
     private
 
     def not_due_in_the_past
-      return if due_on.nil? || due_on >= Date.today
+      return if due_on.nil? || due_on >= Time.zone.today
 
       errors.add :due_on, "must not be in the past"
     end
@@ -79,8 +80,8 @@ module SocialNetworking
 
     scope :for_today, lambda {
       where(arel_table[:created_at]
-                .gteq(Date.today.beginning_of_day)
-                .and(arel_table[:created_at].lteq(Date.today.end_of_day)))
+                .gteq(Time.zone.today.beginning_of_day)
+                .and(arel_table[:created_at].lteq(Time.zone.today.end_of_day)))
     }
 
     scope :for_week, lambda {

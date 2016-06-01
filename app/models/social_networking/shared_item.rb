@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SocialNetworking
   # An item that a Participant has shared.
   class SharedItem < ActiveRecord::Base

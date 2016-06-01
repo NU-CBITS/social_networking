@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "spec_helper"
 
 module SocialNetworking
@@ -5,8 +6,7 @@ module SocialNetworking
     let(:participant) do
       double("participant",
              id: 987,
-             active_group: double("group", id: 123)
-      )
+             active_group: double("group", id: 123))
     end
 
     before :each do

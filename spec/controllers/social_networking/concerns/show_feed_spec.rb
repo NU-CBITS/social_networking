@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "spec_helper"
 
 module SocialNetworking
@@ -34,12 +35,12 @@ module SocialNetworking
           double("result", active_participants: active_record_results)
         end
 
-        test = show_feed_extension
-               .feed_data_for(
-                 participant1,
-                 double("context",
-                        social_networking_profile_path: "some_path"))
-        puts test.inspect
+        show_feed_extension
+          .feed_data_for(
+            participant1,
+            double("context",
+                   social_networking_profile_path: "some_path")
+          )
       end
     end
   end

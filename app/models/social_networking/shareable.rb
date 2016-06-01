@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module SocialNetworking
   # Allows for shareable items to be passed in to evaluate properties
   class Shareable

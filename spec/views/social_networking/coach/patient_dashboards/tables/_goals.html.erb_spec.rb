@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "spec_helper"
 
 module SocialNetworking
@@ -9,23 +10,23 @@ module SocialNetworking
 
       def goal_double(attrs = {})
         instance_double(
-          Goal, {
+          Goal,
+          {
             completed_at: Time.zone.now,
-            created_at: Time.zone.now + 1.hours,
+            created_at: Time.zone.now + 1.hour,
             deleted_at: Time.zone.now + 2.hours,
-            due_on: Date.today,
+            due_on: Time.zone.today,
             description: "",
-            comments: [] }
-          .merge(attrs))
+            comments: []
+          }.merge(attrs)
+        )
       end
 
       def set_stubs(membership:, goal:)
         expect(membership)
-          .to receive(:goals) { [goal]  }
+          .to receive(:goals) { [goal] }
         expect(goal)
-          .to receive_messages(
-            description: "",
-            comments: [])
+          .to receive_messages(description: "", comments: [])
 
         render partial: "social_networking/coach/patient_dashboards"\
                "/tables/goals",
@@ -34,9 +35,7 @@ module SocialNetworking
 
       before do
         expect(view)
-          .to receive_messages(
-            week_in_study: 1,
-            goal_like_count: 1)
+          .to receive_messages(week_in_study: 1, goal_like_count: 1)
       end
 
       describe "Goal(s) exist" do
