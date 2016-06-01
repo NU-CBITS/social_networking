@@ -1,3 +1,7 @@
+## 0.12.0 - 2016-06-01
+ * Ecf rails5 (#126)
+ * install internal gems; update repository URL (#125)
+
 ## 0.11.8 - 2016-05-20
  * Merge pull request #124 from cbitstech/ecf_upgrade_ruby
  * upgrade to Ruby 2.3.0
