@@ -4,7 +4,7 @@ require_dependency "social_networking/application_controller"
 module SocialNetworking
   # Manage shared items
   class SharedItemController < ApplicationController
-    SHARED_ITEM_PAGE_SIZE = 5
+    SHARED_ITEM_PAGE_SIZE = 10
 
     skip_before_action :verify_authenticity_token
     def hide
