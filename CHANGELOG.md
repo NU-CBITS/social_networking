@@ -1,3 +1,7 @@
+## 0.13.0 - 2016-06-02
+ * Merge pull request #127 from NU-CBITS/msw_119336059_update_default_feed_count
+ * Update Feed Default
+
 ## 0.12.0 - 2016-06-01
  * Ecf rails5 (#126)
  * install internal gems; update repository URL (#125)
