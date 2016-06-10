@@ -5,7 +5,7 @@ module SocialNetworking
       # Displays feed data for profile page.
       class Feed
         attr_reader :participant_id, :page
-        SHARED_ITEM_PAGE_SIZE = 5
+        SHARED_ITEM_PAGE_SIZE = 10
 
         def initialize(participant_id:, page:)
           @participant_id = participant_id
