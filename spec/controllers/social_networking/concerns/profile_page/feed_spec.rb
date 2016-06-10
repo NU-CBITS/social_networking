@@ -15,34 +15,27 @@ module SocialNetworking
                    page: page).page_items
         end
 
-        describe "when feed items exist" do
+        describe "when 12 feed items exist" do
           before do
-            allow(Serializers::NudgeSerializer)
-              .to receive(:from_collection)
-              .and_return([
-                            { createdAtRaw: "" },
-                            { createdAtRaw: "" }
-                          ])
-            allow(Serializers::OnTheMindStatementSerializer)
-              .to receive(:from_collection)
-              .and_return([
-                            { createdAtRaw: "" },
-                            { createdAtRaw: "" }
-                          ])
-            allow(Serializers::SharedItemSerializer)
-              .to receive(:from_collection)
-              .and_return([
-                            { createdAtRaw: "" },
-                            { createdAtRaw: "" }
-                          ])
+            %w(
+              NudgeSerializer
+              OnTheMindStatementSerializer
+              SharedItemSerializer
+            ).each do |klass|
+              allow("SocialNetworking::Serializers::#{klass}".constantize)
+                .to receive(:from_collection)
+                .and_return([{ createdAtRaw: "" }] * 4)
+            end
           end
 
-          it "returns only 5 items on first request" do
-            expect(items(0).count).to eq 5
+          it "returns 10 items on first request" do
+            expect(items(0).count)
+              .to eq 10
           end
 
-          it "returns the next item(s) on second request" do
-            expect(items(1).count).to eq 1
+          it "returns the next 2 item(s) on second request" do
+            expect(items(1).count)
+              .to eq 2
           end
         end
 
