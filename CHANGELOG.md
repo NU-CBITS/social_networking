@@ -1,3 +1,7 @@
+## 0.13.1 - 2016-06-15
+ * Merge pull request #128 from NU-CBITS/msw_119336059_update_personal_feed
+ * Update Default Count
+
 ## 0.13.0 - 2016-06-02
  * Merge pull request #127 from NU-CBITS/msw_119336059_update_default_feed_count
  * Update Feed Default
