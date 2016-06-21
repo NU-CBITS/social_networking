@@ -19,10 +19,15 @@ module SocialNetworking
           latestAction: model.latest_action_at,
           endOfTrial: model.active_membership_end_date,
           isAdmin: model.participant.is_admin,
-          isWoz: (model.participant.current_group.arm.woz? &&
-            model.participant.is_admin),
+          isWoz: woz? && model.participant.is_admin,
           iconSrc: ApplicationController.helpers.asset_path(icon_path)
         }
+      end
+
+      private
+
+      def woz?
+        model.participant.current_group.try(:arm).try(:woz?)
       end
     end
   end
