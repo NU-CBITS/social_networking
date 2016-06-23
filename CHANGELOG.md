@@ -1,3 +1,7 @@
+## 0.13.2 - 2016-06-23
+ * Merge pull request #129 from NU-CBITS/msw_121680805_current_group_error
+ * Allow for profile viewing
+
 ## 0.13.1 - 2016-06-15
  * Merge pull request #128 from NU-CBITS/msw_119336059_update_personal_feed
  * Update Default Count
