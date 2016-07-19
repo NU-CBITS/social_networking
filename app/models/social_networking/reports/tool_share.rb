@@ -4,7 +4,7 @@ module SocialNetworking
     # Scenario: a Participant shares data from a tool.
     class ToolShare
       def self.columns
-        %w( participant_id item_type shared_at )
+        %w(participant_id item_type shared_at)
       end
 
       def self.all

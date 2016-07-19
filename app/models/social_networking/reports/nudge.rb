@@ -4,7 +4,7 @@ module SocialNetworking
     # Scenario: a Participant nudges another Participant.
     class Nudge
       def self.columns
-        %w( participant_id occurred_at recipient_id )
+        %w(participant_id occurred_at recipient_id)
       end
 
       def self.all

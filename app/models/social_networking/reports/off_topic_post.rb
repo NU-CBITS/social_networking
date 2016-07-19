@@ -4,7 +4,7 @@ module SocialNetworking
     # Scenario: a Participant creates an off topic post.
     class OffTopicPost
       def self.columns
-        %w( participant_id occurred_at description )
+        %w(participant_id occurred_at description)
       end
 
       def self.all

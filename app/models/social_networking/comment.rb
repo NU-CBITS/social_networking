@@ -17,5 +17,18 @@ module SocialNetworking
       where(arel_table[:created_at]
                  .gteq(Time.current.advance(days: -7).beginning_of_day))
     }
+
+    def item_description
+      case item_type
+      when SocialNetworking::OnTheMindStatement.to_s
+        Shareable.new(item).description
+      when SocialNetworking::SharedItem.to_s
+        if item
+          Shareable.new(item.item).description
+        else
+          Shareable.new(nil).description
+        end
+      end
+    end
   end
 end
