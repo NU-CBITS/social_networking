@@ -2,7 +2,7 @@
 module SocialNetworking
   # A set of data representing a Social Profile belonging to a Participant.
   class Profile < ActiveRecord::Base
-    ACTION_TYPES = %w( created completed ).freeze
+    ACTION_TYPES = %w(created completed).freeze
     Actions = Struct.new(*ACTION_TYPES.map(&:to_sym)).new(*ACTION_TYPES)
 
     after_create :share_profile

@@ -3,7 +3,7 @@ module SocialNetworking
   # Something to be completed by a Participant.
   class Goal < ActiveRecord::Base
     # create a mini DSL for types of Goal actions
-    ACTION_TYPES = %w( created completed did_not_complete ).freeze
+    ACTION_TYPES = %w(created completed did_not_complete).freeze
     Actions = Struct.new(*ACTION_TYPES.map(&:to_sym))
                     .new(*(ACTION_TYPES.map { |t| t.tr("_", " ") }))
 

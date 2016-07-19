@@ -28,7 +28,10 @@ module SocialNetworking
               participant_id: participant.study_id,
               occurred_at: comment.created_at.iso8601,
               item_type: item.class.to_s,
-              text: comment.text
+              text: comment.text,
+              item_participant_id:
+                Participant.find(item.participant_id).study_id,
+              item_content: comment.item_description
             )
           end
         end
