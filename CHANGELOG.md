@@ -1,3 +1,6 @@
+## 0.13.3 - 2016-07-19
+ * Ecf #122732681 reports (#130)
+
 ## 0.13.2 - 2016-06-23
  * Merge pull request #129 from NU-CBITS/msw_121680805_current_group_error
  * Allow for profile viewing
