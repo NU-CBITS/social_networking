@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency "twilio-ruby", "~> 3.12"
   s.add_dependency "sass-rails", "~> 6.0.0.beta1"
   s.add_dependency "bootstrap-sass", "~> 3.1"
-  s.add_dependency "rubocop", "~> 0.25"
+  s.add_dependency "rubocop"
 
   s.add_development_dependency "git_tagger", "~> 1.1"
   s.add_development_dependency "pg", "~> 0.18"
